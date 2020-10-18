@@ -31,8 +31,8 @@
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Username</th>
-                          <th>Role</th>
+                          <th>Role Code</th>
+                          <th>Role Name</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
@@ -45,7 +45,7 @@
                         ?>
                           <tr>
                               <td><?=$no?></td>
-                              <td><?=$list_user->username?></td>
+                              <td><?=$list_user->role_code?></td>
                               <td>
                                 <?php
                                   if($list_user->role_code == 'su'){

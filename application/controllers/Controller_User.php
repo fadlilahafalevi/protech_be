@@ -11,13 +11,13 @@ class Controller_User extends CI_Controller{
 	    }
 	}
 
-	public function updateUser($user_id) {
+	public function updateUser($id) {
 		$this->load->model("M_User");
 
 		if ($this->session->userdata('akses') == '1') {
-			$data['user_id'] = $user_id;
-			if (isset($user_id)) {
-				$data['data'] = $this->M_User->getUserByID($user_id);
+			$data['id'] = $id;
+			if (isset($id)) {
+				$data['data'] = $this->M_User->getUserByID($id);
 			}
 
 			$this->load->view('admin/user_update', $data);
@@ -27,17 +27,17 @@ class Controller_User extends CI_Controller{
 	public function updateUserCommit() {
 		$this->load->model('M_User');
 
-		$user_id 			= $this->input->post('user_id');
-		$user_level 		= $this->input->post('user_level');
+		$id 			= $this->input->post('id');
+		$role_code 		= $this->input->post('role_code');
 
-		if (isset($user_password)) {
-			$user_password 			= $this->input->post('user_password');
+		if (isset($password)) {
+			$password 			= $this->input->post('password');
 
-	    	$this->M_User->updateKategori($user_id, $user_password, $user_level);
+	    	$this->M_User->updateKategori($id, $password, $role_code);
     	} else {
 	    	$data = array(
-	            "user_id"		=> $user_id,
-	            "user_level"	=> $user_level
+	            "id"		=> $id,
+	            "role_code"	=> $role_code
 	        );
 
 	        $this->M_User->updateUserNoPassword($data);
@@ -46,18 +46,18 @@ class Controller_User extends CI_Controller{
 		redirect('Controller_User');
 	}
 
-	public function inactivateUser($user_id) {
+	public function inactivateUser($id) {
 		$this->load->model('M_User');
 
-		$this->M_User->inactivateUser($user_id);
+		$this->M_User->inactivateUser($id);
 
 		redirect('Controller_User');
 	}
 
-	public function activateUser($user_id) {
+	public function activateUser($id) {
 		$this->load->model('M_User');
 
-		$this->M_User->activateUser($user_id);
+		$this->M_User->activateUser($id);
 
 		redirect('Controller_User');
 	}
@@ -76,10 +76,10 @@ class Controller_User extends CI_Controller{
 		if ($this->session->userdata('akses') == '1') {
 
 			$user_name = $this->input->post('user_name');
-			$user_password = $this->input->post('user_password');
-			$user_level = $this->input->post('user_level');
+			$password = $this->input->post('password');
+			$role_code = $this->input->post('role_code');
 
-			$this->M_User->input_data($user_name, $user_password, $user_level);
+			$this->M_User->input_data($user_name, $password, $role_code);
 			$data['data'] = $this->M_User->getAllUser();
 			
 			$this->load->view('admin/user', $data);

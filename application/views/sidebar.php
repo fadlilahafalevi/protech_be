@@ -21,7 +21,7 @@
       <div class="collapse" id="master-data">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" href="/Protech_BE/index.php/Controller_User">User</a></li>
-          <li class="nav-item"> <a class="nav-link" href="#">User Role</a></li>
+          <li class="nav-item"> <a class="nav-link" href="/Protech_BE/index.php/Controller_UserRole">User Role</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Customer</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Technician</a></li>
           <li class="nav-item"> <a class="nav-link" href="#">Service</a></li>

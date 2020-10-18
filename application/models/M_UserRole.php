@@ -1,13 +1,13 @@
 <?php
-class M_User extends CI_Model{
-	function getAllUser(){
-		$query = $this->db->get('user');
+class M_UserRole extends CI_Model{
+	function getAllUserRole(){
+		$query = $this->db->get('user_role');
 		return $query->result();
 	}
 
-	public function getUserByID($id) {
+	public function getUserRoleByID($id) {
 		$this->db->select('*');
-		$this->db->from('user');
+		$this->db->from('user_role');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->result();
@@ -21,21 +21,21 @@ class M_User extends CI_Model{
         );
 
 		$this->db->where('id', $val["id"]);
-        return $this->db->update('user', $data_to_update);
+        return $this->db->update('user_role', $data_to_update);
 	}
 
 	public function updateUser($id, $password, $role_code){
-		$result=$this->db->query("UPDATE user SET password=md5('$password'), role_code='$role_code' WHERE id='$id'");
+		$result=$this->db->query("UPDATE user_role SET password=md5('$password'), role_code='$role_code' WHERE id='$id'");
 		return $result;
 	}
 
 	public function activateUser($id){
-		$result=$this->db->query("UPDATE user SET active_status=1 WHERE id='$id'");
+		$result=$this->db->query("UPDATE user_role SET active_status=1 WHERE id='$id'");
 		return $result;
 	}
 
 	public function inactivateUser($id){
-		$result=$this->db->query("UPDATE user SET active_status=0 WHERE id='$id'");
+		$result=$this->db->query("UPDATE user_role SET active_status=0 WHERE id='$id'");
 		return $result;
 	}
 

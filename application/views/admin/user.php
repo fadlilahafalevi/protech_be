@@ -50,8 +50,12 @@
                                 <?php
                                   if($list_user->role_code == 'su'){
                                     echo "Super Admin";
-                                  } elseif($list_user->user_level == '2'){
-                                    echo "Kasir";
+                                  } else if($list_user->role_code == 'adm'){
+                                    echo "Admin";
+                                  } else if($list_user->role_code == 'cst'){
+                                    echo "Customer";
+                                  } else if($list_user->role_code == 'tch'){
+                                    echo "Technician";
                                   }
                                 ?>
                               </td>

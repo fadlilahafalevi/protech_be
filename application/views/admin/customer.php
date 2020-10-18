@@ -24,15 +24,15 @@
           <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">MASTER USER ROLE</h4>
+                  <h4 class="card-title">MASTER CUSTOMER</h4>
                   <a class="btn btn-success" href="/Protech_BE/index.php/Controller_User/createUser">CREATE</a>
                   <div class="table-responsive pt-3">
                     <table class="table table-bordered data-table">
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Role Code</th>
-                          <th>Role Name</th>
+                          <th>Customer Code</th>
+                          <th>Customer Name</th>
                           <th>Status</th>
                           <th>Action</th>
                         </tr>
@@ -40,20 +40,20 @@
                       <tbody>
                         <?php 
                           $no=0;
-                          foreach ($data as $list_user_role){
+                          foreach ($data as $list_user){
                           $no++;
                         ?>
                           <tr>
                               <td><?=$no?></td>
-                              <td><?=$list_user_role->role_code?></td>
-                              <td><?=$list_user_role->role_name?></td>
+                              <td><?=$list_user->user_code?></td>
+                              <td><?=$list_user->fullname?></td>
                               <td>
                                 <?php
-                                  if($list_user_role->active_status == '1'){
+                                  if($list_user->active_status == '1'){
                                 ?>
                                     <label class="badge badge-success">Active</label>
                                 <?php
-                                  } elseif($list_user_role->active_status == '0'){
+                                  } elseif($list_user->active_status == '0'){
                                 ?>
                                     <label class="badge badge-danger">Inactive</label>
                                 <?php
@@ -61,19 +61,19 @@
                                 ?>
                               </td>
                               <td>
-                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_User/updateUser/<?=$list_user_role->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_User/updateUser/<?=$list_user->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                                   <i class="mdi mdi-pencil-box-outline"></i>
                                 </a>
                                 <?php
-                                  if($list_user_role->active_status == '1'){
+                                  if($list_user->active_status == '1'){
                                 ?>
-                                  <a class="btn btn-danger" href="/Protech_BE/index.php/Controller_User/inactivateUser/<?=$list_user_role->id?>" data-toggle="tooltip" title="Inactive" style="padding: 4px">
+                                  <a class="btn btn-danger" href="/Protech_BE/index.php/Controller_User/inactivateUser/<?=$list_user->id?>" data-toggle="tooltip" title="Inactive" style="padding: 4px">
                                     <i class="mdi mdi-account-remove"></i>
                                   </a>
                                 <?php
-                                  } elseif($list_user_role->active_status == '0'){ 
+                                  } elseif($list_user->active_status == '0'){ 
                                 ?>
-                                  <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_User/activateUser/<?=$list_user_role->id?>" data-toggle="tooltip" title="Activate" style="padding: 4px">
+                                  <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_User/activateUser/<?=$list_user->id?>" data-toggle="tooltip" title="Activate" style="padding: 4px">
                                     <i class="mdi mdi-account-plus"></i>
                                   </a>
                                 <?php

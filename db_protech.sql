@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_protech
 -- ------------------------------------------------------
--- Server version	5.5.5-10.4.11-MariaDB
+-- Server version 5.5.5-10.4.11-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -52,9 +52,12 @@ CREATE TABLE `bank_ref` (
   `bank_code` varchar(5) COLLATE utf8_bin DEFAULT NULL,
   `account_number` varchar(25) COLLATE utf8_bin DEFAULT NULL,
   `account_name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
+  `user_code` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `bank_ref_bank_fk` (`bank_code`),
-  CONSTRAINT `bank_ref_bank_fk` FOREIGN KEY (`bank_code`) REFERENCES `bank` (`bank_code`)
+  KEY `bank_ref_user_fk` (`user_code`),
+  CONSTRAINT `bank_ref_bank_fk` FOREIGN KEY (`bank_code`) REFERENCES `bank` (`bank_code`),
+  CONSTRAINT `bank_ref_user_fk` FOREIGN KEY (`user_code`) REFERENCES `user` (`user_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -77,8 +80,8 @@ DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_code` varchar(10) COLLATE utf8_bin NOT NULL,
-  `customer_code` varchar(5) COLLATE utf8_bin NOT NULL,
-  `techinician_code` varchar(5) COLLATE utf8_bin NOT NULL,
+  `customer_code` varchar(10) COLLATE utf8_bin NOT NULL,
+  `techinician_code` varchar(10) COLLATE utf8_bin NOT NULL,
   `service_detail_code` varchar(5) COLLATE utf8_bin NOT NULL,
   `address` text COLLATE utf8_bin NOT NULL,
   `order_datetime` datetime NOT NULL,
@@ -200,7 +203,7 @@ CREATE TABLE `service` (
   `active_status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `service_code` (`service_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,6 +212,7 @@ CREATE TABLE `service` (
 
 LOCK TABLES `service` WRITE;
 /*!40000 ALTER TABLE `service` DISABLE KEYS */;
+INSERT INTO `service` VALUES (1,'S001','Air','Servis terkait air',1);
 /*!40000 ALTER TABLE `service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,11 +229,12 @@ CREATE TABLE `service_detail` (
   `service_detail_code` varchar(8) COLLATE utf8_bin DEFAULT NULL,
   `price` decimal(13,2) DEFAULT NULL,
   `img_icon` mediumblob DEFAULT NULL,
+  `service_detail_name` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `service_code_detail` (`service_detail_code`),
   KEY `service_detail_service_fk` (`service_code`),
   CONSTRAINT `service_detail_service_fk` FOREIGN KEY (`service_code`) REFERENCES `service` (`service_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -238,6 +243,7 @@ CREATE TABLE `service_detail` (
 
 LOCK TABLES `service_detail` WRITE;
 /*!40000 ALTER TABLE `service_detail` DISABLE KEYS */;
+INSERT INTO `service_detail` VALUES (1,'S001','SD001',50000.00,'','Perbaikan Pipa Biasa');
 /*!40000 ALTER TABLE `service_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,11 +256,13 @@ DROP TABLE IF EXISTS `service_ref`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `service_ref` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_code` varchar(8) COLLATE utf8_bin DEFAULT NULL,
+  `user_code` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `service_detail_code` varchar(8) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `service_ref_service_detail_fk` (`service_detail_code`),
-  CONSTRAINT `service_ref_service_detail_fk` FOREIGN KEY (`service_detail_code`) REFERENCES `service_detail` (`service_detail_code`)
+  KEY `service_ref_user_fk` (`user_code`),
+  CONSTRAINT `service_ref_service_detail_fk` FOREIGN KEY (`service_detail_code`) REFERENCES `service_detail` (`service_detail_code`),
+  CONSTRAINT `service_ref_user_fk` FOREIGN KEY (`user_code`) REFERENCES `user` (`user_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -276,7 +284,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_code` varchar(5) COLLATE utf8_bin NOT NULL,
+  `user_code` varchar(10) COLLATE utf8_bin NOT NULL,
   `username` varchar(50) COLLATE utf8_bin NOT NULL,
   `password` varchar(255) COLLATE utf8_bin NOT NULL,
   `role_code` varchar(5) COLLATE utf8_bin NOT NULL,
@@ -289,7 +297,7 @@ CREATE TABLE `user` (
   UNIQUE KEY `user_code` (`user_code`),
   KEY `user_user_role_fk` (`role_code`),
   CONSTRAINT `user_user_role_fk` FOREIGN KEY (`role_code`) REFERENCES `user_role` (`role_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,7 +306,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'A001','superadmin','21232f297a57a5a743894a0e4a801fc3','su','super@admin.co.id','superadmin','082299229922','super admin',1);
+INSERT INTO `user` VALUES (1,'A001','superadmin','21232f297a57a5a743894a0e4a801fc3','su','super@admin.co.id','superadmin','082299229922','super admin',1),(2,'CST01','fadlilah','21232f297a57a5a743894a0e4a801fc3','cst','fadlilah@mail.com','Fadlilah Achmad','082299229922','tangerang',1),(3,'TCH01','teknisiBaru','21232f297a57a5a743894a0e4a801fc3','tch','teknisi@teknisi','Budi','0829292929','tangerang',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,7 +349,7 @@ CREATE TABLE `user_role` (
   `active_status` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `role_code` (`role_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,7 +358,7 @@ CREATE TABLE `user_role` (
 
 LOCK TABLES `user_role` WRITE;
 /*!40000 ALTER TABLE `user_role` DISABLE KEYS */;
-INSERT INTO `user_role` VALUES (1,'su','superadmin',1);
+INSERT INTO `user_role` VALUES (1,'su','superadmin',1),(2,'adm','admin',1),(3,'cst','customer',1),(4,'tch','technician',1);
 /*!40000 ALTER TABLE `user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-10-18 16:24:29
+-- Dump completed on 2020-10-18 17:23:25

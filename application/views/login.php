@@ -1,64 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Majestic Admin</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="/Protech_BE/assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/Protech_BE/assets/vendors/base/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="/Protech_BE/assets/css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="/Protech_BE/assets/images/favicon.png" />
+    <meta charset="utf-8">
+    <title>Login - Bootstrap Admin Template</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes"> 
+    
+<link href="/Protech_BE/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="/Protech_BE/assets/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/Protech_BE/assets/css/font-awesome.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+    
+<link href="/Protech_BE/assets/css/style.css" rel="stylesheet" type="text/css">
+<link href="/Protech_BE/assets/css/pages/signin.css" rel="stylesheet" type="text/css">
+
 </head>
 
 <body>
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
-      <div class="content-wrapper d-flex align-items-center auth px-0">
-        <div class="row w-100 mx-0">
-          <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="/Protech_BE/assets/images/logo.svg" alt="logo">
-              </div>
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="pt-3" action="<?php echo base_url() . 'Controller_Login/cekuser' ?>" method="post">
-                <div class="form-group">
-                  <input type="text" name="username" class="form-control form-control-lg" id="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                  <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Password">
-                </div>
-                <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); ?></p>
-                <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</a>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- content-wrapper ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="/Protech_BE/assets/vendors/base/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- inject:js -->
-  <script src="/Protech_BE/assets/js/off-canvas.js"></script>
-  <script src="/Protech_BE/assets/js/hoverable-collapse.js"></script>
-  <script src="/Protech_BE/assets/js/template.js"></script>
-  <!-- endinject -->
+
+<div class="account-container">
+  
+  <!-- <div class="content clearfix"> -->
+    <center>
+    <img src="/Protech_BE/assets/img/protech-logo.png" style="height: 50%; width: 50%;">
+    </center>
+  <!-- </div> -->
+
+  <div class="content clearfix">
+    
+    <form action="<?php echo base_url() . 'Controller_Login/cekuser' ?>" method="post">
+    
+      <h1>SIGN IN</h1>   
+        <div class="login-fields">
+          
+          <p>Please provide your details</p>
+          
+          <div class="field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="" placeholder="Username" class="login username-field" />
+          </div> <!-- /field -->
+          
+          <div class="field">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" value="" placeholder="Password" class="login password-field"/>
+          </div> <!-- /password -->
+          
+        </div> <!-- /login-fields -->
+        <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); ?></p>
+      
+        <div class="login-actions">
+          <button class="button btn btn-primary btn-large">Sign In</button>
+        </div> <!-- .actions -->
+      </form>
+    
+  </div> <!-- /content -->
+  
+</div> <!-- /account-container -->
+
+
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
+<script src="js/signin.js"></script>
+
 </body>
 
 </html>

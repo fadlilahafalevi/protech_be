@@ -21,13 +21,13 @@ class Controller_Login extends CI_Controller{
 
             $xcadmin = $cadmin->row_array();
             
-            if($xcadmin['role_code'] == 'su'){ //admin
+            if($xcadmin['role_id'] == '1'){ //admin
                 $this->session->set_userdata('akses', '1');
                 $id    = $xcadmin['id'];
                 $username  = $xcadmin['username'];
                 $this->session->set_userdata('id', $id);
                 $this->session->set_userdata('nama', $username);
-            } elseif($xcadmin['role_code'] == '2'){ //kasir
+            } elseif($xcadmin['role_id'] == '2'){ //kasir
                 $this->session->set_userdata('akses','2');
                 $id    = $xcadmin['id'];
                 $username  = $xcadmin['username'];

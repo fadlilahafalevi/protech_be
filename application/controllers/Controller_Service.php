@@ -11,78 +11,85 @@ class Controller_Service extends CI_Controller{
 	    }
 	}
 
-	public function updateUserRole($id) {
-		$this->load->model("M_ServIce");
+	public function getOne($id = '') {
+		if($this->session->userdata('akses')=='1'){
 
-		if ($this->session->userdata('akses') == '1') {
+			$this->load->model("M_Service");
+
 			$data['id'] = $id;
 			if (isset($id)) {
-				$data['data'] = $this->M_ServIce->getUserRoleByID($id);
+				$data['data'] = $this->M_Service->getOneById($id);
 			}
 
-			$this->load->view('admin/user_role_update', $data);
+			$this->load->view('admin/service_view', $data);
+
 		}
 	}
 
-	public function updateUserCommit() {
-		$this->load->model('M_ServIce');
+	public function createService() {
+		if($this->session->userdata('akses')=='1'){
 
-		$id 			= $this->input->post('id');
-		$user_level 		= $this->input->post('user_level');
+			$this->load->view('admin/service_create');
 
-		if (isset($user_password)) {
-			$user_password 			= $this->input->post('user_password');
-
-	    	$this->M_ServIce->updateKategori($id, $user_password, $user_level);
-    	} else {
-	    	$data = array(
-	            "id"		=> $id,
-	            "user_level"	=> $user_level
-	        );
-
-	        $this->M_ServIce->updateUserNoPassword($data);
-    	}
-
-		redirect('Controller_Service');
-	}
-
-	public function inactivateUser($id) {
-		$this->load->model('M_ServIce');
-
-		$this->M_ServIce->inactivateUser($id);
-
-		redirect('Controller_Service');
-	}
-
-	public function activateUser($id) {
-		$this->load->model('M_ServIce');
-
-		$this->M_ServIce->activateUser($id);
-
-		redirect('Controller_Service');
-	}
-
-	public function createUser() {
-		$this->load->model("M_ServIce");
-
-		if ($this->session->userdata('akses') == '1') {
-			$this->load->view('admin/user_create');
 		}
 	}
 
-	public function createUserCommit() {
-		$this->load->model("M_ServIce");
+	public function updateService($id = '') {
+		if($this->session->userdata('akses')=='1'){
 
+			$this->load->model("M_Service");
+
+			$data['id'] = $id;
+			if (isset($id)) {
+				$listData = $this->M_Service->getOneById($id);
+				$data['data'] = $listData;
+				
+				foreach ($listData as $field) {
+					$active_status = $field->active_status;
+					if ($active_status == 1) {
+						$data['checked'] = "checked";
+					}
+				}
+			}
+
+			$this->load->view('admin/service_edit', $data);
+
+		}
+	}
+
+	public function saveData() {
+		$this->load->model("M_Service");
+	
 		if ($this->session->userdata('akses') == '1') {
 
-			$user_name = $this->input->post('user_name');
-			$user_password = $this->input->post('user_password');
-			$user_level = $this->input->post('user_level');
+			$nextSeq = sprintf("%02d", $this->M_Service->getNextSequenceId());
+			$serviceCode = "S".$nextSeq;
 
-			$this->M_ServIce->input_data($user_name, $user_password, $user_level);
-			$data['data'] = $this->M_ServIce->getAllUser();
-			
-			$this->load->view('admin/user', $data);
+			$service_name 	=	$this->input->post('service_name');
+			$service_desc	=	$this->input->post('service_desc');
+
+			$this->M_Service->inputData($serviceCode, $service_name, $service_desc);
+
+			redirect('Controller_Service');
+		}
+	}
+
+	public function updateData() {
+		$this->load->model("M_Service");
+	
+		if ($this->session->userdata('akses') == '1') {
+
+			$service_code = $this->input->post('service_code');
+			$service_name = $this->input->post('service_name');
+			$active_status = $this->input->post('active_status');
+
+			if ($active_status != 1) {
+				$active_status = 0;
+			}
+
+			$this->M_Service->updateData($service_code, $service_name, $active_status);
+
+			redirect('Controller_Service');
 		}
 	}
 }

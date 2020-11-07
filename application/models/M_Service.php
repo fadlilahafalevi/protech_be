@@ -1,54 +1,31 @@
 <?php
-class M_ServIce extends CI_Model{
+class M_Service extends CI_Model{
 	function getAllService(){
-		$query = $this->db->get('service');
+		$query = $this->db->get('tbl_service');
 		return $query->result();
 	}
 
-	public function getServiceByID($id) {
+	public function getOneById($id) {
 		$this->db->select('*');
-		$this->db->from('service');
+		$this->db->from('tbl_service');
 		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function updateUserNoPassword($val){
-        $this->load->model('M_Kategori');
-
-		$data_to_update = array(
-            "role_code"			=> $val['role_code']
-        );
-
-		$this->db->where('id', $val["id"]);
-        return $this->db->update('service', $data_to_update);
+	public function getNextSequenceId() {
+		$query=$this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_service' and TABLE_SCHEMA = 'db_protech'");
+		return $query->row()->auto_value;
+		 
 	}
 
-	public function updateUser($id, $password, $role_code){
-		$result=$this->db->query("UPDATE service SET password=md5('$password'), role_code='$role_code' WHERE id='$id'");
+	function inputData($serviceCode, $service_name){
+		$result=$this->db->query("INSERT INTO tbl_service(service_code, service_name) VALUES ('$serviceCode','$service_name')");
 		return $result;
 	}
 
-	public function activateUser($id){
-		$result=$this->db->query("UPDATE service SET active_status=1 WHERE id='$id'");
+	function updateData($serviceCode, $service_name, $active_status) {
+		$result=$this->db->query("UPDATE tbl_service SET service_name='$service_name', active_status=$active_status WHERE service_code='$serviceCode'");
 		return $result;
 	}
-
-	public function inactivateUser($id){
-		$result=$this->db->query("UPDATE service SET active_status=0 WHERE id='$id'");
-		return $result;
-	}
-
-	function input_data($user_name, $password, $role_code){
-		$result=$this->db->query("INSERT INTO user(user_name, password, role_code, active_status) VALUES ('$user_name', md5('$password'), '$role_code', '0')");
-		return $result;
-	}
-	// function update_pengguna_nopass($kode,$nama,$username,$level){
-	// 	$hsl=$this->db->query("UPDATE user SET user_nama='$nama',user_username='$username',role_code='$level' WHERE id='$kode'");
-	// 	return $hsl;
-	// }
-	// function update_status($kode){
-	// 	$hsl=$this->db->query("UPDATE user SET active_status='0' WHERE id='$kode'");
-	// 	return $hsl;
-	// }
 }

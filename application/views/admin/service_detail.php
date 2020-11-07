@@ -1,127 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>USER</title>
- <!-- plugins:css -->
-  <link rel="stylesheet" href="/Protech_BE/assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/Protech_BE/assets/vendors/base/vendor.bundle.base.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <link rel="stylesheet" href="/Protech_BE/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="/Protech_BE/assets/css/style.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="/Protech_BE/assets/images/favicon.png" />
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>PROTECH</title>
 </head>
 <body>
-    <?php require 'application/views/header.php'; ?>
-  <div class="container-fluid page-body-wrapper">
-    <?php require 'application/views/sidebar.php'; ?>
-    <div class="main-panel">
-      <div class="content-wrapper">
-        <div class="row">
-          <div class="col-lg-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title">MASTER Service</h4>
-                  <a class="btn btn-success" href="/Protech_BE/index.php/Controller_User/createUser">CREATE</a>
-                  <div class="table-responsive pt-3">
-                    <table class="table table-bordered data-table">
-                      <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>Service Detail Code</th>
-                          <th>Service Detail Name</th>
-                          <th>Service Name</th>
-                          <th>Price</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php 
-                          $no=0;
-                          foreach ($data as $list_service_detail){
-                          $no++;
-                        ?>
-                          <tr>
-                              <td><?=$no?></td>
-                              <td><?=$list_service_detail->service_detail_code?></td>
-                              <td><?=$list_service_detail->service_detail_name?></td>
-                              <td><?=$list_service_detail->service_name?></td>
-                              <td>RP. <?=$list_service_detail->price?></td>
-                              <td>
-                                <?php
-                                  if($list_service_detail->active_status == '1'){
-                                ?>
-                                    <label class="badge badge-success">Active</label>
-                                <?php
-                                  } elseif($list_service_detail->active_status == '0'){
-                                ?>
-                                    <label class="badge badge-danger">Inactive</label>
-                                <?php
-                                  }
-                                ?>
-                              </td>
-                              <td>
-                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_User/updateUser/<?=$list_service_detail->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
-                                  <i class="mdi mdi-pencil-box-outline"></i>
-                                </a>
-                                <?php
-                                  if($list_service_detail->active_status == '1'){
-                                ?>
-                                  <a class="btn btn-danger" href="/Protech_BE/index.php/Controller_User/inactivateUser/<?=$list_service_detail->id?>" data-toggle="tooltip" title="Inactive" style="padding: 4px">
-                                    <i class="mdi mdi-account-remove"></i>
-                                  </a>
-                                <?php
-                                  } elseif($list_service_detail->active_status == '0'){ 
-                                ?>
-                                  <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_User/activateUser/<?=$list_service_detail->id?>" data-toggle="tooltip" title="Activate" style="padding: 4px">
-                                    <i class="mdi mdi-account-plus"></i>
-                                  </a>
-                                <?php
-                                  }
-                                ?>
-                              </td>
-                          </tr>
-                        <?php
-                        }
-                        ?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+<?php require 'application/views/header.php'; ?>
+<?php require 'application/views/menubar.php'; ?>
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div class="widget widget-table action-table">
+            <div class="widget-header"> <i class="icon-th-list"></i>
+              <h3>Service Detail Master</h3>
+              <a class="btn btn-invert" href="/Protech_BE/index.php/Controller_ServiceDetail/createServiceDetail">+</a>
             </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+                <table class="table table-bordered data-table">
+                  <thead>
+                    <tr>
+                      <th style="text-align: center">ID</th>
+                      <th style="text-align: center">Service Detail Code</th>
+                      <th style="text-align: center">Service Detail Name</th>
+                      <th style="text-align: center">Service Name</th>
+                      <th style="text-align: center">Status</th>
+                      <th style="text-align: center">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php 
+                      $no=0;
+                      foreach ($data as $list_service){
+                      $no++;
+                    ?>
+                      <tr>
+                          <td><?=$no?></td>
+                          <td><?=$list_service->service_detail_code?></td>
+                          <td><?=$list_service->service_detail_name?></td>
+                          <td><?=$list_service->service_name?></td>
+                          <td style="text-align: center">
+                            <?php
+                              if($list_service->active_status == '1'){
+                            ?>
+                                <button disabled="disabled" class="btn btn-success">Active</button>
+                            <?php
+                              } elseif($list_service->active_status == '0'){
+                            ?>
+                                <button disabled="disabled" class="btn btn-danger">Inactive</button>
+                            <?php
+                              }
+                            ?>
+                          </td>
+                          <td style="text-align: center">
+                             <a class="btn btn-info" href="/Protech_BE/index.php/Controller_ServiceDetail/getOne/<?=$list_service->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                              <i class="icon-eye-open"></i>
+                            </a>
+                             <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_ServiceDetail/updateServiceDetail/<?=$list_service->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                              <i class="icon-pencil"></i>
+                            </a>
+                          </td>
+                      </tr>
+                    <?php
+                    }
+                    ?>
+                  </tbody>
+                </table>
+            </div>
+            <!-- /widget-content --> 
+          </div>
         </div>
+        <!-- /span6 --> 
       </div>
+      <!-- /row --> 
     </div>
+    <!-- /container --> 
   </div>
-
-  <!-- plugins:js -->
-  <script src="/Protech_BE/assets/vendors/base/vendor.bundle.base.js"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <script src="/Protech_BE/assets/vendors/chart.js/Chart.min.js"></script>
-  <script src="/Protech_BE/assets/vendors/datatables.net/jquery.dataTables.js"></script>
-  <script src="/Protech_BE/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <script src="/Protech_BE/assets/js/off-canvas.js"></script>
-  <script src="/Protech_BE/assets/js/hoverable-collapse.js"></script>
-  <script src="/Protech_BE/assets/js/template.js"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="/Protech_BE/assets/js/dashboard.js"></script>
-  <script src="/Protech_BE/assets/js/data-table.js"></script>
-  <script src="/Protech_BE/assets/js/jquery.dataTables.js"></script>
-  <script src="/Protech_BE/assets/js/dataTables.bootstrap4.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){  
-      $('.data-table').dataTable();      
-    });
-  </script>
-  <!-- End custom js for this page-->
+  <!-- /main-inner --> 
+</div>
+<?php require 'application/views/extra.php'; ?>
+<?php require 'application/views/footer.php'; ?>
 </body>
 </html>

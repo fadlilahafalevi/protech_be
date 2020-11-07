@@ -2,56 +2,18 @@
 class M_Technician extends CI_Model{
 	function getAllTechnician(){
 		$this->db->select('*');
-		$this->db->from('user');
-		$this->db->where('role_code', 'tch');
+		$this->db->from('tbl_user');
+		$this->db->where('role_id', '4');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function getTechnicianByID($id) {
-		$this->db->select('*');
-		$this->db->from('user');
-		$this->db->where('id', $id);
+	public function getOneById($id) {
+		$this->db->select('user.*, user_role.role_name');
+		$this->db->from('tbl_user user');
+		$this->db->join('tbl_user_role user_role', 'user.role_id = user_role.id', 'left');
+		$this->db->where('user.id', $id);
 		$query = $this->db->get();
 		return $query->result();
 	}
-
-	public function updateUserNoPassword($val){
-        $this->load->model('M_Kategori');
-
-		$data_to_update = array(
-            "role_code"			=> $val['role_code']
-        );
-
-		$this->db->where('id', $val["id"]);
-        return $this->db->update('user_role', $data_to_update);
-	}
-
-	public function updateUser($id, $password, $role_code){
-		$result=$this->db->query("UPDATE user_role SET password=md5('$password'), role_code='$role_code' WHERE id='$id'");
-		return $result;
-	}
-
-	public function activateUser($id){
-		$result=$this->db->query("UPDATE user_role SET active_status=1 WHERE id='$id'");
-		return $result;
-	}
-
-	public function inactivateUser($id){
-		$result=$this->db->query("UPDATE user_role SET active_status=0 WHERE id='$id'");
-		return $result;
-	}
-
-	function input_data($user_name, $password, $role_code){
-		$result=$this->db->query("INSERT INTO user(user_name, password, role_code, active_status) VALUES ('$user_name', md5('$password'), '$role_code', '0')");
-		return $result;
-	}
-	// function update_pengguna_nopass($kode,$nama,$username,$level){
-	// 	$hsl=$this->db->query("UPDATE user SET user_nama='$nama',user_username='$username',role_code='$level' WHERE id='$kode'");
-	// 	return $hsl;
-	// }
-	// function update_status($kode){
-	// 	$hsl=$this->db->query("UPDATE user SET active_status='0' WHERE id='$kode'");
-	// 	return $hsl;
-	// }
 }

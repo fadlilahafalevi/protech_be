@@ -1,57 +1,37 @@
 <?php
-class M_ServIceDetail extends CI_Model{
+class M_ServiceDetail extends CI_Model{
 	function getAllServiceDetail(){
-		$this->db->select('*');
-		$this->db->from('service_detail sd');
-		$this->db->join('service s', 's.service_code = sd.service_code', 'left');
+		$this->db->select('sd.*, s.service_name');
+		$this->db->from('tbl_service_detail sd');
+		$this->db->join('tbl_service s', 's.service_code = sd.service_code', 'left');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function getServiceByID($id) {
-		$this->db->select('*');
-		$this->db->from('service_detail');
-		$this->db->where('id', $id);
+	public function getOneById($id) {
+		$this->db->select('sd.*, s.service_name');
+		$this->db->from('tbl_service_detail sd');
+		$this->db->join('tbl_service s', 's.service_code = sd.service_code', 'left');
+		$this->db->where('sd.id', $id);
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function updateUserNoPassword($val){
-        $this->load->model('M_Kategori');
-
-		$data_to_update = array(
-            "role_code"			=> $val['role_code']
-        );
-
-		$this->db->where('id', $val["id"]);
-        return $this->db->update('service_detail', $data_to_update);
+	public function getNextSequenceId() {
+		$query=$this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_service_detail' and TABLE_SCHEMA = 'db_protech'");
+		return $query->row()->auto_value;
+		 
 	}
 
-	public function updateUser($id, $password, $role_code){
-		$result=$this->db->query("UPDATE service_detail SET password=md5('$password'), role_code='$role_code' WHERE id='$id'");
+	function inputData($serviceDetailCode, $service_code, $tbl_service_detail_name, $price, $img_icon){
+		$result=$this->db->query("INSERT INTO tbl_service_detail (service_code, service_detail_code, price, img_icon, service_detail_name,active_status) VALUES('$service_code', '$serviceDetailCode', '$price', '$img_icon', '$tbl_service_detail_name', 1);
+");
 		return $result;
 	}
 
-	public function activateUser($id){
-		$result=$this->db->query("UPDATE service_detail SET active_status=1 WHERE id='$id'");
+	function updateData($serviceDetailCode, $service_code, $tbl_service_detail_name, $price, $img_icon) {
+		$result=$this->db->query("UPDATE tbl_service_detail SET service_code='$serviceCode', service_detail_name=NULL, price=NULL, img_icon=NULL, created_by=NULL, created_datetime=NULL, modified_by=NULL, modified_datetime=current_timestamp(), active_status=NULL
+			WHERE service_detail_code='$serviceDetailCode';");
 		return $result;
 	}
-
-	public function inactivateUser($id){
-		$result=$this->db->query("UPDATE service_detail SET active_status=0 WHERE id='$id'");
-		return $result;
-	}
-
-	function input_data($user_name, $password, $role_code){
-		$result=$this->db->query("INSERT INTO user(user_name, password, role_code, active_status) VALUES ('$user_name', md5('$password'), '$role_code', '0')");
-		return $result;
-	}
-	// function update_pengguna_nopass($kode,$nama,$username,$level){
-	// 	$hsl=$this->db->query("UPDATE user SET user_nama='$nama',user_username='$username',role_code='$level' WHERE id='$kode'");
-	// 	return $hsl;
-	// }
-	// function update_status($kode){
-	// 	$hsl=$this->db->query("UPDATE user SET active_status='0' WHERE id='$kode'");
-	// 	return $hsl;
-	// }
 }

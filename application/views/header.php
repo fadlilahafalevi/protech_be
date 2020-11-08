@@ -2,41 +2,91 @@
 <html>
 <head>
   <title></title>
-<link href="/Protech_BE/assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="/Protech_BE/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
-        rel="stylesheet">
-<link href="/Protech_BE/assets/css/font-awesome.css" rel="stylesheet">
-<link href="/Protech_BE/assets/css/style.css" rel="stylesheet">
-<link href="/Protech_BE/assets/css/pages/dashboard.css" rel="stylesheet">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/Protech_BE/assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/Protech_BE/assets/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="/Protech_BE/assets/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/Protech_BE/assets/vendors/jquery-bar-rating/css-stars.css" />
+    <link rel="stylesheet" href="/Protech_BE/assets/vendors/font-awesome/css/font-awesome.min.css" />
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="/Protech_BE/assets/css/demo_2/style.css" />
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="/Protech_BE/assets/images/favicon.png" />
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="/Protech_BE/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
 </head>
 <body>
-  <div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span
-                    class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span> </a><a class="brand" href="index.html">PROTECH </a>
-      <div class="nav-collapse">
-        <ul class="nav pull-right">
-          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                            class="icon-user"></i> <?=$this->session->userdata('fullname');?> <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="javascript:;">Profile</a></li>
-              <li><a href="javascript:;">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <!--/.nav-collapse --> 
-    </div>
-    <!-- /container --> 
-  </div>
-  <!-- /navbar-inner --> 
-  </div>
+    <div class="container-scroller">
+      <div class="horizontal-menu">
+        <nav class="navbar top-navbar col-lg-12 col-12 p-0">
+          <div class="container">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+              <a class="navbar-brand brand-logo" href="index.html">
+                <img src="../assets/images/logo.svg" alt="logo" />
+                <span class="font-12 d-block font-weight-light">Responsive Dashboard </span>
+              </a>
+              <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+              <ul class="navbar-nav mr-lg-2">
+
+              </ul>
+              <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item nav-profile dropdown">
+                  <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                    <div class="nav-profile-img">
+                      <img src="../assets/images/faces/face1.jpg" alt="image" />
+                    </div>
+                    <div class="nav-profile-text">
+                      <p class="text-black font-weight-semibold m-0"> <?=$this->session->userdata('fullname');?> </p>
+                      <span class="font-13 online-color">online <i class="mdi mdi-chevron-down"></i></span>
+                    </div>
+                  </a>
+                  <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                    <a class="dropdown-item" href="#">
+                      <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                  </div>
+                </li>
+              </ul>
+              <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
+                <span class="mdi mdi-menu"></span>
+              </button>
+            </div>
+          </div>
+        </nav>
 </body>
-<script src="/Protech_BE/assets/js/jquery-1.7.2.min.js"></script> 
-<script src="/Protech_BE/assets/js/excanvas.min.js"></script> 
-<script src="/Protech_BE/assets/js/chart.min.js" type="text/javascript"></script> 
-<script src="/Protech_BE/assets/js/bootstrap.js"></script>
-<script language="javascript" type="text/javascript" src="/Protech_BE/assets/js/full-calendar/fullcalendar.min.js"></script>
-<script src="/Protech_BE/assets/js/base.js"></script>
+
+    <!-- plugins:js -->
+    <script src="/Protech_BE/assets/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="/Protech_BE/assets/vendors/jquery-bar-rating/jquery.barrating.min.js"></script>
+    <script src="/Protech_BE/assets/vendors/chart.js/Chart.min.js"></script>
+    <script src="/Protech_BE/assets/vendors/flot/jquery.flot.js"></script>
+    <script src="/Protech_BE/assets/vendors/flot/jquery.flot.resize.js"></script>
+    <script src="/Protech_BE/assets/vendors/flot/jquery.flot.categories.js"></script>
+    <script src="/Protech_BE/assets/vendors/flot/jquery.flot.fillbetween.js"></script>
+    <script src="/Protech_BE/assets/vendors/flot/jquery.flot.stack.js"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="/Protech_BE/assets/js/off-canvas.js"></script>
+    <script src="/Protech_BE/assets/js/hoverable-collapse.js"></script>
+    <script src="/Protech_BE/assets/js/misc.js"></script>
+    <script src="/Protech_BE/assets/js/settings.js"></script>
+    <script src="/Protech_BE/assets/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="/Protech_BE/assets/js/dashboard.js"></script>
+    <script src="/Protech_BE/assets/vendors/datatables.net/jquery.dataTables.js"></script>
+    <script src="/Protech_BE/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){  
+        $('.data-table').dataTable();      
+      });
+    </script>
 </html>

@@ -1,42 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+  <title></title>
 </head>
 <body>
-<div class="subnavbar">
-  <div class="subnavbar-inner">
-    <div class="container">
-      <ul class="mainnav">
-        <li class="active"><a href="/Protech_BE/index.php/Controller_Dashboard"><i class="icon-dashboard"></i><span>Dashboard</span> </a> </li>
-        <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-list"></i><span>Master Data</span> <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/Protech_BE/index.php/Controller_User">Admin</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_Customer">Customer</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_Technician">Technician</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_Service">Service</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_ServiceDetail">Service Detail</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_FAQ">FAQ</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-money"></i><span>Transaction</span> <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/Protech_BE/index.php/Controller_OrderHistory">Order History</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_Payment">Payment</a></li>
-          </ul>
-        </li>
-        <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-file"></i><span>Report</span> <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/Protech_BE/index.php/Controller_IncomeReport">Income Report</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_DisbursementReport">Disbursement Report</a></li>
-            <li><a href="/Protech_BE/index.php/Controller_AuditLog">Audit Log</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <!-- /container --> 
-  </div>
-  <!-- /subnavbar-inner --> 
-</div>
+<nav class="bottom-navbar">
+          <div class="container">
+            <ul class="nav page-navigation">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html">
+                  <i class="mdi mdi-compass-outline menu-icon"></i>
+                  <span class="menu-title" href="/Protech_BE/index.php/Controller_Dashboard">Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="mdi mdi-monitor-dashboard menu-icon"></i>
+                  <span class="menu-title">Master Data</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="submenu">
+                  <ul class="submenu-item">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_Admin">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_Customer">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_Technician">Technician</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_Service">Service</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_FAQ">FAQ</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="mdi mdi-monitor-dashboard menu-icon"></i>
+                  <span class="menu-title">Transaction</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="submenu">
+                  <ul class="submenu-item">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_Order">Order</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_Payment">Payment</a>
+                    </li>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+        <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="mdi mdi-monitor-dashboard menu-icon"></i>
+                  <span class="menu-title">Report</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="submenu">
+                  <ul class="submenu-item">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_IncomeReport">Income Report</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_DisbursementReport">Disbursement Report</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/Protech_BE/index.php/Controller_AuditLog">Audit Log</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
 </body>
 </html>

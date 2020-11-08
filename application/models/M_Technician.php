@@ -2,18 +2,27 @@
 class M_Technician extends CI_Model{
 	function getAllTechnician(){
 		$this->db->select('*');
-		$this->db->from('tbl_user');
-		$this->db->where('role_id', '4');
+		$this->db->from('tbl_technician');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
 	public function getOneById($id) {
-		$this->db->select('user.*, user_role.role_name');
-		$this->db->from('tbl_user user');
-		$this->db->join('tbl_user_role user_role', 'user.role_id = user_role.id', 'left');
-		$this->db->where('user.id', $id);
+		$this->db->select('*');
+		$this->db->from('tbl_technician');
+		$this->db->where('id', $id);
 		$query = $this->db->get();
 		return $query->result();
+	}
+
+	function inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $bank_account_number, $active_status){
+		$result=$this->db->query("INSERT INTO tbl_technician(email, password, role_id, fullname, phone, full_address, identity_number, bank_account_number, active_status) 
+			VALUES ('$email', md5('$password'), '$role_id', '$fullname', '$phone', '$full_address', '$identity_number', $bank_account_number, $active_status)");
+		return $result;
+	}
+
+	function updateData($id, $email, $fullname, $phone, $full_address, $identity_number, $bank_account_number, $active_status){
+		$result=$this->db->query("UPDATE `tbl_technician` SET  email='$email', fullname='$fullname', phone='$phone', full_address='$full_address', identity_number='$identity_number', bank_account_numer = '$bank_account_number', active_status = $active_status WHERE id = '$id'");
+		return $result;
 	}
 }

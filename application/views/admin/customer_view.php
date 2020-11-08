@@ -28,14 +28,14 @@
                            <form id="edit-profile" class="form-horizontal">
                               <fieldset>
                                  <div class="control-group">
-                                    <label class="control-label" for="usercode">User Code</label>
+                                    <label class="control-label" for="email">Email</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="usercode" name="usercode" value="<?=$user_detail->user_code?>" disabled="disabled">
+                                       <input type="text" class="span3" id="email" name="email" value="<?=$user_detail->email?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
-                                    <label class="control-label" for="fullname">Full Name</label>
+                                    <label class="control-label" for="fullname">Fullname</label>
                                     <div class="controls">
                                        <input type="text" class="span3" id="fullname" name="fullname" value="<?=$user_detail->fullname?>" disabled="disabled">
                                     </div>
@@ -51,9 +51,9 @@
                                  </div>
                                  <!-- /control-group -->
                                  <div class="control-group">
-                                    <label class="control-label" for="email">Email Address</label>
+                                    <label class="control-label" for="full_address">Full Address</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="email" name="email" value="<?=$user_detail->email?>" disabled="disabled">
+                                       <input type="text" class="span3" id="full_address" name="full_address" value="<?=$user_detail->full_address?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>

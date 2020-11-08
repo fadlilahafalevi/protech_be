@@ -25,8 +25,8 @@
                 <thead>
                   <tr>
                     <th style="text-align: center">ID</th>
-                    <th style="text-align: center">Username</th>
-                    <th style="text-align: center">Role</th>
+                    <th style="text-align: center">Email</th>
+                    <th style="text-align: center">Fullname</th>
                     <th style="text-align: center">Status</th>
                     <th style="text-align: center">Action</th>
                   </tr>
@@ -39,8 +39,8 @@
                   ?>
                     <tr>
                         <td><?=$no?></td>
-                        <td><?=$list_user->username?></td>
-                        <td><?=$list_user->role_name?></td>
+                        <td><?=$list_user->email?></td>
+                        <td><?=$list_user->fullname?></td>
                         <td style="text-align: center">
                           <?php
                             if($list_user->active_status == '1'){

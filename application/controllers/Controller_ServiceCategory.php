@@ -1,5 +1,5 @@
 <?php
-class Controller_ServiceCategory extends CI_Controller{
+class Controller_Service extends CI_Controller{
 	function index(){
         $this->load->model('M_ServiceCategory');
         
@@ -21,7 +21,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				$data['data'] = $this->M_ServiceCategory->getOneById($id);
 			}
 
-			$this->load->view('admin/service_category_view', $data);
+			$this->load->view('admin/service_view', $data);
 
 		}
 	}
@@ -29,7 +29,7 @@ class Controller_ServiceCategory extends CI_Controller{
 	public function createService() {
 		if($this->session->userdata('akses')=='1'){
 
-			$this->load->view('admin/service_category_create');
+			$this->load->view('admin/service_create');
 
 		}
 	}
@@ -52,28 +52,23 @@ class Controller_ServiceCategory extends CI_Controller{
 				}
 			}
 
-			$this->load->view('admin/service_category_edit', $data);
+			$this->load->view('admin/service_edit', $data);
 
 		}
 	}
 
 	public function saveData() {
 		$this->load->model("M_ServiceCategory");
-		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
 			$nextSeq = sprintf("%02d", $this->M_ServiceCategory->getNextSequenceId());
-			$service_category_code = "S".$nextSeq;
+			$serviceCode = "S".$nextSeq;
 
-			$service_category_name 	=	$this->input->post('service_category_name');
-			$service_category_desc	=	$this->input->post('service_category_desc');
+			$service_name 	=	$this->input->post('service_name');
+			$service_desc	=	$this->input->post('service_desc');
 
-			$this->M_ServiceCategory->inputData($service_category_code, $service_category_name);
-			$idData = $this->M_User->getOneByCode($service_category_code);
-			$this->M_Metadata->createMeta('tbl_service_category', $idData, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('Service Category', 'CREATE', $this->session->userdata('email'));
+			$this->M_ServiceCategory->inputData($serviceCode, $service_name, $service_desc);
 
 			redirect('Controller_Service');
 		}
@@ -81,23 +76,18 @@ class Controller_ServiceCategory extends CI_Controller{
 
 	public function updateData() {
 		$this->load->model("M_ServiceCategory");
-		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$service_category_code = $this->input->post('service_category_code');
-			$service_category_name = $this->input->post('service_category_name');
+			$service_code = $this->input->post('service_code');
+			$service_name = $this->input->post('service_name');
 			$active_status = $this->input->post('active_status');
 
 			if ($active_status != 1) {
 				$active_status = 0;
 			}
 
-			$this->M_ServiceCategory->updateData($service_category_code, $service_category_name, $active_status);
-			$id = $this->M_User->getOneByCode($service_category_code);
-			$this->M_Metadata->updateMeta('tbl_service_category', $id, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('Service Category', 'UPDATE', $this->session->userdata('email'));
+			$this->M_ServiceCategory->updateData($service_code, $service_name, $active_status);
 
 			redirect('Controller_Service');
 		}

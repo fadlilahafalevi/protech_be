@@ -28,32 +28,45 @@
                            <form id="edit-profile" class="form-horizontal">
                               <fieldset>
                                  <div class="control-group">
-                                    <label class="control-label" for="usercode">User Code</label>
+                                    <label class="control-label" for="email">Email</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="usercode" name="usercode" value="<?=$user_detail->user_code?>" disabled="disabled">
+                                       <input type="text" class="span3" id="email" name="email" value="<?=$user_detail->email?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
-                                    <label class="control-label" for="fullname">Full Name</label>
+                                    <label class="control-label" for="fullname">Fullname</label>
                                     <div class="controls">
                                        <input type="text" class="span3" id="fullname" name="fullname" value="<?=$user_detail->fullname?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
-                                 <!-- /control-group -->
                                  <div class="control-group">
-                                    <label class="control-label" for="phone">Phone Number</label>
+                                    <label class="control-label" for="phone">Phone</label>
                                     <div class="controls">
                                        <input type="text" class="span3" id="phone" name="phone" value="<?=$user_detail->phone?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
+                                 <div class="control-group">
+                                    <label class="control-label" for="full_address">Full Address</label>
+                                    <div class="controls">
+                                       <input type="text" class="span3" id="full_address" name="full_address" value="<?=$user_detail->full_address?>" disabled="disabled">
+                                    </div>
+                                    <!-- /controls -->       
+                                 </div>
                                  <!-- /control-group -->
                                  <div class="control-group">
-                                    <label class="control-label" for="email">Email Address</label>
+                                    <label class="control-label" for="identity_number">Identity Number</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="email" name="email" value="<?=$user_detail->email?>" disabled="disabled">
+                                       <input type="text" class="span3" id="identity_number" name="identity_number" value="<?=$user_detail->identity_number?>" disabled="disabled">
+                                    </div>
+                                    <!-- /controls -->       
+                                 </div>
+                                 <div class="control-group">
+                                    <label class="control-label" for="bank_account_number">Bank Account Number</label>
+                                    <div class="controls">
+                                       <input type="text" class="span3" id="bank_account_number" name="bank_account_number" value="<?=$user_detail->bank_account_number?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
@@ -72,7 +85,7 @@
                                  <!-- /control-group -->
                                  <br />
                                  <div class="form-actions">
-                                    <a href="/Protech_BE/index.php/Controller_Technician" class="btn">Back</a>
+                                    <a href="/Protech_BE/index.php/Controller_User" class="btn">Back</a>
                                  </div>
                                  <!-- /form-actions -->
                               </fieldset>

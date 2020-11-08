@@ -10,29 +10,32 @@ class Controller_Login extends CI_Controller{
     }
 
     function cekuser(){
-        $username   = strip_tags(stripslashes($this->input->post('username',TRUE)));
+        $email   = strip_tags(stripslashes($this->input->post('email',TRUE)));
         $password   = strip_tags(stripslashes($this->input->post('password',TRUE)));
 
-        $cadmin     = $this->Login->cekadmin($username,$password);
+        $cadmin     = $this->Login->cekadmin($email,$password);
         
         if($cadmin->num_rows() > 0){
             $this->session->set_userdata('masuk', true);
-            $this->session->set_userdata('user', $username);
 
             $xcadmin = $cadmin->row_array();
             
             if($xcadmin['role_id'] == '1'){ //admin
                 $this->session->set_userdata('akses', '1');
                 $id    = $xcadmin['id'];
-                $username  = $xcadmin['username'];
+                $fullname  = $xcadmin['fullname'];
+                $emailUser  = $xcadmin['email'];
                 $this->session->set_userdata('id', $id);
-                $this->session->set_userdata('nama', $username);
+                $this->session->set_userdata('fullname', $fullname);
+                $this->session->set_userdata('email', $emailUser);
             } elseif($xcadmin['role_id'] == '2'){ //kasir
                 $this->session->set_userdata('akses','2');
                 $id    = $xcadmin['id'];
-                $username  = $xcadmin['username'];
+                $fullname  = $xcadmin['fullname'];
+                $emailUser  = $xcadmin['email'];
                 $this->session->set_userdata('id', $id);
-                $this->session->set_userdata('nama', $username);
+                $this->session->set_userdata('fullname', $fullname);
+                $this->session->set_userdata('email', $emailUser);
             } 
         }
         

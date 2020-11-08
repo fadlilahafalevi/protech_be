@@ -27,39 +27,46 @@
                            ?>
                            <form id="edit-profile" class="form-horizontal" method="post" action="<?php echo base_url() . 'Controller_User/updateData'; ?>">
                               <fieldset>
-                                 <div class="control-group">
-                                    <label class="control-label" for="user_code">User Code</label>
+                                  <div class="control-group">
+                                    <label class="control-label" for="id">id</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="user_code" name="user_code" value="<?=$user_detail->user_code?>" readonly="readonly">
+                                       <input type="text" class="span2" id="id" name="id" value="<?=$user_detail->id?>" readonly>
+                                    </div>
+                                    <!-- /controls -->       
+                                 </div>
+                                  <div class="control-group">
+                                    <label class="control-label" for="email">Email</label>
+                                    <div class="controls">
+                                       <input type="text" class="span2" id="email" name="email" value="<?=$user_detail->email?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
-                                    <label class="control-label" for="username">Username</label>
+                                    <label class="control-label" for="fullname">Fullname</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="username" name="username" value="<?=$user_detail->username?>" readonly="readonly">
+                                       <input type="text" class="span2" id="fullname" name="fullname" value="<?=$user_detail->fullname?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
-                                    <label class="control-label" for="fullname">Full Name</label>
+                                    <label class="control-label" for="phone">Phone</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="fullname" name="fullname" value="<?=$user_detail->fullname?>" readonly="readonly">
+                                       <input type="text" class="span2" id="phone" name="phone" value="<?=$user_detail->phone?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
-                                    <label class="control-label" for="role">Role</label>
+                                    <label class="control-label" for="full_address">Full Address</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="role" name="role" value="<?=$user_detail->role_name?>" readonly="readonly">
+                                       <input type="text" class="span2" id="full_address" name="full_address" value="<?=$user_detail->full_address?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <!-- /control-group -->
                                  <div class="control-group">
-                                    <label class="control-label" for="email">Email Address</label>
+                                    <label class="control-label" for="identity_number">Identity Number</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="email" name="email" value="<?=$user_detail->email?>" readonly="readonly">
+                                       <input type="text" class="span2" id="identity_number" name="identity_number" value="<?=$user_detail->identity_number?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>

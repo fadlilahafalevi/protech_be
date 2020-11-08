@@ -25,15 +25,15 @@
                                     <form id="edit-profile" method="post" action="<?php echo base_url() . 'Controller_User/saveData'; ?>" class="form-horizontal">
                                        <fieldset>
                                           <div class="control-group">
-                                             <label class="control-label" for="username">Username</label>
+                                             <label class="control-label" for="email">Email</label>
                                              <div class="controls">
-                                                <input type="text" class="span2" id="username" name="username">
+                                                <input type="text" class="span3" id="email" name="email">
                                              </div>
                                              <!-- /controls -->       
                                           </div>
 
                                           <div class="control-group">
-                                             <label class="control-label" for="fullname">Full Name</label>
+                                             <label class="control-label" for="fullname">Fullname</label>
                                              <div class="controls">
                                                 <input type="text" class="span3" id="fullname" name="fullname">
                                              </div>
@@ -41,17 +41,23 @@
                                           </div>
                                           <!-- /control-group -->
                                           <div class="control-group">
-                                             <label class="control-label" for="email">Email Address</label>
+                                             <label class="control-label" for="phone">Phone</label>
                                              <div class="controls">
-                                                <input type="text" class="span3" id="email" name="email">
+                                                <input type="text" class="span3" id="phone" name="phone">
                                              </div>
                                              <!-- /controls -->       
                                           </div>
-                                          <!-- /control-group -->
                                           <div class="control-group">
-                                             <label class="control-label" for="phone">Phone</label>
+                                             <label class="control-label" for="full_address">Full Address</label>
                                              <div class="controls">
-                                                <input type="text" class="span2" id="phone" name="phone">
+                                                <input type="text" class="span3" id="full_address" name="full_address">
+                                             </div>
+                                             <!-- /controls -->       
+                                          </div>
+                                          <div class="control-group">
+                                             <label class="control-label" for="identity_number">Identity Number</label>
+                                             <div class="controls">
+                                                <input type="text" class="span3" id="identity_number" name="identity_number">
                                              </div>
                                              <!-- /controls -->       
                                           </div>

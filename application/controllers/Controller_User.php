@@ -61,22 +61,22 @@ class Controller_User extends CI_Controller{
 	public function saveData() {
 		$this->load->model("M_User");
 		$this->load->model("M_Metadata");
+		$this->load->model("M_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$nextSeq = sprintf("%03d", $this->M_User->getNextSequenceId());
-			$userCode = "A".$nextSeq;
-
-			$username 		=	$this->input->post('username');
-			$password 		=	'P@ssw0rd';
-		    $role_id		=	'2';
-			$email			=	$this->input->post('email');
-			$fullname		=	$this->input->post('fullname');
-			$phone 			=	$this->input->post('phone');
-			$active_status 	=	'1';
-			$this->M_User->inputData($userCode, $username, $password, $role_id, $email, $fullname, $phone, $active_status);
-			$idData = $this->M_User->getOneByCode($userCode);
-			$this->M_Metadata->createMeta('tbl_user', $idData, $this->session->userdata('nama'));
+			$email = $this->input->post('email');
+			$password = 'password';
+		    $role_id = '1';
+			$fullname = $this->input->post('fullname');
+			$phone = $this->input->post('phone');
+			$full_address =	$this->input->post('full_address');
+			$identity_number =	$this->input->post('identity_number');
+			$active_status = '1';
+			$this->M_User->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $active_status);
+			$idData = $this->M_User->getOneByEmail($email);
+			$this->M_Metadata->createMeta('tbl_admin', $idData, $this->session->userdata('fullname'));
+			$this->M_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('email'));
 
 			redirect('Controller_User');
 		}
@@ -85,21 +85,25 @@ class Controller_User extends CI_Controller{
 	public function updateData() {
 		$this->load->model("M_User");
 		$this->load->model("M_Metadata");
+		$this->load->model("M_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$user_code = $this->input->post('user_code');
+			$id = $this->input->post('id');
+			$email = $this->input->post('email');
+			$fullname = $this->input->post('fullname');
+			$phone = $this->input->post('phone');
+			$full_address = $this->input->post('full_address');
+			$identity_number = $this->input->post('identity_number');
 			$active_status = $this->input->post('active_status');
 
 			if ($active_status != 1) {
 				$active_status = 0;
 			}
 
-			echo "user code ".$user_code;
-
-			$this->M_User->updateData($user_code, $active_status);
-			$idData = $this->M_User->getOneByCode($user_code);
-			$this->M_Metadata->updateMeta('tbl_user', $idData, $this->session->userdata('nama'));
+			$this->M_User->updateData($id, $email, $fullname, $phone, $full_address, $identity_number, $active_status);
+			$this->M_Metadata->updateMeta('tbl_admin', $id, $this->session->userdata('fullname'));
+			$this->M_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('email'));
 			redirect('Controller_User');
 		}
 	}

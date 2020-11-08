@@ -24,7 +24,7 @@
                       <thead>
                         <tr>
                           <th style="text-align: center">ID</th>
-                          <th style="text-align: center">Customer Code</th>
+                          <th style="text-align: center">Email</th>
                           <th style="text-align: center">Customer Name</th>
                           <th style="text-align: center">Status</th>
                           <th style="text-align: center">Action</th>
@@ -38,7 +38,7 @@
                         ?>
                           <tr>
                               <td><?=$no?></td>
-                              <td><?=$list_user->user_code?></td>
+                              <td><?=$list_user->email?></td>
                               <td><?=$list_user->fullname?></td>
                               <td style="text-align: center">
                                 <?php
@@ -56,6 +56,9 @@
                               <td style="text-align: center">
                                  <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Customer/getOne/<?=$list_user->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
                                   <i class="icon-eye-open"></i>
+                                </a>
+                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Customer/updateCustomer/<?=$list_user->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                                  <i class="icon-pencil"></i>
                                 </a>
                               </td>
                           </tr>

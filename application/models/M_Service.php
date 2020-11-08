@@ -1,31 +1,60 @@
 <?php
 class M_Service extends CI_Model{
-	function getAllService(){
-		$query = $this->db->get('tbl_service');
+	public function getAllServiceCategory(){
+		$query = $this->db->get('tbl_service_category');
 		return $query->result();
 	}
 
-	public function getOneById($id) {
+	public function getAllServiceDetailByCategory($code) {
 		$this->db->select('*');
-		$this->db->from('tbl_service');
-		$this->db->where('id', $id);
+		$this->db->from('tbl_service_detail');
+		$this->db->where('service_category_code', $code);
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	public function getNextSequenceId() {
-		$query=$this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_service' and TABLE_SCHEMA = 'db_protech'");
+	public function getAllServiceTypeByDetail($code) {
+		$this->db->select('*');
+		$this->db->from('tbl_service_type');
+		$this->db->where('service_detail_code', $code);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getServiceCategoryByCode($code){
+		$this->db->select('*');
+		$this->db->from('tbl_service_category');
+		$this->db->where('service_category_code', $code);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getServiceDetailByCode($code){
+		$this->db->select('*');
+		$this->db->from('tbl_service_detail');
+		$this->db->where('service_detail_code', $code);
+		return $query->result();
+	}
+
+	public function getServiceTypeByCode($code) {
+		$this->db->select('*');
+		$this->db->from('tbl_service_type');
+		$this->db->where('service_type_code', $code);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getNextSequenceId($tblName) {
+		$query = $this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='$tblName' and TABLE_SCHEMA = 'db_protech'");
 		return $query->row()->auto_value;
 		 
 	}
 
-	function inputData($serviceCode, $service_name){
-		$result=$this->db->query("INSERT INTO tbl_service(service_code, service_name) VALUES ('$serviceCode','$service_name')");
-		return $result;
+	function inputData($tblName, $data){
+		return $this->db->insert($tblName, $data);
 	}
 
-	function updateData($serviceCode, $service_name, $active_status) {
-		$result=$this->db->query("UPDATE tbl_service SET service_name='$service_name', active_status=$active_status WHERE service_code='$serviceCode'");
-		return $result;
+	function updateData($tblName, $data, $id) {
+		return $this->db->update('$tblName', $data, "id = $id");
 	}
 }

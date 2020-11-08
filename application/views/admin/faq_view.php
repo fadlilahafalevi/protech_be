@@ -1,70 +1,54 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>PROTECH</title>
-   </head>
-   <body>
-      <?php require 'application/views/header.php'; ?>
-      <?php require 'application/views/menubar.php'; ?>
-      <div class="main">
-         <div class="main-inner">
-            <div class="container">
-               <div class="row">
-                  <div class="span12">
-                     <div class="widget widget-table action-table">
-                        <div class="widget-header">
-                           <i class="icon-th-list"></i>
-                           <h3>View FAQ</h3>
-                        </div>
-                        <!-- /widget-header -->
-                        <div class="widget-content">
-                           <br><br>
-                           <?php
-                             foreach ($data as $faq_detail) {
-                           ?>
-                           <form id="edit-faq" class="form-horizontal">
-                              <fieldset>
-                                 <div class="control-group">
-                                    <label class="control-label" for="faq_question">Question</label>
-                                    <div class="controls">
-                                       <textarea type="text" class="span2" id="faq_question" name="faq_question" readonly="readonly"><?=$faq_detail->faq_question?></textarea>
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="faq_answer">Answer</label>
-                                    <div class="controls">
-                                       <textarea type="text" class="span2" id="faq_answer" name="faq_answer" readonly="readonly"><?=$faq_detail->faq_answer?></textarea>
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <!-- /control-group -->
-                                 <br />
-                                 <div class="form-actions">
-                                    <a href="/Protech_BE/index.php/Controller_FAQ" class="btn">Back</a>
-                                 </div>
-                                 <!-- /form-actions -->
-                              </fieldset>
-                           </form>
-                              <?php
-                             }
-                           ?>
-                        </div>
-                        <!-- /widget-content --> 
-                     </div>
-                  </div>
-                  <!-- /span6 --> 
-               </div>
-               <!-- /row --> 
-            </div>
-            <!-- /container --> 
-         </div>
-         <!-- /main-inner --> 
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>PROTECH</title>
+</head>
+<body>
+<?php require 'application/views/header.php'; ?>
+<?php require 'application/views/menubar.php'; ?>
+<div class="container-fluid page-body-wrapper">
+  <div class="main-panel">
+    <div class="content-wrapper pb-0">
+      <div class="page-header">
+        <h3 class="page-title">View FAQ</h3>
       </div>
-      <?php require 'application/views/extra.php'; ?>
-      <?php require 'application/views/footer.php'; ?>
-   </body>
+      <!-- first row starts here -->
+      <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+               <h4 class="card-title"></h4>
+                     <?php
+                        foreach ($data as $faq_detail) {
+                     ?>
+                    <form class="forms-sample">
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="faq_question">Question</label>
+                           <div class="col-sm-9">
+                              <textarea type="text" class="form-control" id="faq_question" name="faq_question" readonly="readonly"><?=$faq_detail->faq_question?></textarea>
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="faq_answer">Answer</label>
+                           <div class="col-sm-9">
+                              <textarea type="text" class="form-control" id="faq_answer" name="faq_answer" readonly="readonly"><?=$faq_detail->faq_answer?></textarea>
+                           </div>
+                        </div>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_FAQ">Back</button>
+                     </form>
+                     <?php
+                        }
+                     ?>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<?php require 'application/views/footer.php'; ?>
+</body>
 </html>

@@ -1,106 +1,83 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>PROTECH</title>
-   </head>
-   <body>
-      <?php require 'application/views/header.php'; ?>
-      <?php require 'application/views/menubar.php'; ?>
-      <div class="main">
-         <div class="main-inner">
-            <div class="container">
-               <div class="row">
-                  <div class="span12">
-                     <div class="widget widget-table action-table">
-                        <div class="widget-header">
-                           <i class="icon-th-list"></i>
-                           <h3>Edit Customer</h3>
-                        </div>
-                        <!-- /widget-header -->
-                        <div class="widget-content">
-                           <br><br>
-                           <?php
-                             foreach ($data as $customer_detail) {
-                           ?>
-                           <form id="edit-profile" class="form-horizontal" method="post" action="<?php echo base_url() . 'Controller_Customer/updateData'; ?>">
-                              <fieldset>
-                                 <div class="control-group">
-                                    <label class="control-label" for="id">ID</label>
-                                    <div class="controls">
-                                       <input type="text" class="span2" id="id" name="id" value="<?=$customer_detail->id?>" readonly>
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="email">Email</label>
-                                    <div class="controls">
-                                       <input type="text" class="span3" id="email" name="email" value="<?=$customer_detail->email?>">
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="fullname">Fullname</label>
-                                    <div class="controls">
-                                       <input type="text" class="span3" id="fullname" name="fullname" value="<?=$customer_detail->fullname?>">
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <!-- /control-group -->
-                                 <div class="control-group">
-                                    <label class="control-label" for="phone">Phone Number</label>
-                                    <div class="controls">
-                                       <input type="text" class="span3" id="phone" name="phone" value="<?=$customer_detail->phone?>">
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <!-- /control-group -->
-                                 <div class="control-group">
-                                    <label class="control-label" for="full_address">Full Address</label>
-                                    <div class="controls">
-                                       <input type="text" class="span3" id="full_address" name="full_address" value="<?=$customer_detail->full_address?>">
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <!-- /control-group -->
-                                 <div class="control-group">
-                                    <label class="control-label" for="active">Active Status</label>
-                                    <div class="controls">
-                                       <?php if ($customer_detail->active_status == 1) { ?>
-                                       <input type="checkbox" name="active_status" id="active_status"  checked value="1">
-                                       <?php } else if ($customer_detail->active_status == 0) { ?>
-                                       <input type="checkbox" name="active_status" id="active_status" value="1">
-                                       <?php } ?>
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <!-- /control-group -->
-                                 <br />
-                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="/Protech_BE/index.php/Controller_Customer" class="btn">Back</a>
-                                 </div>
-                                 <!-- /form-actions -->
-                              </fieldset>
-                           </form>
-                              <?php
-                             }
-                           ?>
-                        </div>
-                        <!-- /widget-content --> 
-                     </div>
-                  </div>
-                  <!-- /span6 --> 
-               </div>
-               <!-- /row --> 
-            </div>
-            <!-- /container --> 
-         </div>
-         <!-- /main-inner --> 
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>PROTECH</title>
+</head>
+<body>
+<?php require 'application/views/header.php'; ?>
+<?php require 'application/views/menubar.php'; ?>
+<div class="container-fluid page-body-wrapper">
+  <div class="main-panel">
+    <div class="content-wrapper pb-0">
+      <div class="page-header">
+        <h3 class="page-title">Edit Customer</h3>
       </div>
-      <?php require 'application/views/extra.php'; ?>
-      <?php require 'application/views/footer.php'; ?>
-   </body>
+      <!-- first row starts here -->
+      <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+               <h4 class="card-title"></h4>
+                     <?php
+                        foreach ($data as $customer_detail) {
+                     ?>
+                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/updateData'; ?>">
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="id" name="id" value="<?=$customer_detail->id?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="email">Email</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="email" name="email" value="<?=$customer_detail->email?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="fullname">Fullname</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="fullname" name="fullname" value="<?=$customer_detail->fullname?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="phone">Phone</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$customer_detail->phone?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="full_address">Full Address</label>
+                           <div class="col-sm-9">
+                              <textarea type="text" class="form-control" id="full_address" name="full_address"><?=$customer_detail->full_address?></textarea>
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="active">Active Status</label>
+                           <div class="col-sm-9">
+                              <?php if ($customer_detail->active_status == 1) { ?>
+                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" checked value="1">
+                              <?php } else if ($customer_detail->active_status == 0) { ?>
+                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" value="0">
+                              <?php } ?>
+                           </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button> 
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Customer">Back</button>
+                     </form>
+                     <?php
+                        }
+                     ?>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<?php require 'application/views/footer.php'; ?>
+</body>
 </html>

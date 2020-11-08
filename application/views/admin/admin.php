@@ -46,11 +46,11 @@
                             <?php
                               if($list_admin->active_status == '1'){
                             ?>
-                                <button disabled="disabled" class="btn btn-success">Active</button>
+                                <label class="badge badge-success">Active</label>
                             <?php
                               } elseif($list_admin->active_status == '0'){
                             ?>
-                                <button disabled="disabled" class="btn btn-danger">Inactive</button>
+                                <label class="badge badge-danger">Inactive</label>
                             <?php
                               }
                             ?>

@@ -60,7 +60,7 @@ class Controller_Technician extends CI_Controller{
 	public function saveData() {
 		$this->load->model("M_Technician");
 		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -76,7 +76,7 @@ class Controller_Technician extends CI_Controller{
 			$this->M_Technician->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $bank_account_number, $active_status);
 			$idData = $this->M_Technician->getOneByEmail($email);
 			$this->M_Metadata->createMeta('tbl_admin', $idData, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('email'));
 
 			redirect('Controller_Technician');
 		}
@@ -85,7 +85,7 @@ class Controller_Technician extends CI_Controller{
 	public function updateData() {
 		$this->load->model("M_Technician");
 		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -104,7 +104,7 @@ class Controller_Technician extends CI_Controller{
 
 			$this->M_Technician->updateData($id, $email, $fullname, $phone, $full_address, $identity_number, $bank_account_number, $active_status);
 			$this->M_Metadata->updateMeta('tbl_admin', $id, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('email'));
 			redirect('Controller_Technician');
 		}
 	}

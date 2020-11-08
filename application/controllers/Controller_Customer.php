@@ -52,7 +52,7 @@ class Controller_Customer extends CI_Controller{
 	public function updateData() {
 		$this->load->model("M_Customer");
 		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -69,7 +69,7 @@ class Controller_Customer extends CI_Controller{
 
 			$this->M_Customer->updateData($id, $email, $fullname, $phone, $full_address, $active_status);
 			$this->M_Metadata->updateMeta('tbl_customer', $id, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('email'));
 			redirect('Controller_Customer');
 		}
 	}

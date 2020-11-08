@@ -68,7 +68,7 @@ class Controller_FAQ extends CI_Controller{
 	public function saveData() {
 		$this->load->model("M_FAQ");
 		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -78,7 +78,7 @@ class Controller_FAQ extends CI_Controller{
 			$this->M_FAQ->inputData($faq_question, $faq_answer, $created_by);
 			$idData = $this->M_FAQ->getOneByQuestion($faq_question);
 			$this->M_Metadata->createMeta('tbl_faq', $idData, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('FAQ', 'CREATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('FAQ', 'CREATE', $this->session->userdata('email'));
 
 			redirect('Controller_FAQ');
 		}
@@ -87,7 +87,7 @@ class Controller_FAQ extends CI_Controller{
 	public function updateData() {
 		$this->load->model("M_FAQ");
 		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -98,21 +98,21 @@ class Controller_FAQ extends CI_Controller{
 
 			$this->M_FAQ->updateData($id, $faq_question, $faq_answer, $modified_by);
 			$this->M_Metadata->updateMeta('tbl_faq', $id, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('FAQ', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('FAQ', 'UPDATE', $this->session->userdata('email'));
 			redirect('Controller_FAQ');
 		}
 	}
 
 	public function deleteData() {
 		$this->load->model("M_FAQ");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
 			$id = $this->input->post('id');
 
 			$this->M_FAQ->deleteData($id);
-			$this->M_AuditLogging->insertLog('FAQ', 'DELETE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('FAQ', 'DELETE', $this->session->userdata('email'));
 			redirect('Controller_FAQ');
 		}
 	}

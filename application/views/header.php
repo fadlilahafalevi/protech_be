@@ -48,8 +48,8 @@
                     </div>
                   </a>
                   <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item" href="#">
-                      <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                    <a class="dropdown-item" href="/Protech_BE/index.php/Controller_Login/logout">
+                      <i class="mdi mdi-logout mr-2 text-primary"></i> Log Out </a>
                   </div>
                 </li>
               </ul>

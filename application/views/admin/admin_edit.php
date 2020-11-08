@@ -52,7 +52,7 @@
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="full_address">Full Address</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="full_address" name="full_address" value="<?=$admin_detail->full_address?>">
+                              <textarea type="text" class="form-control" id="full_address" name="full_address"><?=$admin_detail->full_address?></textarea>
                            </div>
                         </div>
                         <div class="form-group row">

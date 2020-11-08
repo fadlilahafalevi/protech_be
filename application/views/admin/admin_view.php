@@ -46,7 +46,7 @@
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="full_address">Full Address</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="full_address" name="full_address" value="<?=$admin_detail->full_address?>" disabled="disabled">
+                              <textarea type="text" class="form-control" id="full_address" name="full_address" disabled="disabled"><?=$admin_detail->full_address?></textarea>
                            </div>
                         </div>
                         <div class="form-group row">
@@ -59,9 +59,9 @@
                            <label class="col-sm-3 col-form-label" for="active">Active Status</label>
                            <div class="col-sm-9">
                               <?php if ($admin_detail->active_status == 1) { ?>
-                                 <input type="text" class="form-control" id="active" name="active" value="Active" disabled="disabled">
+                                 <label class="badge badge-success">Active</label>
                               <?php } else if ($admin_detail->active_status == 0) { ?>
-                                 <input type="text" class="form-control" id="active" name="active" value="Inactive" disabled="disabled">
+                                 <label class="badge badge-danger">Inactive</label>
                               <?php } ?>
                            </div>
                         </div>

@@ -60,7 +60,7 @@ class Controller_ServiceCategory extends CI_Controller{
 	public function saveData() {
 		$this->load->model("M_ServiceCategory");
 		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -73,7 +73,7 @@ class Controller_ServiceCategory extends CI_Controller{
 			$this->M_ServiceCategory->inputData($service_category_code, $service_category_name);
 			$idData = $this->M_Admin->getOneByCode($service_category_code);
 			$this->M_Metadata->createMeta('tbl_service_category', $idData, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('Service Category', 'CREATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('Service Category', 'CREATE', $this->session->userdata('email'));
 
 			redirect('Controller_Service');
 		}
@@ -82,7 +82,7 @@ class Controller_ServiceCategory extends CI_Controller{
 	public function updateData() {
 		$this->load->model("M_ServiceCategory");
 		$this->load->model("M_Metadata");
-		$this->load->model("M_AuditLogging");
+		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -97,7 +97,7 @@ class Controller_ServiceCategory extends CI_Controller{
 			$this->M_ServiceCategory->updateData($service_category_code, $service_category_name, $active_status);
 			$id = $this->M_Admin->getOneByCode($service_category_code);
 			$this->M_Metadata->updateMeta('tbl_service_category', $id, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('Service Category', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('Service Category', 'UPDATE', $this->session->userdata('email'));
 
 			redirect('Controller_Service');
 		}

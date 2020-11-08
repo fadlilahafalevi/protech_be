@@ -8,14 +8,14 @@
           <div class="container">
             <ul class="nav page-navigation">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/Protech_BE/index.php/Controller_Dashboard">
                   <i class="mdi mdi-compass-outline menu-icon"></i>
-                  <span class="menu-title" href="/Protech_BE/index.php/Controller_Dashboard">Dashboard</span>
+                  <span class="menu-title">Dashboard</span>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="mdi mdi-monitor-dashboard menu-icon"></i>
+                  <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                   <span class="menu-title">Master Data</span>
                   <i class="menu-arrow"></i>
                 </a>
@@ -41,7 +41,7 @@
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="mdi mdi-monitor-dashboard menu-icon"></i>
+                  <i class="mdi mdi-coin menu-icon"></i>
                   <span class="menu-title">Transaction</span>
                   <i class="menu-arrow"></i>
                 </a>
@@ -57,9 +57,9 @@
                   </ul>
                 </div>
               </li>
-        <li class="nav-item">
+              <li class="nav-item">
                 <a href="#" class="nav-link">
-                  <i class="mdi mdi-monitor-dashboard menu-icon"></i>
+                  <i class="mdi mdi-file menu-icon"></i>
                   <span class="menu-title">Report</span>
                   <i class="menu-arrow"></i>
                 </a>

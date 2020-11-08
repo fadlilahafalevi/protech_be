@@ -34,7 +34,9 @@
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
               <ul class="navbar-nav mr-lg-2">
-
+                <li class="nav-item d-none d-lg-block">
+                  
+                </li>
               </ul>
               <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">

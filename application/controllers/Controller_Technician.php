@@ -26,7 +26,7 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function createUser() {
+	public function createTechnician() {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->view('admin/technician_create');
@@ -34,7 +34,7 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function updateUser($id = '') {
+	public function updateTechnician($id = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Technician");
@@ -78,7 +78,7 @@ class Controller_Technician extends CI_Controller{
 			$this->M_Metadata->createMeta('tbl_admin', $idData, $this->session->userdata('fullname'));
 			$this->M_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('email'));
 
-			redirect('Controller_User');
+			redirect('Controller_Technician');
 		}
 	}
 
@@ -105,7 +105,7 @@ class Controller_Technician extends CI_Controller{
 			$this->M_Technician->updateData($id, $email, $fullname, $phone, $full_address, $identity_number, $bank_account_number, $active_status);
 			$this->M_Metadata->updateMeta('tbl_admin', $id, $this->session->userdata('fullname'));
 			$this->M_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('email'));
-			redirect('Controller_User');
+			redirect('Controller_Technician');
 		}
 	}
 }

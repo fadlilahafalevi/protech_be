@@ -17,34 +17,34 @@
                      <div class="widget widget-table action-table">
                         <div class="widget-header">
                            <i class="icon-th-list"></i>
-                           <h3>View User</h3>
+                           <h3>Edit Customer</h3>
                         </div>
                         <!-- /widget-header -->
                         <div class="widget-content">
                            <br><br>
                            <?php
-                             foreach ($data as $user_detail) {
+                             foreach ($data as $customer_detail) {
                            ?>
                            <form id="edit-profile" class="form-horizontal" method="post" action="<?php echo base_url() . 'Controller_Customer/updateData'; ?>">
                               <fieldset>
                                  <div class="control-group">
                                     <label class="control-label" for="id">ID</label>
                                     <div class="controls">
-                                       <input type="text" class="span2" id="id" name="id" value="<?=$user_detail->id?>" readonly>
+                                       <input type="text" class="span2" id="id" name="id" value="<?=$customer_detail->id?>" readonly>
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
                                     <label class="control-label" for="email">Email</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="email" name="email" value="<?=$user_detail->email?>">
+                                       <input type="text" class="span3" id="email" name="email" value="<?=$customer_detail->email?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
                                     <label class="control-label" for="fullname">Fullname</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="fullname" name="fullname" value="<?=$user_detail->fullname?>">
+                                       <input type="text" class="span3" id="fullname" name="fullname" value="<?=$customer_detail->fullname?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
@@ -52,7 +52,7 @@
                                  <div class="control-group">
                                     <label class="control-label" for="phone">Phone Number</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="phone" name="phone" value="<?=$user_detail->phone?>">
+                                       <input type="text" class="span3" id="phone" name="phone" value="<?=$customer_detail->phone?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
@@ -60,7 +60,7 @@
                                  <div class="control-group">
                                     <label class="control-label" for="full_address">Full Address</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="full_address" name="full_address" value="<?=$user_detail->full_address?>">
+                                       <input type="text" class="span3" id="full_address" name="full_address" value="<?=$customer_detail->full_address?>">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
@@ -68,9 +68,9 @@
                                  <div class="control-group">
                                     <label class="control-label" for="active">Active Status</label>
                                     <div class="controls">
-                                       <?php if ($user_detail->active_status == 1) { ?>
+                                       <?php if ($customer_detail->active_status == 1) { ?>
                                        <input type="checkbox" name="active_status" id="active_status"  checked value="1">
-                                       <?php } else if ($user_detail->active_status == 0) { ?>
+                                       <?php } else if ($customer_detail->active_status == 0) { ?>
                                        <input type="checkbox" name="active_status" id="active_status" value="1">
                                        <?php } ?>
                                     </div>

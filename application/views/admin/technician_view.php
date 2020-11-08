@@ -17,41 +17,41 @@
                      <div class="widget widget-table action-table">
                         <div class="widget-header">
                            <i class="icon-th-list"></i>
-                           <h3>View User</h3>
+                           <h3>View Technician</h3>
                         </div>
                         <!-- /widget-header -->
                         <div class="widget-content">
                            <br><br>
                            <?php
-                             foreach ($data as $user_detail) {
+                             foreach ($data as $technician_detail) {
                            ?>
                            <form id="edit-profile" class="form-horizontal">
                               <fieldset>
                                  <div class="control-group">
                                     <label class="control-label" for="email">Email</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="email" name="email" value="<?=$user_detail->email?>" disabled="disabled">
+                                       <input type="text" class="span3" id="email" name="email" value="<?=$technician_detail->email?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
                                     <label class="control-label" for="fullname">Fullname</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="fullname" name="fullname" value="<?=$user_detail->fullname?>" disabled="disabled">
+                                       <input type="text" class="span3" id="fullname" name="fullname" value="<?=$technician_detail->fullname?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
                                     <label class="control-label" for="phone">Phone</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="phone" name="phone" value="<?=$user_detail->phone?>" disabled="disabled">
+                                       <input type="text" class="span3" id="phone" name="phone" value="<?=$technician_detail->phone?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
                                     <label class="control-label" for="full_address">Full Address</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="full_address" name="full_address" value="<?=$user_detail->full_address?>" disabled="disabled">
+                                       <input type="text" class="span3" id="full_address" name="full_address" value="<?=$technician_detail->full_address?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
@@ -59,14 +59,14 @@
                                  <div class="control-group">
                                     <label class="control-label" for="identity_number">Identity Number</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="identity_number" name="identity_number" value="<?=$user_detail->identity_number?>" disabled="disabled">
+                                       <input type="text" class="span3" id="identity_number" name="identity_number" value="<?=$technician_detail->identity_number?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
                                     <label class="control-label" for="bank_account_number">Bank Account Number</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="bank_account_number" name="bank_account_number" value="<?=$user_detail->bank_account_number?>" disabled="disabled">
+                                       <input type="text" class="span3" id="bank_account_number" name="bank_account_number" value="<?=$technician_detail->bank_account_number?>" disabled="disabled">
                                     </div>
                                     <!-- /controls -->       
                                  </div>
@@ -74,9 +74,9 @@
                                  <div class="control-group">
                                     <label class="control-label" for="active">Active Status</label>
                                     <div class="controls">
-                                       <?php if ($user_detail->active_status == 1) { ?>
+                                       <?php if ($technician_detail->active_status == 1) { ?>
                                        <input type="text" class="span3" id="active" name="active" value="Active" disabled="disabled">
-                                       <?php } else if ($user_detail->active_status == 0) { ?>
+                                       <?php } else if ($technician_detail->active_status == 0) { ?>
                                        <input type="text" class="span3" id="active" name="active" value="Inactive" disabled="disabled">
                                        <?php } ?>
                                     </div>
@@ -85,7 +85,7 @@
                                  <!-- /control-group -->
                                  <br />
                                  <div class="form-actions">
-                                    <a href="/Protech_BE/index.php/Controller_User" class="btn">Back</a>
+                                    <a href="/Protech_BE/index.php/Controller_Technician" class="btn">Back</a>
                                  </div>
                                  <!-- /form-actions -->
                               </fieldset>

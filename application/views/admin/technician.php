@@ -17,6 +17,7 @@
           <div class="widget widget-table action-table">
             <div class="widget-header"> <i class="icon-th-list"></i>
               <h3>Technician Master</h3>
+              <a class="btn btn-invert" href="/Protech_BE/index.php/Controller_Technician/createTechnician">+</a>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -33,20 +34,20 @@
                       <tbody>
                         <?php 
                           $no=0;
-                          foreach ($data as $list_user){
+                          foreach ($data as $list_technician){
                           $no++;
                         ?>
                           <tr>
                               <td><?=$no?></td>
-                              <td><?=$list_user->email?></td>
-                              <td><?=$list_user->fullname?></td>
+                              <td><?=$list_technician->email?></td>
+                              <td><?=$list_technician->fullname?></td>
                               <td style="text-align: center">
                                 <?php
-                                  if($list_user->active_status == '1'){
+                                  if($list_technician->active_status == '1'){
                                 ?>
                                     <button disabled="disabled" class="btn btn-success">Active</button>
                                 <?php
-                                  } elseif($list_user->active_status == '0'){
+                                  } elseif($list_technician->active_status == '0'){
                                 ?>
                                     <button disabled="disabled" class="btn btn-danger">Inactice</button>
                                 <?php
@@ -54,10 +55,10 @@
                                 ?>
                               </td>
                               <td style="text-align: center">
-                                 <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Technician/getOne/<?=$list_user->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                                 <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Technician/getOne/<?=$list_technician->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
                                   <i class="icon-eye-open"></i>
                                 </a>
-                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Customer/updateTechnician/<?=$list_user->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Customer/updateTechnician/<?=$list_technician->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                                   <i class="icon-pencil"></i>
                                 </a>
                               </td>

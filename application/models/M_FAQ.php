@@ -1,6 +1,6 @@
 <?php
 class M_FAQ extends CI_Model{
-	function getAllService(){
+	function getAllFAQ(){
 		$query = $this->db->get('tbl_faq');
 		return $query->result();
 	}
@@ -13,19 +13,32 @@ class M_FAQ extends CI_Model{
 		return $query->result();
 	}
 
+	public function getOneByQuestion($question) {
+		$this->db->select('*');
+		$this->db->from('tbl_faq');
+		$this->db->where('faq_question', $question);
+		$query = $this->db->get();
+		return $query->row()->id;
+	}
+
 	public function getNextSequenceId() {
 		$query=$this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_faq' and TABLE_SCHEMA = 'db_protech'");
 		return $query->row()->auto_value;
 		 
 	}
 
-	function inputData($serviceCode, $service_name, $service_desc){
-		$result=$this->db->query("INSERT INTO tbl_service(service_code, service_name, service_desc) VALUES ('$serviceCode','$service_name','$service_desc')");
+	function inputData($faqQuestion, $faqAnswer, $createdBy){
+		$result=$this->db->query("INSERT INTO tbl_faq(faq_question, faq_answer, created_by, created_datetime) VALUES ('$faqQuestion','$faqAnswer','$createdBy', now())");
 		return $result;
 	}
 
-	function updateData($serviceCode, $service_name, $service_desc, $active_status) {
-		$result=$this->db->query("UPDATE tbl_service SET service_name='$service_name', service_desc='$service_desc', active_status=$active_status WHERE service_code='$serviceCode'");
+	function updateData($id, $faqQuestion, $faqAnswer, $modifiedBy) {
+		$result=$this->db->query("UPDATE tbl_faq SET faq_question='$faqQuestion', faq_answer='$faqAnswer', modified_by='$modifiedBy', modified_datetime=now() WHERE id='$id'");
+		return $result;
+	}
+
+	function deleteData($id) {
+		$result=$this->db->query("DELETE FROM tbl_faq WHERE id='$id'");
 		return $result;
 	}
 }

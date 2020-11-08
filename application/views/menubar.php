@@ -19,6 +19,19 @@
             <li><a href="/Protech_BE/index.php/Controller_FAQ">FAQ</a></li>
           </ul>
         </li>
+        <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-money"></i><span>Transaction</span> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/Protech_BE/index.php/Controller_OrderHistory">Order History</a></li>
+            <li><a href="/Protech_BE/index.php/Controller_Payment">Payment</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-file"></i><span>Report</span> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/Protech_BE/index.php/Controller_IncomeReport">Income Report</a></li>
+            <li><a href="/Protech_BE/index.php/Controller_DisbursementReport">Disbursement Report</a></li>
+            <li><a href="/Protech_BE/index.php/Controller_AuditLog">Audit Log</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
     <!-- /container --> 

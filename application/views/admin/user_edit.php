@@ -17,7 +17,7 @@
                      <div class="widget widget-table action-table">
                         <div class="widget-header">
                            <i class="icon-th-list"></i>
-                           <h3>Update User</h3>
+                           <h3>Edit User</h3>
                         </div>
                         <!-- /widget-header -->
                         <div class="widget-content">

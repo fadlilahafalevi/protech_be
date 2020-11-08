@@ -16,7 +16,8 @@
         <div class="span12">
           <div class="widget widget-table action-table">
             <div class="widget-header"> <i class="icon-th-list"></i>
-              <h3>Customer Master</h3>
+              <h3>FAQ Master</h3>
+              <a class="btn btn-invert" href="/Protech_BE/index.php/Controller_FAQ/createFAQ">+</a>
             </div>
             <!-- /widget-header -->
             <div class="widget-content">
@@ -24,41 +25,30 @@
                       <thead>
                         <tr>
                           <th style="text-align: center">ID</th>
-                          <th style="text-align: center">Email</th>
-                          <th style="text-align: center">Customer Name</th>
-                          <th style="text-align: center">Status</th>
+                          <th style="text-align: center">Question</th>
+                          <th style="text-align: center">Answer</th>
                           <th style="text-align: center">Action</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php 
                           $no=0;
-                          foreach ($data as $list_customer){
+                          foreach ($data as $list_faq){
                           $no++;
                         ?>
                           <tr>
                               <td><?=$no?></td>
-                              <td><?=$list_customer->email?></td>
-                              <td><?=$list_customer->fullname?></td>
+                              <td><?=$list_faq->faq_question?></td>
+                              <td><?=$list_faq->faq_answer?></td>
                               <td style="text-align: center">
-                                <?php
-                                  if($list_customer->active_status == '1'){
-                                ?>
-                                    <button disabled="disabled" class="btn btn-success">Active</button>
-                                <?php
-                                  } elseif($list_customer->active_status == '0'){
-                                ?>
-                                    <button disabled="disabled" class="btn btn-danger">Inactice</button>
-                                <?php
-                                  }
-                                ?>
-                              </td>
-                              <td style="text-align: center">
-                                 <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Customer/getOne/<?=$list_customer->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                                 <a class="btn btn-info" href="/Protech_BE/index.php/Controller_FAQ/getOne/<?=$list_faq->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
                                   <i class="icon-eye-open"></i>
                                 </a>
-                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Customer/updateCustomer/<?=$list_customer->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                                 <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_FAQ/updateFAQ/<?=$list_faq->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                                   <i class="icon-pencil"></i>
+                                </a>
+                                 <a class="btn btn-danger" href="/Protech_BE/index.php/Controller_FAQ/deleteFAQ/<?=$list_faq->id?>" data-toggle="tooltip" title="Delete" style="padding: 4px">
+                                  <i class="icon-trash"></i>
                                 </a>
                               </td>
                           </tr>

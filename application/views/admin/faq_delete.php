@@ -17,45 +17,42 @@
                      <div class="widget widget-table action-table">
                         <div class="widget-header">
                            <i class="icon-th-list"></i>
-                           <h3>Edit Service</h3>
+                           <h3>Delete FAQ</h3>
                         </div>
                         <!-- /widget-header -->
                         <div class="widget-content">
                            <br><br>
                            <?php
-                             foreach ($data as $service_detail) {
+                             foreach ($data as $faq_detail) {
                            ?>
-                           <form id="edit-profile" class="form-horizontal" method="post" action="<?php echo base_url() . 'Controller_Service/updateData'; ?>">
+                           <form id="edit-faq" class="form-horizontal" method="post" action="<?php echo base_url() . 'Controller_FAQ/deleteData'; ?>">
                               <fieldset>
-                                 <div class="control-group">
-                                    <label class="control-label" for="service_code">Service Code</label>
+                                 <div class="control-group" hidden>
+                                    <label class="control-label" for="id">id</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="service_code" name="service_code" value="<?=$service_detail->service_code?>" readonly="readonly">
+                                       <input type="text" class="span2" id="id" name="id" value="<?=$faq_detail->id?>" readonly>
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
-                                    <label class="control-label" for="service_name">Service Name</label>
+                                    <label class="control-label" for="faq_question">Question</label>
                                     <div class="controls">
-                                       <input type="text" class="span3" id="service_name" name="service_name" value="<?=$service_detail->service_name?>">
+                                       <textarea type="text" class="span2" id="faq_question" name="faq_question" readonly="readonly"><?=$faq_detail->faq_question?></textarea>
                                     </div>
                                     <!-- /controls -->       
                                  </div>
                                  <div class="control-group">
-                                    <label class="control-label" for="active">Active Status</label>
+                                    <label class="control-label" for="faq_answer">Answer</label>
                                     <div class="controls">
-                                       <?php if ($service_detail->active_status == 1) { ?>
-                                       <input type="checkbox" name="active_status" id="active_status"  checked value="1">
-                                       <?php } else if ($service_detail->active_status == 0) { ?>
-                                       <input type="checkbox" name="active_status" id="active_status" value="1">
-                                       <?php } ?>
+                                       <textarea type="text" class="span2" id="faq_answer" name="faq_answer" readonly="readonly"><?=$faq_detail->faq_answer?></textarea>
                                     </div>
+                                    <!-- /controls -->       
                                  </div>
                                  <!-- /control-group -->
                                  <br />
                                  <div class="form-actions">
-                                    <button type="submit" class="btn btn-primary">Save</button>
-                                    <a href="/Protech_BE/index.php/Controller_Service" class="btn">Back</a>
+                                     <button type="submit" class="btn btn-danger">Delete</button> 
+                                    <a href="/Protech_BE/index.php/Controller_FAQ" class="btn">Back</a>
                                  </div>
                                  <!-- /form-actions -->
                               </fieldset>

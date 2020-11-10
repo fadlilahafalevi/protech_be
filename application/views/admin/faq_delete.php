@@ -44,7 +44,7 @@
                            </div>
                         </div>
                         <button type="submit" class="btn btn-danger">Delete</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_FAQ">Back</button>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_FAQ">Back</a>
                      </form>
                      <?php
                         }

@@ -37,7 +37,7 @@
                               <textarea type="text" class="form-control" id="faq_answer" name="faq_answer" readonly="readonly"><?=$faq_detail->faq_answer?></textarea>
                            </div>
                         </div>
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_FAQ">Back</button>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_FAQ">Back</a>
                      </form>
                      <?php
                         }

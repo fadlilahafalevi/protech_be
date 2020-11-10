@@ -24,10 +24,11 @@
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
-            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5" >
               <div class="brand-logo">
-                <img src="/Protech_BE/assets/images/logo.svg" alt="logo">
+                <img src="/Protech_BE/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 150px;" alt="logo">
               </div>
+              <br/>
               <h4>Hello! let's get started</h4>
               <h6 class="font-weight-light">Login to continue.</h6>
               <form class="pt-3" action="<?php echo base_url() . 'Controller_Login/cekuser' ?>" method="post">
@@ -42,7 +43,7 @@
                   <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">LOGIN</button>
                   <br/>
                   <center>
-                    <h5>Don't have an account? Register <a href="http://localhost/Protech_BE/Controller_Register" target="_blank">here </a></h5>
+                    <h5>Don't have an account? Register <a href="<?php echo base_url() . 'Controller_Customer/createCustomer' ?>" target="_blank">here </a></h5>
                   </center>
                 </div>
               </form>
@@ -57,6 +58,7 @@
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="/Protech_BE/assets/vendors/base/vendor.bundle.base.js"></script>
+
   <!-- endinject -->
   <!-- inject:js -->
   <script src="/Protech_BE/assets/js/off-canvas.js"></script>

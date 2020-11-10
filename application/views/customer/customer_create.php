@@ -15,12 +15,11 @@
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
-<?php require 'application/views/menubar.php'; ?>
 <div class="container-fluid page-body-wrapper">
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Edit Customer</h3>
+        <h3 class="page-title">Register</h3>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -28,71 +27,49 @@
           <div class="card">
             <div class="card-body">
                <h4 class="card-title"></h4>
-                     <?php
-                        foreach ($data as $customer_detail) {
-                     ?>
-                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/updateData'; ?>">
-                        <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$customer_detail->id?>">
-                           </div>
-                        </div>
+                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/saveData'; ?>">
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="email">Email</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="email" name="email" value="<?=$customer_detail->email?>">
+                              <input type="text" class="form-control" id="email" name="email">
                            </div>
                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="fullname">Fullname</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="fullname" name="fullname" value="<?=$customer_detail->fullname?>">
+                              <input type="text" class="form-control" id="fullname" name="fullname">
                            </div>
                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="phone">Phone</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$customer_detail->phone?>">
-                           </div>
-                        </div>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="active">Active Status</label>
-                           <div class="col-sm-9">
-                              <?php if ($customer_detail->active_status == 1) { ?>
-                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" checked value="1">
-                              <?php } else if ($customer_detail->active_status == 0) { ?>
-                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" value="0">
-                              <?php } ?>
+                              <input type="text" class="form-control" id="phone" name="phone">
                            </div>
                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="full_address">Full Address</label>
                            <div class="col-sm-9">
-                              <textarea type="text" class="form-control" id="full_address" name="full_address"><?=$customer_detail->full_address?></textarea>
+                              <textarea type="text" class="form-control" id="full_address" name="full_address" readonly="readonly"></textarea>
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="latitude" name="latitude" value="<?=$customer_detail->latitude?>" readonly="readonly">
+                              <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly">
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="longitude" name="longitude" value="<?=$customer_detail->longitude?>" readonly="readonly">
+                              <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly">
                            </div>
                         </div>
                         <input type="text" class="form-control" id="searchInput" name="searchInput">
                         <div id="map"></div>
                         <br/>
                         <button type="submit" class="btn btn-primary">Save</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Customer">Back</a>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Login">Back</a>
                      </form>
-                     <?php
-                        }
-                     ?>
                   </div>
                </div>
             </div>
@@ -104,9 +81,7 @@
 
 <script>
   function initialize() {
-    var lat = parseFloat(document.getElementById('latitude').value);
-    var long = parseFloat(document.getElementById('longitude').value);
-    var latlng = new google.maps.LatLng(lat, long);
+    var latlng = new google.maps.LatLng(-6.175392, 106.827153);
     var map = new google.maps.Map(document.getElementById('map'), {
         center: latlng,
         zoom: 15,

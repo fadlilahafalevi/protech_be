@@ -17,7 +17,11 @@ class Controller_Dashboard extends CI_Controller {
 			//$data['reportPenjualan']=$this->M_Grafik->graf_penjualan();
 			//$this->load->view('admin/dashboard',$data);
 			$this->load->view('admin/dashboard');
-		}else{
+		} else if($this->session->userdata('akses')=='2'){
+			$this->load->view('admin/dashboard');
+	    } else if($this->session->userdata('akses')=='3'){
+			$this->load->view('admin/dashboard');
+	    } else {
 	        echo "Halaman tidak ditemukan";
 	    }
 	}

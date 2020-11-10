@@ -59,7 +59,7 @@
                               <?php } ?>
                            </div>
                         </div>
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Customer">Back</button>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Customer">Back</a>
                      </form>
                      <?php
                         }

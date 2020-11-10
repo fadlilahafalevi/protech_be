@@ -28,7 +28,7 @@ class Controller_Login extends CI_Controller{
                 $this->session->set_userdata('id', $id);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
-            } elseif($xcadmin['role_id'] == '2'){ //kasir
+            } elseif($xcadmin['role_id'] == '2'){ //teknisi
                 $this->session->set_userdata('akses','2');
                 $id    = $xcadmin['id'];
                 $fullname  = $xcadmin['fullname'];
@@ -36,16 +36,27 @@ class Controller_Login extends CI_Controller{
                 $this->session->set_userdata('id', $id);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
-            } 
+            } elseif($xcadmin['role_id'] == '3'){ //customer
+                $this->session->set_userdata('akses','3');
+                $id    = $xcadmin['id'];
+                $fullname  = $xcadmin['fullname'];
+                $emailUser  = $xcadmin['email'];
+                $this->session->set_userdata('id', $id);
+                $this->session->set_userdata('fullname', $fullname);
+                $this->session->set_userdata('email', $emailUser);
+            }
         }
         
         if($this->session->userdata('masuk') == true){
             if($this->session->userdata('akses')=='1'){
                 redirect('Controller_Dashboard');
             } 
-            // else {
-            //     redirect('Controller_Penjualan');
-            // }
+            else if($this->session->userdata('akses')=='2') {
+                redirect('Controller_Dashboard');
+            }
+            else if($this->session->userdata('akses')=='3') {
+                redirect('Controller_Dashboard');
+            }
         }else{
             redirect('Controller_Login/login_failed');
         }

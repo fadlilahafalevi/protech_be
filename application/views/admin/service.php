@@ -59,8 +59,8 @@
                             <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$list_service->service_category_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-format-list-bulleted"></i>
                             </a>
-                            <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Service/updateService/<?=$list_service->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
-                              <i class="icon-pencil"></i>
+                            <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Service/updateServiceCategory/<?=$list_service->service_category_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                              <i class="mdi mdi-lead-pencil"></i>
                             </a>
                           </td>
                       </tr>

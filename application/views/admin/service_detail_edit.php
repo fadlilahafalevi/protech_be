@@ -1,113 +1,71 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>PROTECH</title>
-   </head>
-   <body>
-      <?php require 'application/views/header.php'; ?>
-      <?php require 'application/views/menubar.php'; ?>
-      <div class="main">
-         <div class="main-inner">
-            <div class="container">
-               <div class="row">
-                  <div class="span12">
-                     <div class="widget widget-table action-table">
-                        <div class="widget-header">
-                           <i class="icon-th-list"></i>
-                           <h3>View Service</h3>
-                        </div>
-                        <!-- /widget-header -->
-                        <div class="widget-content">
-                           <br><br>
-                           <?php
-                             foreach ($data as $service_detail) {
-                           ?>
-                           <form id="edit-profile" method="post" action="<?php echo base_url() . 'Controller_ServiceDetail/updateData'; ?>" enctype="multipart/form-data" class="form-horizontal">
-                              <fieldset>
-                                 <div class="control-group">
-                                    <label class="control-label" for="service_code">Service Code</label>
-                                    <div class="controls">
-                                       <select class="form-control" id="service_code" name="service_code">
-                                    <?php
-                                      foreach($list_service as $list_service) { 
-                                        if($list_service->service_code == $service_detail->service_code) { ?>
-                                          <option value="<?= $list_service->service_code; ?>" selected="true"><?= $list_service->service_code;?> - <?= $list_service->service_name;?></option>
-                                        <?php } else { ?>
-                                          <option value="<?= $list_service->service_code; ?>"><?= $list_service->service_code;?> - <?= $list_service->service_name;?></option>
-                                    <?php
-                                        }
-                                      } 
-                                    ?>
-                                  </select>
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="service_detail_code">Service Detail Code</label>
-                                    <div class="controls">
-                                       <input type="text" class="span3" id="service_detail_code" name="service_detail_code" value="<?=$service_detail->service_detail_code?>" readonly>
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="service_detail_name">Service Detail Name</label>
-                                    <div class="controls">
-                                       <input type="text" class="span3" id="service_detail_name" name="service_detail_name" value="<?=$service_detail->service_detail_name?>" >
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="price">Price</label>
-                                    <div class="controls">
-                                       <input type="text" class="span3" id="price" name="price" value="<?=$service_detail->price?>" >
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="icon">Icon</label>
-                                    <div class="controls">
-                                       <img src="data:<?php echo $service_detail->img_icon; ?>;base64,<?php echo $service_detail->img_icon; ?>" width="75">
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <div class="control-group">
-                                    <label class="control-label" for="active">Active Status</label>
-                                    <div class="controls">
-                                       <?php if ($service_detail->active_status == 1) { ?>
-                                       <input type="text" class="span3" id="active" name="active" value="Active" >
-                                       <?php } else if ($service_detail->active_status == 0) { ?>
-                                       <input type="text" class="span3" id="active" name="active" value="Inactive" >
-                                       <?php } ?>
-                                    </div>
-                                    <!-- /controls -->       
-                                 </div>
-                                 <!-- /control-group -->
-                                 <br />
-                                 <div class="form-actions">
-                                    <a href="/Protech_BE/index.php/Controller_ServiceDetail" class="btn">Back</a>
-                                 </div>
-                                 <!-- /form-actions -->
-                              </fieldset>
-                           </form>
-                              <?php
-                             }
-                           ?>
-                        </div>
-                        <!-- /widget-content --> 
-                     </div>
-                  </div>
-                  <!-- /span6 --> 
-               </div>
-               <!-- /row --> 
-            </div>
-            <!-- /container --> 
-         </div>
-         <!-- /main-inner --> 
+<head>
+   <!-- Required meta tags -->
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <title>PROTECH</title>
+</head>
+<body>
+<?php require 'application/views/header.php'; ?>
+<?php require 'application/views/menubar.php'; ?>
+<div class="container-fluid page-body-wrapper">
+  <div class="main-panel">
+    <div class="content-wrapper pb-0">
+      <div class="page-header">
+        <h3 class="page-title">Edit Service Detail</h3>
       </div>
-      <?php require 'application/views/extra.php'; ?>
-      <?php require 'application/views/footer.php'; ?>
-   </body>
+      <!-- first row starts here -->
+      <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+               <h4 class="card-title"></h4>
+                     <?php
+                        foreach ($data as $service_detail) {
+                     ?>
+                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Service/updateDataDetail'; ?>">
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="id" name="id" value="<?=$service_detail->id?>">
+                           </div>
+                        </div>
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="service_category_code">Service Category Code</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="service_category_code" name="service_category_code" value="<?=$service_detail->service_category_code?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="service_detail_name">Service Detail Name</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="service_detail_name" name="service_detail_name" value="<?=$service_detail->service_detail_name?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="active">Active Status</label>
+                           <div class="col-sm-9">
+                              <?php if ($service_detail->active_status == 1) { ?>
+                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" checked value="1">
+                              <?php } else if ($service_detail->active_status == 0) { ?>
+                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" value="0">
+                              <?php } ?>
+                           </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save</button> 
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$service_detail->service_category_code?>">Back</button>
+                     </form>
+                     <?php
+                        }
+                     ?>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<?php require 'application/views/footer.php'; ?>
+</body>
 </html>

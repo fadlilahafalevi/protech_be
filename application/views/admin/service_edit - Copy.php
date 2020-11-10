@@ -13,7 +13,7 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Edit Service Category</h3>
+        <h3 class="page-title">Edit Admin</h3>
       </div>
       <!-- first row starts here -->
       <div class="row">

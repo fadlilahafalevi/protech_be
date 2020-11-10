@@ -35,6 +35,7 @@ class Controller_Service extends CI_Controller{
 			$data['code'] = $code;
 			if (isset($code)) {
 				$data['data'] = $this->M_Service->getAllServiceTypeByDetail($code);
+				$data['detail'] = $this->M_Service->getServiceDetailByCode($code);
 			}
 
 			$this->load->view('admin/service_type', $data);
@@ -50,33 +51,40 @@ class Controller_Service extends CI_Controller{
 		}
 	}
 
-	public function createServiceDetail() {
+	public function createServiceDetail($code = '') {
 		if($this->session->userdata('akses')=='1'){
 			$this->load->model("M_Service");
 
-			$data['list_service'] = $this->M_Service->getAllServiceCategory();
+			if (isset($code)) {
+				$data['category'] = $this->M_Service->getServiceCategoryByCode($code);
+			}
 
 			$this->load->view('admin/service_detail_create', $data);
 
 		}
 	}
 
-	public function createServiceType() {
+	public function createServiceType($code = '') {
 		if($this->session->userdata('akses')=='1'){
+			$this->load->model("M_Service");
 
-			$this->load->view('admin/service_type_create');
+			// if (isset($code)) {
+				$data['detail'] = $this->M_Service->getServiceDetailByCode($code);
+			// }
+
+			$this->load->view('admin/service_type_create', $data);
 
 		}
 	}
 
-	public function updateService($id = '') {
+	public function updateServiceCategory($code = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Service");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$listData = $this->M_Service->getOneById($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_Service->getServiceCategoryByCode($code);
 				$data['data'] = $listData;
 				
 				foreach ($listData as $field) {
@@ -87,7 +95,53 @@ class Controller_Service extends CI_Controller{
 				}
 			}
 
-			$this->load->view('admin/service_category_edit', $data);
+			$this->load->view('admin/service_edit', $data);
+
+		}
+	}
+
+	public function updateServiceDetail($code = '') {
+		if($this->session->userdata('akses')=='1'){
+
+			$this->load->model("M_Service");
+
+			$data['code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_Service->getServiceDetailByCode($code);
+				$data['data'] = $listData;
+				
+				foreach ($listData as $field) {
+					$active_status = $field->active_status;
+					if ($active_status == 1) {
+						$data['checked'] = "checked";
+					}
+				}
+			}
+
+			$this->load->view('admin/service_detail_edit', $data);
+
+		}
+	}
+
+	public function updateServiceType($code = '') {
+		if($this->session->userdata('akses')=='1'){
+
+			$this->load->model("M_Service");
+
+			$data['code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_Service->getServiceTypeByCode($code);
+				$data['data'] = $listData;
+				
+				foreach ($listData as $field) {
+					$active_status = $field->active_status;
+					if ($active_status == 1) {
+						$data['checked'] = "checked";
+					}
+				}
+			}
+
+			$this->load->view('admin/service_edit', $data);
 
 		}
 	}
@@ -118,50 +172,76 @@ class Controller_Service extends CI_Controller{
 		}
 	}
 
-	public function saveDataDetail() {
-		$this->load->model("M_ServiceDetail");
-	
-		if ($this->session->userdata('akses') == '1') {
-
-			$nextId =  $this->M_ServiceDetail->getNextSequenceId('tbl_service_detail');
-			$nextSeq = sprintf("%02d", $nextId);
-			$serviceDetailCode = "SD".$nextSeq;
-			$icon = "";
-
-			$service_code		 	=	$this->input->post('service_code');
-			$service_detail_name 	=	$this->input->post('service_detail_name');
-			$price					=	$this->input->post('price');
-			
-			$config['upload_path']          = './assets/img/icon-uploaded/';
-			$config['allowed_types']        = 'jpeg|jpg|png';
-			$config['max_size']             = 3000;
-			$this->load->library('upload', $config);
-			if ( ! $this->upload->do_upload('icon')) {
-				$error = array('error' => $this->upload->display_errors());
-				$this->createServiceDetail($error);
-			} else {
-				$image_data = $this->upload->data();
-				$imgdata 	= file_get_contents($image_data['full_path']);
-				$icon 		= base64_encode($imgdata);
-				$this->M_ServiceDetail->inputData($serviceDetailCode, $service_code, $service_detail_name, $price, $icon);
-				redirect('Controller_ServiceDetail');
-			}
-			$data = [ 'service_category_code' => $service_category_code,
-			'service_category_name'  => $service_category_name,
-			'active_status' => '1'
-			];
-
-		}
-	}
-
-	public function updateData() {
+	public function saveDataDetail($service_category_code) {
 		$this->load->model("M_Service");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$service_category_code = $this->input->post('service_category_code');
+			$nextId =  $this->M_Service->getNextSequenceId('tbl_service_detail');
+			$nextSeq = sprintf("%02d", $nextId);
+			$serviceDetailCode = "SD".$nextSeq;
+			$icon = "";
+
+			$service_detail_name = $this->input->post('service_detail_name');
+			
+			$config['upload_path']          = './assets/img/icon-uploaded/';
+			$config['allowed_types']        = 'jpeg|jpg|png';
+			$config['max_size']             = 3000;
+			$this->load->library('upload', $config);
+			$this->upload->do_upload('icon');
+
+			$data = [ 'service_category_code' => $service_category_code,
+			'service_detail_code' => $serviceDetailCode,
+			'service_detail_name'  => $service_detail_name,
+			'active_status' => '1'
+			];
+
+			$this->M_Service->inputData('tbl_service_detail', $data);
+			$this->M_Metadata->createMeta('tbl_service_detail', $nextId, $this->session->userdata('fullname'));
+			$this->R_AuditLogging->insertLog('Service Detail', 'CREATE', $this->session->userdata('email'));
+			redirect('Controller_Service/getAllServiceDetailByCategory/'.$service_category_code);
+		}
+	}
+
+	public function saveDataType($service_detail_code) {
+		$this->load->model("M_Service");
+		$this->load->model("M_Metadata");
+		$this->load->model("R_AuditLogging");
+	
+		if ($this->session->userdata('akses') == '1') {
+
+			$nextId = $this->M_Service->getNextSequenceId('tbl_service_type');
+			$nextSeq = sprintf("%02d", $nextId);
+			$service_type_code = "ST".$nextSeq;
+
+			$service_type_name 	=	$this->input->post('service_type_name');
+			$price 	=	$this->input->post('price');
+
+			$data = [ 'service_detail_code' => $service_detail_code,
+			'service_type_code' => $service_type_code,
+			'service_type_name'  => $service_type_name,
+			'price'  => $price,
+			'active_status' => '1'
+			];
+
+			$this->M_Service->inputData('tbl_service_type', $data);
+			$this->M_Metadata->createMeta('tbl_service_type', $nextId, $this->session->userdata('fullname'));
+			$this->R_AuditLogging->insertLog('Service Type', 'CREATE', $this->session->userdata('email'));
+
+			redirect('Controller_Service/getAllServiceTypeByDetail/'.$service_detail_code);
+		}
+	}
+
+	public function updateDataCategory() {
+		$this->load->model("M_Service");
+		$this->load->model("M_Metadata");
+		$this->load->model("R_AuditLogging");
+	
+		if ($this->session->userdata('akses') == '1') {
+
+			$id = $this->input->post('id');
 			$service_category_name = $this->input->post('service_category_name');
 			$active_status = $this->input->post('active_status');
 
@@ -169,12 +249,71 @@ class Controller_Service extends CI_Controller{
 				$active_status = 0;
 			}
 
-			$this->M_Service->updateData($service_category_code, $service_category_name, $active_status);
-			$id = $this->M_Admin->getOneByCode($service_category_code);
+			$data = [ 'service_category_name'  => $service_category_name,
+			'active_status' => $active_status
+			];
+
+			$this->M_Service->updateData('tbl_service_category', $data, $id);
 			$this->M_Metadata->updateMeta('tbl_service_category', $id, $this->session->userdata('fullname'));
 			$this->R_AuditLogging->insertLog('Service Category', 'UPDATE', $this->session->userdata('email'));
 
 			redirect('Controller_Service');
+		}
+	}
+
+	public function updateDataDetail() {
+		$this->load->model("M_Service");
+		$this->load->model("M_Metadata");
+		$this->load->model("R_AuditLogging");
+	
+		if ($this->session->userdata('akses') == '1') {
+
+			$id = $this->input->post('id');
+			$service_detail_name = $this->input->post('service_detail_name');
+			$active_status = $this->input->post('active_status');
+
+			if ($active_status != 1) {
+				$active_status = 0;
+			}
+
+			$data = [ 'service_detail_name'  => $service_detail_name,
+			'active_status' => $active_status
+			];
+
+			$this->M_Service->updateData('tbl_service_detail', $data, $id);
+			$this->M_Metadata->updateMeta('tbl_service_detail', $id, $this->session->userdata('fullname'));
+			$this->R_AuditLogging->insertLog('Service Detail', 'UPDATE', $this->session->userdata('email'));
+
+			redirect('Controller_Service/getAllServiceDetailByCategory/'.$service_category_code);
+		}
+	}
+
+	public function updateDataType() {
+		$this->load->model("M_Service");
+		$this->load->model("M_Metadata");
+		$this->load->model("R_AuditLogging");
+	
+		if ($this->session->userdata('akses') == '1') {
+
+			$id = $this->input->post('id');
+			$service_type_name = $this->input->post('service_type_name');
+			$price = $this->input->post('price');
+			$active_status = $this->input->post('active_status');
+
+			if ($active_status != 1) {
+				$active_status = 0;
+			}
+
+			$data = [ 'service_type_name'  => $service_type_name,
+			'price' => $price,
+			'active_status' => $active_status
+			];
+
+			$this->M_Service->updateData('tbl_service_type', $data, $id);
+			$this->M_Metadata->updateMeta('tbl_service_type', $id, $this->session->userdata('fullname'));
+			$this->R_AuditLogging->insertLog('Service Type', 'UPDATE', $this->session->userdata('email'));
+
+			redirect('Controller_Service/getAllServiceTypeByDetail/'.$service_detail_code);
 		}
 	}
 }

@@ -30,9 +30,11 @@ class M_Service extends CI_Model{
 	}
 
 	public function getServiceDetailByCode($code){
-		$this->db->select('*');
-		$this->db->from('tbl_service_detail');
-		$this->db->where('service_detail_code', $code);
+		$this->db->select('d.*, c.service_category_name');
+		$this->db->from('tbl_service_detail d');
+		$this->db->join('tbl_service_category c', 'c.service_category_code = d.service_category_code', 'left');
+		$this->db->where('d.service_detail_code', $code);
+		$query = $this->db->get();
 		return $query->result();
 	}
 
@@ -55,6 +57,6 @@ class M_Service extends CI_Model{
 	}
 
 	function updateData($tblName, $data, $id) {
-		return $this->db->update('$tblName', $data, "id = $id");
+		return $this->db->update($tblName, $data, "id = $id");
 	}
 }

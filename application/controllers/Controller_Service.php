@@ -68,9 +68,9 @@ class Controller_Service extends CI_Controller{
 		if($this->session->userdata('akses')=='1'){
 			$this->load->model("M_Service");
 
-			// if (isset($code)) {
+			if (isset($code)) {
 				$data['detail'] = $this->M_Service->getServiceDetailByCode($code);
-			// }
+			}
 
 			$this->load->view('admin/service_type_create', $data);
 
@@ -141,7 +141,7 @@ class Controller_Service extends CI_Controller{
 				}
 			}
 
-			$this->load->view('admin/service_edit', $data);
+			$this->load->view('admin/service_type_edit', $data);
 
 		}
 	}
@@ -186,15 +186,24 @@ class Controller_Service extends CI_Controller{
 
 			$service_detail_name = $this->input->post('service_detail_name');
 			
-			$config['upload_path']          = './assets/img/icon-uploaded/';
+			$config['upload_path']          = './assets/uploaded-icon/';
 			$config['allowed_types']        = 'jpeg|jpg|png';
 			$config['max_size']             = 3000;
 			$this->load->library('upload', $config);
-			$this->upload->do_upload('icon');
+			if ( ! $this->upload->do_upload('icon')) {
+				$error = array('error' => $this->upload->display_errors());
+				$error['category'] = $this->M_Service->getServiceCategoryByCode($service_category_code);
+				$this->load->view('admin/service_detail_create', $error);
+			} else {
+				$image_data = $this->upload->data();
+				$imgdata = file_get_contents($image_data['full_path']);
+				$icon=base64_encode($imgdata);
+			}
 
 			$data = [ 'service_category_code' => $service_category_code,
 			'service_detail_code' => $serviceDetailCode,
 			'service_detail_name'  => $service_detail_name,
+			'icon' => $icon,
 			'active_status' => '1'
 			];
 
@@ -296,6 +305,7 @@ class Controller_Service extends CI_Controller{
 		if ($this->session->userdata('akses') == '1') {
 
 			$id = $this->input->post('id');
+			$service_detail_code = $this->input->post('service_detail_code');
 			$service_type_name = $this->input->post('service_type_name');
 			$price = $this->input->post('price');
 			$active_status = $this->input->post('active_status');

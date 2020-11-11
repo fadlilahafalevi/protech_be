@@ -166,7 +166,7 @@ class Controller_Service extends CI_Controller{
 
 			$this->M_Service->inputData('tbl_service_category', $data);
 			$this->M_Metadata->createMeta('tbl_service_category', $nextId, $this->session->userdata('fullname'));
-			$this->M_AuditLogging->insertLog('Service Category', 'CREATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('Service Category', 'CREATE', $this->session->userdata('email'));
 
 			redirect('Controller_Service');
 		}

@@ -6,6 +6,9 @@ class Controller_Service extends CI_Controller{
 		if($this->session->userdata('akses')=='1'){
 			$data['data']=$this->M_Service->getAllServiceCategory();
 			$this->load->view('admin/service',$data);
+		} else if($this->session->userdata('akses')=='3'){
+			$data['list_service_category']=$this->M_Service->getAllServiceCategory();
+			$this->load->view('customer/service_list',$data);
 		}else{
 	        echo "Halaman tidak ditemukan";
 	    }

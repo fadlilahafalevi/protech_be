@@ -55,7 +55,7 @@ class Controller_Login extends CI_Controller{
                 redirect('Controller_Dashboard');
             }
             else if($this->session->userdata('akses')=='3') {
-                redirect('Controller_Dashboard');
+                redirect('Controller_Service');
             }
         }else{
             redirect('Controller_Login/login_failed');

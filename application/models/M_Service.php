@@ -2,6 +2,19 @@
 class M_Service extends CI_Model{
 	public function getAllServiceCategory(){
 		$query = $this->db->get('tbl_service_category');
+		$return = array();
+
+		foreach ($query->result() as $category) {
+			$return[$category->service_category_code] = $category;
+			$return[$category->service_category_code]->subs = $this->getAllServiceDetailByCategory($category->service_category_code);
+		}
+		return $return;
+	}
+
+	public function getAllServiceDetail() {
+		$this->db->select('*');
+		$this->db->from('tbl_service_detail');
+		$query = $this->db->get();
 		return $query->result();
 	}
 

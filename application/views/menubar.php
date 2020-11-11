@@ -7,13 +7,13 @@
 <nav class="bottom-navbar">
           <div class="container">
             <ul class="nav page-navigation">
-              <li class="nav-item">
-                <a class="nav-link" href="/Protech_BE/index.php/Controller_Dashboard">
-                  <i class="mdi mdi-compass-outline menu-icon"></i>
-                  <span class="menu-title">Dashboard</span>
-                </a>
-              </li>
               <?php if($this->session->userdata('akses')=='1') { ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Dashboard">
+                    <i class="mdi mdi-compass-outline menu-icon"></i>
+                    <span class="menu-title">Dashboard</span>
+                  </a>
+                </li>
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="mdi mdi-format-list-bulleted menu-icon"></i>
@@ -81,6 +81,12 @@
               <?php } ?>
               <?php if($this->session->userdata('akses')=='2') { ?>
                 <li class="nav-item">
+                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Dashboard">
+                    <i class="mdi mdi-compass-outline menu-icon"></i>
+                    <span class="menu-title">Dashboard</span>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/listOrderHistory">
                     <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                     <span class="menu-title">Order</span>
@@ -95,7 +101,7 @@
               <?php } ?>
               <?php if($this->session->userdata('akses')=='3') { ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Service/listService">
+                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Service">
                     <i class="mdi mdi-sitemap menu-icon"></i>
                     <span class="menu-title">Service</span>
                   </a>

@@ -52,9 +52,10 @@ class M_Service extends CI_Model{
 	}
 
 	public function getServiceTypeByCode($code) {
-		$this->db->select('*');
-		$this->db->from('tbl_service_type');
-		$this->db->where('service_type_code', $code);
+		$this->db->select('t.*, d.service_detail_name');
+		$this->db->from('tbl_service_type t');
+		$this->db->join('tbl_service_detail d', 'd.service_detail_code = t.service_detail_code', 'left');
+		$this->db->where('t.service_type_code', $code);
 		$query = $this->db->get();
 		return $query->result();
 	}

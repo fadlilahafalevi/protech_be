@@ -45,6 +45,14 @@
                               <label class="col-sm-3 col-form-label" for="Icon">Icon</label>
                               <div class="col-sm-9">
                                  <input type="file" class="span3" id="icon" name="icon">
+                                 <?php 
+                                  if(isset($error))
+                                  {
+                                      echo "ERROR UPLOAD : <br/>";
+                                      print_r($error);
+                                      echo "<hr/>";
+                                  }
+                                 ?>
                               </div>
                            </div>
                            <button type="submit" class="btn btn-primary">Save</button>

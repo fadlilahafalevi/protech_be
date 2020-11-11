@@ -13,7 +13,7 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Edit Admin</h3>
+        <h3 class="page-title">Edit Service Type</h3>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -24,19 +24,36 @@
                      <?php
                         foreach ($data as $service_detail) {
                      ?>
-                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Service/updateDataCategory'; ?>">
+                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Service/updateDataType'; ?>">
                         <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="id">ID</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="id" name="id" value="<?=$service_detail->id?>">
                            </div>
                         </div>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="service_category_name">Service Category Name</label>
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="service_detail_code">Service Detail Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="service_category_name" name="service_category_name" value="<?=$service_detail->service_category_name?>">
+                              <input type="text" class="form-control" id="service_detail_code" name="service_detail_code" value="<?=$service_detail->service_detail_code?>">
                            </div>
                         </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="service_type_name">Service Type Name</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="service_type_name" name="service_type_name" value="<?=$service_detail->service_type_name?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label" for="price">Price</label>
+                            <div class="col-sm-9">
+                                  <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text bg-primary text-white">Rp.</span>
+                                  </div>
+                                  <input type="text" class="form-control" id="price" name="price" value="<?=$service_detail->price?>">
+                                </div>
+                            </div>
+                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="active">Active Status</label>
                            <div class="col-sm-9">
@@ -48,7 +65,7 @@
                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service">Back</button>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service/getAllServiceTypeByDetail/<?=$service_detail->service_detail_code?>">Back</button>
                      </form>
                      <?php
                         }

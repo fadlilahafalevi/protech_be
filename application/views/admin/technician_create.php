@@ -65,13 +65,13 @@
                               <textarea type="text" class="form-control" id="full_address" name="full_address" readonly="readonly"></textarea>
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly">
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly">

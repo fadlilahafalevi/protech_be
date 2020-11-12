@@ -5,6 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>PROTECH</title>
+  <style type="text/css">
+    .ellipsis {
+        max-width: 100px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+  </style>
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
@@ -39,8 +47,8 @@
                     ?>
                       <tr>
                           <td><?=$no?></td>
-                          <td><?=$list_faq->faq_question?></td>
-                          <td><?=$list_faq->faq_answer?></td>
+                          <td class="ellipsis"><?=$list_faq->faq_question?></td>
+                          <td class="ellipsis"><?=$list_faq->faq_answer?></td>
                           <td style="text-align: center">
                             <a class="btn btn-info" href="/Protech_BE/index.php/Controller_FAQ/getOne/<?=$list_faq->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>

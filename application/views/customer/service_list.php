@@ -8,6 +8,7 @@
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
+<?php require 'application/views/menubar.php'; ?>
 <div class="container-fluid page-body-wrapper">
   <div class="main-panel">
     <div class="content-wrapper pb-0">

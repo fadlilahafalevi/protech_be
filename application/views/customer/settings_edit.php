@@ -20,7 +20,7 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Edit Customer</h3>
+        <h3 class="page-title">Settings</h3>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -29,66 +29,76 @@
             <div class="card-body">
                <h4 class="card-title"></h4>
                      <?php
-                        foreach ($data as $customer_detail) {
+                        foreach ($data as $user_detail) {
                      ?>
-                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/updateData'; ?>">
+                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Settings/updateData'; ?>">
                         <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="id">ID</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$customer_detail->id?>">
+                              <input type="text" class="form-control" id="id" name="id" value="<?=$user_detail->id?>">
                            </div>
                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="email">Email</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="email" name="email" value="<?=$customer_detail->email?>">
+                              <input type="text" class="form-control" id="email" name="email" value="<?=$user_detail->email?>" readonly="readonly">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="password">New Password</label>
+                           <div class="col-sm-9">
+                              <input type="password" class="form-control" id="password" name="password">
                            </div>
                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="fullname">Fullname</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="fullname" name="fullname" value="<?=$customer_detail->fullname?>">
+                              <input type="text" class="form-control" id="fullname" name="fullname" value="<?=$user_detail->fullname?>">
                            </div>
                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="phone">Phone</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$customer_detail->phone?>">
+                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$user_detail->phone?>">
                            </div>
                         </div>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="active">Active Status</label>
-                           <div class="col-sm-9">
-                              <?php if ($customer_detail->active_status == 1) { ?>
-                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" checked value="1">
-                              <?php } else if ($customer_detail->active_status == 0) { ?>
-                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" value="1">
-                              <?php } ?>
-                           </div>
-                        </div>
+                        <?php if ($this->session->userdata('akses')=='2') { ?>
+                          <div class="form-group row">
+                             <label class="col-sm-3 col-form-label" for="identity_number">Identity Number</label>
+                             <div class="col-sm-9">
+                                <input type="text" class="form-control" id="identity_number" name="identity_number" value="<?=$user_detail->identity_number?>">
+                             </div>
+                          </div>
+                          <div class="form-group row">
+                             <label class="col-sm-3 col-form-label" for="bank_account_number">Bank Account Number</label>
+                             <div class="col-sm-9">
+                                <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" value="<?=$user_detail->bank_account_number?>">
+                             </div>
+                          </div>
+                        <?php } ?>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="full_address">Full Address</label>
                            <div class="col-sm-9">
-                              <textarea type="text" class="form-control" id="full_address" name="full_address"><?=$customer_detail->full_address?></textarea>
+                              <textarea type="text" class="form-control" id="full_address" name="full_address" readonly="readonly"><?=$user_detail->full_address?></textarea>
                            </div>
                         </div>
                         <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="latitude" name="latitude" value="<?=$customer_detail->latitude?>" readonly="readonly">
+                              <input type="text" class="form-control" id="latitude" name="latitude" value="<?=$user_detail->latitude?>" readonly="readonly">
                            </div>
                         </div>
                         <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="longitude" name="longitude" value="<?=$customer_detail->longitude?>" readonly="readonly">
+                              <input type="text" class="form-control" id="longitude" name="longitude" value="<?=$user_detail->longitude?>" readonly="readonly">
                            </div>
                         </div>
                         <input type="text" class="form-control" id="searchInput" name="searchInput">
                         <div id="map"></div>
                         <br/>
                         <button type="submit" class="btn btn-primary">Save</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Customer">Back</a>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Settings">Back</a>
                      </form>
                      <?php
                         }

@@ -1,28 +1,50 @@
 <?php
 class Controller_Order extends CI_Controller{
 	function index(){
-        $this->load->model('M_Technician');
+        $this->load->model('T_Order');
         
 		if($this->session->userdata('akses')=='1'){
-			$data['data']=$this->M_Technician->getAllTechnician();
-			$this->load->view('admin/technician',$data);
-		}else{
+			$data['data']=$this->T_Order->getAllOrder();
+			$this->load->view('admin/order',$data);
+		}else if($this->session->userdata('akses')=='2'){
+			$data['data']=$this->T_Order->getAllOrder();
+			$this->load->view('customer/order',$data);
+	    }else if($this->session->userdata('akses')=='3'){
+			$data['data']=$this->T_Order->getAllOrder();
+			$this->load->view('customer/order',$data);
+	    }else {
 	        echo "Halaman tidak ditemukan";
 	    }
 	}
 
 	public function getOne($id='') {
 		if($this->session->userdata('akses')=='1'){
-
-			$this->load->model("M_Technician");
+			$this->load->model("T_Order");
 
 			$data['id'] = $id;
 			if (isset($id)) {
-				$data['data'] = $this->M_Technician->getOneById($id);
+				$data['data'] = $this->T_Order->getOneById($id);
 			}
 
-			$this->load->view('admin/technician_view', $data);
+			$this->load->view('admin/order_view', $data);
+		} else if($this->session->userdata('akses')=='2'){
+			$this->load->model("T_Order");
 
+			$data['id'] = $id;
+			if (isset($id)) {
+				$data['data'] = $this->T_Order->getOneById($id);
+			}
+
+			$this->load->view('customer/order_view', $data);
+		} else if($this->session->userdata('akses')=='3'){
+			$this->load->model("T_Order");
+
+			$data['id'] = $id;
+			if (isset($id)) {
+				$data['data'] = $this->T_Order->getOneById($id);
+			}
+
+			$this->load->view('customer/order_view', $data);
 		}
 	}
 
@@ -35,7 +57,7 @@ class Controller_Order extends CI_Controller{
 	}
 
 	public function saveData() {
-		$this->load->model("M_Technician");
+		$this->load->model("T_Order");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
 	
@@ -52,12 +74,12 @@ class Controller_Order extends CI_Controller{
 			$latitude =	$this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$active_status = '1';
-			$this->M_Technician->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status);
-			$idData = $this->M_Technician->getOneByEmail($email);
-			$this->M_Metadata->createMeta('tbl_technician', $idData, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('TECHNICIAN', 'CREATE', $this->session->userdata('email'));
+			$this->T_Order->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status);
+			$idData = $this->T_Order->getOneByEmail($email);
+			$this->M_Metadata->createMeta('tbl_order', $idData, $this->session->userdata('fullname'));
+			$this->R_AuditLogging->insertLog('ORDER', 'CREATE', $this->session->userdata('email'));
 
-			redirect('Controller_Technician');
+			redirect('Controller_Order');
 		}
 	}
 }

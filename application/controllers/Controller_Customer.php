@@ -59,7 +59,7 @@ class Controller_Customer extends CI_Controller{
 		$this->load->model("R_AuditLogging");
 	
 		$email = $this->input->post('email');
-		$password = 'password';
+		$password = $this->input->post('password');
 		$role_id = '3';
 		$fullname = $this->input->post('fullname');
 		$phone = $this->input->post('phone');

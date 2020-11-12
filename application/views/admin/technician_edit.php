@@ -74,7 +74,7 @@
                               <?php if ($technician_detail->active_status == 1) { ?>
                                  <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" checked value="1">
                               <?php } else if ($technician_detail->active_status == 0) { ?>
-                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" value="0">
+                                 <input class="form-check-input" type="checkbox" class="form-control" id="active_status" name="active_status" value="1">
                               <?php } ?>
                            </div>
                         </div>
@@ -84,13 +84,13 @@
                               <textarea type="text" class="form-control" id="full_address" name="full_address"><?=$technician_detail->full_address?></textarea>
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="latitude" name="latitude" value="<?=$technician_detail->latitude?>" readonly="readonly">
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="longitude" name="longitude" value="<?=$technician_detail->longitude?>" readonly="readonly">

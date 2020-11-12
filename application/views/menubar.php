@@ -93,6 +93,12 @@
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a class="nav-link" href="/Protech_BE/index.php/Controller_FAQ">
+                    <i class="mdi mdi-settings menu-icon"></i>
+                    <span class="menu-title">FAQ</span>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a class="nav-link" href="/Protech_BE/index.php/Controller_Settings">
                     <i class="mdi mdi-settings menu-icon"></i>
                     <span class="menu-title">Settings</span>
@@ -110,6 +116,12 @@
                   <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/listOrderHistory">
                     <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                     <span class="menu-title">Order</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Protech_BE/index.php/Controller_FAQ">
+                    <i class="mdi mdi-settings menu-icon"></i>
+                    <span class="menu-title">FAQ</span>
                   </a>
                 </li>
                 <li class="nav-item">

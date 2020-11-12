@@ -6,7 +6,10 @@ class Controller_FAQ extends CI_Controller{
 		if($this->session->userdata('akses')=='1'){
 			$data['data']=$this->M_FAQ->getAllFAQ();
 			$this->load->view('admin/faq',$data);
-		}else{
+		} else if($this->session->userdata('akses')=='2' || $this->session->userdata('akses')=='3'){
+			$data['data']=$this->M_FAQ->getAllFAQ();
+			$this->load->view('customer/faq',$data);
+		} else{
 	        echo "Halaman tidak ditemukan";
 	    }
 	}

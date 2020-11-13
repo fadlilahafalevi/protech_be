@@ -13,7 +13,7 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Create Service Detail</h3>
+        <h3 class="page-title">Create Service Type</h3>
       </div>
       <div class="page-header">
         <?php

@@ -17,7 +17,7 @@
                      <div class="widget widget-table action-table">
                         <div class="widget-header">
                            <i class="icon-th-list"></i>
-                           <h3>View Service</h3>
+                           <h3>View Service Detail</h3>
                         </div>
                         <!-- /widget-header -->
                         <div class="widget-content">

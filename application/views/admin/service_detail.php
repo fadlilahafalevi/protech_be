@@ -17,8 +17,10 @@
           foreach ($category as $category) {
         ?>
         <h3 class="page-title"><?=$category->service_category_code?> - <?=$category->service_category_name?></h3>
-        
-        <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Service/createServiceDetail/<?=$category->service_category_code?>">Create</a>
+        <div class="template-demo">
+          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Service">Back to Service Category</a>
+          <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Service/createServiceDetail/<?=$category->service_category_code?>">Create</a>
+        </div>
         <?php
         }
         ?>

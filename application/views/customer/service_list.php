@@ -33,7 +33,7 @@
                             if($list_service_category->service_category_code == $list_service_detail->service_category_code)
                             {
                         ?>
-                          <a class="dropdown-item" href="/Protech_BE/index.php/Controller_Order/createOrder"><?=$list_service_detail->service_detail_name?></a>
+                          <a class="dropdown-item" href="/Protech_BE/index.php/Controller_Order/createOrder"><?=$list_service_detail->service_detail_name?> <i class="mdi mdi-code-greater-than float-right"></i></a>
                         <?php } } ?>
                     </div>
                   </div>

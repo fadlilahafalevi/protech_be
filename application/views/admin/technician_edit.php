@@ -115,8 +115,8 @@
                               ?>
                             <div class="form-check form-check-flat form-check-primary">
                               <input type="checkbox" name="<?=$list_detail->service_detail_code?>" value="<?=$list_detail->service_detail_code?>" <?=$checkbox?> > <?=$list_detail->service_detail_name?>
-                           <?php } ?>
                             </div>
+                           <?php } ?>
                           <?php } ?>
                         </div>
                         </div>

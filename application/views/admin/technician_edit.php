@@ -99,6 +99,25 @@
                         <input type="text" class="form-control" id="searchInput" name="searchInput">
                         <div id="map"></div>
                         <br/>
+
+                        <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Service</h4>
+                          <?php 
+                            foreach ($list_service_category as $list_service_category){
+                          ?>
+                            <h4 class="card-title"><?=$list_service_category->service_category_name?></h4>
+                            <?php 
+                            foreach ($list_service_category->subs as $list_service_detail){
+                              if($list_service_category->service_category_code == $list_service_detail->service_category_code) {
+                            ?>
+                            <div class="form-check form-check-flat form-check-primary">
+                              <input type="checkbox" name="<?=$list_service_detail->service_detail_code?>" value="<?=$list_service_detail->service_detail_code?>"> <?=$list_service_detail->service_detail_name?>
+                            </div>
+                          <?php } } } ?>
+                        </div>
+                        </div>
+                        <br>
                         <button type="submit" class="btn btn-primary">Save</button> 
                         <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Technician">Back</a>
                      </form>

@@ -26,10 +26,14 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function createTechnician() {
+	public function createTechnician($error = '') {
 		if($this->session->userdata('akses')=='1'){
 
-			$this->load->view('admin/technician_create');
+			if (isset($error)) {
+				$this->load->view('admin/technician_create', $error);
+			} else {
+				$this->load->view('admin/technician_create');
+			}
 
 		}
 	}
@@ -38,11 +42,13 @@ class Controller_Technician extends CI_Controller{
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Technician");
+			$this->load->model("M_Service");
 
 			$data['id'] = $id;
 			if (isset($id)) {
 				$listData = $this->M_Technician->getOneById($id);
 				$data['data'] = $listData;
+				$data['list_service_category']=$this->M_Service->getAllServiceCategory();
 				
 				foreach ($listData as $field) {
 					$active_status = $field->active_status;
@@ -64,6 +70,20 @@ class Controller_Technician extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1') {
 
+			$pass_photo = "";
+			$config['upload_path']          = './assets/uploaded-image/';
+			$config['allowed_types']        = 'jpeg|jpg|png';
+			$config['max_size']             = 3000;
+			$this->load->library('upload', $config);
+			if ( ! $this->upload->do_upload('pass_photo')) {
+				$error = array('error' => $this->upload->display_errors());
+				redirect('/Controller_Technician/createTechnician/'.$error);
+			} else {
+				$image_data = $this->upload->data();
+				$imgdata = file_get_contents($image_data['full_path']);
+				$pass_photo=base64_encode($imgdata);
+			}
+
 			$email = $this->input->post('email');
 			$password = 'password';
 		    $role_id = '2';
@@ -75,7 +95,7 @@ class Controller_Technician extends CI_Controller{
 			$latitude =	$this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$active_status = '1';
-			$this->M_Technician->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status);
+			$this->M_Technician->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status, $pass_photo);
 			$idData = $this->M_Technician->getOneByEmail($email);
 			$this->M_Metadata->createMeta('tbl_technician', $idData, $this->session->userdata('fullname'));
 			$this->R_AuditLogging->insertLog('TECHNICIAN', 'CREATE', $this->session->userdata('email'));
@@ -88,6 +108,7 @@ class Controller_Technician extends CI_Controller{
 		$this->load->model("M_Technician");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_Service");
 	
 		if ($this->session->userdata('akses') == '1') {
 
@@ -104,6 +125,18 @@ class Controller_Technician extends CI_Controller{
 
 			if ($active_status != 1) {
 				$active_status = 0;
+			}
+
+			$listDetailService = $this->M_Service->getAllServiceDetail();
+			foreach ($listDetailService as $service) {
+				$code = $service->service_detail_code;
+				$service_detail_code = $this->input->post($code);
+				$data = [ 'service_detail_code' => $service_detail_code,
+				'user_id'  => $id
+				];
+				if (isset($service_detail_code)) {
+					$this->M_Technician->insertServiceRef($data);
+				}
 			}
 
 			$this->M_Technician->updateData($id, $email, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status);

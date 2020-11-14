@@ -48,11 +48,34 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function createOrder() {
+	public function createOrder($serviceDetailCode = '') {
 		if($this->session->userdata('akses')=='3'){
-			$this->load->view('customer/order_create');
+
+			$this->load->model("M_Service");
+			
+			if(isset($serviceDetailCode)) {
+				$data['data'] = $this->M_Service->getServiceDetailByCode($serviceDetailCode);
+				$this->load->view('customer/order_create_location', $data);
+			}
+
 		} else {
 			redirect('Controller_Login');
+		}
+	}
+
+	public function searchTechnician() {
+		if ($this->session->userdata('akses') == '3') {
+			$this->load->model("M_Order");
+			$latitude =	$this->input->post('latitude');
+			$longitude = $this->input->post('longitude');
+			$service_detail_code = $this->input->post('service_detail_code');
+			$data['order_ordertime'] = $this->input->post('order_ordertime');
+			$data['fix_ordertime'] = $this->input->post('fix_ordertime');
+			$data['service_detail_code'] = $this->input->post('service_detail_code');
+			$data['service'] = $this->input->post('service');
+			$data['full_address'] = $this->input->post('full_address');
+			$data['data'] = $this->M_Order->searchTechnician($latitude, $longitude, $service_detail_code);
+			$this->load->view('customer/order_result_technician', $data);
 		}
 	}
 

@@ -23,6 +23,9 @@ class M_Technician extends CI_Model{
 		return $query->row()->id;
 	}
 
+	function insertServiceRef($data) {
+		return $this->db->insert('tbl_service_ref', $data);
+	}
 	public function getDataTechnicianByEmail($email) {
 		$this->db->select('*');
 		$this->db->from('tbl_technician');

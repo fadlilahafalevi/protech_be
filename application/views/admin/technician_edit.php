@@ -104,17 +104,20 @@
                         <div class="card-body">
                           <h4 class="card-title">Service</h4>
                           <?php 
-                            foreach ($list_service_category as $list_service_category){
+                            foreach ($list_checked_service_detail as $list_checked_service_detail){
                           ?>
-                            <h4 class="card-title"><?=$list_service_category->service_category_name?></h4>
-                            <?php 
-                            foreach ($list_service_category->subs as $list_service_detail){
-                              if($list_service_category->service_category_code == $list_service_detail->service_category_code) {
-                            ?>
+                           <h4 class="card-title"><?=$list_checked_service_detail->service_category_name?></h4>
+                           <?php foreach ($list_checked_service_detail->subs as $list_detail) {
+                              $checkbox = "";
+                              if($list_detail->is_checked == 1){
+                                 $checkbox = "checked";
+                              }
+                              ?>
                             <div class="form-check form-check-flat form-check-primary">
-                              <input type="checkbox" name="<?=$list_service_detail->service_detail_code?>" value="<?=$list_service_detail->service_detail_code?>"> <?=$list_service_detail->service_detail_name?>
+                              <input type="checkbox" name="<?=$list_detail->service_detail_code?>" value="<?=$list_detail->service_detail_code?>" <?=$checkbox?> > <?=$list_detail->service_detail_name?>
+                           <?php } ?>
                             </div>
-                          <?php } } } ?>
+                          <?php } ?>
                         </div>
                         </div>
                         <br>

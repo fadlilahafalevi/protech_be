@@ -19,6 +19,7 @@ class Controller_Technician extends CI_Controller{
 			$data['id'] = $id;
 			if (isset($id)) {
 				$data['data'] = $this->M_Technician->getOneById($id);
+				$data['list_checked_service_detail'] = $this->M_Technician->getCheckedServiceByTechID($id);
 			}
 
 			$this->load->view('admin/technician_view', $data);
@@ -48,7 +49,7 @@ class Controller_Technician extends CI_Controller{
 			if (isset($id)) {
 				$listData = $this->M_Technician->getOneById($id);
 				$data['data'] = $listData;
-				$data['list_service_category']=$this->M_Service->getAllServiceCategory();
+				$data['list_checked_service_detail'] = $this->M_Technician->getCheckedServiceByTechID($id);
 				
 				foreach ($listData as $field) {
 					$active_status = $field->active_status;

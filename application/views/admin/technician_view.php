@@ -77,6 +77,27 @@
                               <?php } ?>
                            </div>
                         </div>
+                        <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Service</h4>
+                          <?php 
+                            foreach ($list_checked_service_detail as $list_checked_service_detail){
+                          ?>
+                           <h4 class="card-title"><?=$list_checked_service_detail->service_category_name?></h4>
+                           <?php foreach ($list_checked_service_detail->subs as $list_detail) {
+                              $checkbox = "";
+                              if($list_detail->is_checked == 1){
+                                 $checkbox = "checked";
+                              }
+                              ?>
+                            <div class="form-check form-check-flat form-check-primary">
+                              <input type="checkbox" name="<?=$list_detail->service_detail_code?>" value="<?=$list_detail->service_detail_code?>" <?=$checkbox?> disabled="disabled"> <?=$list_detail->service_detail_name?>
+                           <?php } ?>
+                            </div>
+                          <?php } ?>
+                        </div>
+                        </div>
+                        <br>
                         <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Technician">Back</a>
                      </form>
                      <?php

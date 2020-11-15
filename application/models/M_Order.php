@@ -14,10 +14,15 @@ class M_Order extends CI_Model{
 		return $query->result();
 	}
 
-	public function getNextSequenceId() {
-		$query=$this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_service_detail' and TABLE_SCHEMA = 'db_protech'");
+	public function getOrderId() {
+		$query=$this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'-',(SELECT LPAD((SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_order' and TABLE_SCHEMA = 'db_protech'), 4, '0'))) as auto_value");
 		return $query->row()->auto_value;
 		 
+	}
+
+	public function checkUniqueNumber($unique_number) {
+		$query=$this->db->query("SELECT count(*) as unique_number from tbl_payment_unique_code where unique_number = '$unique_number'");
+		return $query->row()->unique_number;
 	}
 
 	function inputData($serviceDetailCode, $service_code, $tbl_service_detail_name, $price, $img_icon){

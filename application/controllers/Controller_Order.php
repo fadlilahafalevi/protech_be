@@ -74,8 +74,35 @@ class Controller_Order extends CI_Controller{
 			$data['service_detail_code'] = $this->input->post('service_detail_code');
 			$data['service'] = $this->input->post('service');
 			$data['full_address'] = $this->input->post('full_address');
+			$data['longitude'] = $this->input->post('longitude');
+			$data['latitude'] = $this->input->post('latitude');
 			$data['data'] = $this->M_Order->searchTechnician($latitude, $longitude, $service_detail_code);
 			$this->load->view('customer/order_result_technician', $data);
+		}
+	}
+
+	public function confirmOrder($technician_id, $full_address, $latitude, $longitude, $order_ordertime, $fix_ordertime, $service, $service_detail_code) {
+		if ($this->session->userdata('akses') == '3') {
+			$this->load->model("M_Order");
+			$this->load->model("M_Customer");
+
+			$data['order_id'] = $this->M_Order->getOrderId();
+			$data['customer'] = $this->M_Customer->getOneByEmail($this->session->userdata('email'));
+			$data['full_address'] = $full_address;
+			$data['longitude'] = $longitude;
+			$data['latitude'] = $latitude;
+			$data['order_ordertime'] = $order_ordertime;
+			$data['fix_ordertime'] = $fix_ordertime;
+			$data['service'] = $service;
+			$data['service_detail_code'] = $service_detail_code;
+			$data['fee'] = '10000';
+
+			do {
+				$unique_number = rand(3, 3);
+				$isExist = $this->M_Order->checkUniqueNumber($unique_number);
+			} while ($isExist > 0);
+			$data['unique_number'] = $unique_number;
+			$this->load->view('customer/order_confirmation', $data);
 		}
 	}
 

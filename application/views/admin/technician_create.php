@@ -63,14 +63,6 @@
                         <label class="col-sm-3 col-form-label" for="pass_photo">Pass Photo</label>
                           <div class="col-sm-9">
                             <input type="file" class="span3" id="pass_photo" name="pass_photo">
-                            <?php 
-                            if(isset($error))
-                            {
-                            echo "ERROR UPLOAD : <br/>";
-                            print_r($error);
-                            echo "<hr/>";
-                            }
-                            ?>
                           </div>
                         </div>
                         <div class="form-group row">
@@ -93,7 +85,23 @@
                         </div>
                         <input type="text" class="form-control" id="searchInput" name="searchInput">
                         <div id="map"></div>
-                        <br/>
+
+                        <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Service</h4>
+                          <?php 
+                            foreach ($list_service_detail as $list_service_detail){
+                          ?>
+                           <h4 class="card-title"><?=$list_service_detail->service_category_name?></h4>
+                           <?php foreach ($list_service_detail->subs as $list_detail) { ?>
+                            <div class="form-check form-check-flat form-check-primary">
+                              <input type="checkbox" name="<?=$list_detail->service_detail_code?>" value="<?=$list_detail->service_detail_code?>" > <?=$list_detail->service_detail_name?>
+                            </div>
+                           <?php } ?>
+                          <?php } ?>
+                        </div>
+                        </div>
+                        <br>
                         <button type="submit" class="btn btn-primary">Save</button> 
                         <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Technician">Back</a>
                      </form>

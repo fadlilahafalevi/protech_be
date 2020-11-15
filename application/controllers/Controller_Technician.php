@@ -27,15 +27,12 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function createTechnician($error = '') {
+	public function createTechnician() {
+		$this->load->model("M_Service");
 		if($this->session->userdata('akses')=='1'){
+			$data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
 
-			if (isset($error)) {
-				$this->load->view('admin/technician_create', $error);
-			} else {
-				$this->load->view('admin/technician_create');
-			}
-
+			$this->load->view('admin/technician_create', $data);
 		}
 	}
 
@@ -66,6 +63,7 @@ class Controller_Technician extends CI_Controller{
 
 	public function saveData() {
 		$this->load->model("M_Technician");
+		$this->load->model("M_Service");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
 	
@@ -97,7 +95,21 @@ class Controller_Technician extends CI_Controller{
 			$longitude = $this->input->post('longitude');
 			$active_status = '1';
 			$this->M_Technician->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status, $pass_photo);
+
 			$idData = $this->M_Technician->getOneByEmail($email);
+
+			$listDetailService = $this->M_Service->getAllServiceDetail();
+			foreach ($listDetailService as $service) {
+				$code = $service->service_detail_code;
+				$service_detail_code = $this->input->post($code);
+				$data = [ 'service_detail_code' => $service_detail_code,
+				'user_id'  => $idData
+				];
+				if (isset($service_detail_code)) {
+					$this->M_Technician->insertServiceRef($data);
+				}
+			}
+			
 			$this->M_Metadata->createMeta('tbl_technician', $idData, $this->session->userdata('fullname'));
 			$this->R_AuditLogging->insertLog('TECHNICIAN', 'CREATE', $this->session->userdata('email'));
 
@@ -128,6 +140,8 @@ class Controller_Technician extends CI_Controller{
 				$active_status = 0;
 			}
 
+
+			$this->M_Technician->deleteServiceRef($id);
 			$listDetailService = $this->M_Service->getAllServiceDetail();
 			foreach ($listDetailService as $service) {
 				$code = $service->service_detail_code;

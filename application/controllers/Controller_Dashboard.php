@@ -12,11 +12,13 @@ class Controller_Dashboard extends CI_Controller {
 	}
 	
 	function index(){
+        $this->load->model('T_Order');
 		if($this->session->userdata('akses')=='1'){
-			//$data['report']=$this->M_Grafik->statistik_stok();
-			//$data['reportPenjualan']=$this->M_Grafik->graf_penjualan();
-			//$this->load->view('admin/dashboard',$data);
-			$this->load->view('admin/dashboard');
+			$data['waiting_payment']=$this->T_Order->countWaitingPaymentStatus();
+			$data['in_progress']=$this->T_Order->countInProgressStatus();
+			$data['finished']=$this->T_Order->countFinishedStatus();
+			$data['canceled']=$this->T_Order->countCanceledStatus();
+			$this->load->view('admin/dashboard',$data);
 		} else if($this->session->userdata('akses')=='2'){
 			$this->load->view('admin/dashboard');
 	    } else if($this->session->userdata('akses')=='3'){

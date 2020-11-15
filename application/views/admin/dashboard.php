@@ -17,8 +17,44 @@
       </div>
       <!-- first row starts here -->
       <div class="row">
+        <div class="col-sm-6 col-xl-4 stretch-card grid-margin">
+                <div class="card color-card-wrapper">
+                  <div class="card-body">
+                    <img class="img-fluid card-top-img w-100" src="../assets/images/dashboard/img_5.jpg" alt="" />
+                    <div class="d-flex flex-wrap justify-content-around color-card-outer">
+                      <div class="col-6 p-0 mb-4">
+                        <div class="color-card primary m-auto">
+                          <i class="mdi mdi-clock-outline"></i>
+                          <p class="font-weight-semibold mb-0">Waiting Payment</p>
+                          <span class="small"><b><?= $waiting_payment ?></b> Orders</span>
+                        </div>
+                      </div>
+                      <div class="col-6 p-0 mb-4">
+                        <div class="color-card bg-info m-auto">
+                          <i class="mdi mdi-wrench"></i>
+                          <p class="font-weight-semibold mb-0">In Progress</p>
+                          <span class="small"><b><?= $in_progress ?></b> Orders</span>
+                        </div>
+                      </div>
+                      <div class="col-6 p-0">
+                        <div class="color-card bg-success m-auto">
+                          <i class="mdi mdi-check-circle"></i>
+                          <p class="font-weight-semibold mb-0">Finished</p>
+                          <span class="small"><b><?= $finished ?></b> Orders</span>
+                        </div>
+                      </div>
+                      <div class="col-6 p-0">
+                        <div class="color-card bg-danger m-auto">
+                          <i class="mdi mdi-close-circle"></i>
+                          <p class="font-weight-semibold mb-0">Canceled</p>
+                          <span class="small"><b><?= $canceled ?></b> Orders</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
       </div>
-    </div>
   </div>
 </div>
 

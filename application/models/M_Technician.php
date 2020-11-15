@@ -66,4 +66,9 @@ class M_Technician extends CI_Model{
 		$result=$this->db->query("UPDATE `tbl_technician` SET  password=md5('$password')  WHERE id = '$id'");
 		return $result;
 	}
+
+	function deleteServiceRef($user_id){
+		$this->db->where('user_id', $user_id);
+		$this->db->delete('tbl_service_ref');
+	}
 }

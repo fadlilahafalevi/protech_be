@@ -16,7 +16,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="/Protech_BE/assets/css/demo_2/style.css" />
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="/Protech_BE/assets/images/favicon1.png" />
+    <link rel="shortcut icon" href="/Protech_BE/assets/images/logo_mini.png" />
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="/Protech_BE/assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
 </head>
@@ -28,9 +28,7 @@
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
               <a class="navbar-brand brand-logo" href="/Protech_BE">
                 <img src="/Protech_BE/assets/images/logo.png" alt="logo" />
-                <!-- <span class="font-12 d-block font-weight-light">Responsive Dashboard </span> -->
               </a>
-              <a class="navbar-brand brand-logo-mini" href="/Protech_BE"><img src="/Protech_BE/assets/images/logo.png" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
               <ul class="navbar-nav mr-lg-2">

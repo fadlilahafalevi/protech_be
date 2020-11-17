@@ -15,7 +15,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="/Protech_BE/assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/Protech_BE/assets/images/favicon.png" />
+  <link rel="shortcut icon" href="/Protech_BE/assets/images/logo_mini.png" />
 </head>
 
 <body>
@@ -26,11 +26,13 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" >
               <div class="brand-logo">
-                <img src="/Protech_BE/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 150px;" alt="logo">
+                <img src="/Protech_BE/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
               </div>
               <br/>
-              <h4>Hello! let's get started</h4>
-              <h6 class="font-weight-light">Login to continue.</h6>
+              <center>
+                <h4>Hello! Let's get started</h4>
+                <h6 class="font-weight-light">Login to continue.</h6>
+              </center>
               <form class="pt-3" action="<?php echo base_url() . 'Controller_Login/cekuser' ?>" method="post">
                 <div class="form-group">
                   <input type="text" name="email" class="form-control form-control-lg" id="email" placeholder="Email">

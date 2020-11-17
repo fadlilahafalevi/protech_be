@@ -71,9 +71,12 @@ class Controller_Order extends CI_Controller{
 			$service_detail_code = $this->input->post('service_detail_code');
 			$data['order_ordertime'] = $this->input->post('order_ordertime');
 			$data['fix_ordertime'] = $this->input->post('fix_ordertime');
+			$data['encoded_order_ordertime'] = base64_encode ( $this->input->post('order_ordertime') );
+			$data['encoded_fix_ordertime'] = base64_encode ( $this->input->post('fix_ordertime') );
 			$data['service_detail_code'] = $this->input->post('service_detail_code');
 			$data['service'] = $this->input->post('service');
 			$data['full_address'] = $this->input->post('full_address');
+			$data['encoded_full_address'] = base64_encode ( $this->input->post('full_address') );
 			$data['longitude'] = $this->input->post('longitude');
 			$data['latitude'] = $this->input->post('latitude');
 			$data['data'] = $this->M_Order->searchTechnician($latitude, $longitude, $service_detail_code);
@@ -81,20 +84,24 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function confirmOrder($technician_id, $full_address, $latitude, $longitude, $order_ordertime, $fix_ordertime, $service, $service_detail_code) {
+	public function confirmOrder($technician_id, $encoded_full_address, $latitude, $longitude, $encoded_order_ordertime, $encoded_fix_ordertime, $service, $service_detail_code) {
 		if ($this->session->userdata('akses') == '3') {
 			$this->load->model("M_Order");
 			$this->load->model("M_Customer");
+			$this->load->model("M_Technician");
+			$this->load->model("M_Service");
 
 			$data['order_id'] = $this->M_Order->getOrderId();
-			$data['customer'] = $this->M_Customer->getOneByEmail($this->session->userdata('email'));
-			$data['full_address'] = $full_address;
+			$data['email'] = $this->session->userdata('email');
+			$data['technician'] = $this->M_Technician->getOneById($technician_id);
+			$data['customer'] = $this->M_Customer->getDataCustomerByEmail($this->session->userdata('email'));
+			$data['full_address'] = base64_decode ( $encoded_full_address );
 			$data['longitude'] = $longitude;
 			$data['latitude'] = $latitude;
-			$data['order_ordertime'] = $order_ordertime;
-			$data['fix_ordertime'] = $fix_ordertime;
-			$data['service'] = $service;
-			$data['service_detail_code'] = $service_detail_code;
+			$data['technician_id'] = $technician_id;
+			$data['order_ordertime'] = base64_decode( $encoded_order_ordertime );
+			$data['fix_ordertime'] = base64_decode( $encoded_fix_ordertime );
+			$data['service'] = $this->M_Service->getServiceDetailByCode($service_detail_code);
 			$data['fee'] = '10000';
 
 			do {
@@ -102,6 +109,25 @@ class Controller_Order extends CI_Controller{
 				$isExist = $this->M_Order->checkUniqueNumber($unique_number);
 			} while ($isExist > 0);
 			$data['unique_number'] = $unique_number;
+			$this->load->view('customer/order_confirmation', $data);
+		}
+	}
+
+	public function inputOrder() {
+		if ($this->session->userdata('akses') == '3') {
+			$this->load->model("M_Order");
+
+			$order_code = $this->input->post('order_code');
+			$customer_id = $this->input->post('customer_id');
+			$latitude = $this->input->post('latitude');
+			$longitude = $this->input->post('longitude');
+			$address = $this->input->post('full_address');
+			$order_ordertime = $this->input->post('order_ordertime');
+			$fix_ordertime = $this->input->post('fix_ordertime');
+			$technician_id =	$this->input->post('technician_id');
+			$service_detail_code =	$this->input->post('service_detail_code');
+			$total_amount =	$this->input->post('fee');
+
 			$this->load->view('customer/order_confirmation', $data);
 		}
 	}

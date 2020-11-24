@@ -22,26 +22,26 @@ class Controller_Login extends CI_Controller{
             
             if($xcadmin['role_id'] == '1'){ //admin
                 $this->session->set_userdata('akses', '1');
-                $id    = $xcadmin['id'];
+                $code    = $xcadmin['code'];
                 $fullname  = $xcadmin['fullname'];
                 $emailUser  = $xcadmin['email'];
-                $this->session->set_userdata('id', $id);
+                $this->session->set_userdata('code', $code);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
             } elseif($xcadmin['role_id'] == '2'){ //teknisi
                 $this->session->set_userdata('akses','2');
-                $id    = $xcadmin['id'];
+                $code    = $xcadmin['code'];
                 $fullname  = $xcadmin['fullname'];
                 $emailUser  = $xcadmin['email'];
-                $this->session->set_userdata('id', $id);
+                $this->session->set_userdata('code', $code);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
             } elseif($xcadmin['role_id'] == '3'){ //customer
                 $this->session->set_userdata('akses','3');
-                $id    = $xcadmin['id'];
+                $code    = $xcadmin['code'];
                 $fullname  = $xcadmin['fullname'];
                 $emailUser  = $xcadmin['email'];
-                $this->session->set_userdata('id', $id);
+                $this->session->set_userdata('code', $code);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
             }

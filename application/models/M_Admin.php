@@ -24,14 +24,14 @@ class M_Admin extends CI_Model{
 	}
 
 	public function getNextSequenceId() {
-		$query=$this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_user' and TABLE_SCHEMA = 'db_protech'");
-		return $query->row()->auto_value;
+		$query=$this->db->query("SELECT concat('A', CONVERT( LPAD((last_code+1), 2, 0), varchar(10)) ) as next_code from tbl_user_role where role_name = 'Admin'");
+		return $query->row()->next_code;
 		 
 	}
 
-	function inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $active_status){
-		$result=$this->db->query("INSERT INTO tbl_admin(email, password, role_id, fullname, phone, full_address, identity_number, active_status) 
-			VALUES ('$email', md5('$password'), '$role_id', '$fullname', '$phone', '$full_address', '$identity_number', $active_status)");
+	function inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $active_status, $admin_code){
+		$result=$this->db->query("INSERT INTO tbl_admin(email, password, role_id, fullname, phone, full_address, identity_number, active_status, admin_code) 
+			VALUES ('$email', md5('$password'), '$role_id', '$fullname', '$phone', '$full_address', '$identity_number', $active_status, '$admin_code')");
 		return $result;
 	}
 

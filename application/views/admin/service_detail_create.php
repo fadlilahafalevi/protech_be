@@ -29,19 +29,13 @@
                <h4 class="card-title"></h4>
                     <form id="edit-profile" method="post" action="<?php echo base_url();?>Controller_Service/saveDataDetail/<?php echo $category->service_category_code;?>" enctype="multipart/form-data" class="form-horizontal">
                         <fieldset>
-                          <div class="form-group row" hidden>
-                              <label class="col-sm-3 col-form-label" for="service_detail_name">ID</label>
-                              <div class="col-sm-9">
-                                 <input type="text" class="form-control" id="service_detail_name" name="service_detail_name">
-                              </div>
-                           </div>
                            <div class="form-group row">
                               <label class="col-sm-3 col-form-label" for="service_detail_name">Service Detail Name</label>
                               <div class="col-sm-9">
                                  <input type="text" class="form-control" id="service_detail_name" name="service_detail_name">
                               </div>
                            </div>
-                           <div class="form-group row">
+                           <!-- <div class="form-group row">
                               <label class="col-sm-3 col-form-label" for="Icon">Icon</label>
                               <div class="col-sm-9">
                                  <input type="file" class="span3" id="icon" name="icon">
@@ -54,7 +48,7 @@
                                   }
                                  ?>
                               </div>
-                           </div>
+                           </div> -->
                            <button type="submit" class="btn btn-primary">Save</button>
                            <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$category->service_category_code?>" class="btn">Back</a>
                         </fieldset>

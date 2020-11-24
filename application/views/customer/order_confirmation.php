@@ -47,11 +47,12 @@
                            </div>
                         </div>
                         <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="customer_id">Customer ID</label>
+                           <label class="col-sm-3 col-form-label" for="customer_code">Customer Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="customer_id" name="customer_id" value="<?=$customer->id?>" readonly="readonly">
+                              <input type="text" class="form-control" id="customer_code" name="customer_code" value="<?=$customer->customer_code?>" readonly="readonly">
                            </div>
                         </div>
+
                         <?php } ?>
 
                         <div class="form-group row" hidden>
@@ -74,15 +75,15 @@
                            </div>
                         </div>
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="order_ordertime">Order Datetime</label>
+                           <label class="col-sm-3 col-form-label" for="order_datetime">Order Datetime</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="order_ordertime" name="order_ordertime" value="<?php echo $order_ordertime?>" readonly="readonly"/>
+                              <input type="text" class="form-control" id="order_datetime" name="order_datetime" value="<?php echo $order_datetime?>" readonly="readonly"/>
                            </div>
                         </div>
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="fix_ordertime">Fixing Datetime</label>
+                           <label class="col-sm-3 col-form-label" for="fix_datetime">Fixing Datetime</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="fix_ordertime" name="fix_ordertime" value="<?php echo $fix_ordertime?>" readonly="readonly"/>
+                              <input type="text" class="form-control" id="fix_datetime" name="fix_datetime" value="<?php echo $fix_datetime?>" readonly="readonly"/>
                            </div>
                         </div>
 
@@ -96,9 +97,9 @@
                            </div>
                         </div>
                         <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="technician_id">Technician ID</label>
+                           <label class="col-sm-3 col-form-label" for="technician_code">Technician Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="technician_id" name="technician_id" value="<?=$technician->id?>" readonly="readonly">
+                              <input type="text" class="form-control" id="technician_code" name="technician_code" value="<?=$technician->technician_code?>" readonly="readonly">
                            </div>
                         </div>
                         <?php } ?>
@@ -124,6 +125,13 @@
                            <label class="col-sm-3 col-form-label" for="fee">Fee</label>
                            <div class="col-sm-9">
                               <input type="number" class="form-control" id="fee" name="fee" value="10000" readonly="readonly">
+                           </div>
+                        </div>
+
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="unique_number">Fee</label>
+                           <div class="col-sm-9">
+                              <input type="number" class="form-control" id="unique_number" name="unique_number" value="<?php echo $unique_number?>" readonly="readonly">
                            </div>
                         </div>
                         <br/>

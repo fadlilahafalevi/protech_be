@@ -25,7 +25,6 @@
                 <table class="table table-bordered data-table">
                   <thead>
                     <tr>
-                      <th style="text-align: center">ID</th>
                       <th style="text-align: center">Service Code</th>
                       <th style="text-align: center">Service Name</th>
                       <th style="text-align: center">Status</th>
@@ -39,7 +38,6 @@
                       $no++;
                     ?>
                       <tr>
-                          <td><?=$no?></td>
                           <td><?=$list_service->service_category_code?></td>
                           <td><?=$list_service->service_category_name?></td>
                           <td style="text-align: center">

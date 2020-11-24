@@ -7,10 +7,10 @@ class M_Technician extends CI_Model{
 		return $query->result();
 	}
 
-	public function getOneById($id) {
+	public function getOneById($code) {
 		$this->db->select('*');
 		$this->db->from('tbl_technician');
-		$this->db->where('id', $id);
+		$this->db->where('technician_code', $code);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -43,7 +43,7 @@ class M_Technician extends CI_Model{
 	}
 
 	public function getCheckedServiceDetailByTechID($service_category_code, $id) {
-        $query=$this->db->query("select	sc.service_category_name, sr.is_checked, sd.* from tbl_service_detail sd left join tbl_service_category sc on sc.service_category_code = sd.service_category_code left join (select *, 1 as 'is_checked' from tbl_service_ref where user_id = $id) sr on sr.service_detail_code = sd.service_detail_code where sd.service_category_code = '$service_category_code'");
+        $query=$this->db->query("select	sc.service_category_name, sr.is_checked, sd.* from tbl_service_detail sd left join tbl_service_category sc on sc.service_category_code = sd.service_category_code left join (select *, 1 as 'is_checked' from tbl_service_ref where technician_code = '$id') sr on sr.service_detail_code = sd.service_detail_code where sd.service_category_code = '$service_category_code'");
         return $query->result();
 	}
 
@@ -67,8 +67,8 @@ class M_Technician extends CI_Model{
 		return $result;
 	}
 
-	function deleteServiceRef($user_id){
-		$this->db->where('user_id', $user_id);
+	function deleteServiceRef($technician_code){
+		$this->db->where('technician_code', $technician_code);
 		$this->db->delete('tbl_service_ref');
 	}
 }

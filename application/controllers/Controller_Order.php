@@ -69,10 +69,14 @@ class Controller_Order extends CI_Controller{
 			$latitude =	$this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$service_detail_code = $this->input->post('service_detail_code');
-			$data['order_ordertime'] = $this->input->post('order_ordertime');
-			$data['fix_ordertime'] = $this->input->post('fix_ordertime');
-			$data['encoded_order_ordertime'] = base64_encode ( $this->input->post('order_ordertime') );
-			$data['encoded_fix_ordertime'] = base64_encode ( $this->input->post('fix_ordertime') );
+			$data['order_datetime'] = $this->input->post('order_datetime');
+			$data['fix_datetime'] = $this->input->post('fix_datetime');
+			// $data['encoded_order_datetime'] = base64_encode ( $this->input->post('order_datetime') );
+			// $data['encoded_fix_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
+			$data['order_datetime'] = '2020-11-18 22:45:00';
+			$data['fix_datetime'] = '2020-11-18 22:45:00';
+			$data['encoded_order_datetime'] = base64_encode ( '2020-11-18 22:45:00' );
+			$data['encoded_fix_datetime'] = base64_encode ( '2020-11-18 22:45:00' );
 			$data['service_detail_code'] = $this->input->post('service_detail_code');
 			$data['service'] = $this->input->post('service');
 			$data['full_address'] = $this->input->post('full_address');
@@ -84,7 +88,7 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function confirmOrder($technician_id, $encoded_full_address, $latitude, $longitude, $encoded_order_ordertime, $encoded_fix_ordertime, $service, $service_detail_code) {
+	public function confirmOrder($technician_id, $encoded_full_address, $latitude, $longitude, $encoded_order_datetime, $encoded_fix_datetime, $service, $service_detail_code) {
 		if ($this->session->userdata('akses') == '3') {
 			$this->load->model("M_Order");
 			$this->load->model("M_Customer");
@@ -99,13 +103,13 @@ class Controller_Order extends CI_Controller{
 			$data['longitude'] = $longitude;
 			$data['latitude'] = $latitude;
 			$data['technician_id'] = $technician_id;
-			$data['order_ordertime'] = base64_decode( $encoded_order_ordertime );
-			$data['fix_ordertime'] = base64_decode( $encoded_fix_ordertime );
+			$data['order_datetime'] = base64_decode( $encoded_order_datetime );
+			$data['fix_datetime'] = base64_decode( $encoded_fix_datetime );
 			$data['service'] = $this->M_Service->getServiceDetailByCode($service_detail_code);
-			$data['fee'] = '10000';
+			$data['fee'] = $this->M_Service->getPriceByServiceDetailCode($service_detail_code);
 
 			do {
-				$unique_number = rand(3, 3);
+				$unique_number = rand(0, 999);
 				$isExist = $this->M_Order->checkUniqueNumber($unique_number);
 			} while ($isExist > 0);
 			$data['unique_number'] = $unique_number;
@@ -116,46 +120,83 @@ class Controller_Order extends CI_Controller{
 	public function inputOrder() {
 		if ($this->session->userdata('akses') == '3') {
 			$this->load->model("M_Order");
+			$this->load->model("M_General");
 
 			$order_code = $this->input->post('order_code');
-			$customer_id = $this->input->post('customer_id');
+			$customer_code = $this->input->post('customer_code');
 			$latitude = $this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$address = $this->input->post('full_address');
-			$order_ordertime = $this->input->post('order_ordertime');
-			$fix_ordertime = $this->input->post('fix_ordertime');
-			$technician_id =	$this->input->post('technician_id');
-			$service_detail_code =	$this->input->post('service_detail_code');
-			$total_amount =	$this->input->post('fee');
+			$order_datetime = $this->input->post('order_datetime');
+			$fix_datetime = $this->input->post('fix_datetime');
+			$technician_code = $this->input->post('technician_code');
+			$service_type_code = $this->input->post('service_detail_code').'ST01';
+			$fee = $this->input->post('fee');
+			$unique_number = $this->input->post('unique_number');
+			$order_status = 'ON PROGRESS';
+			$technician_status = 'WAITING CONFIRMATION';
+			
+			$data = [ 'order_code'  => $order_code,
+			'customer_code' => $customer_code,
+			'technician_code' => $technician_code,
+			'address' => $address,
+			'latitude' => $latitude,
+			'longitude' => $longitude,
+			'fix_datetime' => $fix_datetime,
+			'total_amount' => $fee,
+			'order_status' => $order_status,
+			'technician_status' => $technician_status,
+			];
 
-			$this->load->view('customer/order_confirmation', $data);
+			$this->M_General->insertData('tbl_order', $data);
+
+			$data_detail = [ 'order_code'  => $order_code,
+			'service_type_code' => $service_type_code,
+			'price' => $fee
+			];
+
+			$this->M_General->insertData('tbl_order_detail', $data_detail);
+			$order_detail_id = $this->M_Order->getLastIdWithOrderCode($order_code);
+
+			$data_unq = [ 'order_detail_id' => $order_detail_id,
+			'unique_number' => $unique_number,
+			'total_payment' => $unique_number + $fee
+			];
+			
+			$this->M_General->insertData('tbl_payment_unique_code', $data_unq);
+
+			redirect('Controller_Login/getOneByCode/'.$order_code);
 		}
 	}
 
-	public function saveData() {
-		$this->load->model("T_Order");
-		$this->load->model("M_Metadata");
-		$this->load->model("R_AuditLogging");
-	
-		if ($this->session->userdata('akses') == '3') {
+	public function getOneByCode($code = '') {
+		if($this->session->userdata('akses')=='3'){
 
-			$email = $this->input->post('email');
-			$password = 'password';
-		    $role_id = '2';
-			$fullname = $this->input->post('fullname');
-			$phone = $this->input->post('phone');
-			$full_address =	$this->input->post('full_address');
-			$identity_number =	$this->input->post('identity_number');
-			$bank_account_number = $this->input->post('bank_account_number');
-			$latitude =	$this->input->post('latitude');
-			$longitude = $this->input->post('longitude');
-			$active_status = '1';
-			$this->T_Order->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status);
-			$idData = $this->T_Order->getOneByEmail($email);
-			$this->M_Metadata->createMeta('tbl_order', $idData, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('ORDER', 'CREATE', $this->session->userdata('email'));
+			$this->load->model("M_Order");
+			
+			if(isset($code)) {
+				$data['data'] = $this->M_Order->getOneByCode($code);
+				$data['detail'] = $this->M_Order->getDetailByCode($code);
+				$this->load->view('customer/order_view', $data);
+			}
 
-			redirect('Controller_Order');
+		} else {
+			redirect('Controller_Login');
+		}
+	}
+
+	public function getAllByCustomerCode($code = '') {
+		if($this->session->userdata('akses')=='3'){
+
+			$this->load->model("M_Order");
+			
+			if(isset($code)) {
+				$data['data'] = $this->M_Order->getAllByCustomerCode($code);
+				$this->load->view('customer/order', $data);
+			}
+
+		} else {
+			redirect('Controller_Login');
 		}
 	}
 }

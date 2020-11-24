@@ -113,7 +113,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/listOrderHistory">
+                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">
                     <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                     <span class="menu-title">Order</span>
                   </a>

@@ -11,14 +11,14 @@ class Controller_Customer extends CI_Controller{
 	    }
 	}
 
-	public function getOne($id='') {
+	public function getOne($code='') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Customer");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->M_Customer->getOneById($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$data['data'] = $this->M_Customer->getOneById($code);
 			}
 
 			$this->load->view('admin/customer_view', $data);
@@ -30,14 +30,14 @@ class Controller_Customer extends CI_Controller{
 		$this->load->view('customer/customer_create');
 	}
 
-	public function updateCustomer($id = '') {
+	public function updateCustomer($code = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Customer");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$listData = $this->M_Customer->getOneById($id);
+			$data['customer_code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_Customer->getOneById($code);
 				$data['data'] = $listData;
 				
 				foreach ($listData as $field) {
@@ -57,9 +57,11 @@ class Controller_Customer extends CI_Controller{
 		$this->load->model("M_Customer");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
+		$customer_code = $this->M_General->getSequence('tbl_customer', 3, 'C');
 		$email = $this->input->post('email');
-		$password = $this->input->post('password');
+		$password = md5($this->input->post('password'));
 		$role_id = '3';
 		$fullname = $this->input->post('fullname');
 		$phone = $this->input->post('phone');
@@ -67,9 +69,21 @@ class Controller_Customer extends CI_Controller{
 		$latitude =	$this->input->post('latitude');
 		$longitude = $this->input->post('longitude');
 		$active_status = '1';
-		$this->M_Customer->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $active_status);
-		$idData = $this->M_Customer->getOneByEmail($email);
-		$this->M_Metadata->createMeta('tbl_customer', $idData, $fullname);
+
+		$data = [ 'customer_code' => $customer_code,
+			'email' => $email,
+			'password'  => $password,
+			'role_id' => $role_id,
+			'fullname' => $fullname,
+			'phone' => $phone,
+			'full_address' => $full_address,
+			'latitude' => $latitude,
+			'longitude' => $longitude,
+			'active_status' => $active_status
+		];
+
+		$this->M_General->insertData('tbl_customer', $data);
+		$this->M_Metadata->createMeta('tbl_customer', 'customer_code', $customer_code, $fullname);
 		$this->R_AuditLogging->insertLog('CUSTOMER', 'CREATE', $email);
 
 		redirect('Controller_Login');
@@ -79,10 +93,11 @@ class Controller_Customer extends CI_Controller{
 		$this->load->model("M_Customer");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$id = $this->input->post('id');
+			$customer_code = $this->input->post('customer_code');
 			$email = $this->input->post('email');
 			$fullname = $this->input->post('fullname');
 			$phone = $this->input->post('phone');
@@ -95,9 +110,18 @@ class Controller_Customer extends CI_Controller{
 				$active_status = 0;
 			}
 
-			$this->M_Customer->updateData($id, $email, $fullname, $phone, $full_address, $latitude, $longitude, $active_status);
-			$this->M_Metadata->updateMeta('tbl_customer', $id, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('email'));
+			$data = ['email' => $email,
+			'fullname' => $fullname,
+			'phone' => $phone,
+			'full_address' => $full_address,
+			'latitude' => $latitude,
+			'longitude' => $longitude,
+			'active_status' => $active_status
+		];
+
+			$this->M_General->updateData('tbl_customer', $data, 'customer_code', $customer_code);
+			$this->M_Metadata->updateMeta('tbl_customer', 'customer_code', $customer_code,  $this->session->userdata('code'));
+			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('code'));
 			redirect('Controller_Customer');
 		}
 	}

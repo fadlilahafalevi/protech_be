@@ -34,9 +34,9 @@
                      ?>
                     <form class="forms-sample">
                         <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                           <label class="col-sm-3 col-form-label" for="customer_code">Customer Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$user_detail->id?>" readonly="readonly">
+                              <input type="text" class="form-control" id="customer_code" name="customer_code" value="<?=$user_detail->customer_code?>" readonly="readonly">
                            </div>
                         </div>
                         <div class="form-group row">

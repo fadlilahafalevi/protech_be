@@ -66,6 +66,12 @@ class M_Service extends CI_Model{
 		 
 	}
 
+	public function getPriceByServiceDetailCode($code) {
+		$query = $this->db->query("SELECT price from tbl_service_type where service_type_code = concat('$code', 'ST01')");
+		return $query->row()->price;
+		 
+	}
+
 	function inputData($tblName, $data){
 		return $this->db->insert($tblName, $data);
 	}

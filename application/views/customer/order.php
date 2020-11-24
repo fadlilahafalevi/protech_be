@@ -13,17 +13,7 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <?php
-          foreach ($category as $category) {
-        ?>
-        <h3 class="page-title"><?=$category->service_category_code?> - <?=$category->service_category_name?></h3>
-        <div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Service">Back to Service Category</a>
-          <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Service/createServiceDetail/<?=$category->service_category_code?>">Create</a>
-        </div>
-        <?php
-        }
-        ?>
+        <h3 class="page-title">Order History</h3>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -34,8 +24,9 @@
                 <table class="table table-bordered data-table">
                   <thead>
                     <tr>
-                      <th style="text-align: center">Service Detail Code</th>
-                      <th style="text-align: center">Service Detail Name</th>
+                      <th style="text-align: center">No</th>
+                      <th style="text-align: center">Order Code</th>
+                      <th style="text-align: center">Order Time</th>
                       <th style="text-align: center">Status</th>
                       <th style="text-align: center">Action</th>
                     </tr>
@@ -43,13 +34,14 @@
                   <tbody>
                     <?php 
                       $no=0;
-                      foreach ($data as $list_service){
+                      foreach ($data as $order){
                       $no++;
                     ?>
                       <tr>
-                          <td><?=$list_service->service_detail_code?></td>
-                          <td><?=$list_service->service_detail_name?></td>
-                          <td style="text-align: center">
+                          <td><?=$no?></td>
+                          <td><?=$order->order_code?></td>
+                          <td><?=$order->order_datetime?></td>
+                          <!-- <td style="text-align: center">
                             <?php
                               if($list_service->active_status == '1'){
                             ?>
@@ -61,13 +53,11 @@
                             <?php
                               }
                             ?>
-                          </td>
+                          </td> -->
+                          <td><?=$order->order_status?></td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Service/getAllServiceTypeByDetail/<?=$list_service->service_detail_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
-                              <i class="mdi mdi-format-list-bulleted"></i>
-                            </a>
-                            <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Service/updateServiceDetail/<?=$list_service->service_detail_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
-                              <i class="mdi mdi-lead-pencil"></i>
+                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Order/getOneByCode/<?=$order->order_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                              <i class="mdi mdi-eye"></i>
                             </a>
                           </td>
                       </tr>

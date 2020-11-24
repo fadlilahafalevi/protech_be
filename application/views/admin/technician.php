@@ -25,7 +25,7 @@
                 <table class="table table-bordered data-table">
                   <thead>
                     <tr>
-                      <th style="text-align: center">ID</th>
+                      <th style="text-align: center">Technician Code</th>
                       <th style="text-align: center">Email</th>
                       <th style="text-align: center">Technician Name</th>
                       <th style="text-align: center">Status</th>
@@ -39,7 +39,7 @@
                       $no++;
                     ?>
                       <tr>
-                          <td><?=$no?></td>
+                          <td><?=$list_technician->technician_code?></td>
                           <td><?=$list_technician->email?></td>
                           <td><?=$list_technician->fullname?></td>
                           <td style="text-align: center">
@@ -56,10 +56,10 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Technician/getOne/<?=$list_technician->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Technician/getOne/<?=$list_technician->technician_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
-                             <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Technician/updateTechnician/<?=$list_technician->id?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                             <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Technician/updateTechnician/<?=$list_technician->technician_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-pencil"></i>
                             </a>
                           </td>

@@ -32,16 +32,16 @@
                         foreach ($data as $customer_detail) {
                      ?>
                     <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/updateData'; ?>">
-                        <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="customer_code">Customer Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$customer_detail->id?>">
+                              <input type="text" class="form-control" id="customer_code" name="customer_code" value="<?=$customer_detail->customer_code?>" readonly>
                            </div>
                         </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="email">Email</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="email" name="email" value="<?=$customer_detail->email?>">
+                              <input type="text" class="form-control" id="email" name="email" value="<?=$customer_detail->email?>" readonly>
                            </div>
                         </div>
                         <div class="form-group row">

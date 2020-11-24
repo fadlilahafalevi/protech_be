@@ -12,17 +12,12 @@
         border: 1px solid #000;
       }
    </style>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js" integrity="sha512-2JBCbWoMJPH+Uj7Wq5OLub8E5edWHlTM4ar/YJkZh3plwB2INhhOC3eDoqHm1Za/ZOSksrLlURLoyXVdfQXqwg==" crossorigin="anonymous"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css" integrity="sha512-PMjWzHVtwxdq7m7GIxBot5vdxUY+5aKP9wpKtvnNBZrVv1srI8tU6xvFMzG8crLNcMj/8Xl/WWmo/oAP/40p1g==" crossorigin="anonymous" />
-      <script type="text/javascript">
-        $(function() {
-        $('#datetimepicker1').datetimepicker({
-          format: 'DD/MM/YYYY, HH:mm'
-        });
-      });
-      </script>
+    <!-- <link rel="stylesheet" type="text/css" href="/Protech_BE/assets/datetimepicker/bootstrap.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/Protech_BE/assets/datetimepicker/DateTimePicker.css" />
+    <script type="text/javascript" src="/Protech_BE/assets/datetimepicker/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="/Protech_BE/assets/datetimepicker/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="/Protech_BE/assets/datetimepicker/DateTimePicker.js"></script>
+    <script type="text/javascript" src="/Protech_BE/assets/datetimepicker/i18n/DateTimePicker-i18n.js"></script>
 
 </head>
 <body>
@@ -57,25 +52,22 @@
                            </div>
                         </div>
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="order_ordertime">Order Datetime</label>
+                           <label class="col-sm-3 col-form-label" for="order_datetime">Order Datetime</label>
                            <div class="col-sm-6">
                               <div class="form-group">
-                                  <div class="input-group date" id="order_ordertime" data-target-input="nearest">
-                                      <input type="text" id="order_ordertime" name="order_ordertime" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                                      <span class="input-group-addon" data-target="#order_ordertime" data-toggle="datetimepicker">
-                                          <span class="fa fa-calendar"></span>
-                                      </span>
+                                  <div class="input-group date" id="order_datetime">
+                                      <input type="text" class="form-control" id="order_datetime" name="order_datetime" data-field="datetime" data-format="dd-MMM-yyyy HH:mm:ss" readonly>
                                   </div>
                               </div>
                           </div>
                         </div>
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="fix_ordertime">Fixing Datetime</label>
+                           <label class="col-sm-3 col-form-label" for="fix_datetime">Fixing Datetime</label>
                            <div class="col-sm-6">
                               <div class="form-group">
-                                  <div class="input-group date" id="fix_ordertime" data-target-input="nearest">
-                                      <input type="text" id="fix_ordertime" name="fix_ordertime" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
-                                      <span class="input-group-addon" data-target="#fix_ordertime" data-toggle="datetimepicker">
+                                  <div class="input-group date" id="fix_datetime" data-target-input="nearest">
+                                      <input type="text" id="fix_datetime" name="fix_datetime" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                                      <span class="input-group-addon" data-target="#fix_datetime" data-toggle="datetimepicker">
                                           <span class="fa fa-calendar"></span>
                                       </span>
                                   </div>
@@ -88,13 +80,13 @@
                               <textarea type="text" class="form-control" id="full_address" name="full_address" readonly="readonly"></textarea>
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly">
                            </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly">
@@ -116,7 +108,18 @@
       </div>
    </div>
 </div>
+<div id="dtBox"></div>
 <?php require 'application/views/footer.php'; ?>
+
+<script type="text/javascript">
+    
+   $(document).ready(function(){
+   
+     $("#dtBox").DateTimePicker();
+   
+ });
+
+</script>
 
 <script>
   function initialize() {

@@ -66,10 +66,12 @@ class Controller_Technician extends CI_Controller{
 		$this->load->model("M_Service");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
 			$pass_photo = "";
+			$ktp_photo = "";
 			$config['upload_path']          = './assets/uploaded-image/';
 			$config['allowed_types']        = 'jpeg|jpg|png';
 			$config['max_size']             = 3000;
@@ -83,8 +85,18 @@ class Controller_Technician extends CI_Controller{
 				$pass_photo=base64_encode($imgdata);
 			}
 
+			// if ( ! $this->upload->do_upload('ktp_photo')) {
+			// 	$error = array('error' => $this->upload->display_errors());
+			// 	redirect('/Controller_Technician/createTechnician/'.$error);
+			// } else {
+			// 	$image_data = $this->upload->data();
+			// 	$imgdata = file_get_contents($image_data['full_path']);
+			// 	$ktp_photo=base64_encode($imgdata);
+			// }
+			
+			$technician_code = $this->M_General->getSequence('tbl_technician', 3, 'T');
 			$email = $this->input->post('email');
-			$password = 'password';
+			$password = md5('password');
 		    $role_id = '2';
 			$fullname = $this->input->post('fullname');
 			$phone = $this->input->post('phone');
@@ -94,24 +106,39 @@ class Controller_Technician extends CI_Controller{
 			$latitude =	$this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$active_status = '1';
-			$this->M_Technician->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status, $pass_photo);
 
-			$idData = $this->M_Technician->getOneByEmail($email);
+			$data = [ 'technician_code' => $technician_code,
+			'email' => $email,
+			'password' => $password,
+			'role_id'  => $role_id,
+			'fullname' => $fullname,
+			'phone' => $phone,
+			'full_address' => $full_address,
+			'identity_number' => $identity_number,
+			'latitude' => $latitude,
+			'longitude' => $longitude,
+			'active_status' => $active_status,
+			'bank_account_number' => $bank_account_number,
+			'pass_photo' => $pass_photo,
+			'ktp_photo' => $ktp_photo
+			];
+
+			$this->M_General->insertData('tbl_technician', $data);
 
 			$listDetailService = $this->M_Service->getAllServiceDetail();
 			foreach ($listDetailService as $service) {
 				$code = $service->service_detail_code;
 				$service_detail_code = $this->input->post($code);
 				$data = [ 'service_detail_code' => $service_detail_code,
-				'user_id'  => $idData
+				'technician_code'  => $technician_code
 				];
 				if (isset($service_detail_code)) {
 					$this->M_Technician->insertServiceRef($data);
 				}
 			}
 			
-			$this->M_Metadata->createMeta('tbl_technician', $idData, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('TECHNICIAN', 'CREATE', $this->session->userdata('email'));
+			$this->M_Metadata->createMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));
+			$this->R_AuditLogging->insertLog('TECHNICIAN', 'CREATE', $this->session->userdata('code'));
 
 			redirect('Controller_Technician');
 		}
@@ -122,10 +149,11 @@ class Controller_Technician extends CI_Controller{
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
 		$this->load->model("M_Service");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$id = $this->input->post('id');
+			$technician_code = $this->input->post('technician_code');
 			$email = $this->input->post('email');
 			$fullname = $this->input->post('fullname');
 			$phone = $this->input->post('phone');
@@ -141,22 +169,33 @@ class Controller_Technician extends CI_Controller{
 			}
 
 
-			$this->M_Technician->deleteServiceRef($id);
+			$this->M_Technician->deleteServiceRef($technician_code);
 			$listDetailService = $this->M_Service->getAllServiceDetail();
 			foreach ($listDetailService as $service) {
 				$code = $service->service_detail_code;
 				$service_detail_code = $this->input->post($code);
 				$data = [ 'service_detail_code' => $service_detail_code,
-				'user_id'  => $id
+				'technician_code'  => $technician_code
 				];
 				if (isset($service_detail_code)) {
 					$this->M_Technician->insertServiceRef($data);
 				}
 			}
 
-			$this->M_Technician->updateData($id, $email, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status);
-			$this->M_Metadata->updateMeta('tbl_technician', $id, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('TECHNICIAN', 'UPDATE', $this->session->userdata('email'));
+			$data = [ 'email' => $email,
+			'fullname' => $fullname,
+			'phone' => $phone,
+			'full_address' => $full_address,
+			'identity_number' => $identity_number,
+			'latitude' => $latitude,
+			'longitude' => $longitude,
+			'active_status' => $active_status,
+			'bank_account_number' => $bank_account_number
+			];
+
+			$this->M_General->updateData('tbl_technician', $data, 'technician_code', $technician_code);
+			$this->M_Metadata->updateMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));
+			$this->R_AuditLogging->insertLog('TECHNICIAN', 'UPDATE', $this->session->userdata('code'));
 			redirect('Controller_Technician');
 		}
 	}

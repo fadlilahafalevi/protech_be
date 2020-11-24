@@ -25,10 +25,10 @@
                         foreach ($data as $service_detail) {
                      ?>
                     <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Service/updateDataCategory'; ?>">
-                        <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="service_category_code">Service Category Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$service_detail->id?>">
+                              <input type="text" class="form-control" id="service_category_code" name="service_category_code" value="<?=$service_detail->service_category_code?>" readonly>
                            </div>
                         </div>
                         <div class="form-group row">

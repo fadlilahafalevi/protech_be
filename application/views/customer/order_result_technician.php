@@ -59,15 +59,15 @@
                    </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="order_ordertime">Order Datetime</label>
+                  <label class="col-sm-3 col-form-label" for="order_datetime">Order Datetime</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="order_ordertime" name="order_ordertime" value="<?php echo $order_ordertime ?>" readonly>
+                    <input type="text" class="form-control" id="order_datetime" name="order_datetime" value="<?php echo $order_datetime ?>" readonly>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="fix_ordertime">Fixing Datetime</label>
+                  <label class="col-sm-3 col-form-label" for="fix_datetime">Fixing Datetime</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="fix_ordertime" name="fix_ordertime" value="<?php echo $fix_ordertime ?>" readonly>
+                    <input type="text" class="form-control" id="fix_datetime" name="fix_datetime" value="<?php echo $fix_datetime ?>" readonly>
                   </div>
                 </div>
               </form>
@@ -102,7 +102,7 @@
                             <?=$list_technician->distance?> km
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Order/confirmOrder/<?=$list_technician->tech_id . '/' . $encoded_full_address . '/' . $latitude . '/' . $longitude . '/' . $encoded_order_ordertime . '/' . $encoded_fix_ordertime . '/' . $service . '/' . $service_detail_code ?>" data-toggle="tooltip" title="Order" style="padding: 4px">
+                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Order/confirmOrder/<?=$list_technician->tech_id . '/' . $encoded_full_address . '/' . $latitude . '/' . $longitude . '/' . $encoded_order_datetime . '/' . $encoded_fix_datetime . '/' . $service . '/' . $service_detail_code ?>" data-toggle="tooltip" title="Order" style="padding: 4px">
                               <i class="mdi mdi-calendar-today"></i>
                             </a>
                           </td>

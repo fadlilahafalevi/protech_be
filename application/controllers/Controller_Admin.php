@@ -65,6 +65,7 @@ class Controller_Admin extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1') {
 
+			$nextCode = $this->M_Admin->getNextSequenceId();
 			$email = $this->input->post('email');
 			$password = 'password';
 		    $role_id = '1';
@@ -73,7 +74,7 @@ class Controller_Admin extends CI_Controller{
 			$full_address =	$this->input->post('full_address');
 			$identity_number =	$this->input->post('identity_number');
 			$active_status = '1';
-			$this->M_Admin->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $active_status);
+			$this->M_Admin->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $active_status, $admin_code);
 			$idData = $this->M_Admin->getOneByEmail($email);
 			$this->M_Metadata->createMeta('tbl_admin', $idData, $this->session->userdata('fullname'));
 			$this->R_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('email'));

@@ -7,10 +7,10 @@ class M_Admin extends CI_Model{
 		return $query->result();
 	}
 
-	public function getOneById($id) {
+	public function getOneById($code) {
 		$this->db->select('*');
 		$this->db->from('tbl_admin');
-		$this->db->where('id', $id);
+		$this->db->where('admin_code', $code);
 		$query = $this->db->get();
 		return $query->result();
 	}

@@ -26,6 +26,12 @@
                      ?>
                     <form class="forms-sample">
                         <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="admin_code">Admin Code</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="admin_code" name="admin_code" value="<?=$admin_detail->admin_code?>" disabled="disabled">
+                           </div>
+                        </div>
+                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="email">Email</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="email" name="email" value="<?=$admin_detail->email?>" disabled="disabled">

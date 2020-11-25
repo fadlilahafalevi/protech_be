@@ -12,14 +12,14 @@ class Controller_Admin extends CI_Controller{
 	    }
 	}
 
-	public function getOne($id = '') {
+	public function getOne($code = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Admin");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->M_Admin->getOneById($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$data['data'] = $this->M_Admin->getOneById($code);
 			}
 
 			$this->load->view('admin/admin_view', $data);
@@ -35,14 +35,14 @@ class Controller_Admin extends CI_Controller{
 		}
 	}
 
-	public function updateAdmin($id = '') {
+	public function updateAdmin($code = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Admin");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$listData = $this->M_Admin->getOneById($id);
+			$data['admin_code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_Admin->getOneById($code);
 				$data['data'] = $listData;
 				
 				foreach ($listData as $field) {
@@ -62,10 +62,11 @@ class Controller_Admin extends CI_Controller{
 		$this->load->model("M_Admin");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$nextCode = $this->M_Admin->getNextSequenceId();
+			$admin_code = $this->M_General->getSequence('tbl_admin', 2, 'A');
 			$email = $this->input->post('email');
 			$password = 'password';
 		    $role_id = '1';
@@ -74,9 +75,20 @@ class Controller_Admin extends CI_Controller{
 			$full_address =	$this->input->post('full_address');
 			$identity_number =	$this->input->post('identity_number');
 			$active_status = '1';
-			$this->M_Admin->inputData($email, $password, $role_id, $fullname, $phone, $full_address, $identity_number, $active_status, $admin_code);
-			$idData = $this->M_Admin->getOneByEmail($email);
-			$this->M_Metadata->createMeta('tbl_admin', $idData, $this->session->userdata('fullname'));
+
+			$data = [ 'admin_code' => $admin_code,
+				'email' => $email,
+				'password'  => $password,
+				'role_id' => $role_id,
+				'fullname' => $fullname,
+				'phone' => $phone,
+				'full_address' => $full_address,
+				'identity_number' => $identity_number,
+				'active_status' => $active_status
+			];
+
+			$this->M_General->insertData('tbl_admin', $data);
+			$this->M_Metadata->createMeta('tbl_admin', 'admin_code', $admin_code, $fullname);
 			$this->R_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('email'));
 
 			redirect('Controller_Admin');
@@ -87,10 +99,11 @@ class Controller_Admin extends CI_Controller{
 		$this->load->model("M_Admin");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$id = $this->input->post('id');
+			$admin_code = $this->input->post('admin_code');
 			$email = $this->input->post('email');
 			$fullname = $this->input->post('fullname');
 			$phone = $this->input->post('phone');
@@ -102,9 +115,17 @@ class Controller_Admin extends CI_Controller{
 				$active_status = 0;
 			}
 
-			$this->M_Admin->updateData($id, $email, $fullname, $phone, $full_address, $identity_number, $active_status);
-			$this->M_Metadata->updateMeta('tbl_admin', $id, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('email'));
+			$data = ['email' => $email,
+				'fullname' => $fullname,
+				'phone' => $phone,
+				'full_address' => $full_address,
+				'identity_number' => $identity_number,
+				'active_status' => $active_status
+			];
+
+			$this->M_General->updateData('tbl_admin', $data, 'admin_code', $admin_code);
+			$this->M_Metadata->updateMeta('tbl_admin', 'admin_code', $admin_code,  $this->session->userdata('code'));
+			$this->R_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('code'));
 			redirect('Controller_Admin');
 		}
 	}

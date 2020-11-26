@@ -13,16 +13,24 @@ class Controller_Dashboard extends CI_Controller {
 	
 	function index(){
         $this->load->model('T_Order');
+        $this->load->model('M_Order');
 		if($this->session->userdata('akses')=='1'){
+
 			$data['waiting_payment']=$this->T_Order->countWaitingPaymentStatus();
 			$data['in_progress']=$this->T_Order->countInProgressStatus();
 			$data['finished']=$this->T_Order->countFinishedStatus();
 			$data['canceled']=$this->T_Order->countCanceledStatus();
 			$this->load->view('admin/dashboard',$data);
+
 		} else if($this->session->userdata('akses')=='2'){
-			$this->load->view('admin/dashboard');
+
+			$data['listNeedConfirm']=$this->M_Order->getListNeedConfirmationByTechCode($this->session->userdata('code'));
+			$this->load->view('technician/dashboard', $data);
+
 	    } else if($this->session->userdata('akses')=='3'){
+
 			$this->load->view('admin/dashboard');
+
 	    } else {
 	        echo "Halaman tidak ditemukan";
 	    }

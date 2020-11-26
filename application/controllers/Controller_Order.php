@@ -133,8 +133,7 @@ class Controller_Order extends CI_Controller{
 			$service_type_code = $this->input->post('service_detail_code').'ST01';
 			$fee = $this->input->post('fee');
 			$unique_number = $this->input->post('unique_number');
-			$order_status = 'ON PROGRESS';
-			$technician_status = 'WAITING CONFIRMATION';
+			$order_status = 'WAITING CONFIRMATION';
 			
 			$data = [ 'order_code'  => $order_code,
 			'customer_code' => $customer_code,
@@ -144,8 +143,7 @@ class Controller_Order extends CI_Controller{
 			'longitude' => $longitude,
 			'fix_datetime' => $fix_datetime,
 			'total_amount' => $fee,
-			'order_status' => $order_status,
-			'technician_status' => $technician_status,
+			'order_status' => $order_status
 			];
 
 			$this->M_General->insertData('tbl_order', $data);
@@ -170,7 +168,17 @@ class Controller_Order extends CI_Controller{
 	}
 
 	public function getOneByCode($code = '') {
-		if($this->session->userdata('akses')=='3'){
+		if ($this->session->userdata('akses')=='2') {
+
+			$this->load->model("M_Order");
+			
+			if(isset($code)) {
+				$data['data'] = $this->M_Order->getOneByCode($code);
+				$data['detail'] = $this->M_Order->getDetailByCode($code);
+				$this->load->view('technician/order_view', $data);
+			}
+
+		} else if ($this->session->userdata('akses')=='3') {
 
 			$this->load->model("M_Order");
 			
@@ -197,6 +205,33 @@ class Controller_Order extends CI_Controller{
 
 		} else {
 			redirect('Controller_Login');
+		}
+	}
+
+	public function getAllByTechnicianCode($code = '') {
+		if($this->session->userdata('akses')=='2'){
+
+			$this->load->model("M_Order");
+			
+			if(isset($code)) {
+				$data['data'] = $this->M_Order->getAllByTechnicianCode($code);
+				$this->load->view('technician/order', $data);
+			}
+
+		} else {
+			redirect('Controller_Login');
+		}
+	}
+
+	public function confirmOrderByTech($code = '') {
+		if ($this->session->userdata('akses')=='2') {
+
+			$this->load->model("M_Order");
+			if (isset($code)) {
+				$this->M_Order->updateStatus($code, 'WAITING PAYMENT');
+				redirect('Controller_Order/getOneByCode/'.$code);
+			}
+
 		}
 	}
 }

@@ -25,10 +25,10 @@
                         foreach ($data as $admin_detail) {
                      ?>
                     <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Admin/updateData'; ?>">
-                        <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="admin_code">Admin Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$admin_detail->id?>">
+                              <input type="text" class="form-control" id="admin_code" name="admin_code" value="<?=$admin_detail->admin_code?>" readonly>
                            </div>
                         </div>
                         <div class="form-group row">

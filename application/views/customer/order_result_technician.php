@@ -59,12 +59,6 @@
                    </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label" for="order_datetime">Order Datetime</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="order_datetime" name="order_datetime" value="<?php echo $order_datetime ?>" readonly>
-                  </div>
-                </div>
-                <div class="form-group row">
                   <label class="col-sm-3 col-form-label" for="fix_datetime">Fixing Datetime</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control" id="fix_datetime" name="fix_datetime" value="<?php echo $fix_datetime ?>" readonly>

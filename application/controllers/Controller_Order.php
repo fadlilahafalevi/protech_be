@@ -73,10 +73,10 @@ class Controller_Order extends CI_Controller{
 			$data['fix_datetime'] = $this->input->post('fix_datetime');
 			// $data['encoded_order_datetime'] = base64_encode ( $this->input->post('order_datetime') );
 			// $data['encoded_fix_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
-			$data['order_datetime'] = '2020-11-18 22:45:00';
-			$data['fix_datetime'] = '2020-11-18 22:45:00';
-			$data['encoded_order_datetime'] = base64_encode ( '2020-11-18 22:45:00' );
-			$data['encoded_fix_datetime'] = base64_encode ( '2020-11-18 22:45:00' );
+			$data['order_datetime'] = $this->input->post('fix_datetime');
+			$data['fix_datetime'] = $this->input->post('fix_datetime');
+			$data['encoded_order_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
+			$data['encoded_fix_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
 			$data['service_detail_code'] = $this->input->post('service_detail_code');
 			$data['service'] = $this->input->post('service');
 			$data['full_address'] = $this->input->post('full_address');

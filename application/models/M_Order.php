@@ -46,6 +46,14 @@ class M_Order extends CI_Model{
 		return $query->result();
 	}
 
+	public function getListNeedConfirmationByTechCode($code) {
+		$this->db->select('o.*');
+		$this->db->from('tbl_order o');
+		$this->db->where('o.order_status', 'WAITING CONFIRMATION')->where('o.technician_code', $code);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function getOrderId() {
 		$query=$this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'-',(SELECT LPAD((SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_order' and TABLE_SCHEMA = 'db_protech'), 4, '0'))) as auto_value");
 		return $query->row()->auto_value;
@@ -62,13 +70,8 @@ class M_Order extends CI_Model{
 		return $query->row()->lastId;
 	}
 
-	public function inputData($tbl_name, $data) {
-		return $this->db->insert($table_name, $data);
-	}
-
-	public function updateData($serviceDetailCode, $service_code, $tbl_service_detail_name, $price, $img_icon) {
-		$result=$this->db->query("UPDATE tbl_service_detail SET service_code='$serviceCode', service_detail_name=NULL, price=NULL, img_icon=NULL, created_by=NULL, created_datetime=NULL, modified_by=NULL, modified_datetime=current_timestamp(), active_status=NULL
-			WHERE service_detail_code='$serviceDetailCode';");
+	public function updateStatus($code, $status) {
+		$result=$this->db->query("UPDATE `tbl_order` SET  order_status = '$status'  WHERE order_code = '$code'");
 		return $result;
 	}
 }

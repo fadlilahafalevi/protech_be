@@ -69,13 +69,8 @@ class Controller_Order extends CI_Controller{
 			$latitude =	$this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$service_detail_code = $this->input->post('service_detail_code');
-			$data['order_datetime'] = $this->input->post('order_datetime');
 			$data['fix_datetime'] = $this->input->post('fix_datetime');
-			// $data['encoded_order_datetime'] = base64_encode ( $this->input->post('order_datetime') );
-			// $data['encoded_fix_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
-			$data['order_datetime'] = $this->input->post('fix_datetime');
 			$data['fix_datetime'] = $this->input->post('fix_datetime');
-			$data['encoded_order_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
 			$data['encoded_fix_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
 			$data['service_detail_code'] = $this->input->post('service_detail_code');
 			$data['service'] = $this->input->post('service');
@@ -88,7 +83,7 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function confirmOrder($technician_id, $encoded_full_address, $latitude, $longitude, $encoded_order_datetime, $encoded_fix_datetime, $service, $service_detail_code) {
+	public function confirmOrder($technician_id, $encoded_full_address, $latitude, $longitude, $encoded_fix_datetime, $service, $service_detail_code) {
 		if ($this->session->userdata('akses') == '3') {
 			$this->load->model("M_Order");
 			$this->load->model("M_Customer");
@@ -103,7 +98,6 @@ class Controller_Order extends CI_Controller{
 			$data['longitude'] = $longitude;
 			$data['latitude'] = $latitude;
 			$data['technician_id'] = $technician_id;
-			$data['order_datetime'] = base64_decode( $encoded_order_datetime );
 			$data['fix_datetime'] = base64_decode( $encoded_fix_datetime );
 			$data['service'] = $this->M_Service->getServiceDetailByCode($service_detail_code);
 			$data['fee'] = $this->M_Service->getPriceByServiceDetailCode($service_detail_code);
@@ -127,7 +121,6 @@ class Controller_Order extends CI_Controller{
 			$latitude = $this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$address = $this->input->post('full_address');
-			$order_datetime = $this->input->post('order_datetime');
 			$fix_datetime = $this->input->post('fix_datetime');
 			$technician_code = $this->input->post('technician_code');
 			$service_type_code = $this->input->post('service_detail_code').'ST01';
@@ -163,7 +156,7 @@ class Controller_Order extends CI_Controller{
 			
 			$this->M_General->insertData('tbl_payment_unique_code', $data_unq);
 
-			redirect('Controller_Login/getOneByCode/'.$order_code);
+			redirect('Controller_Order/getOneByCode/'.$order_code);
 		}
 	}
 

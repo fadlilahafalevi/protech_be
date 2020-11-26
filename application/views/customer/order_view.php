@@ -49,12 +49,6 @@
                            </div>
                         </div>
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="created_datetime">Order Datetime</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="created_datetime" name="created_datetime" value="<?=$order->created_datetime?>" readonly="readonly">
-                           </div>
-                        </div>
-                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="fix_datetime">Fix Datetime</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="fix_datetime" name="fix_datetime" value="<?=$order->fix_datetime?>" readonly="readonly">
@@ -66,7 +60,6 @@
                               <input type="text" class="form-control" id="technician_name" name="technician_name" value="<?=$order->technician_name?>" readonly="readonly">
                            </div>
                         </div>
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Technician">Back</a>
                      </form>
 
                      <?php } ?>
@@ -116,5 +109,6 @@
       </div>
    </div>
 </div>
+<?php require 'application/views/footer.php'; ?>
 </body>
 </html>

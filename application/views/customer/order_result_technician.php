@@ -14,7 +14,6 @@
     <div class="content-wrapper pb-0">
       <div class="page-header">
         <h3 class="page-title">Order Search Result</h3>
-        <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Technician/createTechnician">Create</a>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -78,6 +77,7 @@
                       <th style="text-align: center">ID</th>
                       <th style="text-align: center">Technician Photo</th>
                       <th style="text-align: center">Technician Name</th>
+                      <th style="text-align: center">Rating</th>
                       <th style="text-align: center">Distance</th>
                       <th style="text-align: center">Order</th>
                     </tr>
@@ -92,12 +92,13 @@
                           <td><?=$no?></td>
                           <td><img src="data:<?php echo $list_technician->pass_photo; ?>;base64,<?php echo $list_technician->pass_photo; ?>"></td>
                           <td><?=$list_technician->fullname?></td>
+                          <td><?=$list_technician->avg_rate?></td>
                           <td>
                             <?=$list_technician->distance?> km
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Order/confirmOrder/<?=$list_technician->tech_id . '/' . $encoded_full_address . '/' . $latitude . '/' . $longitude . '/' . $encoded_order_datetime . '/' . $encoded_fix_datetime . '/' . $service . '/' . $service_detail_code ?>" data-toggle="tooltip" title="Order" style="padding: 4px">
-                              <i class="mdi mdi-calendar-today"></i>
+                            <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/confirmOrder/<?=$list_technician->tech_id . '/' . $encoded_full_address . '/' . $latitude . '/' . $longitude . '/' . $encoded_fix_datetime . '/' . $service . '/' . $service_detail_code ?>" data-toggle="tooltip" title="Order" style="padding: 4px">
+                              <i class="mdi mdi-check-circle-outline"></i>
                             </a>
                           </td>
                       </tr>

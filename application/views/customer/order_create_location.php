@@ -59,7 +59,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="fix_datetime">Fixing Datetime</label>
                             <div class="col-sm-6 input-group date" id="id_1">
-                                <input type="text" class="form-control" required/>
+                                <input type="text" class="form-control" name="fix_datetime" id="fix_datetime" required/>
                                 <div class="input-group-addon input-group-append">
                                     <div class="input-group-text">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>

@@ -1,8 +1,9 @@
 <?php
 class M_Technician extends CI_Model{
 	function getAllTechnician(){
-		$this->db->select('*');
-		$this->db->from('tbl_technician');
+		$this->db->select('t.*, w.balance');
+		$this->db->from('tbl_technician t');
+		$this->db->join('tbl_wallet w', 'w.phone = t.phone', 'left');
 		$query = $this->db->get();
 		return $query->result();
 	}

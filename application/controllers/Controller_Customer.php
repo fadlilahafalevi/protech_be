@@ -83,6 +83,15 @@ class Controller_Customer extends CI_Controller{
 		];
 
 		$this->M_General->insertData('tbl_customer', $data);
+
+		$data_wallet = [ 'phone' => $phone,
+		'balance' => 0,
+		'total_debit' => 0,
+		'total_credit' => 0,
+		];
+
+		$this->M_General->insertData('tbl_wallet', $data_wallet);
+
 		$this->M_Metadata->createMeta('tbl_customer', 'customer_code', $customer_code, $fullname);
 		$this->R_AuditLogging->insertLog('CUSTOMER', 'CREATE', $email);
 
@@ -117,12 +126,28 @@ class Controller_Customer extends CI_Controller{
 			'latitude' => $latitude,
 			'longitude' => $longitude,
 			'active_status' => $active_status
-		];
+			];
 
 			$this->M_General->updateData('tbl_customer', $data, 'customer_code', $customer_code);
 			$this->M_Metadata->updateMeta('tbl_customer', 'customer_code', $customer_code,  $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('code'));
 			redirect('Controller_Customer');
 		}
+	}
+
+	public function goTopUp($code = '') {
+
+		if ($this->session->userdata('akses') == '3') {
+
+			$this->load->model("M_Customer");
+
+			$data['code'] = $code;
+			if (isset($code)) {
+				$data['data'] = $this->M_Customer->getOneById($code);
+			}
+			$this->load->view('customer/topup', $data);
+
+		}
+
 	}
 }

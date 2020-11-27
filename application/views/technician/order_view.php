@@ -11,6 +11,30 @@
         height: 300px;
         border: 1px solid #000;
       }
+
+      img {
+        width: 20vw;
+        height: 20vw;
+        padding: 2vw;
+      }
+
+      input[type=radio] {
+        display: none;
+      }
+
+      img:hover {
+        opacity:0.6;
+        cursor: pointer;
+      }
+
+      img:active {
+        opacity:0.4;
+        cursor: pointer;
+      }
+
+      input[type=radio]:checked + label > img {
+        border: 20px solid rgb(0, 51, 196);
+      }
    </style>
 
 </head>
@@ -35,7 +59,7 @@
           <div class="card">
             <div class="card-body">
                <h4 class="card-title"></h4>
-                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Order/inputOrder'; ?>">
+                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Order/confirmOrderByTech'; ?>">
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="order_code">Order Code</label>
                            <div class="col-sm-9">
@@ -66,10 +90,24 @@
                               <input type="text" class="form-control" id="technician_name" name="technician_name" value="<?=$order->technician_name?>" readonly="readonly">
                            </div>
                         </div>
-                        <?php if ($order->order_status == 'NEED CONFIRMATION') { ?>
-                          <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/confirmOrderByTech/<?=$order->order_code?>">Confirm</a>
-                        <?php } ?>
+                        <?php if ($order->order_status == 'WAITING CONFIRMATION') { ?>
+                          <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="txn_datetime"></label>
+                           <div class="col-sm-9">
+                              <input type="radio" name="is_approved" id="choose-1" value="0"/>
+                              <label for="choose-1">
+                                 <img src="/Protech_BE/assets/images/reject.png" />
+                              </label>
 
+                              <input type="radio" name="is_approved" id="choose-2" value="1"/>
+                              <label for="choose-2">
+                                 <img src="/Protech_BE/assets/images/accept.png" />
+                              </label>
+                           </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <?php } ?>
                         <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back</a>
                      </form>
 

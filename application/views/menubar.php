@@ -54,6 +54,9 @@
                       <li class="nav-item">
                         <a class="nav-link" href="/Protech_BE/index.php/Controller_Payment">Payment</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Wallet">Confirmation</a>
+                      </li>
                       </li>
                     </ul>
                   </div>
@@ -106,6 +109,12 @@
                 </li>
               <?php } ?>
               <?php if($this->session->userdata('akses')=='3') { ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Dashboard ">
+                    <i class="mdi mdi-sitemap menu-icon"></i>
+                    <span class="menu-title">Dashboard</span>
+                  </a>
+                </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/Protech_BE/index.php/Controller_Service">
                     <i class="mdi mdi-sitemap menu-icon"></i>

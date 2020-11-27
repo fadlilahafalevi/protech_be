@@ -29,7 +29,7 @@
                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service">Back</button>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service">Back</a>
                      </form>
                   </div>
                </div>

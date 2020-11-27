@@ -25,25 +25,31 @@ class Controller_Login extends CI_Controller{
                 $code    = $xcadmin['code'];
                 $fullname  = $xcadmin['fullname'];
                 $emailUser  = $xcadmin['email'];
+                $phoneUser  = $xcadmin['phone'];
                 $this->session->set_userdata('code', $code);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
+                $this->session->set_userdata('phone', $phoneUser);
             } elseif($xcadmin['role_id'] == '2'){ //teknisi
                 $this->session->set_userdata('akses','2');
                 $code    = $xcadmin['code'];
                 $fullname  = $xcadmin['fullname'];
                 $emailUser  = $xcadmin['email'];
+                $phoneUser  = $xcadmin['phone'];
                 $this->session->set_userdata('code', $code);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
+                $this->session->set_userdata('phone', $phoneUser);
             } elseif($xcadmin['role_id'] == '3'){ //customer
                 $this->session->set_userdata('akses','3');
                 $code    = $xcadmin['code'];
                 $fullname  = $xcadmin['fullname'];
                 $emailUser  = $xcadmin['email'];
+                $phoneUser  = $xcadmin['phone'];
                 $this->session->set_userdata('code', $code);
                 $this->session->set_userdata('fullname', $fullname);
                 $this->session->set_userdata('email', $emailUser);
+                $this->session->set_userdata('phone', $phoneUser);
             }
         }
         

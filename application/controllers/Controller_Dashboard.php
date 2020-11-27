@@ -14,6 +14,7 @@ class Controller_Dashboard extends CI_Controller {
 	function index(){
         $this->load->model('T_Order');
         $this->load->model('M_Order');
+        $this->load->model('T_Wallet');
 		if($this->session->userdata('akses')=='1'){
 
 			$data['waiting_payment']=$this->T_Order->countWaitingPaymentStatus();
@@ -29,7 +30,9 @@ class Controller_Dashboard extends CI_Controller {
 
 	    } else if($this->session->userdata('akses')=='3'){
 
-			$this->load->view('admin/dashboard');
+	    	$data['balance'] = $this->T_Wallet->getCurrentBalance($this->session->userdata('phone'));
+
+			$this->load->view('customer/dashboard', $data);
 
 	    } else {
 	        echo "Halaman tidak ditemukan";

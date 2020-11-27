@@ -1,8 +1,9 @@
 <?php
 class M_Customer extends CI_Model{
 	function getAllCustomer(){
-		$this->db->select('*');
-		$this->db->from('tbl_customer');
+		$this->db->select('c.*, w.balance');
+		$this->db->from('tbl_customer c');
+		$this->db->join('tbl_wallet w', 'w.phone = c.phone', 'left');
 		$query = $this->db->get();
 		return $query->result();
 	}

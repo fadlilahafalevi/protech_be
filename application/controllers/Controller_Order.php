@@ -102,11 +102,6 @@ class Controller_Order extends CI_Controller{
 			$data['service'] = $this->M_Service->getServiceDetailByCode($service_detail_code);
 			$data['fee'] = $this->M_Service->getPriceByServiceDetailCode($service_detail_code);
 
-			do {
-				$unique_number = rand(0, 999);
-				$isExist = $this->M_Order->checkUniqueNumber($unique_number);
-			} while ($isExist > 0);
-			$data['unique_number'] = $unique_number;
 			$this->load->view('customer/order_confirmation', $data);
 		}
 	}
@@ -125,7 +120,6 @@ class Controller_Order extends CI_Controller{
 			$technician_code = $this->input->post('technician_code');
 			$service_type_code = $this->input->post('service_detail_code').'ST01';
 			$fee = $this->input->post('fee');
-			$unique_number = $this->input->post('unique_number');
 			$order_status = 'WAITING CONFIRMATION';
 			
 			$data = [ 'order_code'  => $order_code,
@@ -148,13 +142,6 @@ class Controller_Order extends CI_Controller{
 
 			$this->M_General->insertData('tbl_order_detail', $data_detail);
 			$order_detail_id = $this->M_Order->getLastIdWithOrderCode($order_code);
-
-			$data_unq = [ 'order_detail_id' => $order_detail_id,
-			'unique_number' => $unique_number,
-			'total_payment' => $unique_number + $fee
-			];
-			
-			$this->M_General->insertData('tbl_payment_unique_code', $data_unq);
 
 			redirect('Controller_Order/getOneByCode/'.$order_code);
 		}
@@ -216,13 +203,14 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function confirmOrderByTech($code = '') {
+	public function confirmOrderByTech() {
 		if ($this->session->userdata('akses')=='2') {
 
 			$this->load->model("M_Order");
-			if (isset($code)) {
-				$this->M_Order->updateStatus($code, 'WAITING PAYMENT');
-				redirect('Controller_Order/getOneByCode/'.$code);
+			$order_code = $this->input->post('order_code');
+			if (isset($order_code)) {
+				$this->M_Order->updateStatus($order_code, 'IN PROGRESS');
+				redirect('Controller_Order/getOneByCode/'.$order_code);
 			}
 
 		}

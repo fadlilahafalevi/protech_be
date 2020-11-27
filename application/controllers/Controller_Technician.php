@@ -27,10 +27,14 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function createTechnician() {
+	public function createTechnician($error = '') {
 		$this->load->model("M_Service");
 		if($this->session->userdata('akses')=='1'){
 			$data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
+
+			if(isset($error)) {
+				$data['error'] = $error;
+			}
 
 			$this->load->view('admin/technician_create', $data);
 		}
@@ -77,7 +81,7 @@ class Controller_Technician extends CI_Controller{
 			$config['max_size']             = 3000;
 			$this->load->library('upload', $config);
 			if ( ! $this->upload->do_upload('pass_photo')) {
-				$error = array('error' => $this->upload->display_errors());
+				$error = $this->upload->display_errors();
 				redirect('/Controller_Technician/createTechnician/'.$error);
 			} else {
 				$image_data = $this->upload->data();
@@ -136,6 +140,14 @@ class Controller_Technician extends CI_Controller{
 					$this->M_Technician->insertServiceRef($data);
 				}
 			}
+
+			$data_wallet = [ 'phone' => $phone,
+			'balance' => 0,
+			'total_debit' => 0,
+			'total_credit' => 0,
+			];
+
+			$this->M_General->insertData('tbl_wallet', $data_wallet);
 			
 			$this->M_Metadata->createMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('TECHNICIAN', 'CREATE', $this->session->userdata('code'));

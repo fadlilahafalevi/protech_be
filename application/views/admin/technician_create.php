@@ -66,6 +66,12 @@
                           </div>
                         </div>
                         <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="error">ERROR</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="span3" id="error" name="error" value="<?php echo $error?>">
+                          </div>
+                        </div>
+                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="full_address">Full Address</label>
                            <div class="col-sm-9">
                               <textarea type="text" class="form-control" id="full_address" name="full_address" readonly="readonly"></textarea>

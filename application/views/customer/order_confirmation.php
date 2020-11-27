@@ -121,13 +121,6 @@
                               <input type="number" class="form-control" id="fee" name="fee" value="10000" readonly="readonly">
                            </div>
                         </div>
-
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="unique_number">Unique Code</label>
-                           <div class="col-sm-9">
-                              <input type="number" class="form-control" id="unique_number" name="unique_number" value="<?php echo $unique_number?>" readonly="readonly">
-                           </div>
-                        </div>
                         <br/>
                         <button type="submit" class="btn btn-primary">Order</button> 
                         <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Technician">Back</a>

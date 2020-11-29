@@ -80,7 +80,7 @@ class Controller_Wallet extends CI_Controller{
 				$this->M_General->updateData('tbl_transaction_history', $data, 'id', $id);
 			}
 
-			redirect(Controller_Wallet/getTransactionByPhone/$phone);
+			redirect('Controller_Wallet/getTransactionByPhone/' . $phone);
 
 		}
 	}
@@ -164,7 +164,7 @@ class Controller_Wallet extends CI_Controller{
 
 				}
 
-				redirect(Controller_Wallet);
+				redirect('Controller_Wallet');
 			}
 
 		}

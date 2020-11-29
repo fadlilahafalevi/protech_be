@@ -57,7 +57,7 @@ class Controller_Wallet extends CI_Controller{
 			$service_detail_name = $this->input->post('service_detail_name');
 			
 			$config['upload_path']          = './assets/uploaded-receipt/';
-			$config['allowed_types']        = 'jpeg|jpg|png';
+			$config['allowed_types']        = '*';
 			$config['max_size']             = 3000;
 			$this->load->library('upload', $config);
 			if ( ! $this->upload->do_upload('receipt')) {
@@ -85,29 +85,6 @@ class Controller_Wallet extends CI_Controller{
 		}
 	}
 
-	public function insertTopup($phone = '', $amount) {
-		if($this->session->userdata('akses')=='1'){
-
-			$this->load->model("T_Wallet");
-
-			$data['phone'] = $phone;
-			if (isset($phone)) {
-				$data = ['phone' => $phone,
-				'fullname' => $fullname,
-				'phone' => $phone,
-				'full_address' => $full_address,
-				'latitude' => $latitude,
-				'longitude' => $longitude,
-				'active_status' => $active_status
-				];
-			}
-
-			$this->load->view('admin/customer_view', $data);
-
-		}
-	}
-
-
 	public function confirmation($id = '') {
 
 		if ($this->session->userdata('akses') == '1') {	
@@ -130,6 +107,7 @@ class Controller_Wallet extends CI_Controller{
 			
 			$this->load->model("T_Wallet");
 			$this->load->model("M_General");
+			$this->load->model("M_Order");
 
 			$id = $this->input->post('id');
 				
@@ -140,6 +118,7 @@ class Controller_Wallet extends CI_Controller{
 				$txn_amount = $this->input->post('txn_amount');
 				$phone = $this->input->post('phone');
 				$is_processed = '1';
+				$order_code = $this->input->post('order_code');
 
 				$data_update = [ 'is_approved' => $is_approved,
 				'is_processed' => $is_processed,
@@ -148,6 +127,11 @@ class Controller_Wallet extends CI_Controller{
 				];
 
 				$this->M_General->updateData('tbl_transaction_history', $data_update, 'id', $id);
+
+				if ($is_approved == 1 && $txn_code == 'TOPU' && isset($order_code)) {
+
+
+				}
 
 				if ($is_approved == 1 && $txn_code == 'TOPU') {
 
@@ -159,8 +143,26 @@ class Controller_Wallet extends CI_Controller{
 					$data_wallet = ['balance' => $new_balance,
 					'total_credit' => $total_credit
 					];
+					$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
 
-					$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);					
+					if(isset($order_code)) {
+
+						$this->paymentOrder($phone, $order_code, $txn_amount);
+
+						$current_debit = $this->T_Wallet->getCurrentDebit($phone);
+
+						$new_balance = $new_balance - $txn_amount;
+						$total_debit = $current_debit + $txn_amount;
+
+						$data_wallet = ['balance' => $new_balance,
+						'total_debit' => $total_debit
+						];
+						$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
+
+						$data_order = ['order_status' => 'WAITING CONFIRMATION'];
+						$this->M_General->updateData('tbl_order', $data_order, 'order_code', $order_code);
+
+					}			
 
 				}
 
@@ -169,6 +171,31 @@ class Controller_Wallet extends CI_Controller{
 
 		}
 
+	}
+
+	public function paymentOrder($phone, $order_code, $amount) {
+		
+		$this->load->model("M_General");
+		$this->load->model("T_Wallet");
+		$this->load->model("M_Customer");
+		$this->load->model("M_Admin");
+
+		$phone = $phone;
+		$amount = $amount;
+		$order_code = $order_code;
+		$is_processed = 1;
+		$txn_code = 'PAYM';
+
+		if (isset($phone)) {
+			$data_insert = ['phone' => $phone,
+			'txn_amount' => $amount,
+			'txn_code' => $txn_code,
+			'is_processed' => $is_processed,
+			'order_code' => $order_code
+			];
+		}
+
+		$insertId = $this->M_General->insertData('tbl_transaction_history', $data_insert);
 	}
 
 	public function goTopUp($code = '') {
@@ -197,8 +224,12 @@ class Controller_Wallet extends CI_Controller{
 			$data['order_code'] = $order_code;
 			if (isset($order_code)) {
 				$data_order = $this->M_Order->getOneByCode($order_code);
+				if($data_order->num_rows() > 0){
+					$xdata_order = $data_order->row_array();
+					$customer_code = $xdata_order['customer_code'];
+				}
 				$data['data_order'] = $data_order;
-				$data['data'] = $this->M_Customer->getOneById($data_order['customer_code']);
+				$data['data'] = $this->M_Customer->getOneById($customer_code);
 				$data['total_amount'] = $total_amount;
 			}
 			$this->load->view('customer/topup', $data);

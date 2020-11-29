@@ -40,7 +40,7 @@
                       <tr>
                           <td><?=$no?></td>
                           <td><?=$order->order_code?></td>
-                          <td><?=$order->order_datetime?></td>
+                          <td><?=$order->created_datetime?></td>
                           <!-- <td style="text-align: center">
                             <?php
                               if($list_service->active_status == '1'){

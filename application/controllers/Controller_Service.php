@@ -211,23 +211,8 @@ class Controller_Service extends CI_Controller{
 		if ($this->session->userdata('akses') == '1') {
 
 			$service_detail_code = $this->M_General->getSequence('tbl_service_detail where service_category_code = \''.$service_category_code.'\'', 2, $service_category_code.'SD');
-			// $icon = "";
 
 			$service_detail_name = $this->input->post('service_detail_name');
-			
-			// $config['upload_path']          = './assets/uploaded-icon/';
-			// $config['allowed_types']        = 'jpeg|jpg|png';
-			// $config['max_size']             = 3000;
-			// $this->load->library('upload', $config);
-			// if ( ! $this->upload->do_upload('icon')) {
-			// 	$error = array('error' => $this->upload->display_errors());
-			// 	$error['category'] = $this->M_Service->getServiceCategoryByCode($service_category_code);
-			// 	$this->load->view('admin/service_detail_create', $error);
-			// } else {
-			// 	$image_data = $this->upload->data();
-			// 	$imgdata = file_get_contents($image_data['full_path']);
-			// 	$icon=base64_encode($imgdata);
-			// }
 
 			$data = [ 'service_category_code' => $service_category_code,
 			'service_detail_code' => $service_detail_code,
@@ -259,12 +244,11 @@ class Controller_Service extends CI_Controller{
 		$this->load->model("M_Service");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$nextId = $this->M_Service->getNextSequenceId('tbl_service_type');
-			$nextSeq = sprintf("%02d", $nextId);
-			$service_type_code = "ST".$nextSeq;
+			$service_type_code = $this->M_General->getSequence('tbl_service_type where service_detail_code = \''.$service_detail_code.'\'', 2, $service_detail_code.'SD');
 
 			$service_type_name 	=	$this->input->post('service_type_name');
 			$price 	=	$this->input->post('price');
@@ -277,7 +261,7 @@ class Controller_Service extends CI_Controller{
 			];
 
 			$this->M_Service->inputData('tbl_service_type', $data);
-			$this->M_Metadata->createMeta('tbl_service_type', $nextId, $this->session->userdata('fullname'));
+			$this->M_Metadata->createMeta('tbl_service_type', 'service_type_code', $service_type_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('Service Type', 'CREATE', $this->session->userdata('code'));
 
 			redirect('Controller_Service/getAllServiceTypeByDetail/'.$service_detail_code);

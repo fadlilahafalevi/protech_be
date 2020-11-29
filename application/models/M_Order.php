@@ -32,7 +32,7 @@ class M_Order extends CI_Model{
 		$this->db->join('tbl_technician t', 't.technician_code = o.technician_code', 'left');
 		$this->db->where('o.order_code', $code);
 		$query = $this->db->get();
-		return $query->row_array();
+		return $query->result();
 	}
 
 	public function getDetailByCode($code) {

@@ -50,7 +50,7 @@
          ?>
         <h3 class="page-title">Order <?=$order->order_code?></h3>
         <div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
+          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
         </div>
       </div>
       <!-- first row starts here -->
@@ -64,6 +64,12 @@
                            <label class="col-sm-3 col-form-label" for="order_code">Order Code</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="order_code" name="order_code" value="<?=$order->order_code?>" readonly="readonly">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="customer_name">Customer</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="customer_name" name="technician_name" value="<?=$order->customer_name?>" readonly="readonly">
                            </div>
                         </div>
                         <div class="form-group row">
@@ -82,12 +88,6 @@
                            <label class="col-sm-3 col-form-label" for="fix_datetime">Fix Datetime</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="fix_datetime" name="fix_datetime" value="<?=$order->fix_datetime?>" readonly="readonly">
-                           </div>
-                        </div>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="technician_name">Technician</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="technician_name" name="technician_name" value="<?=$order->technician_name?>" readonly="readonly">
                            </div>
                         </div>
                         <?php if ($order->order_status == 'WAITING CONFIRMATION') { ?>
@@ -136,7 +136,7 @@
                      <tbody>
                        <?php 
                          $no=0;
-                         foreach ($detail as $detail){
+                         foreach ($detail as $detail) {
                          $no++;
                        ?>
                          <tr>

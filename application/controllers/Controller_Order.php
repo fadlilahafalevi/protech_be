@@ -172,8 +172,10 @@ class Controller_Order extends CI_Controller{
 		if ($this->session->userdata('akses')=='2') {
 
 			$this->load->model("M_Order");
+			$this->load->model("M_Service");
 			
 			if(isset($code)) {
+				$data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
 				$data['data'] = $this->M_Order->getOneByCode($code);
 				$data['detail'] = $this->M_Order->getDetailByCode($code);
 				$this->load->view('technician/order_view', $data);

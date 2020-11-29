@@ -92,6 +92,12 @@
                            </div>
                         </div>
                         <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="order_code">Order Code</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="order_code" name="order_code" value="<?=$transaction_detail->order_code?>" readonly>
+                           </div>
+                        </div>
+                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="txn_amount">Transaction Amount</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="txn_amount" name="txn_amount" value="<?=$transaction_detail->txn_amount?>" readonly>
@@ -103,10 +109,15 @@
                               <input type="text" class="form-control" id="txn_datetime" name="txn_datetime" value="<?=$transaction_detail->txn_datetime?>" readonly>
                            </div>
                         </div>
+
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="txn_datetime">Receipt</label>
                            <div class="col-sm-9">
+                            <?php if(isset($transaction_detail->receipt)) { ?>
                               <img src="data:image/jpg;base64,<?php echo $transaction_detail->receipt; ?>" width="50%">
+                            <?php } else { ?>
+                              <label for="not_uploaded">Receipt not yet uploaded.</label>
+                            <?php } ?>
                            </div>
                         </div>
 
@@ -126,7 +137,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Admin">Back</a>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Wallet">Back</a>
                      </form>
 
                      <?php

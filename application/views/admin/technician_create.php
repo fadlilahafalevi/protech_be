@@ -66,9 +66,21 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="error">ERROR</label>
+                        <label class="col-sm-3 col-form-label" for="error_pass">ERROR</label>
                           <div class="col-sm-9">
-                            <input type="text" class="span3" id="error" name="error" value="<?php echo $error?>">
+                            <input type="text" class="span3" id="error_pass" name="error_pass" value="<?php echo $error_pass?>">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="ktp_photo">KTP Photo</label>
+                          <div class="col-sm-9">
+                            <input type="file" class="span3" id="ktp_photo" name="ktp_photo">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="error_ktp">ERROR</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="span3" id="error_ktp" name="error_ktp" value="<?php echo $error_ktp?>">
                           </div>
                         </div>
                         <div class="form-group row">

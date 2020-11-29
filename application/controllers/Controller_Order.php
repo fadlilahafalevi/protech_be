@@ -8,7 +8,7 @@ class Controller_Order extends CI_Controller{
 			$this->load->view('admin/order',$data);
 		}else if($this->session->userdata('akses')=='2'){
 			$data['data']=$this->T_Order->getAllOrder();
-			$this->load->view('customer/order',$data);
+			$this->load->view('technician/order',$data);
 	    }else if($this->session->userdata('akses')=='3'){
 			$data['data']=$this->T_Order->getAllOrder();
 			$this->load->view('customer/order',$data);
@@ -110,6 +110,9 @@ class Controller_Order extends CI_Controller{
 		if ($this->session->userdata('akses') == '3') {
 			$this->load->model("M_Order");
 			$this->load->model("M_General");
+			$this->load->model("T_Wallet");
+			$this->load->model("M_Customer");
+
 
 			$order_code = $this->input->post('order_code');
 			$customer_code = $this->input->post('customer_code');
@@ -120,8 +123,23 @@ class Controller_Order extends CI_Controller{
 			$technician_code = $this->input->post('technician_code');
 			$service_type_code = $this->input->post('service_detail_code').'ST01';
 			$fee = $this->input->post('fee');
-			$order_status = 'WAITING CONFIRMATION';
+			$order_status_wc = 'WAITING CONFIRMATION';
+			$order_status_wp = 'WAITING PAYMENT';
+			$order_status = '';
+			$is_paid = 0;
 			
+			$phone = $this->M_Customer->getPhoneByCode($customer_code);
+			$balance = $this->T_Wallet->getCurrentBalance($phone);
+
+			//Pengecekan apakah saldo cukup atau tidak
+			if ($balance >= $fee) {
+				$order_status = $order_status_wc;
+				$is_paid = 1;
+			} else {
+				$order_status = $order_status_wp;
+				$is_paid = 0;
+			}
+
 			$data = [ 'order_code'  => $order_code,
 			'customer_code' => $customer_code,
 			'technician_code' => $technician_code,
@@ -130,14 +148,17 @@ class Controller_Order extends CI_Controller{
 			'longitude' => $longitude,
 			'fix_datetime' => $fix_datetime,
 			'total_amount' => $fee,
-			'order_status' => $order_status
+			'order_status' => $order_status,
+			'created_by' => $customer_code
 			];
 
 			$this->M_General->insertData('tbl_order', $data);
 
 			$data_detail = [ 'order_code'  => $order_code,
 			'service_type_code' => $service_type_code,
-			'price' => $fee
+			'price' => $fee,
+			'is_paid' => $is_paid,
+			'created_by' => $customer_code
 			];
 
 			$this->M_General->insertData('tbl_order_detail', $data_detail);
@@ -165,6 +186,9 @@ class Controller_Order extends CI_Controller{
 			if(isset($code)) {
 				$data['data'] = $this->M_Order->getOneByCode($code);
 				$data['detail'] = $this->M_Order->getDetailByCode($code);
+				$total_price = $this->M_Order->getUnpaidOrderCustomer($code);
+				$data['total_price'] = number_format($total_price,2,',','.');
+				$data['price'] = $total_price;
 				$this->load->view('customer/order_view', $data);
 			}
 
@@ -182,7 +206,6 @@ class Controller_Order extends CI_Controller{
 				$data['data'] = $this->M_Order->getAllByCustomerCode($code);
 				$this->load->view('customer/order', $data);
 			}
-
 		} else {
 			redirect('Controller_Login');
 		}
@@ -197,7 +220,6 @@ class Controller_Order extends CI_Controller{
 				$data['data'] = $this->M_Order->getAllByTechnicianCode($code);
 				$this->load->view('technician/order', $data);
 			}
-
 		} else {
 			redirect('Controller_Login');
 		}

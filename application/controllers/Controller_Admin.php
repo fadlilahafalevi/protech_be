@@ -89,7 +89,7 @@ class Controller_Admin extends CI_Controller{
 
 			$this->M_General->insertData('tbl_admin', $data);
 			$this->M_Metadata->createMeta('tbl_admin', 'admin_code', $admin_code, $fullname);
-			$this->R_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('code'));
 
 			redirect('Controller_Admin');
 		}

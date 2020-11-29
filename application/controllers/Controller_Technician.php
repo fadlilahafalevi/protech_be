@@ -27,13 +27,16 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function createTechnician($error = '') {
+	public function createTechnician($error_pass = '', $error_ktp = '') {
 		$this->load->model("M_Service");
 		if($this->session->userdata('akses')=='1'){
 			$data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
 
-			if(isset($error)) {
-				$data['error'] = $error;
+			if(isset($error_pass)) {
+				$data['error_pass'] = $error_pass;
+			}
+			if(isset($error_ktp)) {
+				$data['error_ktp'] = $error_ktp;
 			}
 
 			$this->load->view('admin/technician_create', $data);
@@ -74,29 +77,31 @@ class Controller_Technician extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$pass_photo = "";
-			$ktp_photo = "";
+			$pass_photo = '';
+			$ktp_photo = '';
+			$error_pass = '';
+			$error_ktp = '';
 			$config['upload_path']          = './assets/uploaded-image/';
-			$config['allowed_types']        = 'jpeg|jpg|png';
+			$config['allowed_types']        = '*';
 			$config['max_size']             = 3000;
 			$this->load->library('upload', $config);
 			if ( ! $this->upload->do_upload('pass_photo')) {
-				$error = $this->upload->display_errors();
-				redirect('/Controller_Technician/createTechnician/'.$error);
+				$error_pass = $this->upload->display_errors();
+				redirect('/Controller_Technician/createTechnician/'.$error_pass.'/'.$error_pass);
 			} else {
 				$image_data = $this->upload->data();
 				$imgdata = file_get_contents($image_data['full_path']);
-				$pass_photo=base64_encode($imgdata);
+				$pass_photo = base64_encode($imgdata);
 			}
 
-			// if ( ! $this->upload->do_upload('ktp_photo')) {
-			// 	$error = array('error' => $this->upload->display_errors());
-			// 	redirect('/Controller_Technician/createTechnician/'.$error);
-			// } else {
-			// 	$image_data = $this->upload->data();
-			// 	$imgdata = file_get_contents($image_data['full_path']);
-			// 	$ktp_photo=base64_encode($imgdata);
-			// }
+			if ( ! $this->upload->do_upload('ktp_photo')) {
+				$error = array('error' => $this->upload->display_errors());
+				redirect('/Controller_Technician/createTechnician/'.$error_pass.'/'.$error_pass);
+			} else {
+				$image_data = $this->upload->data();
+				$imgdata = file_get_contents($image_data['full_path']);
+				$ktp_photo=base64_encode($imgdata);
+			}
 			
 			$technician_code = $this->M_General->getSequence('tbl_technician', 3, 'T');
 			$email = $this->input->post('email');
@@ -127,6 +132,14 @@ class Controller_Technician extends CI_Controller{
 			'ktp_photo' => $ktp_photo
 			];
 
+			$data_wallet = [ 'phone' => $phone,
+			'balance' => 0,
+			'total_debit' => 0,
+			'total_credit' => 0,
+			];
+
+			$this->M_General->insertData('tbl_wallet', $data_wallet);
+
 			$this->M_General->insertData('tbl_technician', $data);
 
 			$listDetailService = $this->M_Service->getAllServiceDetail();
@@ -140,14 +153,6 @@ class Controller_Technician extends CI_Controller{
 					$this->M_Technician->insertServiceRef($data);
 				}
 			}
-
-			$data_wallet = [ 'phone' => $phone,
-			'balance' => 0,
-			'total_debit' => 0,
-			'total_credit' => 0,
-			];
-
-			$this->M_General->insertData('tbl_wallet', $data_wallet);
 			
 			$this->M_Metadata->createMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('TECHNICIAN', 'CREATE', $this->session->userdata('code'));
@@ -164,6 +169,40 @@ class Controller_Technician extends CI_Controller{
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
+
+			$pass_photo = '';
+			$ktp_photo = '';
+			$error_pass = '';
+			$error_ktp = '';
+			$config['upload_path']          = './assets/uploaded-image/';
+			$config['allowed_types']        = '*';
+			$config['max_size']             = 3000;
+			$this->load->library('upload', $config);
+			if($_FILES[pass_photo]['name']!="") {
+				if ( ! $this->upload->do_upload('pass_photo')) {
+					$error_pass = $this->upload->display_errors();
+					redirect('/Controller_Technician/createTechnician/'.$error_pass.'/'.$error_pass);
+				} else {
+					$image_data = $this->upload->data();
+					$imgdata = file_get_contents($image_data['full_path']);
+					$pass_photo = base64_encode($imgdata);
+					$data_pass = [ 'pass_photo' => $pass_photo];
+					$this->M_General->updateData('tbl_technician', $data_pass, 'technician_code', $technician_code);
+				}
+			}
+
+			if (null != $this->input->post('ktp_photo')) {
+				if ( ! $this->upload->do_upload('ktp_photo')) {
+					$error = array('error' => $this->upload->display_errors());
+					redirect('/Controller_Technician/createTechnician/'.$error_pass.'/'.$error_pass);
+				} else {
+					$image_data = $this->upload->data();
+					$imgdata = file_get_contents($image_data['full_path']);
+					$ktp_photo=base64_encode($imgdata);
+					$data_ktp = [ 'ktp_photo' => $ktp_photo];
+					$this->M_General->updateData('tbl_technician', $data_ktp, 'technician_code', $technician_code);
+				}
+			}
 
 			$technician_code = $this->input->post('technician_code');
 			$email = $this->input->post('email');
@@ -206,6 +245,7 @@ class Controller_Technician extends CI_Controller{
 			];
 
 			$this->M_General->updateData('tbl_technician', $data, 'technician_code', $technician_code);
+
 			$this->M_Metadata->updateMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('TECHNICIAN', 'UPDATE', $this->session->userdata('code'));
 			redirect('Controller_Technician');

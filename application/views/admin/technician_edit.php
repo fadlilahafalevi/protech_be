@@ -31,7 +31,7 @@
                      <?php
                         foreach ($data as $technician_detail) {
                      ?>
-                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Technician/updateData'; ?>">
+                    <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Technician/updateData'; ?>" enctype="multipart/form-data">
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="technician_code">Technician Code</label>
                            <div class="col-sm-9">
@@ -60,6 +60,30 @@
                            <label class="col-sm-3 col-form-label" for="identity_number">Identity Number</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="identity_number" name="identity_number" value="<?=$technician_detail->identity_number?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="pass_photo">Pass Photo</label>
+                          <div class="col-sm-9">
+                            <input type="file" class="span3" id="pass_photo" name="pass_photo">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="pass_photo_preview">Pass Photo</label>
+                           <div class="col-sm-9">
+                              <img src="data:<?php echo $technician_detail->pass_photo; ?>;base64,<?php echo $technician_detail->pass_photo; ?>" width="250">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="ktp_photo">KTP Photo</label>
+                          <div class="col-sm-9">
+                            <input type="file" class="span3" id="ktp_photo" name="ktp_photo">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="ktp_photo">KTP Photo</label>
+                           <div class="col-sm-9">
+                              <img src="data:<?php echo $technician_detail->ktp_photo; ?>;base64,<?php echo $technician_detail->ktp_photo; ?>" width="250">
                            </div>
                         </div>
                         <div class="form-group row">

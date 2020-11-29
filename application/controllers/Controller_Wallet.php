@@ -22,6 +22,7 @@ class Controller_Wallet extends CI_Controller{
 			$amount = $this->input->post('amount');
 			$txn_code = $this->input->post('txn_code');
 			$is_processed = $this->input->post('is_processed');
+			$order_code = $this->input->post('order_code');
 
 			if (isset($phone)) {
 				$data_insert = ['phone' => $phone,
@@ -29,6 +30,10 @@ class Controller_Wallet extends CI_Controller{
 				'txn_code' => $txn_code,
 				'is_processed' => $is_processed
 				];
+			}
+
+			if (isset($order_code)) {
+				$data_insert['order_code'] = $order_code;
 			}
 
 			$insertId = $this->M_General->insertData('tbl_transaction_history', $data_insert);
@@ -75,7 +80,7 @@ class Controller_Wallet extends CI_Controller{
 				$this->M_General->updateData('tbl_transaction_history', $data, 'id', $id);
 			}
 
-			$this->load->view('customer/upload_receipt_topup', $data);
+			redirect(Controller_Wallet/getTransactionByPhone/$phone);
 
 		}
 	}
@@ -180,5 +185,47 @@ class Controller_Wallet extends CI_Controller{
 
 		}
 
+	}
+
+	public function customTopUpOrder($order_code = '', $total_amount = '') {
+
+		if ($this->session->userdata('akses') == '3') {
+
+			$this->load->model("M_Customer");
+			$this->load->model("M_Order");
+
+			$data['order_code'] = $order_code;
+			if (isset($order_code)) {
+				$data_order = $this->M_Order->getOneByCode($order_code);
+				$data['data_order'] = $data_order;
+				$data['data'] = $this->M_Customer->getOneById($data_order['customer_code']);
+				$data['total_amount'] = $total_amount;
+			}
+			$this->load->view('customer/topup', $data);
+		}
+	}
+
+	public function getTransactionByPhone($phone='') {
+		if ($this->session->userdata('akses') == '3') {
+
+			$this->load->model("M_Customer");
+			$this->load->model("T_Wallet");
+
+			if (isset($phone)) {
+				$data['data'] = $this->T_Wallet->getTransactionByPhone($phone);
+			}
+			$this->load->view('customer/list_wallet_transaction', $data);
+		}
+	}
+
+	public function goUploadReceipt($id='') {
+		if ($this->session->userdata('akses') == '3') {
+
+			$this->load->model("T_Wallet");
+			if(isset($id)) {
+				$data['insertedData'] = $this->T_Wallet->getTransactionHistoryById($id);
+				$this->load->view('customer/upload_receipt_topup', $data);
+			}
+		}
 	}
 }

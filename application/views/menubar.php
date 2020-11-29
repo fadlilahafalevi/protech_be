@@ -43,19 +43,16 @@
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="mdi mdi-coin menu-icon"></i>
-                    <span class="menu-title">Transaction</span>
+                    <span class="menu-title">Transaction Approval</span>
                     <i class="menu-arrow"></i>
                   </a>
                   <div class="submenu">
                     <ul class="submenu-item">
                       <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Order">Order</a>
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Order">Transaction Order</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Payment">Payment</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Wallet">Confirmation</a>
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Wallet">Transaction Wallet</a>
                       </li>
                       </li>
                     </ul>
@@ -122,10 +119,21 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">
+                  <a href="#" class="nav-link">
                     <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-                    <span class="menu-title">Order</span>
+                    <span class="menu-title">History</span>
+                    <i class="menu-arrow"></i>
                   </a>
+                  <div class="submenu">
+                    <ul class="submenu-item">
+                      <li class="nav-item">
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">Transaction Order</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Wallet/getTransactionByPhone/<?=$this->session->userdata('phone')?>">Transaction Wallet</a>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/Protech_BE/index.php/Controller_FAQ">

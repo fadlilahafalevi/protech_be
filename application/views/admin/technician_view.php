@@ -56,6 +56,18 @@
                            </div>
                         </div>
                         <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="pass_photo">Pass Photo</label>
+                           <div class="col-sm-9">
+                              <img src="data:<?php echo $technician_detail->pass_photo; ?>;base64,<?php echo $technician_detail->pass_photo; ?>" width="250">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="ktp_photo">KTP Photo</label>
+                           <div class="col-sm-9">
+                              <img src="data:<?php echo $technician_detail->ktp_photo; ?>;base64,<?php echo $technician_detail->ktp_photo; ?>" width="250">
+                           </div>
+                        </div>
+                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="bank_account_number">Bank Account Number</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" value="<?=$technician_detail->bank_account_number?>" disabled="disabled">

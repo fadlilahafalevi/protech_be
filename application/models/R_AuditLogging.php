@@ -8,8 +8,8 @@ class R_AuditLogging extends CI_Model{
 		return $query->result();
 	}
 
-	public function insertLog($menu, $action, $email){
-		$query=$this->db->query("INSERT INTO tbl_audit_log (menu, action, email_user, action_datetime) VALUES('$menu', '$action', '$email', current_timestamp)");
+	public function insertLog($menu, $action, $user_code){
+		$query=$this->db->query("INSERT INTO tbl_audit_log (menu, action, user_code, action_datetime) VALUES('$menu', '$action', '$user_code', current_timestamp)");
 		return $query;
 	}
 }

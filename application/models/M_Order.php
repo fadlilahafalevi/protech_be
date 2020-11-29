@@ -32,7 +32,7 @@ class M_Order extends CI_Model{
 		$this->db->join('tbl_technician t', 't.technician_code = o.technician_code', 'left');
 		$this->db->where('o.order_code', $code);
 		$query = $this->db->get();
-		return $query->result();
+		return $query->row_array();
 	}
 
 	public function getDetailByCode($code) {
@@ -73,5 +73,10 @@ class M_Order extends CI_Model{
 	public function updateStatus($code, $status) {
 		$result=$this->db->query("UPDATE `tbl_order` SET  order_status = '$status'  WHERE order_code = '$code'");
 		return $result;
+	}
+
+	public function getUnpaidOrderCustomer($code) {
+		$result=$this->db->query("SELECT sum(price) as total_price from tbl_order_detail where order_code = '$code' and is_paid = 0");
+		return $result->row()->total_price;
 	}
 }

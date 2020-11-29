@@ -6,11 +6,12 @@ class Controller_Settings extends CI_Controller{
 		
 		if($this->session->userdata('akses')=='2'){
 			$data['data'] = $this->M_Technician->getDataTechnicianByEmail($this->session->userdata('email'));
+		$this->load->view('technician/settings',$data);
 		}else if($this->session->userdata('akses')=='3'){
 			$data['data'] = $this->M_Customer->getDataCustomerByEmail($this->session->userdata('email'));
+		$this->load->view('customer/settings',$data);
 	    }
 
-		$this->load->view('customer/settings',$data);
 	}
 
 	public function updateProfile() {
@@ -51,7 +52,7 @@ class Controller_Settings extends CI_Controller{
 				$this->M_Technician->updatePassword($id, $password);
 			}
 			$this->M_Metadata->updateMeta('tbl_technician', $id, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('TECHNICIAN', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('TECHNICIAN', 'UPDATE', $this->session->userdata('code'));
             
             $this->session->set_userdata('fullname', $fullname);
 		} else if ($this->session->userdata('akses') == '3') {
@@ -71,7 +72,7 @@ class Controller_Settings extends CI_Controller{
 				$this->M_Customer->updatePassword($id, $password);
 			}
 			$this->M_Metadata->updateMeta('tbl_customer', $id, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('code'));
 			
             $this->session->set_userdata('fullname', $fullname);
 		}

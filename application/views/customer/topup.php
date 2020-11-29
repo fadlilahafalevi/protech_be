@@ -14,7 +14,7 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Order Detail</h3>
+        <h3 class="page-title">Top Up</h3>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -38,7 +38,11 @@
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="amount">Amount</label>
                            <div class="col-sm-9">
+                            <?php if(isset($total_amount)) { ?>
+                              <input type="text" class="form-control" id="amount" name="amount" value="<?=$total_amount?>" readonly="readonly" />
+                            <?php } else { ?>
                               <input type="text" class="form-control" id="amount" name="amount" placeholder="0" />
+                            <?php } ?>
                            </div>
                         </div>
 
@@ -48,6 +52,15 @@
                               <input type="text" class="form-control" id="txn_code" name="txn_code" value="TOPU" />
                            </div>
                         </div>
+
+                        <?php if(isset($order_code)) { ?>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="order_code">Order Code</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="order_code" name="order_code" value="<?=$order_code?>" readonly="readonly" />
+                           </div>
+                        </div>
+                        <?php } ?>
 
                         <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="is_processed">Is Processed</label>

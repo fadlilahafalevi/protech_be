@@ -16,6 +16,14 @@ class M_Customer extends CI_Model{
 		return $query->result();
 	}
 
+	public function getPhoneByCode($code) {
+		$this->db->select('*');
+		$this->db->from('tbl_customer');
+		$this->db->where('customer_code', $code);
+		$query = $this->db->get();
+		return $query->row()->phone;
+	}
+
 	public function getOneByEmail($email) {
 		$this->db->select('*');
 		$this->db->from('tbl_customer');

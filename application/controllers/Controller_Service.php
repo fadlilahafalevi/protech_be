@@ -196,7 +196,7 @@ class Controller_Service extends CI_Controller{
 
 			$this->M_General->updateData('tbl_service_category', $data, 'service_category_code', $service_category_code);
 			$this->M_Metadata->updateMeta('tbl_service_category', 'service_category_code', $service_category_code, $this->session->userdata('email'));
-			$this->R_AuditLogging->insertLog('Service Category', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('Service Category', 'UPDATE', $this->session->userdata('code'));
 
 			redirect('Controller_Service');
 		}
@@ -278,7 +278,7 @@ class Controller_Service extends CI_Controller{
 
 			$this->M_Service->inputData('tbl_service_type', $data);
 			$this->M_Metadata->createMeta('tbl_service_type', $nextId, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('Service Type', 'CREATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('Service Type', 'CREATE', $this->session->userdata('code'));
 
 			redirect('Controller_Service/getAllServiceTypeByDetail/'.$service_detail_code);
 		}
@@ -305,7 +305,7 @@ class Controller_Service extends CI_Controller{
 
 			$this->M_Service->updateData('tbl_service_detail', $data, $id);
 			$this->M_Metadata->updateMeta('tbl_service_detail', $id, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('Service Detail', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('Service Detail', 'UPDATE', $this->session->userdata('code'));
 
 			redirect('Controller_Service/getAllServiceDetailByCategory/'.$service_category_code);
 		}
@@ -335,7 +335,7 @@ class Controller_Service extends CI_Controller{
 
 			$this->M_Service->updateData('tbl_service_type', $data, $id);
 			$this->M_Metadata->updateMeta('tbl_service_type', $id, $this->session->userdata('fullname'));
-			$this->R_AuditLogging->insertLog('Service Type', 'UPDATE', $this->session->userdata('email'));
+			$this->R_AuditLogging->insertLog('Service Type', 'UPDATE', $this->session->userdata('code'));
 
 			redirect('Controller_Service/getAllServiceTypeByDetail/'.$service_detail_code);
 		}

@@ -14,7 +14,7 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Order Detail</h3>
+        <h3 class="page-title">Upload Top Up Receipt</h3>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -40,19 +40,19 @@
                            </div>
                         </div>
 
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="phone">Phone</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$data->txn_phone?>" />
+                           </div>
+                        </div>
+
                         <?php } ?>
 
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="receipt">Receipt</label>
                            <div class="col-sm-9">
                               <input type="file" class="span3" id="receipt" name="receipt"/>
-                           </div>
-                        </div>
-
-                        <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="phone">Phone</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$phone?>" />
                            </div>
                         </div>
 

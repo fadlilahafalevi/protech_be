@@ -70,6 +70,14 @@ class Controller_Customer extends CI_Controller{
 		$longitude = $this->input->post('longitude');
 		$active_status = '1';
 
+		$data_wallet = [ 'phone' => $phone,
+		'balance' => 0,
+		'total_debit' => 0,
+		'total_credit' => 0,
+		];
+
+		$this->M_General->insertData('tbl_wallet', $data_wallet);
+
 		$data = [ 'customer_code' => $customer_code,
 			'email' => $email,
 			'password'  => $password,
@@ -84,16 +92,8 @@ class Controller_Customer extends CI_Controller{
 
 		$this->M_General->insertData('tbl_customer', $data);
 
-		$data_wallet = [ 'phone' => $phone,
-		'balance' => 0,
-		'total_debit' => 0,
-		'total_credit' => 0,
-		];
-
-		$this->M_General->insertData('tbl_wallet', $data_wallet);
-
 		$this->M_Metadata->createMeta('tbl_customer', 'customer_code', $customer_code, $fullname);
-		$this->R_AuditLogging->insertLog('CUSTOMER', 'CREATE', $email);
+		$this->R_AuditLogging->insertLog('CUSTOMER', 'CREATE', $customer_code);
 
 		redirect('Controller_Login');
 	}

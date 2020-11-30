@@ -25,14 +25,24 @@ class M_Order extends CI_Model{
 		return $query->result();
 	}
 
-	public function getOneByCode($code) {
+	public function getForTopUp($code) {
 		$this->db->select('o.*, c.fullname as customer_name, t.fullname as technician_name');
 		$this->db->from('tbl_order o');
 		$this->db->join('tbl_customer c', 'c.customer_code = o.customer_code', 'left');
 		$this->db->join('tbl_technician t', 't.technician_code = o.technician_code', 'left');
 		$this->db->where('o.order_code', $code);
 		$query = $this->db->get();
-		return $query->result();
+		return $query;
+	}
+	
+	public function getOneByCode($code) {
+	    $this->db->select('o.*, c.fullname as customer_name, t.fullname as technician_name');
+	    $this->db->from('tbl_order o');
+	    $this->db->join('tbl_customer c', 'c.customer_code = o.customer_code', 'left');
+	    $this->db->join('tbl_technician t', 't.technician_code = o.technician_code', 'left');
+	    $this->db->where('o.order_code', $code);
+	    $query = $this->db->get();
+	    return $query->result();
 	}
 
 	public function getDetailByCode($code) {

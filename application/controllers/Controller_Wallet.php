@@ -218,7 +218,7 @@ class Controller_Wallet extends CI_Controller{
 
 			$data['order_code'] = $order_code;
 			if (isset($order_code)) {
-				$data_order = $this->M_Order->getOneByCode($order_code);
+			    $data_order = $this->M_Order->getForTopUp($order_code);
 				if($data_order->num_rows() > 0){
 					$xdata_order = $data_order->row_array();
 					$customer_code = $xdata_order['customer_code'];

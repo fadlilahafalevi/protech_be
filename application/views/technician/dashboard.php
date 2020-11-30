@@ -13,7 +13,7 @@
       <div class="main-panel">
       <div class="content-wrapper">
       <div class="page-header">
-         <h3 class="page-title">Basic Tables</h3>
+         <h3 class="page-title">Dashboard</h3>
       </div>
       <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">

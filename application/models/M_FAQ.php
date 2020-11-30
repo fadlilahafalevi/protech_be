@@ -5,10 +5,10 @@ class M_FAQ extends CI_Model{
 		return $query->result();
 	}
 
-	public function getOneById($id) {
+	public function getOneById($faq_code) {
 		$this->db->select('*');
 		$this->db->from('tbl_faq');
-		$this->db->where('id', $id);
+		$this->db->where('faq_code', $faq_code);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -34,11 +34,6 @@ class M_FAQ extends CI_Model{
 
 	function updateData($id, $faqQuestion, $faqAnswer, $modifiedBy) {
 		$result=$this->db->query("UPDATE tbl_faq SET faq_question='$faqQuestion', faq_answer='$faqAnswer', modified_by='$modifiedBy', modified_datetime=now() WHERE id='$id'");
-		return $result;
-	}
-
-	function deleteData($id) {
-		$result=$this->db->query("DELETE FROM tbl_faq WHERE id='$id'");
 		return $result;
 	}
 }

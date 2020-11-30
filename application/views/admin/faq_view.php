@@ -26,6 +26,12 @@
                      ?>
                     <form class="forms-sample">
                         <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="faq_code">FAQ Code</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="faq_code" name="faq_code" value="<?=$faq_detail->faq_code?> " readonly="readonly">
+                           </div>
+                        </div>
+                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="faq_question">Question</label>
                            <div class="col-sm-9">
                               <textarea type="text" class="form-control" id="faq_question" name="faq_question" readonly="readonly"><?=$faq_detail->faq_question?></textarea>

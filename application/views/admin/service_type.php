@@ -67,9 +67,6 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Service/getAllServiceTypeByDetail/<?=$list_service->service_detail_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
-                              <i class="mdi mdi-format-list-bulleted"></i>
-                            </a>
                             <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Service/updateServiceType/<?=$list_service->service_type_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-lead-pencil"></i>
                             </a>

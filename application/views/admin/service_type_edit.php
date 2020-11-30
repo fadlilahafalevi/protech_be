@@ -26,15 +26,15 @@
                      ?>
                     <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Service/updateDataType'; ?>">
                         <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$service_detail->id?>">
-                           </div>
-                        </div>
-                        <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="service_detail_code">Service Detail Code</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="service_detail_code" name="service_detail_code" value="<?=$service_detail->service_detail_code?>">
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="service_type_code">Service Type Code</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="service_type_code" name="service_type_code" value="<?=$service_detail->service_type_code?>" readonly="readonly">
                            </div>
                         </div>
                         <div class="form-group row">
@@ -65,7 +65,7 @@
                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service/getAllServiceTypeByDetail/<?=$service_detail->service_detail_code?>">Back</button>
+                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service/getAllServiceTypeByDetail/<?=$service_detail->service_detail_code?>">Back</a>
                      </form>
                      <?php
                         }

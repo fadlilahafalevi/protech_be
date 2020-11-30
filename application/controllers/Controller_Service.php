@@ -273,10 +273,12 @@ class Controller_Service extends CI_Controller{
 		$this->load->model("M_Service");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$id = $this->input->post('id');
+			$service_category_code = $this->input->post('service_category_code');
+			$service_detail_code = $this->input->post('service_detail_code');
 			$service_detail_name = $this->input->post('service_detail_name');
 			$active_status = $this->input->post('active_status');
 
@@ -288,8 +290,8 @@ class Controller_Service extends CI_Controller{
 			'active_status' => $active_status
 			];
 
-			$this->M_Service->updateData('tbl_service_detail', $data, $id);
-			$this->M_Metadata->updateMeta('tbl_service_detail', $id, $this->session->userdata('fullname'));
+			$this->M_General->updateData('tbl_service_detail', $data, 'service_detail_code', $service_detail_code);
+			$this->M_Metadata->updateMeta('tbl_service_detail', 'service_detail_code', $service_detail_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('Service Detail', 'UPDATE', $this->session->userdata('code'));
 
 			redirect('Controller_Service/getAllServiceDetailByCategory/'.$service_category_code);
@@ -300,11 +302,12 @@ class Controller_Service extends CI_Controller{
 		$this->load->model("M_Service");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$id = $this->input->post('id');
 			$service_detail_code = $this->input->post('service_detail_code');
+			$service_type_code = $this->input->post('service_type_code');
 			$service_type_name = $this->input->post('service_type_name');
 			$price = $this->input->post('price');
 			$active_status = $this->input->post('active_status');
@@ -318,8 +321,8 @@ class Controller_Service extends CI_Controller{
 			'active_status' => $active_status
 			];
 
-			$this->M_Service->updateData('tbl_service_type', $data, $id);
-			$this->M_Metadata->updateMeta('tbl_service_type', $id, $this->session->userdata('fullname'));
+			$this->M_General->updateData('tbl_service_type', $data, 'service_type_code', $service_type_code);
+			$this->M_Metadata->updateMeta('tbl_service_type', 'service_type_code', $service_type_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('Service Type', 'UPDATE', $this->session->userdata('code'));
 
 			redirect('Controller_Service/getAllServiceTypeByDetail/'.$service_detail_code);

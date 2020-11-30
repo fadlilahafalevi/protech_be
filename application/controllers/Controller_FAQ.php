@@ -14,14 +14,14 @@ class Controller_FAQ extends CI_Controller{
 	    }
 	}
 
-	public function getOne($id='') {
+	public function getOne($code='') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_FAQ");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->M_FAQ->getOneById($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$data['data'] = $this->M_FAQ->getOneById($code);
 			}
 
 			$this->load->view('admin/faq_view', $data);
@@ -37,14 +37,14 @@ class Controller_FAQ extends CI_Controller{
 		}
 	}
 
-	public function updateFAQ($id = '') {
+	public function updateFAQ($code = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_FAQ");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$listData = $this->M_FAQ->getOneById($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_FAQ->getOneById($code);
 				$data['data'] = $listData;
 			}
 
@@ -53,34 +53,25 @@ class Controller_FAQ extends CI_Controller{
 		}
 	}
 
-	public function deleteFAQ($id='') {
-		if($this->session->userdata('akses')=='1'){
-
-			$this->load->model("M_FAQ");
-
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->M_FAQ->getOneById($id);
-			}
-
-			$this->load->view('admin/faq_delete', $data);
-
-		}
-	}
-
 	public function saveData() {
 		$this->load->model("M_FAQ");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
+			$faq_code = $this->M_General->getSequence('tbl_faq', 3, 'F');
 			$faq_question = $this->input->post('faq_question');
 			$faq_answer = $this->input->post('faq_answer');
-			$created_by = $this->session->userdata('fullname');
-			$this->M_FAQ->inputData($faq_question, $faq_answer, $created_by);
-			$idData = $this->M_FAQ->getOneByQuestion($faq_question);
-			$this->M_Metadata->createMeta('tbl_faq', $idData, $this->session->userdata('fullname'));
+
+			$data = [ 'faq_code' => $faq_code,
+				'faq_question' => $faq_question,
+				'faq_answer' => $faq_answer,
+			];
+
+			$this->M_General->insertData('tbl_faq', $data);
+			$this->M_Metadata->createMeta('tbl_faq', 'faq_code', $faq_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('FAQ', 'CREATE', $this->session->userdata('code'));
 
 			redirect('Controller_FAQ');
@@ -91,31 +82,21 @@ class Controller_FAQ extends CI_Controller{
 		$this->load->model("M_FAQ");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$id = $this->input->post('id');
+			$faq_code = $this->input->post('faq_code');
 			$faq_question = $this->input->post('faq_question');
 			$faq_answer = $this->input->post('faq_answer');
-			$modified_by = $this->session->userdata('fullname');
 
-			$this->M_FAQ->updateData($id, $faq_question, $faq_answer, $modified_by);
-			$this->M_Metadata->updateMeta('tbl_faq', $id, $this->session->userdata('fullname'));
+			$data = ['faq_question' => $faq_question,
+				'faq_answer' => $faq_answer
+			];
+
+			$this->M_General->updateData('tbl_faq', $data, 'faq_code', $faq_code);
+			$this->M_Metadata->updateMeta('tbl_faq', 'faq_code', $faq_code,  $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('FAQ', 'UPDATE', $this->session->userdata('code'));
-			redirect('Controller_FAQ');
-		}
-	}
-
-	public function deleteData() {
-		$this->load->model("M_FAQ");
-		$this->load->model("R_AuditLogging");
-	
-		if ($this->session->userdata('akses') == '1') {
-
-			$id = $this->input->post('id');
-
-			$this->M_FAQ->deleteData($id);
-			$this->R_AuditLogging->insertLog('FAQ', 'DELETE', $this->session->userdata('code'));
 			redirect('Controller_FAQ');
 		}
 	}

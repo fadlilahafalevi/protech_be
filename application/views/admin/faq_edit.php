@@ -25,10 +25,10 @@
                         foreach ($data as $faq_detail) {
                      ?>
                     <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_FAQ/updateData'; ?>">
-                        <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="faq_code">FAQ Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$faq_detail->id?>">
+                              <input type="text" class="form-control" id="faq_code" name="faq_code" value="<?=$faq_detail->faq_code?>" readonly="readonly">
                            </div>
                         </div>
                         <div class="form-group row">

@@ -89,8 +89,9 @@ class Controller_Order extends CI_Controller{
 			$this->load->model("M_Customer");
 			$this->load->model("M_Technician");
 			$this->load->model("M_Service");
+			$this->load->model("M_General");
 
-			$data['order_id'] = $this->M_Order->getOrderId();
+			$data['order_id'] = $this->M_General->getSequenceOrder('tbl_order', '4');
 			$data['email'] = $this->session->userdata('email');
 			$data['technician'] = $this->M_Technician->getOneById($technician_id);
 			$data['customer'] = $this->M_Customer->getDataCustomerByEmail($this->session->userdata('email'));

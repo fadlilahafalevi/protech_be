@@ -56,8 +56,7 @@ class M_Order extends CI_Model{
 
 	public function getOrderId() {
 		$query=$this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'-',(SELECT LPAD((SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_order' and TABLE_SCHEMA = 'db_protech'), 4, '0'))) as auto_value");
-		return $query->row()->auto_value;
-		 
+		return $query->row()->auto_value;	 
 	}
 
 	public function checkUniqueNumber($unique_number) {
@@ -78,5 +77,16 @@ class M_Order extends CI_Model{
 	public function getUnpaidOrderCustomer($code) {
 		$result=$this->db->query("SELECT sum(price) as total_price from tbl_order_detail where order_code = '$code' and is_paid = 0");
 		return $result->row()->total_price;
+	}
+	
+	public function getServiceDetailFromOrder($code) {
+	    $this->db->select('sd.service_detail_code');
+	    $this->db->from('tbl_order_detail od');
+	    $this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code', 'left');
+	    $this->db->join('tbl_service_detail sd', 'sd.service_detail_code = st.service_detail_code', 'left');
+	    $this->db->join('tbl_service_category sc', 'sc.service_category_code = sd.service_category_code', 'left');
+	    $this->db->where('od.order_code', $code);
+	    $query = $this->db->get();
+	    return $query->row()->service_detail_code;
 	}
 }

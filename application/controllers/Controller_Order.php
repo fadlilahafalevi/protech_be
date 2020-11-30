@@ -112,6 +112,7 @@ class Controller_Order extends CI_Controller{
 			$this->load->model("M_General");
 			$this->load->model("T_Wallet");
 			$this->load->model("M_Customer");
+			$this->load->model("M_Metadata");
 
 
 			$order_code = $this->input->post('order_code');
@@ -153,6 +154,7 @@ class Controller_Order extends CI_Controller{
 			];
 
 			$this->M_General->insertData('tbl_order', $data);
+			$this->M_Metadata->createMeta('tbl_order', 'order_code', $order_code, $this->session->userdata('code'));
 
 			$data_detail = [ 'order_code'  => $order_code,
 			'service_type_code' => $service_type_code,
@@ -236,7 +238,29 @@ class Controller_Order extends CI_Controller{
 				$this->M_Order->updateStatus($order_code, 'IN PROGRESS');
 				redirect('Controller_Order/getOneByCode/'.$order_code);
 			}
-
 		}
 	}
+
+	public function finishOrderByTech($order_code = '') {
+		if ($this->session->userdata('akses')=='2') {
+			$this->load->model("M_Order");
+			if (isset($order_code)) {
+				$this->M_Order->updateStatus($order_code, 'FINISHED');
+				redirect('Controller_Order/getOneByCode/'.$order_code);
+			}
+		}
+	}
+	
+	public function requestNewService($order_code = '') {
+        if ($this->session->userdata('akses') == '2') {
+            $this->load->model("M_Order");
+            $this->load->model("M_Service");
+            if (isset($order_code)) {
+                $service_detail_code = $this->M_Order->getServiceDetailFromOrder($order_code);
+                $data['data'] = $this->M_Service->getAllServiceTypeByDetail($service_detail_code);
+                $data['order_code'] = $order_code;
+                $this->load->view('technician/request_new_service', $data);
+            }
+        }
+    }
 }

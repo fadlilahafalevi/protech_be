@@ -121,6 +121,7 @@
                            </div>
                         </div>
 
+						<?php if(isset($transaction_detail->receipt)) { ?>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="txn_datetime"></label>
                            <div class="col-sm-9">
@@ -135,6 +136,7 @@
                               </label>
                            </div>
                         </div>
+                        <?php } ?>
 
                         <button type="submit" class="btn btn-primary">Submit</button> 
                         <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Wallet">Back</a>

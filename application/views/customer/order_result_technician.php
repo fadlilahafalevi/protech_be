@@ -94,7 +94,7 @@
                           <td><?=$list_technician->fullname?></td>
                           <td><?=$list_technician->avg_rate?></td>
                           <td>
-                            <?=$list_technician->distance?> km
+                            <?php echo round($list_technician->distance, 2) ?> km
                           </td>
                           <td style="text-align: center">
                             <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/confirmOrder/<?=$list_technician->tech_id . '/' . $encoded_full_address . '/' . $latitude . '/' . $longitude . '/' . $encoded_fix_datetime . '/' . $service . '/' . $service_detail_code ?>" data-toggle="tooltip" title="Order" style="padding: 4px">

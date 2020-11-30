@@ -128,11 +128,6 @@ class Controller_Wallet extends CI_Controller{
 
 				$this->M_General->updateData('tbl_transaction_history', $data_update, 'id', $id);
 
-				if ($is_approved == 1 && $txn_code == 'TOPU' && isset($order_code)) {
-
-
-				}
-
 				if ($is_approved == 1 && $txn_code == 'TOPU') {
 
 					$current_balance = $this->T_Wallet->getCurrentBalance($phone);
@@ -145,7 +140,7 @@ class Controller_Wallet extends CI_Controller{
 					];
 					$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
 
-					if(isset($order_code)) {
+					if($order_code != '') {
 
 						$this->paymentOrder($phone, $order_code, $txn_amount);
 

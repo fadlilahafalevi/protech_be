@@ -109,6 +109,7 @@ class Controller_Customer extends CI_Controller{
 			$customer_code = $this->input->post('customer_code');
 			$email = $this->input->post('email');
 			$fullname = $this->input->post('fullname');
+			$phone_old = $this->input->post('phone_old');
 			$phone = $this->input->post('phone');
 			$full_address = $this->input->post('full_address');
 			$latitude =	$this->input->post('latitude');
@@ -128,6 +129,11 @@ class Controller_Customer extends CI_Controller{
 			'active_status' => $active_status
 			];
 
+			$data_wallet = [
+			'phone' => $phone
+			];
+
+			$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone_old);
 			$this->M_General->updateData('tbl_customer', $data, 'customer_code', $customer_code);
 			$this->M_Metadata->updateMeta('tbl_customer', 'customer_code', $customer_code,  $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('code'));

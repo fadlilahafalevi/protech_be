@@ -23,8 +23,11 @@
                </p>
                <div class="table-responsive">
 
-                  <h2><?=$balance?></h2>
-                  
+                  <h2>
+                     <?php if($balance > 0) {?>
+                        <?=$balance?>
+                     <?php } else { echo "0";}?>
+                  </h2>
                   <br><br><br><br><br><br>
 
                   <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Customer/goTopUp/<?=$this->session->userdata('code')?>">Top up</a>

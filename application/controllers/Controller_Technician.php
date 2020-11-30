@@ -207,6 +207,7 @@ class Controller_Technician extends CI_Controller{
 			$technician_code = $this->input->post('technician_code');
 			$email = $this->input->post('email');
 			$fullname = $this->input->post('fullname');
+			$phone_old = $this->input->post('phone_old');
 			$phone = $this->input->post('phone');
 			$full_address = $this->input->post('full_address');
 			$identity_number = $this->input->post('identity_number');
@@ -243,7 +244,12 @@ class Controller_Technician extends CI_Controller{
 			'active_status' => $active_status,
 			'bank_account_number' => $bank_account_number
 			];
+			
+			$data_wallet = [
+			'phone' => $phone
+			];
 
+			$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone_old);
 			$this->M_General->updateData('tbl_technician', $data, 'technician_code', $technician_code);
 
 			$this->M_Metadata->updateMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));

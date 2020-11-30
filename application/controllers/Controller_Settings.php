@@ -32,12 +32,14 @@ class Controller_Settings extends CI_Controller{
 		$this->load->model("M_Customer");
 		$this->load->model("M_Metadata");
 		$this->load->model("R_AuditLogging");
+		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '2') {
-			$id = $this->input->post('id');
+			$technician_code = $this->input->post('technician_code');
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 			$fullname = $this->input->post('fullname');
+			$phone_old = $this->input->post('phone_old');
 			$phone = $this->input->post('phone');
 			$full_address = $this->input->post('full_address');
 			$identity_number = $this->input->post('identity_number');
@@ -46,33 +48,75 @@ class Controller_Settings extends CI_Controller{
 			$longitude =	$this->input->post('longitude');
 			$active_status = 1;
 
-			$this->M_Technician->updateData($id, $email, $fullname, $phone, $full_address, $latitude, $longitude, $identity_number, $bank_account_number, $active_status);
+			$data = [ 'email' => $email,
+			'fullname' => $fullname,
+			'phone' => $phone,
+			'full_address' => $full_address,
+			'identity_number' => $identity_number,
+			'latitude' => $latitude,
+			'longitude' => $longitude,
+			'active_status' => $active_status,
+			'bank_account_number' => $bank_account_number
+			];
+			
+			$data_password = [
+			'password' => md5($password)
+			];
+			
+			$data_wallet = [
+			'phone' => $phone
+			];
+
+			$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone_old);
+			$this->M_General->updateData('tbl_technician', $data, 'technician_code', $technician_code);
 
 			if($password != null){
-				$this->M_Technician->updatePassword($id, $password);
+				$this->M_General->updateData('tbl_technician', $data_password, 'technician_code', $technician_code);
 			}
-			$this->M_Metadata->updateMeta('tbl_technician', $id, $this->session->userdata('fullname'));
+
+			$this->M_Metadata->updateMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('TECHNICIAN', 'UPDATE', $this->session->userdata('code'));
-            
+
             $this->session->set_userdata('fullname', $fullname);
 		} else if ($this->session->userdata('akses') == '3') {
-			$id = $this->input->post('id');
+			$customer_code = $this->input->post('customer_code');
 			$email = $this->input->post('email');
 			$password = $this->input->post('password');
 			$fullname = $this->input->post('fullname');
+			$phone_old = $this->input->post('phone_old');
 			$phone = $this->input->post('phone');
 			$full_address = $this->input->post('full_address');
 			$latitude =	$this->input->post('latitude');
 			$longitude = $this->input->post('longitude');
 			$active_status = 1;
 
-			$this->M_Customer->updateData($id, $email, $fullname, $phone, $full_address, $latitude, $longitude, $active_status);
+			$data = [ 'email' => $email,
+			'fullname' => $fullname,
+			'phone' => $phone,
+			'full_address' => $full_address,
+			'latitude' => $latitude,
+			'longitude' => $longitude,
+			'active_status' => $active_status,
+			];
 			
+			$data_password = [
+			'password' => md5($password)
+			];
+			
+			$data_wallet = [
+			'phone' => $phone
+			];
+
+			$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone_old);
+			$this->M_General->updateData('tbl_customer', $data, 'customer_code', $customer_code);
+
 			if($password != null){
-				$this->M_Customer->updatePassword($id, $password);
+				$this->M_General->updateData('tbl_customer', $data_password, 'customer_code', $customer_code);
 			}
-			$this->M_Metadata->updateMeta('tbl_customer', $id, $this->session->userdata('fullname'));
+
+			$this->M_Metadata->updateMeta('tbl_technician', 'technician_code', $technician_code, $this->session->userdata('code'));
 			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('code'));
+
 			
             $this->session->set_userdata('fullname', $fullname);
 		}

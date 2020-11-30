@@ -50,6 +50,12 @@
                               <input type="text" class="form-control" id="fullname" name="fullname" value="<?=$customer_detail->fullname?>">
                            </div>
                         </div>
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="phone_old">Phone Old</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="phone_old" name="phone_old" value="<?=$customer_detail->phone?>">
+                           </div>
+                        </div>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="phone">Phone</label>
                            <div class="col-sm-9">

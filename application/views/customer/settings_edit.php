@@ -32,12 +32,21 @@
                         foreach ($data as $user_detail) {
                      ?>
                     <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Settings/updateData'; ?>">
+                        <?php if ($this->session->userdata('akses')=='2') { ?>
                         <div class="form-group row" hidden>
-                           <label class="col-sm-3 col-form-label" for="id">ID</label>
+                           <label class="col-sm-3 col-form-label" for="technician_code">Technician Code</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="id" name="id" value="<?=$user_detail->id?>">
+                              <input type="text" class="form-control" id="technician_code" name="technician_code" value="<?=$user_detail->technician_code?>" readonly="readonly">
                            </div>
                         </div>
+                        <?php } else if ($this->session->userdata('akses')=='3') { ?>
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="customer_code">Customer Code</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="customer_code" name="customer_code" value="<?=$user_detail->customer_code?>" readonly="readonly">
+                           </div>
+                        </div>
+                        <?php } ?>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="email">Email</label>
                            <div class="col-sm-9">
@@ -54,6 +63,12 @@
                            <label class="col-sm-3 col-form-label" for="fullname">Fullname</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="fullname" name="fullname" value="<?=$user_detail->fullname?>">
+                           </div>
+                        </div>
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="phone_old">Phone Old</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="phone_old" name="phone_old" value="<?=$user_detail->phone?>">
                            </div>
                         </div>
                         <div class="form-group row">

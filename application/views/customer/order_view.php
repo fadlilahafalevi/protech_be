@@ -43,6 +43,12 @@
                            </div>
                         </div>
                         <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="order_status">Order Status</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="order_status" name="order_status" value="<?=$order->order_status?>" readonly="readonly">
+                           </div>
+                        </div>
+                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="address">Address</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="address" name="address" value="<?=$order->address?>" readonly="readonly">

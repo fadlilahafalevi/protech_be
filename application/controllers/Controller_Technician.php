@@ -133,6 +133,7 @@ class Controller_Technician extends CI_Controller{
 			];
 
 			$data_wallet = [ 'phone' => $phone,
+            'user_code' => $technician_code,
 			'balance' => 0,
 			'total_debit' => 0,
 			'total_credit' => 0,

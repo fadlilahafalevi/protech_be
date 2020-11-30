@@ -71,6 +71,7 @@ class Controller_Customer extends CI_Controller{
 		$active_status = '1';
 
 		$data_wallet = [ 'phone' => $phone,
+        'user_code' => $customer_code,
 		'balance' => 0,
 		'total_debit' => 0,
 		'total_credit' => 0,

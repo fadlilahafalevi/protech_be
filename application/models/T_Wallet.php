@@ -40,9 +40,12 @@ class T_Wallet extends CI_Model{
 	public function getTransactionByPhone($phone='') {
 		$this->db->select('c.fullname as customer_name, t.fullname as technician_name, th.*');
 		$this->db->from('tbl_transaction_history th');
-		$this->db->join('tbl_customer c', 'c.phone = th.phone', 'left');
-		$this->db->join('tbl_technician t', 't.phone = th.phone', 'left');
-		$this->db->where('th.phone', $phone);
+		$this->db->join('tbl_customer c', 'c.phone = th.from_phone', 'left');
+		$this->db->join('tbl_technician t', 't.phone = th.from_phone', 'left');
+		$this->db->join('tbl_customer c', 'c.phone = th.to_phone', 'left');
+		$this->db->join('tbl_technician t', 't.phone = th.to_phone', 'left');
+		$this->db->where('th.from_phone', $phone);
+		$this->db->or_where('th.to_phone', $phone);
 		$this->db->order_by("txn_datetime", "desc");
 		$query = $this->db->get();
 		return $query->result();

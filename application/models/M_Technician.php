@@ -15,6 +15,14 @@ class M_Technician extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+	
+	public function getPhoneByCode($code) {
+	    $this->db->select('*');
+	    $this->db->from('tbl_technician');
+	    $this->db->where('technician_code', $code);
+	    $query = $this->db->get();
+	    return $query->row()->phone;
+	}
 
 	public function getOneByEmail($email) {
 		$this->db->select('*');

@@ -151,10 +151,12 @@
                    </table>
                  </div>
                  <br><br><br>
+                 <?php if ($order->order_status == 'IN PROGRESS') {?>
                  <div>
-                   <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Order/finishOrderByTech/<?=$order->order_code?>">Finish Order</a>
+                   <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Order/finishOrderByTech/<?=$order->order_code?>/<?=$order->technician_code?>">Finish Order</a>
                    <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/requestNewService/<?=$order->order_code?>">Request New Service</a>
-                   </div>
+				 </div>
+				 <?php } ?>
                </div>
              </div>
         </div>

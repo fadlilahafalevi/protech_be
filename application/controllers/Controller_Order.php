@@ -165,7 +165,10 @@ class Controller_Order extends CI_Controller{
 			];
 
 			$this->M_General->insertData('tbl_order_detail', $data_detail);
-			$order_detail_id = $this->M_Order->getLastIdWithOrderCode($order_code);
+			
+			if($is_paid == 1) {
+			    $this->transferPaymentIntermediaryWallet('customer', $phone, $fee, $order_code);
+			}
 
 			redirect('Controller_Order/getOneByCode/'.$order_code);
 		}
@@ -242,15 +245,19 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function finishOrderByTech($order_code = '') {
-		if ($this->session->userdata('akses')=='2') {
-			$this->load->model("M_Order");
-			if (isset($order_code)) {
-				$this->M_Order->updateStatus($order_code, 'FINISHED');
-				redirect('Controller_Order/getOneByCode/'.$order_code);
-			}
-		}
-	}
+	public function finishOrderByTech($order_code = '', $technician_code = '') {
+        if ($this->session->userdata('akses') == '2') {
+            $this->load->model("M_Order");
+            $this->load->model("M_Technician");
+            if (isset($order_code)) {
+                $total_amount = $this->M_Order->getTotalPriceFromOrder($order_code);
+                $phone = $this->M_Technician->getPhoneByCode($technician_code);
+                $this->M_Order->updateStatus($order_code, 'FINISHED');
+                $this->transferPaymentIntermediaryWallet('technician', $phone, $total_amount, $order_code);
+                redirect('Controller_Order/getOneByCode/' . $order_code);
+            }
+        }
+    }
 	
 	public function requestNewService($order_code = '') {
         if ($this->session->userdata('akses') == '2') {
@@ -263,5 +270,76 @@ class Controller_Order extends CI_Controller{
                 $this->load->view('technician/request_new_service', $data);
             }
         }
-    }
+	}
+	
+	public function transferPaymentIntermediaryWallet($user_type, $phone, $amount, $order_code) {
+	    $this->load->model("T_Wallet");
+	    $this->load->model("M_General");
+	    
+	    $intermediaryWallet = '081000000000';
+	    $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
+	    $debitIntermediaryWallet = $this->T_Wallet->getCurrentDebit($intermediaryWallet);
+	    $creditIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
+	    if (strcasecmp($user_type, 'customer') == 0) {
+	        $txn_code = 'PAYM';
+	        $is_processed = '1';
+	        $is_approved = '1';
+	        
+	        $balance = $this->T_Wallet->getCurrentBalance($phone);
+	        $debit = $this->T_Wallet->getCurrentDebit($phone);
+	        $credit = $this->T_Wallet->getCurrentCredit($phone);
+	        
+	        $data = [
+	            'from_phone' => $phone,
+	            'to_phone' => $intermediaryWallet,
+	            'txn_amount' => $amount,
+	            'txn_code' => $txn_code,
+	            'order_code' => $order_code,
+	            'is_processed' => $is_processed,
+	            'is_approved' => $is_approved
+	        ];
+	        
+	        $data_wallet = [
+	            'balance' => $balance - $amount,
+	            'total_debit' => $debit + $amount
+	        ];
+	        
+	        $data_wallet_intermediary = [
+	            'balance' => $balanceIntermediaryWallet + $amount,
+	            'total_credit' => $creditIntermediaryWallet + $amount
+	        ];
+	    } else if (strcasecmp($user_type, 'technician') == 0) {
+	        $txn_code = 'PAYM';
+	        $is_processed = '1';
+	        $is_approved = '1';
+	        
+	        $balance = $this->T_Wallet->getCurrentBalance($phone);
+	        $debit = $this->T_Wallet->getCurrentDebit($phone);
+	        $credit = $this->T_Wallet->getCurrentCredit($phone);
+	        
+	        $data = [
+	            'to_phone' => $phone,
+	            'from_phone' => $intermediaryWallet,
+	            'txn_amount' => $amount,
+	            'txn_code' => $txn_code,
+	            'order_code' => $order_code,
+	            'is_processed' => $is_processed,
+	            'is_approved' => $is_approved
+	        ];
+	        
+	        $data_wallet = [
+	            'balance' => $balance + $amount,
+	            'total_credit' => $credit + $amount
+	        ];
+	        
+	        $data_wallet_intermediary = [
+	            'balance' => $balanceIntermediaryWallet - $amount,
+	            'total_debit' => $debitIntermediaryWallet + $amount
+	        ];
+	    }
+	    
+	    $this->M_General->insertData('tbl_transaction_history', $data);
+	    $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
+	    $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
+	}
 }

@@ -18,14 +18,14 @@ class Controller_Wallet extends CI_Controller{
 			$this->load->model("T_Wallet");
 			$this->load->model("M_Customer");
 
-			$phone = $this->input->post('phone');
+			$from_phone = $this->input->post('phone');
 			$amount = $this->input->post('amount');
 			$txn_code = $this->input->post('txn_code');
 			$is_processed = $this->input->post('is_processed');
 			$order_code = $this->input->post('order_code');
 
 			if (isset($phone)) {
-				$data_insert = ['phone' => $phone,
+			    $data_insert = ['from_phone' => $from_phone,
 				'txn_amount' => $amount,
 				'txn_code' => $txn_code,
 				'is_processed' => $is_processed
@@ -39,7 +39,7 @@ class Controller_Wallet extends CI_Controller{
 			$insertId = $this->M_General->insertData('tbl_transaction_history', $data_insert);
 
 			$data['insertedData'] = $this->T_Wallet->getTransactionHistoryById($insertId);
-			$data['phone'] = $phone;
+			$data['phone'] = $from_phone;
 
 			$this->load->view('customer/upload_receipt_topup', $data);
 
@@ -53,8 +53,6 @@ class Controller_Wallet extends CI_Controller{
 			$this->load->model("T_Wallet");
 
 			$receipt = "";
-
-			$service_detail_name = $this->input->post('service_detail_name');
 			
 			$config['upload_path']          = './assets/uploaded-receipt/';
 			$config['allowed_types']        = '*';

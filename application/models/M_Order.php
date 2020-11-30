@@ -89,6 +89,11 @@ class M_Order extends CI_Model{
 		return $result->row()->total_price;
 	}
 	
+	public function getTotalPriceFromOrder($code) {
+	    $result=$this->db->query("SELECT sum(price) as total_price from tbl_order_detail where order_code = '$code' and is_paid = 1");
+	    return $result->row()->total_price;
+	}
+	
 	public function getServiceDetailFromOrder($code) {
 	    $this->db->select('sd.service_detail_code');
 	    $this->db->from('tbl_order_detail od');

@@ -36,6 +36,8 @@
                   
                 </li>
               </ul>
+
+              <?php if($this->session->userdata('akses')=='1' || $this->session->userdata('akses')=='2' || $this->session->userdata('akses')=='3') { ?>
               <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item nav-profile dropdown">
                   <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -43,9 +45,7 @@
 
                     </div>
                     <div class="nav-profile-text">
-                      <?php if($this->session->userdata('akses')=='1' || $this->session->userdata('akses')=='2' || $this->session->userdata('akses')=='3') { ?>
                         <p class="text-black font-weight-semibold m-0"> Hello, <?=$this->session->userdata('fullname');?> ! <i class="mdi mdi-chevron-down"></i></p>
-                      <?php } ?>
                     </div>
                   </a>
                   <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
@@ -54,6 +54,10 @@
                   </div>
                 </li>
               </ul>
+              <?php } else { ?>
+                  <a class="btn btn-primary" type="button" id="btnLogin" data-toggle="Login" href="<?php echo base_url() . 'Controller_Login' ?>">LOGIN</a> &nbsp;&nbsp;
+                  <a class="btn btn-primary" type="button" id="btnRegister" data-toggle="Register" href="<?php echo base_url() . 'Controller_Customer/createCustomer' ?>">REGISTER</a>
+              <?php } ?>
               <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="horizontal-menu-toggle">
                 <span class="mdi mdi-menu"></span>
               </button>

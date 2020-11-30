@@ -61,19 +61,16 @@
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                     <i class="mdi mdi-file menu-icon"></i>
-                    <span class="menu-title">Report</span>
+                    <span class="menu-title">History</span>
                     <i class="menu-arrow"></i>
                   </a>
                   <div class="submenu">
                     <ul class="submenu-item">
                       <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_IncomeReport">Income Report</a>
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/orderHistory">Order History</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_DisbursementReport">Disbursement Report</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_AuditLog">Audit Log</a>
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Wallet/transactionHistory">Transaction History</a>
                       </li>
                     </ul>
                   </div>
@@ -127,10 +124,10 @@
                   <div class="submenu">
                     <ul class="submenu-item">
                       <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">Transaction Order</a>
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">Order History</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Wallet/getTransactionByPhone/<?=$this->session->userdata('phone')?>">Transaction Wallet</a>
+                        <a class="nav-link" href="/Protech_BE/index.php/Controller_Wallet/getTransactionByPhone/<?=$this->session->userdata('phone')?>">Transaction History</a>
                       </li>
                     </ul>
                   </div>

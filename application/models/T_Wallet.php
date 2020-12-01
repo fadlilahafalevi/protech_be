@@ -2,14 +2,8 @@
 class T_Wallet extends CI_Model{
 
 	public function getAllTransaction() {
-		$this->db->select('c.fullname as customer_name, t.fullname as technician_name, th.*');
-		$this->db->from('tbl_transaction_history th');
-		$this->db->join('tbl_customer c', 'c.phone = th.phone', 'left');
-		$this->db->join('tbl_technician t', 't.phone = th.phone', 'left');
-		$this->db->where('is_processed', '0');
-		$this->db->order_by("txn_datetime", "desc");
-		$query = $this->db->get();
-		return $query->result();
+	    $query = $this->db->query("select th.*, w.user_code, c.fullname as customer_name, t.fullname as technician_name from tbl_transaction_history th left join tbl_wallet w on w.phone = th.to_phone left join tbl_customer c on c.phone = w.phone left join tbl_technician t on t.phone = w.phone where txn_code = 'TOPU' and is_processed = 0 union all select th.*, w.user_code, c.fullname as customer_name, t.fullname as technician_name from tbl_transaction_history th left join tbl_wallet w on w.phone = th.to_phone left join tbl_customer c on c.phone = w.phone left join tbl_technician t on t.phone = w.phone where txn_code = 'WDRW' and is_processed = 0");
+	    return $query->result();
 	}
 
 	public function getTransactionHistoryById($id) {
@@ -36,16 +30,7 @@ class T_Wallet extends CI_Model{
 	}
 
 	public function getTransactionByPhone($phone='') {
-		$this->db->select('c.fullname as customer_name, t.fullname as technician_name, th.*');
-		$this->db->from('tbl_transaction_history th');
-		$this->db->join('tbl_customer c', 'c.phone = th.from_phone', 'left');
-		$this->db->join('tbl_technician t', 't.phone = th.from_phone', 'left');
-		$this->db->join('tbl_customer c', 'c.phone = th.to_phone', 'left');
-		$this->db->join('tbl_technician t', 't.phone = th.to_phone', 'left');
-		$this->db->where('th.from_phone', $phone);
-		$this->db->or_where('th.to_phone', $phone);
-		$this->db->order_by("txn_datetime", "desc");
-		$query = $this->db->get();
-		return $query->result();
+	    $query = $this->db->query("select * from (select * from tbl_transaction_history where from_phone = '$phone' union all select * from tbl_transaction_history where to_phone = '$phone') as hist order by hist.txn_datetime desc");
+	    return $query->result();
 	}
 }

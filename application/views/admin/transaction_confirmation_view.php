@@ -61,7 +61,11 @@
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="phone">Phone</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$transaction_detail->phone?>" readonly>
+                           <?php if($transaction_detail->txn_code == 'TOPU') { ?>
+                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$transaction_detail->to_phone?>" readonly>
+                           <?php } elseif($transaction_detail->txn_code == 'WDRW') { ?>
+                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$transaction_detail->from_phone?>" readonly>
+                           <?php } ?>
                            </div>
                         </div>
                         <?php

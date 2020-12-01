@@ -26,6 +26,15 @@
                         <?php 
                          foreach ($insertedData as $data) {
                         ?>
+                        <h4>Lakukan transfer ke rekening Protech melalui ATM/internet/mobile banking tepat dengan nominal yang tertera. <br/> <center>Transfer ke :</center></h4>
+                        <h2>
+                          <center>
+                            Bank : BCA<br/>
+                            No Rekening : 1234567890<br/>
+                            Atas Nama : Protech App<br/>
+                          </center>
+                        </h2>
+                        <br/><br/><br/>
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="amount">Amount</label>
                            <div class="col-sm-9">

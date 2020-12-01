@@ -24,8 +24,8 @@ class Controller_Wallet extends CI_Controller{
 			$is_processed = $this->input->post('is_processed');
 			$order_code = $this->input->post('order_code');
 
-			if (isset($phone)) {
-			    $data_insert = ['from_phone' => $from_phone,
+			if (isset($from_phone)) {
+			    $data_insert = ['to_phone' => $from_phone,
 				'txn_amount' => $amount,
 				'txn_code' => $txn_code,
 				'is_processed' => $is_processed

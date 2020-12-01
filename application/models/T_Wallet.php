@@ -13,10 +13,8 @@ class T_Wallet extends CI_Model{
 	}
 
 	public function getTransactionHistoryById($id) {
-		$this->db->select('th.phone as txn_phone, c.fullname as customer_name, t.fullname as technician_name, th.*');
+		$this->db->select('*');
 		$this->db->from('tbl_transaction_history th');
-		$this->db->join('tbl_customer c', 'c.phone = th.phone', 'left');
-		$this->db->join('tbl_technician t', 't.phone = th.phone', 'left');
 		$this->db->where('th.id', $id);
 		$query = $this->db->get();
 		return $query->result();

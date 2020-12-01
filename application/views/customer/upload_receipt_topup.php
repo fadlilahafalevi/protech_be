@@ -43,7 +43,7 @@
                         <div class="form-group row" hidden>
                            <label class="col-sm-3 col-form-label" for="phone">Phone</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$data->txn_phone?>" />
+                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$data->to_phone?>" />
                            </div>
                         </div>
 

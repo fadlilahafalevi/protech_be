@@ -57,13 +57,16 @@
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Request New Service Type</h4>
+              <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Order/requestNewServiceSubmit/'.$order_code; ?>">
               <?php 
                 foreach ($data as $service_type){
               ?>
                 <div class="form-check form-check-flat form-check-primary">
-                  <input type="checkbox" name="<?=$service_type->service_type_code?>" value="<?=$service_type->price?>" > <?=$service_type->service_type_name?>
+                  <input type="checkbox" name="<?=$service_type->service_type_code?>" value="<?=$service_type->service_type_code?>" > <?=$service_type->service_type_name?> - Rp. <?=$service_type->price?>
                 </div>
               <?php } ?>
+              <button type="submit" class="btn btn-primary">Submit</button> 
+              </form>
             </div>
             </div>
 		</div>

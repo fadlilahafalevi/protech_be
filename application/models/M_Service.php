@@ -63,13 +63,21 @@ class M_Service extends CI_Model{
 	public function getNextSequenceId($tblName) {
 		$query = $this->db->query("SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='$tblName' and TABLE_SCHEMA = 'db_protech'");
 		return $query->row()->auto_value;
-		 
 	}
 
 	public function getPriceByServiceDetailCode($code) {
 		$query = $this->db->query("SELECT price from tbl_service_type where service_type_code = concat('$code', 'ST01')");
-		return $query->row()->price;
-		 
+		return $query->row()->price; 
+	}
+	
+	public function getPriceByServiceTypeCode($code) {
+	    $query = $this->db->query("SELECT price from tbl_service_type where service_type_code ='$code'");
+	    return $query->row()->price;
+	}
+	
+	public function getRequestOrderTechnician($service_type_code) {
+	    $query = $this->db->query("select * from tbl_service_type where service_detail_code = (select service_detail_code from tbl_service_type where service_type_code = '$service_type_code') and service_type_code <> '$service_type_code'");
+	    return $query->result();
 	}
 
 	function inputData($tblName, $data){

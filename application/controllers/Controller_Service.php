@@ -249,7 +249,7 @@ class Controller_Service extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$service_type_code = $this->M_General->getSequence('tbl_service_type where service_detail_code = \''.$service_detail_code.'\'', 2, $service_detail_code.'SD');
+			$service_type_code = $this->M_General->getSequence('tbl_service_type where service_detail_code = \''.$service_detail_code.'\'', 2, $service_detail_code.'ST');
 
 			$service_type_name 	=	$this->input->post('service_type_name');
 			$price 	=	$this->input->post('price');

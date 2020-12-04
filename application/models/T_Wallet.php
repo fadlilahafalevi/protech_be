@@ -7,11 +7,8 @@ class T_Wallet extends CI_Model{
 	}
 
 	public function getTransactionHistoryById($id) {
-		$this->db->select('*');
-		$this->db->from('tbl_transaction_history th');
-		$this->db->where('th.id', $id);
-		$query = $this->db->get();
-		return $query->result();
+	    $query = $this->db->query("select * from (select th.*, w.user_code, c.fullname as customer_name, t.fullname as technician_name from tbl_transaction_history th left join tbl_wallet w on w.phone = th.to_phone left join tbl_customer c on c.phone = w.phone left join tbl_technician t on t.phone = w.phone where txn_code = 'TOPU' and is_processed = 0 union all select th.*, w.user_code, c.fullname as customer_name, t.fullname as technician_name from tbl_transaction_history th left join tbl_wallet w on w.phone = th.to_phone left join tbl_customer c on c.phone = w.phone left join tbl_technician t on t.phone = w.phone where txn_code = 'WDRW' and is_processed = 0) trans where trans.id = $id");
+	    return $query->result();
 	}
 
 	public function getCurrentBalance($phone) {

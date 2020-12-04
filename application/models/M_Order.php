@@ -55,6 +55,21 @@ class M_Order extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+	
+	public function getListNeedConfirmByCustomer($customer_code) {
+	    $this->db->distinct();
+	    $this->db->select('o.order_code, o.fix_datetime, concat(sc.service_category_name, \' - \', sd.service_detail_name) as service');
+	    $this->db->from('tbl_order o');
+	    $this->db->join('tbl_order_detail od', 'od.order_code = o.order_code', 'left');
+	    $this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code', 'left');
+	    $this->db->join('tbl_service_detail sd', 'sd.service_detail_code = st.service_detail_code', 'left');
+	    $this->db->join('tbl_service_category sc', 'sc.service_category_code = sd.service_category_code', 'left');
+	    $this->db->where('o.customer_code', $customer_code);
+	    $this->db->where('od.is_paid', 0);
+	    $this->db->where('o.order_status', 'IN PROGRESS');
+	    $query = $this->db->get();
+	    return $query->result();
+	}
 
 	public function getListNeedConfirmationByTechCode($code) {
 		$this->db->select('o.*');
@@ -65,9 +80,9 @@ class M_Order extends CI_Model{
 	}
 
 	public function getOrderId() {
-		$query=$this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'-',(SELECT LPAD((SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_order' and TABLE_SCHEMA = 'db_protech'), 4, '0'))) as auto_value");
-		return $query->row()->auto_value;	 
-	}
+        $query = $this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'-',(SELECT LPAD((SELECT AUTO_INCREMENT as auto_value FROM information_schema.tables WHERE table_name='tbl_order' and TABLE_SCHEMA = 'db_protech'), 4, '0'))) as auto_value");
+        return $query->row()->auto_value;
+    }
 
 	public function checkUniqueNumber($unique_number) {
 		$query=$this->db->query("SELECT count(*) as unique_number from tbl_payment_unique_code where unique_number = '$unique_number'");
@@ -94,14 +109,11 @@ class M_Order extends CI_Model{
 	    return $result->row()->total_price;
 	}
 	
-	public function getServiceDetailFromOrder($code) {
-	    $this->db->select('sd.service_detail_code');
+	public function getServiceTypeFromOrder($code) {
+	    $this->db->select('od.service_type_code');
 	    $this->db->from('tbl_order_detail od');
-	    $this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code', 'left');
-	    $this->db->join('tbl_service_detail sd', 'sd.service_detail_code = st.service_detail_code', 'left');
-	    $this->db->join('tbl_service_category sc', 'sc.service_category_code = sd.service_category_code', 'left');
 	    $this->db->where('od.order_code', $code);
 	    $query = $this->db->get();
-	    return $query->row()->service_detail_code;
+	    return $query->row()->service_type_code;
 	}
 }

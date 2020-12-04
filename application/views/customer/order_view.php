@@ -6,12 +6,56 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>PROTECH</title>
    <style>
-      #map {
-        width: 100%;
-        height: 300px;
-        border: 1px solid #000;
-      }
-   </style>
+    #map {
+    	width: 100%;
+    	height: 300px;
+    	border: 1px solid #000;
+    }
+    
+    .rating {
+    	position: absolute;
+    	left: 25%;
+    	transform: translate(-50%, -50%) rotateY(180deg);
+    	display: flex;
+    }
+    
+    .rating input {
+    	display: none;
+    }
+    
+    .rating label {
+    	display: block;
+    	cursor: pointer;
+    	width: 50px;
+    }
+    
+    .rating label:before {
+    	content: '\f005';
+    	font-family: fontAwesome;
+    	position: relative;
+    	display: block;
+    	font-size: 50px;
+    	color: #101010;
+    }
+    
+    .rating label:after {
+    	content: '\f005';
+    	font-family: fontAwesome;
+    	position: absolute;
+    	display: block;
+    	font-size: 50px;
+    	color: #fffa00;
+    	top: 0;
+    	opacity: 0;
+    	transition: .5s;
+    	text-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+    }
+    
+    .rating label:hover:after, .rating label:hover ~ label:after, .rating input:checked 
+    	~ label:after {
+    	opacity: 1;
+    }
+</style>
 
 </head>
 <body>
@@ -23,6 +67,9 @@
       <div class="page-header">
          <?php
             foreach ($data as $order) {
+                $order_status = $order->order_status;
+                $order_code = $order->order_code;
+                $order_rate = $order->order_rate;
          ?>
         <h3 class="page-title">Order <?=$order->order_code?></h3>
         <div class="template-demo">
@@ -111,8 +158,12 @@
                      <tbody>
                        <?php 
                          $no=0;
+                         $isPaidCounter=0;
                          foreach ($detail as $detail){
                          $no++;
+                         if($detail->is_paid == 0) {
+                             $isPaidCounter++;
+                         }
                        ?>
                          <tr>
                              <td><?=$no?></td>
@@ -122,10 +173,29 @@
                          </tr>
                        <?php
                        }
-                       ?>        
+                       ?>
                      </tbody>
                    </table>
                  </div>
+                 <br><br><br>
+                 <?php if ($isPaidCounter > 0 && $order_status == 'IN PROGRESS') {?>
+                   <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/approvedRequestByCustomer/<?=$order_code?>/<?=$this->session->userdata('phone')?>">Approve Request</a>
+                 <?php } elseif ($order_status == 'FINISHED' && $order_rate == null) { ?>
+                 Order Rating : 
+                 <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Order/submitRating/'.$order_code; ?>">
+                 	<div class="rating">
+                		<input type="radio" name="rate" id="star1" value="5"><label for="star1"></label>
+                		<input type="radio" name="rate" id="star2" value="4"><label for="star2"></label>
+                		<input type="radio" name="rate" id="star3" value="3"><label for="star3"></label>
+                		<input type="radio" name="rate" id="star4" value="2"><label for="star4"></label>
+                		<input type="radio" name="rate" id="star5" value="1"><label for="star5"></label>
+                	</div>
+                	<br>
+                	<br>
+                	<br>
+                	<button type="submit" class="btn btn-success">Submit Rating</button>
+                </form>
+                <?php } ?>
                </div>
              </div>
         </div>

@@ -31,6 +31,7 @@ class Controller_Dashboard extends CI_Controller {
 	    } else if($this->session->userdata('akses')=='3'){
 
 	    	$data['balance'] = $this->T_Wallet->getCurrentBalance($this->session->userdata('phone'));
+	    	$data['need_confirmation_order'] = $this->M_Order->getListNeedConfirmByCustomer($this->session->userdata('code'));
 
 			$this->load->view('customer/dashboard', $data);
 

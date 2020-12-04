@@ -264,13 +264,76 @@ class Controller_Order extends CI_Controller{
             $this->load->model("M_Order");
             $this->load->model("M_Service");
             if (isset($order_code)) {
-                $service_detail_code = $this->M_Order->getServiceDetailFromOrder($order_code);
-                $data['data'] = $this->M_Service->getAllServiceTypeByDetail($service_detail_code);
+                $service_detail_code = $this->M_Order->getServiceTypeFromOrder($order_code);
+                $data['data'] = $this->M_Service->getRequestOrderTechnician($service_detail_code);
                 $data['order_code'] = $order_code;
                 $this->load->view('technician/request_new_service', $data);
             }
         }
 	}
+	
+	public function requestNewServiceSubmit($order_code = '') {
+        if ($this->session->userdata('akses') == '2') {
+            $this->load->model("M_Order");
+            $this->load->model("M_Service");
+            $this->load->model("M_General");
+            if (isset($order_code)) {
+                $service_type_code_order = $this->M_Order->getServiceTypeFromOrder($order_code);
+                $list_request_service = $this->M_Service->getRequestOrderTechnician($service_type_code_order);
+                $data['order_code'] = $order_code;
+
+                foreach ($list_request_service as $service) {
+                    $code = $service->service_type_code;
+                    $service_type_code = $this->input->post($code);
+                    $price = $this->M_Service->getPriceByServiceTypeCode($service_type_code);
+                    if (isset($service_type_code)) {
+                    $data = [
+                        'order_code' => $order_code,
+                        'service_type_code' => $service_type_code,
+                        'price' => $price,
+                        'is_paid' => 0
+                    ];
+                        $this->M_General->insertData('tbl_order_detail', $data);
+                    }
+                }
+                redirect('Controller_Order/getOneByCode/'.$order_code);
+            }
+        }
+    }
+    
+    public function approvedRequestByCustomer($order_code, $phone) {
+        $this->load->model("M_Order");
+        $this->load->model("T_Wallet");
+        $this->load->model("M_General");
+        
+        $total_unpaid = $this->M_Order->getUnpaidOrderCustomer($order_code);
+        $total_balance_customer = $this->T_Wallet->getCurrentBalance($phone);
+        
+        if ($total_balance_customer >= $total_unpaid) {
+            $data = [
+                'order_code' => $order_code,
+                'is_paid' => 1
+            ];
+            $this->M_General->updateData('tbl_order_detail', $data, 'order_code', $order_code);
+            $this->transferPaymentIntermediaryWallet('customer', $phone, $total_unpaid, $order_code);
+        }
+        
+        redirect('Controller_Order/getOneByCode/'.$order_code);
+    }
+    
+    public function submitRating($order_code) {
+        $this->load->model("M_Order");
+        $this->load->model("M_General");
+        
+        echo 'A';
+        $rating = $this->input->post('rate');
+        $data = [
+            'order_code' => $order_code,
+            'order_rate' => $rating
+        ];
+        $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+        redirect('Controller_Order/getOneByCode/'.$order_code);
+    }
 	
 	public function transferPaymentIntermediaryWallet($user_type, $phone, $amount, $order_code) {
 	    $this->load->model("T_Wallet");

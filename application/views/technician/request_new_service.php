@@ -48,7 +48,7 @@
         <h3 class="page-title">Order <?=$order_code?></h3>
         <h3 class="page-title">Request New Service</h3>
         <div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
+          <a class="btn btn-primary" href="/protech/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
         </div>
       </div>
       <!-- first row starts here -->

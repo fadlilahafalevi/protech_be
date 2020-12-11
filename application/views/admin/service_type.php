@@ -18,8 +18,8 @@
         ?>
         <h3 class="page-title"><?=$detail->service_category_name?> - <?=$detail->service_detail_name?> (<?=$detail->service_detail_code?>)</h3>
         <div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$detail->service_category_code?>">Back to Service Detail</a>
-          <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Service/createServiceType/<?=$detail->service_detail_code?>">Create</a>
+          <a class="btn btn-primary" href="/protech/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$detail->service_category_code?>">Back to Service Detail</a>
+          <a class="btn btn-success" href="/protech/index.php/Controller_Service/createServiceType/<?=$detail->service_detail_code?>">Create</a>
         </div>
         <?php
         }
@@ -67,7 +67,7 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Service/updateServiceType/<?=$list_service->service_type_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                            <a class="btn btn-warning" href="/protech/index.php/Controller_Service/updateServiceType/<?=$list_service->service_type_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-lead-pencil"></i>
                             </a>
                           </td>

@@ -65,7 +65,7 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Wallet/goUploadReceipt/<?=$transaction->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_Wallet/goUploadReceipt/<?=$transaction->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
                           </td>

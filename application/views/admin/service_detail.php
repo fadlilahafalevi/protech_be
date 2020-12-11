@@ -18,8 +18,8 @@
         ?>
         <h3 class="page-title"><?=$category->service_category_code?> - <?=$category->service_category_name?></h3>
         <div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Service">Back to Service Category</a>
-          <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Service/createServiceDetail/<?=$category->service_category_code?>">Create</a>
+          <a class="btn btn-primary" href="/protech/index.php/Controller_Service">Back to Service Category</a>
+          <a class="btn btn-success" href="/protech/index.php/Controller_Service/createServiceDetail/<?=$category->service_category_code?>">Create</a>
         </div>
         <?php
         }
@@ -63,10 +63,10 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Service/getAllServiceTypeByDetail/<?=$list_service->service_detail_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_Service/getAllServiceTypeByDetail/<?=$list_service->service_detail_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-format-list-bulleted"></i>
                             </a>
-                            <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Service/updateServiceDetail/<?=$list_service->service_detail_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                            <a class="btn btn-warning" href="/protech/index.php/Controller_Service/updateServiceDetail/<?=$list_service->service_detail_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-lead-pencil"></i>
                             </a>
                           </td>

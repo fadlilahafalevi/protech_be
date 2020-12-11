@@ -131,19 +131,19 @@
                            <div class="col-sm-9">
                               <input type="radio" name="is_approved" id="choose-1" value="0"/>
                               <label for="choose-1">
-                                 <img src="/Protech_BE/assets/images/reject.png" />
+                                 <img src="/protech/assets/images/reject.png" />
                               </label>
 
                               <input type="radio" name="is_approved" id="choose-2" value="1"/>
                               <label for="choose-2">
-                                 <img src="/Protech_BE/assets/images/accept.png" />
+                                 <img src="/protech/assets/images/accept.png" />
                               </label>
                            </div>
                         </div>
                         <?php } ?>
 
                         <button type="submit" class="btn btn-primary">Submit</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Wallet">Back</a>
+                        <a class="btn btn-light" href="/protech/index.php/Controller_Wallet">Back</a>
                      </form>
 
                      <?php

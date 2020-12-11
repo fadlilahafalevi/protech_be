@@ -14,7 +14,7 @@
     <div class="content-wrapper pb-0">
       <div class="page-header">
         <h3 class="page-title">Master Technician</h3>
-        <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Technician/createTechnician">Create</a>
+        <a class="btn btn-success" href="/protech/index.php/Controller_Technician/createTechnician">Create</a>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -56,10 +56,10 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Technician/getOne/<?=$list_technician->technician_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_Technician/getOne/<?=$list_technician->technician_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
-                             <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Technician/updateTechnician/<?=$list_technician->technician_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                             <a class="btn btn-warning" href="/protech/index.php/Controller_Technician/updateTechnician/<?=$list_technician->technician_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-pencil"></i>
                             </a>
                           </td>

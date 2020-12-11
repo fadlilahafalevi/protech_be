@@ -19,10 +19,10 @@
     <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="/Protech_BE/assets/css/bootstrap-datetimepicker.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/protech/assets/css/bootstrap-datetimepicker.min.css" type="text/css" media="all" />
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="/Protech_BE/assets/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="/Protech_BE/assets/js/demo.js"></script>
+    <script type="text/javascript" src="/protech/assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/protech/assets/js/demo.js"></script>
 
 </head>
 <body>
@@ -89,7 +89,7 @@
                         <div id="map"></div>
                         <br/>
                         <button type="submit" class="btn btn-primary">Search</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Technician">Back</a>
+                        <a class="btn btn-light" href="/protech/index.php/Controller_Technician">Back</a>
                      </form>
                      <?php 
                        }

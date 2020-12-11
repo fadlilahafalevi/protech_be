@@ -22,7 +22,7 @@
     <div class="content-wrapper pb-0">
       <div class="page-header">
         <h3 class="page-title">Master Frequently Asked Questions</h3>
-        <a class="btn btn-success" href="/Protech_BE/index.php/Controller_FAQ/createFAQ">Create</a>
+        <a class="btn btn-success" href="/protech/index.php/Controller_FAQ/createFAQ">Create</a>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -50,10 +50,10 @@
                           <td class="ellipsis"><?=$list_faq->faq_question?></td>
                           <td class="ellipsis"><?=$list_faq->faq_answer?></td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_FAQ/getOne/<?=$list_faq->faq_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_FAQ/getOne/<?=$list_faq->faq_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
-                             <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_FAQ/updateFAQ/<?=$list_faq->faq_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                             <a class="btn btn-warning" href="/protech/index.php/Controller_FAQ/updateFAQ/<?=$list_faq->faq_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-pencil"></i>
                             </a>
                           </td>

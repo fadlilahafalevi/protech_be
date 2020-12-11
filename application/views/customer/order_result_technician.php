@@ -97,7 +97,7 @@
                             <?php echo round($list_technician->distance, 2) ?> km
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/confirmOrder/<?=$list_technician->tech_id . '/' . $encoded_full_address . '/' . $latitude . '/' . $longitude . '/' . $encoded_fix_datetime . '/' . $service . '/' . $service_detail_code ?>" data-toggle="tooltip" title="Order" style="padding: 4px">
+                            <a class="btn btn-success" href="/protech/index.php/Controller_Order/confirmOrder/<?=$list_technician->tech_id . '/' . $encoded_full_address . '/' . $latitude . '/' . $longitude . '/' . $encoded_fix_datetime . '/' . $service . '/' . $service_detail_code ?>" data-toggle="tooltip" title="Order" style="padding: 4px">
                               <i class="mdi mdi-check-circle-outline"></i>
                             </a>
                           </td>

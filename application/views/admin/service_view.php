@@ -55,7 +55,7 @@
                                  <!-- /control-group -->
                                  <br />
                                  <div class="form-actions">
-                                    <a href="/Protech_BE/index.php/Controller_Service" class="btn">Back</a>
+                                    <a href="/protech/index.php/Controller_Service" class="btn">Back</a>
                                  </div>
                                  <!-- /form-actions -->
                               </fieldset>

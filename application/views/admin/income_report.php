@@ -43,7 +43,7 @@
                           <td><?=$list_incomereport->fix_datetime?></td>
                           <td><?=$list_incomereport->total_amount?></td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_IncomeReport/getDetailIncomeReport/<?=$list_auditlog->order_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_IncomeReport/getDetailIncomeReport/<?=$list_auditlog->order_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
                           </td>                       

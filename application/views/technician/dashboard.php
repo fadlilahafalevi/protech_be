@@ -40,7 +40,7 @@
                            <td><?=$listNeedConfirm->order_code?></td>
                            <td><?=$listNeedConfirm->fix_datetime?></td>
                            <td style="text-align: center">
-                              <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Order/getOneByCode/<?=$listNeedConfirm->order_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                              <a class="btn btn-info" href="/protech/index.php/Controller_Order/getOneByCode/<?=$listNeedConfirm->order_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                               </a>
                            </td>

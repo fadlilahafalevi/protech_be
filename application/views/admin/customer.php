@@ -55,10 +55,10 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Customer/getOne/<?=$list_customer->customer_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_Customer/getOne/<?=$list_customer->customer_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
-                             <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Customer/updateCustomer/<?=$list_customer->customer_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                             <a class="btn btn-warning" href="/protech/index.php/Controller_Customer/updateCustomer/<?=$list_customer->customer_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-pencil"></i>
                             </a>
                           </td>

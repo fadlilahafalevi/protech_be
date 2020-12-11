@@ -50,7 +50,7 @@
                               </div>
                            </div> -->
                            <button type="submit" class="btn btn-primary">Save</button>
-                           <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$category->service_category_code?>" class="btn">Back</a>
+                           <a class="btn btn-light" href="/protech/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$category->service_category_code?>" class="btn">Back</a>
                         </fieldset>
                      </form>
                      <?php

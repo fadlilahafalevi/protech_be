@@ -21,7 +21,7 @@
     <div class="content-wrapper pb-0">
       <div class="page-header">
         <h3 class="page-title">Settings</h3>
-        <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Settings/updateProfile">Update Profile</a>
+        <a class="btn btn-success" href="/protech/index.php/Controller_Settings/updateProfile">Update Profile</a>
       </div>
       <!-- first row starts here -->
       <div class="row">

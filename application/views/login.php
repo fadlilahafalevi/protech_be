@@ -7,15 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>PROTECH</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="/Protech_BE/assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/Protech_BE/assets/vendors/base/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/protech/assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/protech/assets/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="/Protech_BE/assets/css/style.css">
+  <link rel="stylesheet" href="/protech/assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/Protech_BE/assets/images/logo_mini.png" />
+  <link rel="shortcut icon" href="/protech/assets/images/logo_mini.png" />
 </head>
 
 <body>
@@ -26,7 +26,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" >
               <div class="brand-logo">
-                <img src="/Protech_BE/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
+                <img src="/protech/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
               </div>
               <br/>
               <center>
@@ -59,13 +59,13 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="/Protech_BE/assets/vendors/base/vendor.bundle.base.js"></script>
+  <script src="/protech/assets/vendors/base/vendor.bundle.base.js"></script>
 
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="/Protech_BE/assets/js/off-canvas.js"></script>
-  <script src="/Protech_BE/assets/js/hoverable-collapse.js"></script>
-  <script src="/Protech_BE/assets/js/template.js"></script>
+  <script src="/protech/assets/js/off-canvas.js"></script>
+  <script src="/protech/assets/js/hoverable-collapse.js"></script>
+  <script src="/protech/assets/js/template.js"></script>
   <!-- endinject -->
 </body>
 

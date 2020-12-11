@@ -71,7 +71,7 @@
                           </td>
                           <td><?=$list_transaction->txn_amount?></td>
                           <td style="text-align: center">
-                            <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Wallet/confirmation/<?=$list_transaction->id?>" data-toggle="tooltip" title="confirmation" style="padding: 4px">
+                            <a class="btn btn-success" href="/protech/index.php/Controller_Wallet/confirmation/<?=$list_transaction->id?>" data-toggle="tooltip" title="confirmation" style="padding: 4px">
                               <i class="mdi mdi-check-circle"></i>
                             </a>
                           </td>

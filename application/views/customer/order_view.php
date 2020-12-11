@@ -73,7 +73,7 @@
          ?>
         <h3 class="page-title">Order <?=$order->order_code?></h3>
         <div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
+          <a class="btn btn-primary" href="/protech/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
         </div>
       </div>
       <!-- first row starts here -->
@@ -118,7 +118,7 @@
                         <div class="form-group row">
                            <label class="col-sm-8 col-form-label" for="notif-topup">You must top up your balance at least <mark> Rp. <?=$total_price?> </mark> before proceeding with the order.</label>
                            <div class="col-sm-2">
-                              <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Wallet/customTopUpOrder/<?=$order->order_code?>/<?=$price?>">Top Up</a>
+                              <a class="btn btn-success" href="/protech/index.php/Controller_Wallet/customTopUpOrder/<?=$order->order_code?>/<?=$price?>">Top Up</a>
                            </div>
                            <label class="col-sm-8 col-form-label">After Top Up, your balance will automatically paid to order.</label>
                         </div>
@@ -128,7 +128,7 @@
                         </div>
 
                         <div class="form-group row">
-                           <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/customTopUp/<?=$this->session->userdata('code')?>/<?=$total_price?>">Top Up</a>
+                           <a class="btn btn-success" href="/protech/index.php/Controller_Order/customTopUp/<?=$this->session->userdata('code')?>/<?=$total_price?>">Top Up</a>
                         </div>
                         <?php } ?>
                      </form>
@@ -179,7 +179,7 @@
                  </div>
                  <br><br><br>
                  <?php if ($isPaidCounter > 0 && $order_status == 'IN PROGRESS') {?>
-                   <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/approvedRequestByCustomer/<?=$order_code?>/<?=$this->session->userdata('phone')?>">Approve Request</a>
+                   <a class="btn btn-success" href="/protech/index.php/Controller_Order/approvedRequestByCustomer/<?=$order_code?>/<?=$this->session->userdata('phone')?>">Approve Request</a>
                  <?php } elseif ($order_status == 'FINISHED' && $order_rate == null) { ?>
                  Order Rating : 
                  <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Order/submitRating/'.$order_code; ?>">

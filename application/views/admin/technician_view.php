@@ -116,7 +116,7 @@
                         </div>
                         </div>
                         <br>
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Technician">Back</a>
+                        <a class="btn btn-light" href="/protech/index.php/Controller_Technician">Back</a>
                      </form>
                      <?php
                         }

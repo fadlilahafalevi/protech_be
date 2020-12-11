@@ -72,7 +72,7 @@
                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Admin">Back</a>
+                        <a class="btn btn-light" href="/protech/index.php/Controller_Admin">Back</a>
                      </form>
                      <?php
                         }

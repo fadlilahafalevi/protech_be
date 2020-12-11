@@ -14,7 +14,7 @@
     <div class="content-wrapper pb-0">
       <div class="page-header">
         <h3 class="page-title">Master Service</h3>
-        <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Service/createServiceCategory">Create</a>
+        <a class="btn btn-success" href="/protech/index.php/Controller_Service/createServiceCategory">Create</a>
       </div>
       <!-- first row starts here -->
       <div class="row">
@@ -54,10 +54,10 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$list_service->service_category_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_Service/getAllServiceDetailByCategory/<?=$list_service->service_category_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-format-list-bulleted"></i>
                             </a>
-                            <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Service/updateServiceCategory/<?=$list_service->service_category_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
+                            <a class="btn btn-warning" href="/protech/index.php/Controller_Service/updateServiceCategory/<?=$list_service->service_category_code?>" data-toggle="tooltip" title="Edit" style="padding: 4px">
                               <i class="mdi mdi-lead-pencil"></i>
                             </a>
                           </td>

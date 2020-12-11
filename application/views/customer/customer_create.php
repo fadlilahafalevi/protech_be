@@ -74,7 +74,7 @@
                         <div id="map"></div>
                         <br/>
                         <button type="submit" class="btn btn-primary">Save</button> 
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Login">Back</a>
+                        <a class="btn btn-light" href="/protech/index.php/Controller_Login">Back</a>
                      </form>
                   </div>
                </div>

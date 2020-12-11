@@ -14,7 +14,7 @@
     <div class="content-wrapper pb-0">
       <div class="page-header">
         <h3 class="page-title">Order History</h3><div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Order/downloadOrderHistory">Download</a>
+          <a class="btn btn-primary" href="/protech/index.php/Controller_Order/downloadOrderHistory">Download</a>
         </div>
       </div>
       <!-- first row starts here -->

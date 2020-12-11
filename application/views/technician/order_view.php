@@ -50,7 +50,7 @@
          ?>
         <h3 class="page-title">Order <?=$order->order_code?></h3>
         <div class="template-demo">
-          <a class="btn btn-primary" href="/Protech_BE/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
+          <a class="btn btn-primary" href="/protech/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
         </div>
       </div>
       <!-- first row starts here -->
@@ -96,19 +96,19 @@
                            <div class="col-sm-9">
                               <input type="radio" name="is_approved" id="choose-1" value="0"/>
                               <label for="choose-1">
-                                 <img src="/Protech_BE/assets/images/reject.png" />
+                                 <img src="/protech/assets/images/reject.png" />
                               </label>
 
                               <input type="radio" name="is_approved" id="choose-2" value="1"/>
                               <label for="choose-2">
-                                 <img src="/Protech_BE/assets/images/accept.png" />
+                                 <img src="/protech/assets/images/accept.png" />
                               </label>
                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <?php } ?>
-                        <a class="btn btn-light" href="/Protech_BE/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back</a>
+                        <a class="btn btn-light" href="/protech/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Back</a>
                      </form>
 
                   </div>
@@ -153,8 +153,8 @@
                  <br><br><br>
                  <?php if ($order->order_status == 'IN PROGRESS') {?>
                  <div>
-                   <a class="btn btn-warning" href="/Protech_BE/index.php/Controller_Order/finishOrderByTech/<?=$order->order_code?>/<?=$order->technician_code?>">Finish Order</a>
-                   <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Order/requestNewService/<?=$order->order_code?>">Request New Service</a>
+                   <a class="btn btn-warning" href="/protech/index.php/Controller_Order/finishOrderByTech/<?=$order->order_code?>/<?=$order->technician_code?>">Finish Order</a>
+                   <a class="btn btn-success" href="/protech/index.php/Controller_Order/requestNewService/<?=$order->order_code?>">Request New Service</a>
 				 </div>
 				 <?php } ?>
                </div>

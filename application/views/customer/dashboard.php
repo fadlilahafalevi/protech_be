@@ -28,7 +28,7 @@
                      <?php } else { echo "0";}?>
                   </h2>
                   <br><br><br><br><br><br>
-                  <a class="btn btn-success" href="/Protech_BE/index.php/Controller_Customer/goTopUp/<?=$this->session->userdata('code')?>">Top up</a>
+                  <a class="btn btn-success" href="/protech/index.php/Controller_Customer/goTopUp/<?=$this->session->userdata('code')?>">Top up</a>
                </div>
             </div>
          </div>
@@ -62,7 +62,7 @@
                           <td><?=$order->fix_datetime?></td>
                           <td><?=$order->service?></td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/Protech_BE/index.php/Controller_Order/getOneByCode/<?=$order->order_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_Order/getOneByCode/<?=$order->order_code?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
                           </td>

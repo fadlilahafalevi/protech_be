@@ -41,7 +41,7 @@
                             <?php if(isset($total_amount)) { ?>
                               <input type="text" class="form-control" id="amount" name="amount" value="<?=$total_amount?>" readonly="readonly" />
                             <?php } else { ?>
-                              <input type="text" class="form-control" id="amount" name="amount" placeholder="0" />
+                              <input type="number" class="form-control" id="amount" name="amount" placeholder="0" min="10000" />
                             <?php } ?>
                            </div>
                         </div>

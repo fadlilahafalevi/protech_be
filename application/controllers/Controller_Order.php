@@ -380,7 +380,6 @@ class Controller_Order extends CI_Controller{
         $this->load->model("M_Order");
         $this->load->model("M_General");
         
-        echo 'A';
         $rating = $this->input->post('rate');
         $data = [
             'order_code' => $order_code,

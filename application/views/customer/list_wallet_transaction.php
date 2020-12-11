@@ -45,7 +45,7 @@
                           <td><?=$transaction->txn_amount?></td>
                           <td style="text-align: center">
                             <?php
-                              if($transaction->receipt == null){
+                              if($transaction->receipt == null && $transaction->txn_code != 'PAYM'){
                             ?>
                                 UPLOAD RECEIPT
                             <?php

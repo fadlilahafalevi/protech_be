@@ -293,8 +293,13 @@ class Controller_Order extends CI_Controller{
 
 			$this->load->model("M_Order");
 			$order_code = $this->input->post('order_code');
+			$is_approved = $this->input->post('is_approved');
 			if (isset($order_code)) {
-				$this->M_Order->updateStatus($order_code, 'IN PROGRESS');
+			    if ($is_approved == 1) {
+				    $this->M_Order->updateStatus($order_code, 'IN PROGRESS');
+			    } else {
+			        $this->M_Order->updateStatus($order_code, 'REJECTED BY TECH');
+			    }
 				redirect('Controller_Order/getOneByCode/'.$order_code);
 			}
 		}
@@ -363,14 +368,19 @@ class Controller_Order extends CI_Controller{
         
         $total_unpaid = $this->M_Order->getUnpaidOrderCustomer($order_code);
         $total_balance_customer = $this->T_Wallet->getCurrentBalance($phone);
+        $is_approved = $this->input->post('is_approved');
         
-        if ($total_balance_customer >= $total_unpaid) {
-            $data = [
-                'order_code' => $order_code,
-                'is_paid' => 1
-            ];
-            $this->M_General->updateData('tbl_order_detail', $data, 'order_code', $order_code);
-            $this->transferPaymentIntermediaryWallet('customer', $phone, $total_unpaid, $order_code);
+        if ($is_approved == 1) {
+            if ($total_balance_customer >= $total_unpaid) {
+                $data = [
+                    'order_code' => $order_code,
+                    'is_paid' => 1
+                ];
+                $this->M_General->updateData('tbl_order_detail', $data, 'order_code', $order_code);
+                $this->transferPaymentIntermediaryWallet('customer', $phone, $total_unpaid, $order_code);
+            }
+        } else {
+            $this->M_General->deleteData('tbl_order_detail', 'order_code = \''.$order_code.'\' and is_paid = 0');
         }
         
         redirect('Controller_Order/getOneByCode/'.$order_code);
@@ -385,7 +395,15 @@ class Controller_Order extends CI_Controller{
             'order_code' => $order_code,
             'order_rate' => $rating
         ];
+        
+        $technician_code = $this->M_Order->getTechnicianCodeFromOrder($order_code);
+        $average_rate = $this->M_Order->getAverageRate($technician_code);
+        $data_average = [
+            'avg_rate' => $average_rate
+        ];
+        
         $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+        $this->M_General->updateData('tbl_technician', $data_average, 'technician_code', $technician_code);
         redirect('Controller_Order/getOneByCode/'.$order_code);
     }
 	

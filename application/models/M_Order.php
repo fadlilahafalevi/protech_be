@@ -6,6 +6,7 @@ class M_Order extends CI_Model{
 	}
 	
 	public function getAll() {
+	    $this->db->distinct();
 	    $this->db->select('o.*, c.fullname as customer_name, t.fullname as technician_name, concat(sc.service_category_name, \' - \', sd.service_detail_name) as service');
 	    $this->db->from('tbl_order o');
 	    $this->db->join('tbl_customer c', 'c.customer_code = o.customer_code', 'left');
@@ -128,5 +129,20 @@ class M_Order extends CI_Model{
 	    $this->db->where('od.order_code', $code);
 	    $query = $this->db->get();
 	    return $query->row()->service_type_code;
+	}
+	
+	public function getTechnicianCodeFromOrder($order_code) {
+	    $this->db->select('technician_code');
+	    $this->db->from('tbl_order');
+	    $this->db->where('order_code', $order_code);
+	    $query = $this->db->get();
+	    return $query->row()->technician_code;
+	}
+	
+	public function getAverageRate($technician_code) {
+	    $total_rate = $this->db->query("select sum(order_rate) as total_rate from tbl_order where technician_code = '$technician_code' group by technician_code")->row()->total_rate;
+	    $total_order = $this->db->query("select count(*) as total_order from tbl_order where order_status = 'FINISHED' and order_rate is not null and technician_code = '$technician_code'")->row()->total_order;
+	    
+	    return $total_rate / $total_order;
 	}
 }

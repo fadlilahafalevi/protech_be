@@ -12,6 +12,30 @@
     	border: 1px solid #000;
     }
     
+    img {
+        width: 10vw;
+        height: 10vw;
+        padding: 2vw;
+    }
+
+    input[type=radio] {
+        display: none;
+    }
+
+    img:hover {
+        opacity:0.6;
+        cursor: pointer;
+    }
+
+    img:active {
+        opacity:0.4;
+        cursor: pointer;
+    }
+
+    input[type=radio]:checked + label > img {
+        border: 20px solid rgb(0, 51, 196);
+    }
+    
     .rating {
     	position: absolute;
     	left: 25%;
@@ -179,7 +203,25 @@
                  </div>
                  <br><br><br>
                  <?php if ($isPaidCounter > 0 && $order_status == 'IN PROGRESS') {?>
-                   <a class="btn btn-success" href="/protech/index.php/Controller_Order/approvedRequestByCustomer/<?=$order_code?>/<?=$this->session->userdata('phone')?>">Approve Request</a>
+				<form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Order/approvedRequestByCustomer/'.$order_code.'/'.$this->session->userdata('phone'); ?>">
+				<div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Approve New Request?</label>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-9">
+                        <input type="radio" name="is_approved" id="choose-1" value="0"/>
+                        <label for="choose-1">
+                        	<img src="/protech/assets/images/reject.png" />
+                        </label>
+                        
+                        <input type="radio" name="is_approved" id="choose-2" value="1"/>
+                        <label for="choose-2">
+                        	<img src="/protech/assets/images/accept.png" />
+                        </label>
+                    </div>
+                </div>
+				<button type="submit" class="btn btn-success">Submit</button>
+				</form>
                  <?php } elseif ($order_status == 'FINISHED' && $order_rate == null) { ?>
                  Order Rating : 
                  <form class="forms-sample" method="post" action="<?php echo base_url() . 'Controller_Order/submitRating/'.$order_code; ?>">

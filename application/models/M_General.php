@@ -20,5 +20,9 @@ class M_General extends CI_Model{
 	function updateData($tblName, $data, $code_name, $code) {
 		return $this->db->update($tblName, $data, "$code_name = '$code'");
 	}
+	
+	function deleteData($tblName, $where) {
+	    return $this->db->query("DELETE FROM $tblName where $where");
+	}
 
 }

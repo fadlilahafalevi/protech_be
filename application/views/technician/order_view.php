@@ -13,8 +13,8 @@
       }
 
       img {
-        width: 20vw;
-        height: 20vw;
+        width: 10vw;
+        height: 10vw;
         padding: 2vw;
       }
 
@@ -91,8 +91,10 @@
                            </div>
                         </div>
                         <?php if ($order->order_status == 'WAITING CONFIRMATION') { ?>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label">Approve New Order?</label>
+                        </div>
                           <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="txn_datetime"></label>
                            <div class="col-sm-9">
                               <input type="radio" name="is_approved" id="choose-1" value="0"/>
                               <label for="choose-1">

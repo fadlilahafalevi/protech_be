@@ -27,8 +27,8 @@
                       <th style="text-align: center">No</th>
                       <th style="text-align: center">Transaction Date Time</th>
                       <th style="text-align: center">Transaction Type</th>
-                      <th style="text-align: center">User Type</th>
-                      <th style="text-align: center">Name</th>
+                      <th style="text-align: center">Name (From)</th>
+                      <th style="text-align: center">Name (To)</th>
                       <th style="text-align: center">Amount</th>
                       <th style="text-align: center">Action</th>
                     </tr>
@@ -44,30 +44,10 @@
                           <td><?=$list_transaction->txn_datetime?></td>
                           <td><?=$list_transaction->txn_code?></td>
                           <td style="text-align: center">
-                            <?php
-                              if($list_transaction->customer_name != null){
-                            ?>
-                                Customer
-                            <?php
-                              } elseif($list_transaction->tehcnician_name != null){
-                            ?>
-                                Technician
-                            <?php
-                              }
-                            ?>
+                          <?=$list_transaction->NAME_FROM?>
                           </td>
                           <td style="text-align: center">
-                            <?php
-                              if($list_transaction->customer_name != null){
-                            ?>
-                                <?=$list_transaction->customer_name?>
-                            <?php
-                              } elseif($list_transaction->tehcnician_name != null){
-                            ?>
-                                <?=$list_transaction->technician_name?>
-                            <?php
-                              }
-                            ?>
+                          <?=$list_transaction->NAME_TO?>
                           </td>
                           <td><?=$list_transaction->txn_amount?></td>
                           <td style="text-align: center">

@@ -81,9 +81,16 @@
                             ?>
                           </td>
                           <td style="text-align: center">
-                            <a class="btn btn-info" href="/protech/index.php/Controller_Wallet/goUploadReceipt/<?=$transaction->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
+                            <a class="btn btn-info" href="/protech/index.php/Controller_Wallet/getTransactionById/<?=$transaction->id?>" data-toggle="tooltip" title="View" style="padding: 4px">
                               <i class="mdi mdi-eye"></i>
                             </a>
+                            <?php
+                            if($transaction->receipt == null && !($transaction->txn_code == 'PAYM' || $transaction->txn_code == 'WDRW')){
+                            ?>
+                            <a class="btn btn-warning" href="/protech/index.php/Controller_Wallet/goUploadReceipt/<?=$transaction->id?>" data-toggle="tooltip" title="Upload Receipt" style="padding: 4px">
+                              <i class=" mdi mdi-upload "></i>
+                            </a>
+                            <?php } ?>
                           </td>
                       </tr>
                     <?php

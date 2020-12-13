@@ -28,13 +28,15 @@ class Controller_Order extends CI_Controller{
 	
 	public function downloadOrderHistory() {
 	    if($this->session->userdata('akses')=='1'){
+	        $this->load->library('ReportHeader');
 	        $this->load->model("M_Order");
 	        $this->load->library('pdf');
 	        $this->load->helper('download');
 	        
 	        $order_history = $this->M_Order->getAll();
 
-            $pdf = new FPDF('L', 'mm', 'Letter');
+	        $pdf = new FPDF('L', 'mm', 'Letter');
+	        $pdf = $this->reportheader->getInstance();
 
             $pdf->AddPage();
 
@@ -67,7 +69,7 @@ class Controller_Order extends CI_Controller{
 	        
 	        $filename = 'order_code_report_'.date("Ymdhis").'.pdf';
 	        
-	        $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
 	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
 	    }
 	}

@@ -125,73 +125,110 @@ class Controller_Wallet extends CI_Controller{
 		}
 
 	}
+	
+	public function getTransactionById($id = '') {
+        $this->load->model("T_Wallet");
+
+        if (isset($id)) {
+            $data['data'] = $this->T_Wallet->getTransactionHistoryById($id);
+            if ($this->session->userdata('akses') == '2') {
+                $this->load->view('technician/transaction_wallet_view', $data);
+            } elseif ($this->session->userdata('akses') == '3') {
+                $this->load->view('customer/transaction_wallet_view', $data);
+            }
+        }
+    }
 
 	public function confirmationSubmit() {
+        if ($this->session->userdata('akses') == '1') {
 
-		if ($this->session->userdata('akses') == '1') {	
-			
-			$this->load->model("T_Wallet");
-			$this->load->model("M_General");
-			$this->load->model("M_Order");
+            $this->load->model("T_Wallet");
+            $this->load->model("M_General");
+            $this->load->model("M_Order");
 
-			$id = $this->input->post('id');
-				
-			if(isset($id)) {
+            $id = $this->input->post('id');
 
-				$is_approved = $this->input->post('is_approved');
-				$txn_code = $this->input->post('txn_code');
-				$txn_amount = $this->input->post('txn_amount');
-				$phone = $this->input->post('phone');
-				$is_processed = '1';
-				$order_code = $this->input->post('order_code');
+            if (isset($id)) {
 
-				$data_update = [ 'is_approved' => $is_approved,
-				'is_processed' => $is_processed,
-				'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now")),
-				'modified_by' => $this->session->userdata('code')
-				];
+                $is_approved = $this->input->post('is_approved');
+                $txn_code = $this->input->post('txn_code');
+                $txn_amount = $this->input->post('txn_amount');
+                $phone = $this->input->post('phone');
+                $is_processed = '1';
+                $order_code = $this->input->post('order_code');
+                $data_update = [];
 
-				$this->M_General->updateData('tbl_transaction_history', $data_update, 'id', $id);
+                if ($txn_code == 'TOPU') {
+                    $is_approved = $this->input->post('is_approved');
+                    if ($is_approved == 1) {
+                        $data_update = [
+                            'is_approved' => $is_approved,
+                            'is_processed' => $is_processed,
+                            'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now")),
+                            'modified_by' => $this->session->userdata('code')
+                        ];
+                        $this->M_General->updateData('tbl_transaction_history', $data_update, 'id', $id);
+                        
+                        $current_balance = $this->T_Wallet->getCurrentBalance($phone);
+                        $current_credit = $this->T_Wallet->getCurrentCredit($phone);
+                        $new_balance = $current_balance + $txn_amount;
+                        $total_credit = $current_credit + $txn_amount;
+    
+                        $data_wallet = [
+                            'balance' => $new_balance,
+                            'total_credit' => $total_credit
+                        ];
+                        $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
+    
+                        if ($order_code != '') {
+    
+                            $this->paymentOrder($phone, $order_code, $txn_amount);
+    
+                            $current_debit = $this->T_Wallet->getCurrentDebit($phone);
+    
+                            $new_balance = $new_balance - $txn_amount;
+                            $total_debit = $current_debit + $txn_amount;
+    
+                            $data_wallet = [
+                                'balance' => $new_balance,
+                                'total_debit' => $total_debit
+                            ];
+                            $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
+    
+                            $data_order = [
+                                'order_status' => 'WAITING CONFIRMATION'
+                            ];
+                            $this->M_General->updateData('tbl_order', $data_order, 'order_code', $order_code);
+                        }
+                    }
+                } elseif ($txn_code == 'WDRW') {
+                    $config['upload_path'] = './assets/uploaded-image/';
+                    $config['allowed_types'] = '*';
+                    $config['max_size'] = 3000;
+                    $this->load->library('upload', $config);
+                    if (! $this->upload->do_upload('receipt')) {
+                        $error_pass = $this->upload->display_errors();
+                        echo $error_pass;
+                    } else {
+                        $image_data = $this->upload->data();
+                        $imgdata = file_get_contents($image_data['full_path']);
+                        $receipt = base64_encode($imgdata);
+                    }
 
-				if ($is_approved == 1 && $txn_code == 'TOPU') {
+                    $data_update = [
+                        'is_approved' => 1,
+                        'is_processed' => $is_processed,
+                        'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now")),
+                        'modified_by' => $this->session->userdata('code'),
+                        'receipt' => $receipt
+                    ];
+                    $this->M_General->updateData('tbl_transaction_history', $data_update, 'id', $id);
+                }
 
-					$current_balance = $this->T_Wallet->getCurrentBalance($phone);
-					$current_credit = $this->T_Wallet->getCurrentCredit($phone);
-					$new_balance = $current_balance + $txn_amount;
-					$total_credit = $current_credit + $txn_amount;
-
-					$data_wallet = ['balance' => $new_balance,
-					'total_credit' => $total_credit
-					];
-					$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
-
-					if($order_code != '') {
-
-						$this->paymentOrder($phone, $order_code, $txn_amount);
-
-						$current_debit = $this->T_Wallet->getCurrentDebit($phone);
-
-						$new_balance = $new_balance - $txn_amount;
-						$total_debit = $current_debit + $txn_amount;
-
-						$data_wallet = ['balance' => $new_balance,
-						'total_debit' => $total_debit
-						];
-						$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
-
-						$data_order = ['order_status' => 'WAITING CONFIRMATION'];
-						$this->M_General->updateData('tbl_order', $data_order, 'order_code', $order_code);
-
-					}			
-
-				}
-
-				redirect('Controller_Wallet');
-			}
-
-		}
-
-	}
+                redirect('Controller_Wallet');
+            }
+        }
+    }
 
 	public function paymentOrder($phone, $order_code, $amount) {
 		

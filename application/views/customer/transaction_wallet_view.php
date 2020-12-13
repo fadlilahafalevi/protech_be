@@ -73,8 +73,9 @@
                            <div class="col-sm-9">
 							<?php if ($transaction_detail->txn_code == 'TOPU') {?>
                               <input type="text" class="form-control" id="transaction_code" name="transaction_code" value="TOP UP" readonly>
-							<?php } elseif($transaction_detail->txn_code == 'WDRW') ?>
+							<?php } elseif($transaction_detail->txn_code == 'WDRW') { ?>
 							  <input type="text" class="form-control" id="transaction_code" name="transaction_code" value="WITHDRAWAL" readonly>
+							<?php } ?>
                            </div>
                         </div>
                         <div class="form-group row" hidden>
@@ -126,32 +127,7 @@
                             <?php } ?>
                            </div>
                         </div>
-
-						<?php if($transaction_detail->txn_code == 'TOPU' && isset($transaction_detail->receipt)) { ?>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="txn_datetime"></label>
-                           <div class="col-sm-9">
-                              <input type="radio" name="is_approved" id="choose-1" value="0"/>
-                              <label for="choose-1">
-                                 <img src="/protech/assets/images/reject.png" />
-                              </label>
-
-                              <input type="radio" name="is_approved" id="choose-2" value="1"/>
-                              <label for="choose-2">
-                                 <img src="/protech/assets/images/accept.png" />
-                              </label>
-                           </div>
-                        </div>
-                        <?php } elseif($transaction_detail->txn_code == 'WDRW') { ?>
-                        <div class="form-group row">
-                        <label class="col-sm-3 col-form-label" for="receipt">Upload Receipt</label>
-                          <div class="col-sm-9">
-                            <input type="file" class="span3" id="receipt" name="receipt">
-                          </div>
-                        </div>
-						<?php } ?>
-                        <button type="submit" class="btn btn-primary">Submit</button> 
-                        <a class="btn btn-light" href="/protech/index.php/Controller_Wallet">Back</a>
+                        <a class="btn btn-light" href="/protech/index.php/Controller_Wallet/getTransactionByPhone/<?=$this->session->userdata('phone')?>">Back</a>
                      </form>
 
                      <?php

@@ -40,16 +40,32 @@
                     ?>
                       <tr>
                           <td><?=$no?></td>
-                          <td><?=$transaction->txn_code?></td>
-                          <td><?=$transaction->created_datetime?></td>
-                          <td><?=$transaction->txn_amount?></td>
                           <td style="text-align: center">
                             <?php
-                              if($transaction->receipt == null && $transaction->txn_code != 'PAYM'){
+                            if($transaction->txn_code == 'TOPU'){
+                            ?>
+                            	TOP UP
+                            <?php
+                            } elseif($transaction->txn_code == 'WDRW') {
+                            ?>
+                            	WITHDRAWAL
+                            <?php
+                            } elseif($transaction->txn_code == 'PAYM') {
+                            ?>
+                            	PAYMENT
+                            <?php
+                              }
+                            ?>
+                          </td>
+                          <td><?=$transaction->created_datetime?></td>
+                          <td>Rp. <?php echo number_format($transaction->txn_amount,2,',','.')?></td>
+                          <td style="text-align: center">
+                            <?php
+                            if($transaction->receipt == null && !($transaction->txn_code == 'PAYM' || $transaction->txn_code == 'WDRW')){
                             ?>
                                 UPLOAD RECEIPT
                             <?php
-                              } elseif($transaction->receipt != null && $transaction->is_processed == 0) {
+                            } elseif(($transaction->receipt != null && $transaction->is_processed == 0) || ($transaction->txn_code == 'WDRW' && $transaction->is_processed == 0 && $transaction->is_approved == 0)) {
                             ?>
                                 WAITING ADMIN CONFIRMATION
                             <?php

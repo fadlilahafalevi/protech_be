@@ -18,18 +18,32 @@ class Controller_Wallet extends CI_Controller{
 			$this->load->model("T_Wallet");
 			$this->load->model("M_Customer");
 
-			$from_phone = $this->input->post('phone');
+			$phone = $this->input->post('phone');
 			$amount = $this->input->post('amount');
 			$txn_code = $this->input->post('txn_code');
 			$is_processed = $this->input->post('is_processed');
 			$order_code = $this->input->post('order_code');
-
-			if (isset($from_phone)) {
-			    $data_insert = ['to_phone' => $from_phone,
-				'txn_amount' => $amount,
-				'txn_code' => $txn_code,
-				'is_processed' => $is_processed
-				];
+			$bank_name = $this->input->post('bank_name');
+			$account_number = $this->input->post('account_number');
+			$account_name = $this->input->post('account_name');
+			$data_insert = [];
+			if (isset($phone)) {
+			    if ($txn_code == 'TOPU') {
+			        $data_insert = ['to_phone' => $phone,
+    				'txn_amount' => $amount,
+    				'txn_code' => $txn_code,
+    				'is_processed' => $is_processed
+    				];
+			    } else if ($txn_code == 'WDRW') {
+			        $data_insert = ['from_phone' => $phone,
+			            'txn_amount' => $amount,
+			            'txn_code' => $txn_code,
+			            'is_processed' => $is_processed,
+			            'bank_name' => $bank_name,
+			            'account_number' => $account_number,
+			            'account_name' => $account_name
+			        ];
+			    }
 			}
 
 			if (isset($order_code)) {
@@ -39,9 +53,22 @@ class Controller_Wallet extends CI_Controller{
 			$insertId = $this->M_General->insertData('tbl_transaction_history', $data_insert);
 
 			$data['insertedData'] = $this->T_Wallet->getTransactionHistoryById($insertId);
-			$data['phone'] = $from_phone;
-
-			$this->load->view('customer/upload_receipt_topup', $data);
+			$data['phone'] = $phone;
+			if ($txn_code == 'TOPU') {
+                $this->load->view('customer/upload_receipt_topup', $data);
+			} else if ($txn_code == 'WDRW') {
+			    $current_debit = $this->T_Wallet->getCurrentDebit($phone);
+			    $balance = $this->T_Wallet->getCurrentBalance($phone);
+			    
+			    $new_balance = $balance - $amount;
+			    $total_debit = $current_debit + $amount;
+			    
+			    $data_wallet = ['balance' => $new_balance,
+			        'total_debit' => $total_debit
+			    ];
+			    $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
+			    redirect('Controller_Wallet/getTransactionByPhone/'.$phone);
+			}
 
 		}
 	}

@@ -29,6 +29,8 @@
                   </h2>
                   <br><br><br><br><br><br>
                   <a class="btn btn-success" href="/protech/index.php/Controller_Customer/goTopUp/<?=$this->session->userdata('code')?>">Top up</a>
+                  &nbsp;&nbsp;
+                  <a class="btn btn-warning" href="/protech/index.php/Controller_Customer/goWithdrawal/<?=$this->session->userdata('code')?>">Withdrawal</a>
                </div>
             </div>
          </div>

@@ -29,6 +29,7 @@
               <a class="navbar-brand brand-logo" href="/protech">
                 <img src="/protech/assets/images/logo.png" alt="logo" />
               </a>
+              <a class="navbar-brand brand-logo-mini"><img src="/protech/assets/images/logo_mini.png" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
               <ul class="navbar-nav mr-lg-2">

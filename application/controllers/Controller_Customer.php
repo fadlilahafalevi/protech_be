@@ -143,18 +143,31 @@ class Controller_Customer extends CI_Controller{
 	}
 
 	public function goTopUp($code = '') {
+        if ($this->session->userdata('akses') == '3') {
 
-		if ($this->session->userdata('akses') == '3') {
+            $this->load->model("M_Customer");
 
-			$this->load->model("M_Customer");
-
-			$data['code'] = $code;
-			if (isset($code)) {
-				$data['data'] = $this->M_Customer->getOneById($code);
-			}
-			$this->load->view('customer/topup', $data);
-
-		}
-
+            $data['code'] = $code;
+            if (isset($code)) {
+                $data['data'] = $this->M_Customer->getOneById($code);
+            }
+            $this->load->view('customer/topup', $data);
+        }
+	}
+	
+	public function goWithdrawal($code = '') {
+	    if ($this->session->userdata('akses') == '3') {
+	        
+	        $this->load->model("M_Customer");
+	        $this->load->model("T_Wallet");
+	        
+	        $data['code'] = $code;
+	        if (isset($code)) {
+	            $phone = $this->M_Customer->getPhoneByCode($code);
+	            $data['data'] = $this->M_Customer->getOneById($code);
+	            $data['balance'] = number_format($this->T_Wallet->getCurrentBalance($phone),2,',','.');
+	        }
+	        $this->load->view('customer/withdrawal', $data);
+	    }
 	}
 }

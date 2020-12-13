@@ -17,7 +17,8 @@ class Controller_Dashboard extends CI_Controller {
         $this->load->model('T_Wallet');
 		if($this->session->userdata('akses')=='1'){
 
-			$data['waiting_payment']=$this->T_Order->countWaitingPaymentStatus();
+	    	$data['balance'] = $this->T_Wallet->getCurrentBalance("081000000000");
+			$data['waiting_confirmation']=$this->T_Order->countWaitingConfirmationStatus();
 			$data['in_progress']=$this->T_Order->countInProgressStatus();
 			$data['finished']=$this->T_Order->countFinishedStatus();
 			$data['canceled']=$this->T_Order->countCanceledStatus();
@@ -25,6 +26,7 @@ class Controller_Dashboard extends CI_Controller {
 
 		} else if($this->session->userdata('akses')=='2'){
 
+	    	$data['balance'] = $this->T_Wallet->getCurrentBalance($this->session->userdata('phone'));
 			$data['listNeedConfirm']=$this->M_Order->getListNeedConfirmationByTechCode($this->session->userdata('code'));
 			$this->load->view('technician/dashboard', $data);
 

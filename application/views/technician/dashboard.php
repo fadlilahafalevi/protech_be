@@ -12,8 +12,27 @@
       <div class="container-fluid page-body-wrapper">
       <div class="main-panel">
       <div class="content-wrapper">
-      <div class="page-header">
+      <!-- <div class="page-header">
          <h3 class="page-title">Dashboard</h3>
+      </div> -->
+      <div class="row">
+      <div class="col-lg-6 grid-margin stretch-card">
+         <div class="card">
+            <div class="card-body">
+               <h4 class="card-title">Wallet</h4>
+               </p>
+               <div class="table-responsive">
+                  <h2>
+                     <?php if($balance > 0) {?>
+                        Rp <?=$balance?>
+                     <?php } else { echo "0";}?>
+                  </h2>
+                  <br><br><br><br><br><br>
+                  <a class="btn btn-warning" href="/protech/index.php/Controller_Technician/goWithdrawal/<?=$this->session->userdata('code')?>">Withdrawal</a>
+               </div>
+            </div>
+         </div>
+      </div>
       </div>
       <div class="row">
       <div class="col-lg-12 grid-margin stretch-card">

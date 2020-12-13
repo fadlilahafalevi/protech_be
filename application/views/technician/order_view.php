@@ -6,12 +6,6 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>PROTECH</title>
    <style>
-      #map {
-        width: 100%;
-        height: 300px;
-        border: 1px solid #000;
-      }
-
       img {
         width: 10vw;
         height: 10vw;

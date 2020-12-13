@@ -25,8 +25,8 @@
                       <div class="col-6 p-0 mb-4">
                         <div class="color-card primary m-auto">
                           <i class="mdi mdi-clock-outline"></i>
-                          <p class="font-weight-semibold mb-0">Waiting Payment</p>
-                          <span class="small"><b><?= $waiting_payment ?></b> Orders</span>
+                          <p class="font-weight-semibold mb-0">Waiting Confirmation</p>
+                          <span class="small"><b><?= $waiting_confirmation ?></b> Orders</span>
                         </div>
                       </div>
                       <div class="col-6 p-0 mb-4">
@@ -54,6 +54,22 @@
                   </div>
                 </div>
               </div>
+
+        <div class="col-lg-6 grid-margin stretch-card">
+           <div class="card">
+              <div class="card-body">
+                 <h4 class="card-title">Wallet (Intermediary Account)</h4>
+                 </p>
+                 <div class="table-responsive">
+                    <h2>
+                       <?php if($balance > 0) {?>
+                          Rp <?=$balance?>
+                       <?php } else { echo "0";}?>
+                    </h2>
+                 </div>
+              </div>
+           </div>
+        </div>
       </div>
   </div>
 </div>

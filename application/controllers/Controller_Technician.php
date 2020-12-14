@@ -258,4 +258,20 @@ class Controller_Technician extends CI_Controller{
 			redirect('Controller_Technician');
 		}
 	}
+	
+	public function goWithdrawal($code = '') {
+        if ($this->session->userdata('akses') == '2') {
+
+            $this->load->model("M_Technician");
+            $this->load->model("T_Wallet");
+
+            $data['code'] = $code;
+            if (isset($code)) {
+                $phone = $this->M_Technician->getPhoneByCode($code);
+                $data['data'] = $this->M_Technician->getOneById($code);
+                $data['balance'] = number_format($this->T_Wallet->getCurrentBalance($phone), 2, ',', '.');
+            }
+            $this->load->view('technician/withdrawal', $data);
+        }
+    }
 }

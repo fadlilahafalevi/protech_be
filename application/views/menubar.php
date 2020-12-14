@@ -84,10 +84,21 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="/protech/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">
+                  <a href="#" class="nav-link">
                     <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-                    <span class="menu-title">Order</span>
+                    <span class="menu-title">History</span>
+                    <i class="menu-arrow"></i>
                   </a>
+                  <div class="submenu">
+                    <ul class="submenu-item">
+                      <li class="nav-item">
+                        <a class="nav-link" href="/protech/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Order History</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/protech/index.php/Controller_Wallet/getTransactionByPhone/<?=$this->session->userdata('phone')?>">Transaction History</a>
+                      </li>
+                    </ul>
+                  </div>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="/protech/index.php/Controller_FAQ">

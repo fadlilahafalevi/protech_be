@@ -24,7 +24,7 @@
                <div class="table-responsive">
                   <h2>
                      <?php if($balance > 0) {?>
-                        Rp <?=$balance?>
+                        Rp. <?php echo number_format($balance, 2, ',', '.') ?>
                      <?php } else { echo "0";}?>
                   </h2>
                   <br><br><br><br><br><br>

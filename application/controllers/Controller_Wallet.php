@@ -76,7 +76,7 @@ class Controller_Wallet extends CI_Controller{
     }
 
 	public function insertTransaction() {
-        if ($this->session->userdata('akses') == '3') {
+	    if ($this->session->userdata('akses') == '3' || $this->session->userdata('akses') == '2') {
 
             $this->load->model("M_General");
             $this->load->model("T_Wallet");
@@ -352,12 +352,14 @@ class Controller_Wallet extends CI_Controller{
         }
     }
 
-	public function getTransactionByPhone($phone='') {
-        if ($this->session->userdata('akses') == '3') {
-
-            $this->load->model("M_Customer");
-            $this->load->model("T_Wallet");
-
+    public function getTransactionByPhone($phone='') {
+        $this->load->model("T_Wallet");
+        if ($this->session->userdata('akses') == '2') {
+            if (isset($phone)) {
+                $data['data'] = $this->T_Wallet->getTransactionByPhone($phone);
+            }
+            $this->load->view('technician/list_wallet_transaction', $data);
+        } elseif ($this->session->userdata('akses') == '3') {
             if (isset($phone)) {
                 $data['data'] = $this->T_Wallet->getTransactionByPhone($phone);
             }

@@ -1,10 +1,11 @@
 <?php
 class T_Wallet extends CI_Model{
 
-	public function getAllTransaction() {
+    public function getAllNonProcessedTransaction() {
         $query = $this->db->query("select
     H.id as id,
 	H.order_code,
+    H.txn_code,
 	H.from_phone,
 	case
 		when H.from_phone = C.phone then concat(C.fullname, ' (CUSTOMER)')
@@ -38,6 +39,48 @@ left join tbl_admin A on
 	(A.phone = H.from_phone
 	or A.phone = H.to_phone)
 where h.is_processed = 0
+order by
+	H.txn_datetime desc");
+        return $query->result();
+    }
+    
+    public function getAllTransaction() {
+        $query = $this->db->query("select
+    H.id as id,
+	H.order_code,
+    H.txn_code,
+	H.from_phone,
+	case
+		when H.from_phone = C.phone then concat(C.fullname, ' (CUSTOMER)')
+		when H.from_phone = T.phone then concat(T.fullname, ' (TECHNICIAN)')
+		when H.from_phone = A.phone then '(INTERMEDIARY ACCOUNT)'
+		when H.from_phone is null
+		and H.txn_code = 'TOPU' then concat(H.bank_name, ' ', H.account_name)
+		else null
+	end as NAME_FROM,
+	H.to_phone,
+	case
+		when H.to_phone = C.phone then concat(C.fullname, ' (CUSTOMER)')
+		when H.to_phone = T.phone then concat(T.fullname, ' (TECHNICIAN)')
+		when H.to_phone = A.phone then '(INTERMEDIARY ACCOUNT)'
+		when H.to_phone is null
+		and H.txn_code = 'WDRW' then concat(H.bank_name, ' ', H.account_name)
+		else null
+	end as NAME_TO,
+	H.txn_code,
+	H.txn_amount,
+	H.txn_datetime
+from
+	tbl_transaction_history H
+left join tbl_customer C on
+	(C.phone = H.from_phone
+	or C.phone = H.to_phone)
+left join tbl_technician T on
+	(T.phone = H.from_phone
+	or T.phone = H.to_phone)
+left join tbl_admin A on
+	(A.phone = H.from_phone
+	or A.phone = H.to_phone)
 order by
 	H.txn_datetime desc");
         return $query->result();

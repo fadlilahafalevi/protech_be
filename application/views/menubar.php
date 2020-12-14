@@ -49,7 +49,7 @@
                   <div class="submenu">
                     <ul class="submenu-item">
                       <li class="nav-item">
-                        <a class="nav-link" href="/protech/index.php/Controller_Order">Transaction Order</a>
+                        <a class="nav-link" href="/protech/index.php/Controller_Order/orderHistory">Transaction Order</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/protech/index.php/Controller_Wallet">Transaction Wallet</a>

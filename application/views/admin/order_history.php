@@ -13,7 +13,8 @@
   <div class="main-panel">
     <div class="content-wrapper pb-0">
       <div class="page-header">
-        <h3 class="page-title">Order History</h3><div class="template-demo">
+        <h3 class="page-title">Order History</h3>
+        <div class="template-demo">
           <a class="btn btn-primary" href="/protech/index.php/Controller_Order/downloadOrderHistory">Download</a>
         </div>
       </div>

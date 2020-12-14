@@ -67,12 +67,97 @@ class Controller_Order extends CI_Controller{
                 $no ++;
             }
 	        
-	        $filename = 'order_code_report_'.date("Ymdhis").'.pdf';
+	        $filename = 'order_history_report_'.date("Ymdhis").'.pdf';
 	        
 	        $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
 	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
 	    }
 	}
+	
+	public function downloadInvoice($code) {
+        if ($this->session->userdata('akses') == '3') {
+            $this->load->library('ReportHeader');
+            $this->load->model("M_Order");
+            $this->load->library('pdf');
+            $this->load->helper('download');
+
+            $order = $this->M_Order->getOneByCode($code);
+            foreach ($order as $data) {
+                $customer_name = $data->customer_name;
+                $technician_name = $data->technician_name;
+                $address = $data->address;
+                $fix_datetime = $data->fix_datetime;
+            }
+            $pdf = new FPDF('P', 'mm', 'A4');
+
+            $pdf->AddPage();
+            /* output the result */
+
+            /* set font to arial, bold, 14pt */
+            $pdf->SetFont('Courier', 'B', 20);
+
+            /* Cell(width , height , text , border , end line , [align] ) */
+
+            $pdf->Cell(45, 10, '', 0, 0);
+            $pdf->Cell(59, 5, 'Invoice '.$code, 0, 0);
+            $pdf->Cell(59, 10, '', 0, 1);
+
+            $pdf->SetFont('Courier', 'B', 12);
+            $pdf->Cell(71, 5, 'Address Of Repairing', 0, 0);
+            $pdf->Cell(59, 5, '', 0, 1);
+
+            $pdf->SetFont('Courier', '', 8);
+            $pdf->Cell(130, 5, $address, 0, 0);
+            $pdf->Cell(25, 5, '', 0, 0);
+            $pdf->Cell(34, 5, '', 0, 1);
+            $pdf->Cell(59, 5, '', 0, 1);
+
+            $pdf->SetFont('Courier', 'B', 12);
+            $pdf->Cell(130, 5, 'Detail Repairing', 0, 1);
+            
+            $pdf->SetFont('Courier', '', 8);
+            $pdf->Cell(40, 5, 'Customer Name', 0, 0);
+            $pdf->Cell(50, 5, ': '.$customer_name, 0, 1);
+            $pdf->Cell(40, 5, 'Technician Name', 0, 0);
+            $pdf->Cell(50, 5, ': '.$technician_name, 0, 1);
+            $pdf->Cell(40, 5, 'Repair Datetime', 0, 0);
+            $pdf->Cell(25, 5, ': '.$fix_datetime, 0, 1);
+            $pdf->Cell(59, 5, '', 0, 1);
+            
+            $pdf->SetFont('Courier', 'B', 12);
+            $pdf->Cell(130, 5, 'Detail Service', 0, 1);
+
+            $pdf->SetFont('Courier', 'B', 8);
+            /* Heading Of the table */
+            $pdf->Cell(10, 6, 'No', 1, 0, 'C');
+            $pdf->Cell(35, 6, 'Service Code', 1, 0, 'C');
+            $pdf->Cell(50, 6, 'Service Name', 1, 0, 'C');
+            $pdf->Cell(30, 6, 'Price', 1, 1, 'C'); /* end of line */
+            /* Heading Of the table end */
+            $pdf->SetFont('Courier', '', 8);
+            $detail = $this->M_Order->getDetailByCode($code);
+            $no=1;
+            $total_price = 0;
+            foreach ($detail as $detail) {
+                $pdf->Cell(10, 6, $no, 1, 0, 'C');
+                $pdf->Cell(35, 6, $detail->service_type_code, 1, 0);
+                $pdf->Cell(50, 6, $detail->service, 1, 0, 'L');
+                $pdf->Cell(30, 6, 'Rp. '.number_format($detail->price, 2, ',', '.'), 1, 1, 'R');
+                $no++;
+                $total_price = $total_price + $detail->price;
+            }
+
+            $pdf->Cell(10, 6, '', 0, 0);
+            $pdf->Cell(35, 6, '', 0, 0);
+            $pdf->Cell(50, 6, 'Subtotal', 1, 0);
+            $pdf->Cell(30, 6, 'Rp. '.number_format($total_price, 2, ',', '.'), 1, 1, 'R');
+
+            $filename = 'invoice_order_' . $code . '_' . date("Ymdhis") . '.pdf';
+
+            $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/' . $filename, 'F');
+            force_download('./assets/downloaded-pdf/' . $filename, NULL);
+        }
+    }
 
 	public function getOne($id='') {
 		if($this->session->userdata('akses')=='1'){
@@ -232,35 +317,28 @@ class Controller_Order extends CI_Controller{
 	}
 
 	public function getOneByCode($code = '') {
-		if ($this->session->userdata('akses')=='2') {
-
-			$this->load->model("M_Order");
-			$this->load->model("M_Service");
-			
-			if(isset($code)) {
-				$data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
-				$data['data'] = $this->M_Order->getOneByCode($code);
-				$data['detail'] = $this->M_Order->getDetailByCode($code);
-				$this->load->view('technician/order_view', $data);
-			}
-
-		} else if ($this->session->userdata('akses')=='3') {
-
-			$this->load->model("M_Order");
-			
-			if(isset($code)) {
-				$data['data'] = $this->M_Order->getOneByCode($code);
-				$data['detail'] = $this->M_Order->getDetailByCode($code);
-				$total_price = $this->M_Order->getUnpaidOrderCustomer($code);
-				$data['total_price'] = number_format($total_price,2,',','.');
-				$data['price'] = $total_price;
-				$this->load->view('customer/order_view', $data);
-			}
-
-		} else {
-			redirect('Controller_Login');
-		}
-	}
+        $this->load->model("M_Order");
+        $this->load->model("M_Service");
+        if ($this->session->userdata('akses') == '2') {
+            if (isset($code)) {
+                $data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
+                $data['data'] = $this->M_Order->getOneByCode($code);
+                $data['detail'] = $this->M_Order->getDetailByCode($code);
+                $this->load->view('technician/order_view', $data);
+            }
+        } else if ($this->session->userdata('akses') == '3') {
+            if (isset($code)) {
+                $data['data'] = $this->M_Order->getOneByCode($code);
+                $data['detail'] = $this->M_Order->getDetailByCode($code);
+                $total_price = $this->M_Order->getUnpaidOrderCustomer($code);
+                $data['total_price'] = number_format($total_price, 2, ',', '.');
+                $data['price'] = $total_price;
+                $this->load->view('customer/order_view', $data);
+            }
+        } else {
+            redirect('Controller_Login');
+        }
+    }
 
 	public function getAllByCustomerCode($code = '') {
 		if($this->session->userdata('akses')=='3'){

@@ -89,6 +89,7 @@ class Controller_Order extends CI_Controller{
                 $fix_datetime = $data->fix_datetime;
             }
             $pdf = new FPDF('P', 'mm', 'A4');
+            $pdf = $this->reportheader->getInstance($code);
 
             $pdf->AddPage();
             /* output the result */
@@ -98,24 +99,19 @@ class Controller_Order extends CI_Controller{
 
             /* Cell(width , height , text , border , end line , [align] ) */
 
-            $pdf->Cell(45, 10, '', 0, 0);
-            $pdf->Cell(59, 5, 'Invoice '.$code, 0, 0);
+            $pdf->Cell(75, 10, '', 0, 0);
+            $pdf->Cell(59, 5, 'Invoice', 0, 0);
             $pdf->Cell(59, 10, '', 0, 1);
 
-            $pdf->SetFont('Courier', 'B', 12);
-            $pdf->Cell(71, 5, 'Address Of Repairing', 0, 0);
-            $pdf->Cell(59, 5, '', 0, 1);
-
-            $pdf->SetFont('Courier', '', 8);
-            $pdf->Cell(130, 5, $address, 0, 0);
-            $pdf->Cell(25, 5, '', 0, 0);
             $pdf->Cell(34, 5, '', 0, 1);
             $pdf->Cell(59, 5, '', 0, 1);
 
             $pdf->SetFont('Courier', 'B', 12);
-            $pdf->Cell(130, 5, 'Detail Repairing', 0, 1);
+            $pdf->Cell(130, 10, 'Detail Repairing', 0, 1);
             
             $pdf->SetFont('Courier', '', 8);
+            $pdf->Cell(40, 5, 'Address', 0, 0);
+            $pdf->MultiCell(150, 5, ': '.$address, 0, 1);
             $pdf->Cell(40, 5, 'Customer Name', 0, 0);
             $pdf->Cell(50, 5, ': '.$customer_name, 0, 1);
             $pdf->Cell(40, 5, 'Technician Name', 0, 0);
@@ -125,13 +121,13 @@ class Controller_Order extends CI_Controller{
             $pdf->Cell(59, 5, '', 0, 1);
             
             $pdf->SetFont('Courier', 'B', 12);
-            $pdf->Cell(130, 5, 'Detail Service', 0, 1);
+            $pdf->Cell(130, 10, 'Detail Service', 0, 1);
 
             $pdf->SetFont('Courier', 'B', 8);
             /* Heading Of the table */
             $pdf->Cell(10, 6, 'No', 1, 0, 'C');
             $pdf->Cell(35, 6, 'Service Code', 1, 0, 'C');
-            $pdf->Cell(50, 6, 'Service Name', 1, 0, 'C');
+            $pdf->Cell(100, 6, 'Service Name', 1, 0, 'C');
             $pdf->Cell(30, 6, 'Price', 1, 1, 'C'); /* end of line */
             /* Heading Of the table end */
             $pdf->SetFont('Courier', '', 8);
@@ -140,8 +136,8 @@ class Controller_Order extends CI_Controller{
             $total_price = 0;
             foreach ($detail as $detail) {
                 $pdf->Cell(10, 6, $no, 1, 0, 'C');
-                $pdf->Cell(35, 6, $detail->service_type_code, 1, 0);
-                $pdf->Cell(50, 6, $detail->service, 1, 0, 'L');
+                $pdf->Cell(35, 6, $detail->service_type_code, 1, 0, 'C');
+                $pdf->Cell(100, 6, $detail->service, 1, 0, 'C');
                 $pdf->Cell(30, 6, 'Rp. '.number_format($detail->price, 2, ',', '.'), 1, 1, 'R');
                 $no++;
                 $total_price = $total_price + $detail->price;
@@ -149,7 +145,7 @@ class Controller_Order extends CI_Controller{
 
             $pdf->Cell(10, 6, '', 0, 0);
             $pdf->Cell(35, 6, '', 0, 0);
-            $pdf->Cell(50, 6, 'Subtotal', 1, 0);
+            $pdf->Cell(100, 6, 'Subtotal', 1, 0, 'R');
             $pdf->Cell(30, 6, 'Rp. '.number_format($total_price, 2, ',', '.'), 1, 1, 'R');
 
             $filename = 'invoice_order_' . $code . '_' . date("Ymdhis") . '.pdf';

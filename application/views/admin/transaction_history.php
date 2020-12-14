@@ -38,23 +38,23 @@
                   <tbody>
                     <?php 
                       $no=0;
-                      foreach ($data as $order){
+                      foreach ($data as $transaction){
                       $no++;
                     ?>
                       <tr>
-                          <td><?=$no?></td>
-                          <td><?=$order->txn_datetime?></td>
-                          <td> <?php if($order->txn_code == 'TOPU') {?>
+                          <td style="text-align: center"><?=$no?></td>
+                          <td><?=$transaction->txn_datetime?></td>
+                          <td> <?php if($transaction->txn_code == 'TOPU') {?>
                           TOP UP
-                          <?php } elseif ($order->txn_code == 'WDRW') {?>
+                          <?php } elseif ($transaction->txn_code == 'WDRW') {?>
                           WITHDRAWAL
-                          <?php } elseif ($order->txn_code == 'PAYM') {?>
-                          ORDER PAYMENT
+                          <?php } elseif ($transaction->txn_code == 'PAYM') {?>
+                          ORDER (<?=$transaction->order_code?>)
                           <?php } ?>
                           </td>
-                          <td><?=$order->NAME_FROM?></td>
-                          <td><?=$order->NAME_TO?></td>
-                          <td>Rp. <?php echo number_format($order->txn_amount, 2, ',', '.')?></td>
+                          <td><?=$transaction->NAME_FROM?></td>
+                          <td><?=$transaction->NAME_TO?></td>
+                          <td>Rp. <?php echo number_format($transaction->txn_amount, 2, ',', '.')?></td>
                       </tr>
                     <?php
                     }

@@ -3,13 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require(APPPATH . 'third_party/fpdf181/fpdf.php');
 
-class ReportHeader extends FPDF {
+class ReportHeaderLandscape extends FPDF {
     
     private $order_code;
+    function __construct($orientation='L', $unit='mm', $size='A4')
+    {
+        parent::__construct($orientation,$unit,$size);
+    }
     
     function Header() {
         // Logo
-        $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/logo.png', 120, 3, 80);
+        $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/logo.png', 200, 3, 80);
         // Arial bold 15
         $this->SetFont('Courier', '', 8);
         // Move to the right
@@ -18,16 +22,11 @@ class ReportHeader extends FPDF {
         $this->Cell(50, 5, 'Date : '.date("Y/m/d h:i:sa"), 0, 0, 'L');
         // Line break
         $this->Ln(20);
-        $this->Line(10, 25, 200, 25);
-    }
-    
-    function Footer() {
-        //buat garis horizontal
-            $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/paid.png', 120, 200, 80);
+        $this->Line(10, 25, 285, 25);
     }
 
     public function getInstance($order_code = '') {
-        $invoice_header = new ReportHeader();
+        $invoice_header = new ReportHeaderLandscape();
         if ($this->order_code != '') {
             $invoice_header->set_order_code('Order Code : #'.$order_code);
         }

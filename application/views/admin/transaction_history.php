@@ -15,7 +15,7 @@
       <div class="page-header">
         <h3 class="page-title">Wallet Transaction History</h3>
         <div class="template-demo">
-          <a class="btn btn-primary" href="/protech/index.php/Controller_Order/downloadTransactionHistory">Download</a>
+          <a class="btn btn-primary" href="/protech/index.php/Controller_Wallet/downloadTransactionHistory">Download</a>
         </div>
       </div>
       <!-- first row starts here -->

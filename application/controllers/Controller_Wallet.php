@@ -13,41 +13,48 @@ class Controller_Wallet extends CI_Controller{
 	
 	public function downloadTransactionHistory() {
 	    if($this->session->userdata('akses')=='1'){
-	        $this->load->library('ReportHeader');
-	        $this->load->model("M_Order");
+	        $this->load->library('ReportHeaderLandscape');
+	        $this->load->model("T_Wallet");
 	        $this->load->library('pdf');
 	        $this->load->helper('download');
 	        
 	        $transaction_history = $this->T_Wallet->getAllTransaction();
 	        
-	        $pdf = new FPDF('L', 'mm', 'Letter');
-	        $pdf = $this->reportheader->getInstance();
+	        $pdf = new FPDF('L', 'mm', 'A4');
+	        $pdf = $this->reportheaderlandscape->getInstance();
 	        
 	        $pdf->AddPage();
 	        
-	        $pdf->SetFont('Arial', 'B', 16);
-	        $pdf->Cell(0, 7, 'Order History', 0, 1, 'C');
+	        $pdf->SetFont('Courier', 'B', 16);
+	        $pdf->Cell(0, 7, 'Report Transaction', 0, 1, 'C');
 	        $pdf->Cell(10, 7, '', 0, 1);
 	        
-	        $pdf->SetFont('Arial', 'B', 10);
+	        $pdf->SetFont('Courier', 'B', 10);
 	        
 	        $pdf->Cell(8, 6, 'No', 1, 0, 'C');
-	        $pdf->Cell(30, 6, 'Transaction Datetime', 1, 0, 'C');
-	        $pdf->Cell(40, 6, 'Transaction Type', 1, 0, 'C');
-	        $pdf->Cell(50, 6, 'From', 1, 0, 'C');
-	        $pdf->Cell(50, 6, 'To', 1, 0, 'C');
-	        $pdf->Cell(35, 6, 'Amount', 1, 0, 'C');
+	        $pdf->Cell(50, 6, 'Transaction Datetime', 1, 0, 'C');
+	        $pdf->Cell(50, 6, 'Transaction Type', 1, 0, 'C');
+	        $pdf->Cell(70, 6, 'From', 1, 0, 'C');
+	        $pdf->Cell(70, 6, 'To', 1, 0, 'C');
+	        $pdf->Cell(30, 6, 'Amount', 1, 1, 'C');
 	        
 	        $pdf->SetFont('Arial', '', 10);
 	        $no = 1;
 	        foreach ($transaction_history as $data) {
+	            $transaction_type = '';
+	            if ($data->txn_code == 'PAYM') {
+	                $transaction_type = 'ORDER ('.$data->order_code.')';
+	            } elseif ($data->txn_code == 'TOPU') {
+	                $transaction_type = 'TOP UP';
+	            } elseif ($data->txn_code == 'WDRW') {
+	                $transaction_type = 'WITHDRAWAL';
+	            }
 	            $pdf->Cell(8, 6, $no, 1, 0);
-	            $pdf->Cell(30, 6, $data->order_code, 1, 0);
-	            $pdf->Cell(40, 6, $data->created_datetime, 1, 0);
-	            $pdf->Cell(50, 6, $data->customer_name, 1, 0);
-	            $pdf->Cell(50, 6, $data->technician_name, 1, 0);
-	            $pdf->Cell(35, 6, $data->service, 1, 0);
-	            $pdf->Cell(30, 6, $data->order_status, 1, 1);
+	            $pdf->Cell(50, 6, $data->txn_datetime, 1, 0);
+	            $pdf->Cell(50, 6, $transaction_type, 1, 0);
+	            $pdf->Cell(70, 6, $data->NAME_FROM, 1, 0);
+	            $pdf->Cell(70, 6, $data->NAME_TO, 1, 0);
+	            $pdf->Cell(30, 6, 'Rp. '.number_format($data->txn_amount, 2, ',', '.'), 1, 1);
 	            $no ++;
 	        }
 	        

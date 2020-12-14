@@ -28,42 +28,42 @@ class Controller_Order extends CI_Controller{
 	
 	public function downloadOrderHistory() {
 	    if($this->session->userdata('akses')=='1'){
-	        $this->load->library('ReportHeader');
+	        $this->load->library('ReportHeaderLandscape');
 	        $this->load->model("M_Order");
 	        $this->load->library('pdf');
 	        $this->load->helper('download');
 	        
 	        $order_history = $this->M_Order->getAll();
 
-	        $pdf = new FPDF('L', 'mm', 'Letter');
-	        $pdf = $this->reportheader->getInstance();
+	        $pdf = new FPDF('L', 'mm', 'A4');
+	        $pdf = $this->reportheaderlandscape->getInstance();
 
             $pdf->AddPage();
 
-            $pdf->SetFont('Arial', 'B', 16);
-            $pdf->Cell(0, 7, 'Order History', 0, 1, 'C');
+            $pdf->SetFont('Courier', 'B', 16);
+            $pdf->Cell(0, 7, 'Report Order', 0, 1, 'C');
             $pdf->Cell(10, 7, '', 0, 1);
 
-            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->SetFont('Courier', 'B', 10);
 
-            $pdf->Cell(8, 6, 'No', 1, 0, 'C');
+            $pdf->Cell(5, 6, 'No', 1, 0, 'C');
             $pdf->Cell(30, 6, 'Order Code', 1, 0, 'C');
             $pdf->Cell(40, 6, 'Order Time', 1, 0, 'C');
             $pdf->Cell(50, 6, 'Customer', 1, 0, 'C');
             $pdf->Cell(50, 6, 'Technician', 1, 0, 'C');
-            $pdf->Cell(35, 6, 'Service', 1, 0, 'C');
-            $pdf->Cell(30, 6, 'Status', 1, 1, 'C',);
+            $pdf->Cell(50, 6, 'Service', 1, 0, 'C');
+            $pdf->Cell(50, 6, 'Status', 1, 1, 'C',);
 
-            $pdf->SetFont('Arial', '', 10);
+            $pdf->SetFont('Courier', '', 8);
             $no = 1;
             foreach ($order_history as $data) {
-                $pdf->Cell(8, 6, $no, 1, 0);
+                $pdf->Cell(5, 6, $no, 1, 0);
                 $pdf->Cell(30, 6, $data->order_code, 1, 0);
                 $pdf->Cell(40, 6, $data->created_datetime, 1, 0);
                 $pdf->Cell(50, 6, $data->customer_name, 1, 0);
                 $pdf->Cell(50, 6, $data->technician_name, 1, 0);
-                $pdf->Cell(35, 6, $data->service, 1, 0);
-                $pdf->Cell(30, 6, $data->order_status, 1, 1);
+                $pdf->Cell(50, 6, $data->service, 1, 0);
+                $pdf->Cell(50, 6, $data->order_status, 1, 1);
                 $no ++;
             }
 	        
@@ -94,7 +94,7 @@ class Controller_Order extends CI_Controller{
             $pdf->AddPage();
             /* output the result */
 
-            /* set font to arial, bold, 14pt */
+            /* set font to Courier, bold, 14pt */
             $pdf->SetFont('Courier', 'B', 20);
 
             /* Cell(width , height , text , border , end line , [align] ) */

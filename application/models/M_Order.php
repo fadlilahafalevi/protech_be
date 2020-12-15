@@ -5,7 +5,7 @@ class M_Order extends CI_Model{
 		return $result->result();
 	}
 	
-	public function getAll() {
+	public function getAll($from, $to) {
 	    $this->db->distinct();
 	    $this->db->select('o.*, c.fullname as customer_name, t.fullname as technician_name, concat(sc.service_category_name, \' - \', sd.service_detail_name) as service');
 	    $this->db->from('tbl_order o');
@@ -15,7 +15,10 @@ class M_Order extends CI_Model{
 	    $this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code', 'left');
 	    $this->db->join('tbl_service_detail sd', 'sd.service_detail_code = st.service_detail_code', 'left');
 	    $this->db->join('tbl_service_category sc', 'sc.service_category_code = sd.service_category_code', 'left');
+        $this->db->where('o.created_datetime >=', $from);
+        $this->db->where('o.created_datetime <=', $to);
 	    $query = $this->db->get();
+// 	    print_r($this->db->last_query());
 	    return $query->result();
 	}
 

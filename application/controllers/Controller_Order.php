@@ -20,23 +20,31 @@ class Controller_Order extends CI_Controller{
 	public function orderHistory() {
 	    if($this->session->userdata('akses')=='1'){
 	        $this->load->model("M_Order");
+	        $from = $this->input->post('from');
+	        $to = $this->input->post('to');
 	        
-	        $data['data'] = $this->M_Order->getAll();
+	        if ($from == null && $to == null) {
+	            $from = '2019-01-01';
+	            $to = '2029-12-31';
+	        }
+	        $data['data'] = $this->M_Order->getAll($from, $to);
+	        $data['from'] = $from;
+	        $data['to'] = $to;
 	        $this->load->view('admin/order_history', $data);
 	    }
 	}
 	
-	public function downloadOrderHistory() {
+	public function downloadOrderHistory($from, $to) {
 	    if($this->session->userdata('akses')=='1'){
 	        $this->load->library('ReportHeaderLandscape');
 	        $this->load->model("M_Order");
 	        $this->load->library('pdf');
 	        $this->load->helper('download');
 	        
-	        $order_history = $this->M_Order->getAll();
+	        $order_history = $this->M_Order->getAll($from, $to);
 
 	        $pdf = new FPDF('L', 'mm', 'A4');
-	        $pdf = $this->reportheaderlandscape->getInstance();
+	        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
 
             $pdf->AddPage();
 

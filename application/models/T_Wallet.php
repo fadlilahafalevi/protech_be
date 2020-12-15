@@ -44,7 +44,7 @@ order by
         return $query->result();
     }
     
-    public function getAllTransaction() {
+    public function getAllTransaction($from, $to) {
         $query = $this->db->query("select
     H.id as id,
 	H.order_code,
@@ -81,6 +81,7 @@ left join tbl_technician T on
 left join tbl_admin A on
 	(A.phone = H.from_phone
 	or A.phone = H.to_phone)
+where H.txn_datetime >= '$from' and H.txn_datetime <= '$to'
 order by
 	H.txn_datetime desc");
         return $query->result();

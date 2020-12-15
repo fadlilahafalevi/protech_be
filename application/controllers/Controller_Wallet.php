@@ -11,17 +11,17 @@ class Controller_Wallet extends CI_Controller{
         }
 	}
 	
-	public function downloadTransactionHistory() {
+	public function downloadTransactionHistory($from, $to) {
 	    if($this->session->userdata('akses')=='1'){
 	        $this->load->library('ReportHeaderLandscape');
 	        $this->load->model("T_Wallet");
 	        $this->load->library('pdf');
 	        $this->load->helper('download');
 	        
-	        $transaction_history = $this->T_Wallet->getAllTransaction();
+	        $transaction_history = $this->T_Wallet->getAllTransaction($from, $to);
 	        
 	        $pdf = new FPDF('L', 'mm', 'A4');
-	        $pdf = $this->reportheaderlandscape->getInstance();
+	        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
 	        
 	        $pdf->AddPage();
 	        
@@ -68,7 +68,16 @@ class Controller_Wallet extends CI_Controller{
 	public function transactionHistory() {
         $this->load->model('T_Wallet');
         if ($this->session->userdata('akses') == '1') {
-            $data['data'] = $this->T_Wallet->getAllTransaction();
+            $from = $this->input->post('from');
+            $to = $this->input->post('to');
+            
+            if ($from == null && $to == null) {
+                $from = '2019-01-01';
+                $to = '2029-12-31';
+            }
+            $data['data'] = $this->T_Wallet->getAllTransaction($from, $to);
+            $data['from'] = $from;
+            $data['to'] = $to;
             $this->load->view('admin/transaction_history', $data);
         } else {
             echo "Halaman tidak ditemukan";

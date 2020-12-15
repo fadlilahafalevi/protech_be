@@ -35,5 +35,19 @@
             "showTodayButton": true,
             "format": "MM/DD/YYYY",
         });
+        $('#from_date').datetimepicker({
+            "allowInputToggle": true,
+            "showClose": true,
+            "showClear": true,
+            "showTodayButton": true,
+            "format": "YYYY-MM-DD",
+        });
+        $('#to_date').datetimepicker({
+            "allowInputToggle": true,
+            "showClose": true,
+            "showClear": true,
+            "showTodayButton": true,
+            "format": "YYYY-MM-DD",
+        });
     });
 })(jQuery);

@@ -59,8 +59,9 @@ class Controller_Wallet extends CI_Controller{
 	        }
 	        
 	        $filename = 'transaction_history_report_'.date("Ymdhis").'.pdf';
-	        
-	        $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+            
+	        //$pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
 	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
 	    }
 	}

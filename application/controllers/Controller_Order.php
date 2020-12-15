@@ -69,7 +69,8 @@ class Controller_Order extends CI_Controller{
 	        
 	        $filename = 'order_history_report_'.date("Ymdhis").'.pdf';
 	        
-	        $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        //$pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
 	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
 	    }
 	}
@@ -150,7 +151,8 @@ class Controller_Order extends CI_Controller{
 
             $filename = 'invoice_order_' . $code . '_' . date("Ymdhis") . '.pdf';
 
-            $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/' . $filename, 'F');
+            //$pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+            $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/' . $filename, 'F');
             force_download('./assets/downloaded-pdf/' . $filename, NULL);
         }
     }

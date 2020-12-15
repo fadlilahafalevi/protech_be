@@ -458,11 +458,20 @@ class Controller_Order extends CI_Controller{
         
         if ($is_approved == 1) {
             if ($total_balance_customer >= $total_unpaid) {
+                //update status order detail to paid
                 $data = [
                     'order_code' => $order_code,
                     'is_paid' => 1
                 ];
                 $this->M_General->updateData('tbl_order_detail', $data, 'order_code', $order_code);
+                
+                //update total price
+                $total_price = $this->M_Wallet->getTotalPriceFromOrder($order_code);
+                $data_order = [
+                    'total_amount' => $total_price
+                ];
+                $this->M_General->updateData('tbl_order', $data_order, 'order_code', $order_code);
+                
                 $this->transferPaymentIntermediaryWallet('customer', $phone, $total_unpaid, $order_code);
             }
         } else {
@@ -562,5 +571,16 @@ class Controller_Order extends CI_Controller{
 	    $this->M_General->insertData('tbl_transaction_history', $data);
 	    $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
 	    $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
+	}
+
+	public function cancelByCustomer($order_code) {
+	    if ($this->session->userdata('akses')=='3') {
+	        
+	        $this->load->model("M_Order");
+	        if (isset($order_code)) {
+                $this->M_Order->updateStatus($order_code, 'CANCELLED BY CUST');
+	            redirect('Controller_Order/getOneByCode/'.$order_code);
+	        }
+	    }
 	}
 }

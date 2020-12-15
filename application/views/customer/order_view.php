@@ -136,9 +136,6 @@
 
                         <div class="form-group row">
                            <label class="col-sm-8 col-form-label" for="notif-topup">You must top up your balance at least <mark> Rp. <?=$total_price?> </mark> before proceeding with the order.</label>
-                           <div class="col-sm-2">
-                              <a class="btn btn-success" href="/protech/index.php/Controller_Wallet/customTopUpOrder/<?=$order->order_code?>/<?=$price?>">Top Up</a>
-                           </div>
                            <label class="col-sm-8 col-form-label">After Top Up, your balance will automatically paid to order.</label>
                         </div>
 
@@ -147,7 +144,12 @@
                         </div>
 
                         <div class="form-group row">
-                           <a class="btn btn-success" href="/protech/index.php/Controller_Order/customTopUp/<?=$this->session->userdata('code')?>/<?=$total_price?>">Top Up</a>
+                        	<div class="col-sm-2">
+								<a class="btn btn-success" href="/protech/index.php/Controller_Order/customTopUp/<?=$this->session->userdata('code')?>/<?=$total_price?>">Top Up</a>
+							</div>
+							<div class="col-sm-2">
+								<a class="btn btn-warning" href="/protech/index.php/Controller_Order/cancelByCustomer/<?=$order->order_code?>">Cancel Order</a>
+							</div>
                         </div>
                         <?php } ?>
                      </form>

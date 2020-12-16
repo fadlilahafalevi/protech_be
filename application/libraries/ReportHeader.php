@@ -9,8 +9,8 @@ class ReportHeader extends FPDF {
     
     function Header() {
         // Logo
-        //$this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/logo.png', 120, 3, 80);
-        $this->Image('E:/xampp/htdocs/protech/assets/images/logo.png', 120, 3, 80);
+        $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/logo.png', 120, 3, 80);
+//         $this->Image('E:/xampp/htdocs/protech/assets/images/logo.png', 120, 3, 80);
         // Arial bold 15
         $this->SetFont('Courier', '', 8);
         // Move to the right
@@ -24,8 +24,8 @@ class ReportHeader extends FPDF {
     
     function Footer() {
         //buat garis horizontal
-            //$this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/paid.png', 120, 200, 80);
-            $this->Image('E:/xampp/htdocs/protech/assets/images/paid.png', 120, 200, 80);
+            $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/paid.png', 120, 200, 80);
+//             $this->Image('E:/xampp/htdocs/protech/assets/images/paid.png', 120, 200, 80);
     }
 
     public function getInstance($order_code = '') {

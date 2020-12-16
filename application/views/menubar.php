@@ -71,6 +71,9 @@
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/protech/index.php/Controller_Wallet/transactionHistory">Transaction History</a>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/protech/index.php/Controller_Wallet/technicianBalance">Technician Balance</a>
+                      </li>
                       </li>
                     </ul>
                   </div>

@@ -14,7 +14,9 @@ class ReportHeader extends FPDF {
         // Arial bold 15
         $this->SetFont('Courier', '', 8);
         // Move to the right
-        $this->Cell(50, 5, $this->order_code, 0, 1, 'L');
+        if ($this->order_code != '') {
+            $this->Cell(50, 5, 'Order Code : #'.$this->order_code, 0, 1, 'L');
+        }
         date_default_timezone_set("Asia/Bangkok");
         $this->Cell(50, 5, 'Date : '.date("Y/m/d h:i:sa"), 0, 0, 'L');
         // Line break
@@ -24,14 +26,16 @@ class ReportHeader extends FPDF {
     
     function Footer() {
         //buat garis horizontal
+        if ($this->order_code != '') {
             $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/paid.png', 120, 200, 80);
 //             $this->Image('E:/xampp/htdocs/protech/assets/images/paid.png', 120, 200, 80);
+        }
     }
 
     public function getInstance($order_code = '') {
         $invoice_header = new ReportHeader();
         if ($this->order_code != '') {
-            $invoice_header->set_order_code('Order Code : #'.$order_code);
+            $invoice_header->set_order_code($order_code);
         }
         return $invoice_header;
     }

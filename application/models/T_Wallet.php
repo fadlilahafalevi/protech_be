@@ -147,4 +147,9 @@ where h.id = $id");
 	    $query = $this->db->query("select * from (select * from tbl_transaction_history where from_phone = '$phone' union all select * from tbl_transaction_history where to_phone = '$phone') as hist order by hist.txn_datetime desc");
 	    return $query->result();
 	}
+	
+	public function getTechnicianBalanceList() {
+	    $query = $this->db->query("select t.fullname, w.phone, w.balance, w.total_credit, w.total_debit from tbl_wallet w inner join tbl_technician t on t.phone = w.phone order by balance desc");
+	    return $query->result();
+	}
 }

@@ -75,6 +75,61 @@ class Controller_Wallet extends CI_Controller{
 	    }
 	}
 	
+	public function downloadTechnicianBalance() {
+	    if($this->session->userdata('akses')=='1'){
+	        $this->load->library('ReportHeader');
+	        $this->load->model("T_Wallet");
+	        $this->load->library('pdf');
+	        $this->load->helper('download');
+	        
+	        $transaction_history = $this->T_Wallet->getTechnicianBalanceList();
+	        
+	        $pdf = new FPDF('L', 'mm', 'A4');
+	        $pdf = $this->reportheader->getInstance();
+	        
+	        $pdf->AddPage();
+	        
+	        $pdf->SetFont('Courier', 'B', 16);
+	        $pdf->Cell(0, 7, 'Report Technician Balance', 0, 1, 'C');
+	        $pdf->Cell(10, 7, '', 0, 1);
+	        
+	        $pdf->SetFont('Courier', 'B', 10);
+	        
+	        $pdf->Cell(8, 6, 'No', 1, 0, 'C');
+	        $pdf->Cell(50, 6, 'Technician Name', 1, 0, 'C');
+	        $pdf->Cell(30, 6, 'Phone', 1, 0, 'C');
+	        $pdf->Cell(35, 6, 'Balance', 1, 0, 'C');
+	        $pdf->Cell(35, 6, 'Total Credit', 1, 0, 'C');
+	        $pdf->Cell(35, 6, 'Total Debit', 1, 1, 'C');
+	        
+	        $pdf->SetFont('Courier', '', 8);
+	        $no = 1;
+	        foreach ($transaction_history as $data) {
+	            $pdf->Cell(8, 6, $no, 1, 0, 'C');
+	            $pdf->Cell(50, 6, $data->fullname, 1, 0);
+	            $pdf->Cell(30, 6, $data->phone, 1, 0);
+	            $pdf->Cell(35, 6, 'Rp. '.number_format($data->balance, 2, ',', '.'), 1, 0, 'R');
+	            $pdf->Cell(35, 6, 'Rp. '.number_format($data->total_credit, 2, ',', '.'), 1, 0, 'R');
+	            $pdf->Cell(35, 6, 'Rp. '.number_format($data->total_debit, 2, ',', '.'), 1, 1, 'R');
+	            $no ++;
+	        }
+	        
+	        $filename = 'transaction_history_report_'.date("Ymdhis").'.pdf';
+	        
+	        $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        // 	        $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
+	    }
+	}
+	
+	public function  technicianBalance() {
+        if ($this->session->userdata('akses') == '1') {
+            $this->load->model("T_Wallet");
+            $data['data'] = $this->T_Wallet->getTechnicianBalanceList();
+            $this->load->view('admin/technician_balance', $data);
+        }
+    }
+	
 	public function transactionHistory() {
         $this->load->model('T_Wallet');
         if ($this->session->userdata('akses') == '1') {

@@ -15,8 +15,8 @@ class ReportHeaderLandscape extends FPDF {
     
     function Header() {
         // Logo
-        $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/logo.png', 200, 3, 80);
-//         $this->Image('E:/xampp/htdocs/protech/assets/images/logo.png', 200, 3, 80);
+//        $this->Image('S:/Program Files/xampp/htdocs/protech/assets/images/logo.png', 200, 3, 80);
+         $this->Image('E:/xampp/htdocs/protech/assets/images/logo.png', 200, 3, 80);
 
         // Arial bold 15
         $this->SetFont('Courier', '', 8);

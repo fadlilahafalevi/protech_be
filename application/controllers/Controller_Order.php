@@ -466,7 +466,7 @@ class Controller_Order extends CI_Controller{
                 $this->M_General->updateData('tbl_order_detail', $data, 'order_code', $order_code);
                 
                 //update total price
-                $total_price = $this->M_Wallet->getTotalPriceFromOrder($order_code);
+                $total_price = $this->M_Order->getTotalPriceFromOrder($order_code);
                 $data_order = [
                     'total_amount' => $total_price
                 ];

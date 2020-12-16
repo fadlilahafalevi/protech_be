@@ -38,8 +38,9 @@ class Controller_Wallet extends CI_Controller{
 	        $pdf->Cell(70, 6, 'To', 1, 0, 'C');
 	        $pdf->Cell(30, 6, 'Amount', 1, 1, 'C');
 	        
-	        $pdf->SetFont('Arial', '', 10);
+	        $pdf->SetFont('Courier', '', 8);
 	        $no = 1;
+	        $total_amount = 0;
 	        foreach ($transaction_history as $data) {
 	            $transaction_type = '';
 	            if ($data->txn_code == 'PAYM') {
@@ -49,19 +50,27 @@ class Controller_Wallet extends CI_Controller{
 	            } elseif ($data->txn_code == 'WDRW') {
 	                $transaction_type = 'WITHDRAWAL';
 	            }
-	            $pdf->Cell(8, 6, $no, 1, 0);
+	            $pdf->Cell(8, 6, $no, 1, 0, 'C');
 	            $pdf->Cell(50, 6, $data->txn_datetime, 1, 0);
 	            $pdf->Cell(50, 6, $transaction_type, 1, 0);
 	            $pdf->Cell(70, 6, $data->NAME_FROM, 1, 0);
 	            $pdf->Cell(70, 6, $data->NAME_TO, 1, 0);
-	            $pdf->Cell(30, 6, 'Rp. '.number_format($data->txn_amount, 2, ',', '.'), 1, 1);
+	            $pdf->Cell(30, 6, 'Rp. '.number_format($data->txn_amount, 2, ',', '.'), 1, 1, 'R');
 	            $no ++;
+	            $total_amount = $total_amount + $data->txn_amount;
 	        }
+	        
+	        $pdf->Cell(8);
+	        $pdf->Cell(50);
+	        $pdf->Cell(50);
+	        $pdf->Cell(70);
+	        $pdf->Cell(70, 6, 'Subtotal', 1, 0, 'R');
+	        $pdf->Cell(30, 6, 'Rp. '.number_format($total_amount, 2, ',', '.'), 1, 1, 'R');
 	        
 	        $filename = 'transaction_history_report_'.date("Ymdhis").'.pdf';
             
-	        //$pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
-	        $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+// 	        $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
 	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
 	    }
 	}
@@ -230,9 +239,9 @@ class Controller_Wallet extends CI_Controller{
                 $is_processed = '1';
                 $order_code = $this->input->post('order_code');
                 $data_update = [];
+                $data_wallet = [];
 
                 if ($txn_code == 'TOPU') {
-                    $is_approved = $this->input->post('is_approved');
                     if ($is_approved == 1) {
                         $data_update = [
                             'is_approved' => $is_approved,

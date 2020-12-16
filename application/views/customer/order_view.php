@@ -92,7 +92,9 @@
         <h3 class="page-title">Order <?=$order->order_code?></h3>
         <div class="template-demo">
           <a class="btn btn-primary" href="/protech/index.php/Controller_Order/getAllByCustomerCode/<?=$this->session->userdata('code')?>">Back to Order History</a>
+          <?php if ($order_status == 'FINISHED') {_?>
           <a class="btn btn-primary" href="/protech/index.php/Controller_Order/downloadInvoice/<?=$order_code?>">Download Invoice</a>
+          <?php } ?>
         </div>
       </div>
       <!-- first row starts here -->

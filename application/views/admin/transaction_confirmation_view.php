@@ -73,8 +73,9 @@
                            <div class="col-sm-9">
 							<?php if ($transaction_detail->txn_code == 'TOPU') {?>
                               <input type="text" class="form-control" id="transaction_code" name="transaction_code" value="TOP UP" readonly>
-							<?php } elseif($transaction_detail->txn_code == 'WDRW') ?>
+							<?php } elseif($transaction_detail->txn_code == 'WDRW') { ?>
 							  <input type="text" class="form-control" id="transaction_code" name="transaction_code" value="WITHDRAWAL" readonly>
+							<?php } ?>
                            </div>
                         </div>
                         <div class="form-group row" hidden>
@@ -106,7 +107,13 @@
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="txn_amount">Transaction Amount</label>
                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="txn_amount" name="txn_amount" value="Rp. <?php echo number_format($transaction_detail->txn_amount,2,',','.') ?>" readonly>
+                              <input type="text" class="form-control" id="amount" name="amount" value="Rp. <?php echo number_format($transaction_detail->txn_amount,2,',','.') ?>" readonly>
+                           </div>
+                        </div>
+                        <div class="form-group row" hidden>
+                           <label class="col-sm-3 col-form-label" for="txn_amount">Transaction Amount</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="txn_amount" name="txn_amount" value="<?=$transaction_detail->txn_amount?>" readonly>
                            </div>
                         </div>
                         <div class="form-group row">

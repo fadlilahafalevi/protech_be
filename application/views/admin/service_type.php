@@ -52,7 +52,7 @@
                           <td><?=$no?></td>
                           <td><?=$list_service->service_type_code?></td>
                           <td><?=$list_service->service_type_name?></td>
-                          <td><?=$list_service->price?></td>
+                          <td>Rp. <?php echo number_format($list_service->price,2,',','.') ?></td>
                           <td style="text-align: center">
                             <?php
                               if($list_service->active_status == '1'){

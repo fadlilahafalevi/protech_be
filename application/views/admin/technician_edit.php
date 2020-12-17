@@ -87,7 +87,7 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="ktp_photo">KTP Photo</label>
+                           <label class="col-sm-3 col-form-label" for="ktp_photo_preview">KTP Photo</label>
                            <div class="col-sm-9">
                               <img src="data:<?php echo $technician_detail->ktp_photo; ?>;base64,<?php echo $technician_detail->ktp_photo; ?>" width="250">
                            </div>

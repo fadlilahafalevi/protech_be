@@ -337,6 +337,14 @@ class Controller_Wallet extends CI_Controller{
                             ];
                             $this->M_General->updateData('tbl_order', $data_order, 'order_code', $order_code);
                         }
+                    } else {
+                        $data_update = [
+                            'is_approved' => $is_approved,
+                            'is_processed' => $is_processed,
+                            'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now")),
+                            'modified_by' => $this->session->userdata('code')
+                        ];
+                        $this->M_General->updateData('tbl_transaction_history', $data_update, 'id', $id);
                     }
                 } elseif ($txn_code == 'WDRW') {
                     $config['upload_path'] = './assets/uploaded-image/';

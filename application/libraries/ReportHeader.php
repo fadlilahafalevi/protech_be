@@ -34,7 +34,7 @@ class ReportHeader extends FPDF {
 
     public function getInstance($order_code = '') {
         $invoice_header = new ReportHeader();
-        if ($this->order_code != '') {
+        if ($order_code != '') {
             $invoice_header->set_order_code($order_code);
         }
         return $invoice_header;

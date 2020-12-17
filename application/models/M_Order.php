@@ -143,14 +143,9 @@ class M_Order extends CI_Model{
 	}
 	
 	public function getAverageRate($technician_code) {
-	    $total_rate = $this->db->query("select sum(order_rate) as total_rate from tbl_order where technician_code = '$technician_code' group by technician_code")->row()->total_rate;
-	    $total_order = $this->db->query("select count(*) as total_order from tbl_order where order_status = 'FINISHED' and order_rate is not null and technician_code = '$technician_code'")->row()->total_order;
+	    $avg_rate = $this->db->query("select (sum(order_rate) as total_rate from tbl_order where technician_code = '$technician_code' group by technician_code) / (select count(*) as total_order from tbl_order where order_status = 'FINISHED' and order_rate is not null and technician_code = '$technician_code') as avg_rate")->row()->avg_rate;
 	    
-	    if ($total_order == 0) {
-	        return $total_rate;
-	    } else {
-    	    return $total_rate / $total_order;
-	    }
+	    return $avg_rate;
 	}
 	
 	public function getOrderByStatus($status) {

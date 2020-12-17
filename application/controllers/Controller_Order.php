@@ -385,7 +385,8 @@ class Controller_Order extends CI_Controller{
 
 		    $this->load->model("M_Order");
 		    $this->load->model("M_Customer");
-		    $this->load->model("T_Walet");
+		    $this->load->model("T_Wallet");
+		    $this->load->model("M_General");
 		    
 			$order_code = $this->input->post('order_code');
 			$is_approved = $this->input->post('is_approved');

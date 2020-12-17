@@ -85,12 +85,6 @@
                            </div>
                         </div>
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="info">Reason</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="additional_info" name="additional_info">
-                           </div>
-                        </div>
-                        <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="txn_amount">Transaction Amount</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="amount" name="amount" value="Rp. <?php echo number_format($transaction_detail->txn_amount,2,',','.') ?>" readonly>
@@ -106,6 +100,12 @@
                            <label class="col-sm-3 col-form-label" for="txn_datetime">Transaction Datetime</label>
                            <div class="col-sm-9">
                               <input type="text" class="form-control" id="txn_datetime" name="txn_datetime" value="<?=$transaction_detail->txn_datetime?>" readonly>
+                           </div>
+                        </div>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="info">Reason</label>
+                           <div class="col-sm-9">
+                              <input type="text" class="form-control" id="additional_info" name="additional_info">
                            </div>
                         </div>
 

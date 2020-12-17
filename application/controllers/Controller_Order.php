@@ -159,8 +159,8 @@ class Controller_Order extends CI_Controller{
 
             $filename = 'invoice_order_' . $code . '_' . date("Ymdhis") . '.pdf';
 
-            $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
-//             $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/' . $filename, 'F');
+//            $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+             $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/' . $filename, 'F');
             force_download('./assets/downloaded-pdf/' . $filename, NULL);
         }
     }
@@ -499,12 +499,13 @@ class Controller_Order extends CI_Controller{
         ];
         
         $technician_code = $this->M_Order->getTechnicianCodeFromOrder($order_code);
+        $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+
         $average_rate = $this->M_Order->getAverageRate($technician_code);
         $data_average = [
             'avg_rate' => $average_rate
         ];
         
-        $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
         $this->M_General->updateData('tbl_technician', $data_average, 'technician_code', $technician_code);
         redirect('Controller_Order/getOneByCode/'.$order_code);
     }

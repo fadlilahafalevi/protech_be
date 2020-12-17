@@ -170,6 +170,8 @@ class Controller_Technician extends CI_Controller{
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
+		    
+		    $technician_code = $this->input->post('technician_code');
 
 			$pass_photo = '';
 			$ktp_photo = '';
@@ -181,28 +183,33 @@ class Controller_Technician extends CI_Controller{
 			$this->load->library('upload', $config);
 			
 			if ( ! $this->upload->do_upload('pass_photo')) {
-				$error_pass = $this->upload->display_errors();
-				echo $error_pass;
-			} else {
-				$image_data = $this->upload->data();
-				$imgdata = file_get_contents($image_data['full_path']);
-				$pass_photo = base64_encode($imgdata);
-				$data_pass = [ 'pass_photo' => $pass_photo];
-				$this->M_General->updateData('tbl_technician', $data_pass, 'technician_code', $technician_code);
-			}
+                $error_pass = $this->upload->display_errors();
+                echo $error_pass;
+            } else {
+                $image_data = $this->upload->data();
+                $imgdata = file_get_contents($image_data['full_path']);
+                $pass_photo = base64_encode($imgdata);
+                $data_pass = [
+                    'pass_photo' => $pass_photo
+                ];
+                $this->M_General->updateData('tbl_technician', $data_pass, 'technician_code', $technician_code);
+            }
 
 			if ( ! $this->upload->do_upload('ktp_photo')) {
-				$error = array('error' => $this->upload->display_errors());
-				echo $error;
-			} else {
-				$image_data = $this->upload->data();
-				$imgdata = file_get_contents($image_data['full_path']);
-				$ktp_photo=base64_encode($imgdata);
-				$data_ktp = [ 'ktp_photo' => $ktp_photo];
-				$this->M_General->updateData('tbl_technician', $data_ktp, 'technician_code', $technician_code);
-			}
-
-			$technician_code = $this->input->post('technician_code');
+                $error = array(
+                    'error' => $this->upload->display_errors()
+                );
+                echo $error;
+            } else {
+                $image_data = $this->upload->data();
+                $imgdata = file_get_contents($image_data['full_path']);
+                $ktp_photo = base64_encode($imgdata);
+                $data_ktp = [
+                    'ktp_photo' => $ktp_photo
+                ];
+                $this->M_General->updateData('tbl_technician', $data_ktp, 'technician_code', $technician_code);
+            }
+            
 			$email = $this->input->post('email');
 			$fullname = $this->input->post('fullname');
 			$phone_old = $this->input->post('phone_old');

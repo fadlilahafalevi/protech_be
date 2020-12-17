@@ -91,6 +91,7 @@ order by
         $query = $this->db->query("select
 	H.id as id,
     H.receipt,
+    H.additional_info,
 	H.order_code,
 	H.from_phone,
 	case

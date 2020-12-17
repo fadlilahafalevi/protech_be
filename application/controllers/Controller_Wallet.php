@@ -259,7 +259,20 @@ class Controller_Wallet extends CI_Controller{
                 $this->load->view('admin/transaction_confirmation_view', $data);
             }
         }
-    }
+	}
+	
+	public function reject($id = '') {
+	    if ($this->session->userdata('akses') == '1') {
+	        
+	        $this->load->model("T_Wallet");
+	        
+	        if (isset($id)) {
+	            
+	            $data['data'] = $this->T_Wallet->getTransactionHistoryById($id);
+	            $this->load->view('admin/transaction_reject_view', $data);
+	        }
+	    }
+	}
 	
 	public function getTransactionById($id = '') {
         $this->load->model("T_Wallet");
@@ -371,6 +384,36 @@ class Controller_Wallet extends CI_Controller{
                 redirect('Controller_Wallet');
             }
         }
+    }
+    
+    public function rejectSubmit() {
+        $this->load->model("M_General");
+        $this->load->model("T_Wallet");
+        $this->load->model("M_Customer");
+        $this->load->model("M_Admin");
+        
+        $id = $this->input->post('id');
+        $phone = $this->input->post('phone');
+        $txn_amount = $this->input->post('txn_amount');
+        $additional_info = $this->input->post('additional_info');
+        $balance = $this->T_Wallet->getCurrentBalance($phone);
+        $credit = $this->T_Wallet->getCurrentCredit($phone);
+        $data = [
+            'is_approved' => 0,
+            'is_processed' => 1,
+            'additional_info' => $additional_info,
+            'modified_by' => $this->session->userdata('code'),
+            'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now"))
+        ];
+        
+        $data_wallet = [
+            'balance' => $balance + $txn_amount,
+            'total_credit' => $credit + $txn_amount
+        ];
+        $this->M_General->updateData('tbl_transaction_history', $data, 'id', $id);
+        $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
+        
+        redirect('Controller_Wallet');
     }
 
 	public function paymentOrder($phone, $order_code, $amount) {

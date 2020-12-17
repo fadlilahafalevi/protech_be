@@ -54,6 +54,9 @@
                             <a class="btn btn-success" href="/protech/index.php/Controller_Wallet/confirmation/<?=$list_transaction->id?>" data-toggle="tooltip" title="confirmation" style="padding: 4px">
                               <i class="mdi mdi-check-circle"></i>
                             </a>
+                            <a class="btn btn-danger" href="/protech/index.php/Controller_Wallet/reject/<?=$list_transaction->id?>" data-toggle="tooltip" title="reject" style="padding: 4px">
+                              <i class="mdi mdi-close-circle"></i>
+                            </a>
                           </td>
                       </tr>
                     <?php

@@ -116,6 +116,17 @@
                               <input type="text" class="form-control" id="txn_datetime" name="txn_datetime" value="<?=$transaction_detail->txn_datetime?>" readonly>
                            </div>
                         </div>
+                        
+						<?php if(isset($transaction_detail->additional_info)) { ?>
+                        <div class="form-group row">
+                           <label class="col-sm-3 col-form-label" for="txn_datetime">Reason</label>
+                           <div class="col-sm-9">
+                            
+                              <input type="text" class="form-control" id="txn_datetime" name="txn_datetime" value="<?=$transaction_detail->additional_info?>" readonly>
+                            
+                           </div>
+                        </div>
+                        <?php } ?>
 
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="txn_datetime">Receipt</label>

@@ -148,4 +148,10 @@ class M_Order extends CI_Model{
 	    
 	    return $total_rate / $total_order;
 	}
+	
+	public function getOrderByStatus($status) {
+        $result = $this->db->query("select concat(c.fullname, ' (', c.phone, ')') as customer, concat(t.fullname, ' (', t.phone, ')') as technician, time_to_sec(timediff(now(), o.created_datetime)) / 3600 as hour_diff, o.* from tbl_order o left join tbl_customer c on c.customer_code = o.customer_code left join tbl_technician t on t.technician_code = o.technician_code where order_status = '$status'");
+        // $result = $this->db->query("select concat(c.fullname, ' (', c.phone, ')') as customer, concat(t.fullname, ' (', t.phone, ')') as technician_name, time_to_sec(timediff(now(), o.created_datetime)) / 3600 as hour_diff, o.* from tbl_order o left join tbl_customer c on c.customer_code = o.customer_code left join tbl_technician t on t.technician_code = o.technician_code where order_status = 'WAITING CONFIRMATION'");
+        return $result->result();
+    }
 }

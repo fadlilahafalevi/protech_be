@@ -17,7 +17,7 @@ class Controller_Dashboard extends CI_Controller {
         $this->load->model('T_Wallet');
 		if($this->session->userdata('akses')=='1'){
 
-	    	$data['balance'] = $this->T_Wallet->getCurrentBalance("081000000000");
+	    	$data['balance'] = $this->T_Wallet->getCurrentBalance("082213223526");
 			$data['waiting_confirmation']=$this->T_Order->countWaitingConfirmationStatus();
 			$data['in_progress']=$this->T_Order->countInProgressStatus();
 			$data['finished']=$this->T_Order->countFinishedStatus();

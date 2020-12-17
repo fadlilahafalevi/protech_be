@@ -513,7 +513,7 @@ class Controller_Order extends CI_Controller{
 	    $this->load->model("T_Wallet");
 	    $this->load->model("M_General");
 	    
-	    $intermediaryWallet = '081000000000';
+	    $intermediaryWallet = '082213223526';
 	    $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
 	    $debitIntermediaryWallet = $this->T_Wallet->getCurrentDebit($intermediaryWallet);
 	    $creditIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);

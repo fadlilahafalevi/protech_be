@@ -61,7 +61,7 @@ class Controller_FAQ extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$faq_code = $this->M_General->getSequence('tbl_faq', 3, 'F');
+			$faq_code = $this->M_General->getSequence('tbl_faq', 2, 'F');
 			$faq_question = $this->input->post('faq_question');
 			$faq_answer = $this->input->post('faq_answer');
 

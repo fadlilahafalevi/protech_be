@@ -68,7 +68,7 @@ class Controller_Admin extends CI_Controller{
 
 			$admin_code = $this->M_General->getSequence('tbl_admin', 2, 'A');
 			$email = $this->input->post('email');
-			$password = 'password';
+			$password = md5('password');
 		    $role_id = '1';
 			$fullname = $this->input->post('fullname');
 			$phone = $this->input->post('phone');

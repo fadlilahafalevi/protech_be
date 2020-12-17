@@ -142,6 +142,14 @@ class M_Order extends CI_Model{
 	    return $query->row()->technician_code;
 	}
 	
+	public function getCustomerCodeFromOrder($order_code) {
+	    $this->db->select('customer_code');
+	    $this->db->from('tbl_order');
+	    $this->db->where('order_code', $order_code);
+	    $query = $this->db->get();
+	    return $query->row()->customer_code;
+	}
+	
 	public function getAverageRate($technician_code) {
 	    $avg_rate = $this->db->query("select (select sum(order_rate) as total_rate from tbl_order where technician_code = '$technician_code' group by technician_code) / (select count(*) as total_order from tbl_order where order_status = 'FINISHED' and order_rate is not null and technician_code = '$technician_code') as avg_rate")->row()->avg_rate;
 	    

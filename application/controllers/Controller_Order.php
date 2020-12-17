@@ -77,8 +77,7 @@ class Controller_Order extends CI_Controller{
 	        
 	        $filename = 'order_history_report_'.date("Ymdhis").'.pdf';
 	        
-	        //$pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
-	        $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
+	        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
 	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
 	    }
 	}
@@ -159,8 +158,8 @@ class Controller_Order extends CI_Controller{
 
             $filename = 'invoice_order_' . $code . '_' . date("Ymdhis") . '.pdf';
 
-//            $pdf->Output('S:/Program Files/xampp/htdocs/protech/assets/downloaded-pdf/'.$filename,'F');
-             $pdf->Output('E:/xampp/htdocs/protech/assets/downloaded-pdf/' . $filename, 'F');
+            $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
+
             force_download('./assets/downloaded-pdf/' . $filename, NULL);
         }
     }
@@ -384,13 +383,47 @@ class Controller_Order extends CI_Controller{
 	public function confirmOrderByTech() {
 		if ($this->session->userdata('akses')=='2') {
 
-			$this->load->model("M_Order");
+		    $this->load->model("M_Order");
+		    $this->load->model("M_Customer");
+		    $this->load->model("T_Walet");
+		    
 			$order_code = $this->input->post('order_code');
 			$is_approved = $this->input->post('is_approved');
 			if (isset($order_code)) {
 			    if ($is_approved == 1) {
 				    $this->M_Order->updateStatus($order_code, 'IN PROGRESS');
 			    } else {
+			        $paid_amount = $this->M_Order->getTotalPriceFromOrder($order_code);
+			        $customer_code = $this->M_Order->getCustomerCodeFromOrder($order_code);
+			        $customer_phone = $this->M_Customer->getPhoneByCode($customer_code);
+			        $balance = $this->T_Wallet->getCurrentBalance($customer_phone);
+			        $credit = $this->T_Wallet->getCurrentCredit($customer_phone);
+			        $data_wallet = [
+			            'balance' => $balance + $paid_amount,
+			            'total_credit' => $credit + $paid_amount
+			        ];
+			        
+			        $intermediaryWallet = '082213223526';
+			        $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
+			        $debitIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
+			        $data_wallet_intermediary = [
+			            'balance' => $balanceIntermediaryWallet + $paid_amount,
+			            'total_credit' => $debitIntermediaryWallet + $paid_amount
+			        ];
+			        
+			        $data = [
+			            'to_phone' => $customer_phone,
+			            'from_phone' => $intermediaryWallet,
+			            'txn_amount' => $paid_amount,
+			            'txn_code' => 'PAYM',
+			            'order_code' => $order_code,
+			            'is_processed' => 1,
+			            'is_approved' => 1
+			        ];
+			        
+			        $this->M_General->insertData('tbl_transaction_history', $data);
+			        $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $customer_phone);
+			        $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
 			        $this->M_Order->updateStatus($order_code, 'REJECTED BY TECH');
 			    }
 				redirect('Controller_Order/getOneByCode/'.$order_code);

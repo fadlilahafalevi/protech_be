@@ -325,7 +325,14 @@ class Controller_Order extends CI_Controller{
 	public function getOneByCode($code = '') {
         $this->load->model("M_Order");
         $this->load->model("M_Service");
-        if ($this->session->userdata('akses') == '2') {
+        if ($this->session->userdata('akses') == '1') {
+            if (isset($code)) {
+                $data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
+                $data['data'] = $this->M_Order->getOneByCode($code);
+                $data['detail'] = $this->M_Order->getDetailByCode($code);
+                $this->load->view('admin/order_view', $data);
+            }
+        } else if ($this->session->userdata('akses') == '2') {
             if (isset($code)) {
                 $data['list_service_detail'] = $this->M_Service->getAllServiceCategory();
                 $data['data'] = $this->M_Order->getOneByCode($code);
@@ -574,13 +581,38 @@ class Controller_Order extends CI_Controller{
 	}
 
 	public function cancelByCustomer($order_code) {
-	    if ($this->session->userdata('akses')=='3') {
-	        
-	        $this->load->model("M_Order");
-	        if (isset($order_code)) {
+        if ($this->session->userdata('akses') == '3') {
+
+            $this->load->model("M_Order");
+            if (isset($order_code)) {
                 $this->M_Order->updateStatus($order_code, 'CANCELLED BY CUST');
-	            redirect('Controller_Order/getOneByCode/'.$order_code);
-	        }
-	    }
-	}
+                redirect('Controller_Order/getOneByCode/' . $order_code);
+            }
+        }
+    }
+	
+	public function getWaitingConfirmationOrder() {
+        if ($this->session->userdata('akses') == '1') {
+            $this->load->model("M_Order");
+            
+            $data['data'] = $this->M_Order->getOrderByStatus('WAITING CONFIRMATION');
+            //$data['data'] = $this->M_Order->getOrderByStatus();
+            $this->load->view('admin/order_confirmation_list', $data);
+        }
+    }
+    
+    public function rejectByAdmin($order_code) {
+        if ($this->session->userdata('akses') == '1') {
+            $this->load->model("M_General");
+            $data = [
+                'order_code' => $order_code,
+                'order_status' => 'REJECTED BY ADMIN',
+                'modified_by' => $this->session->userdata('code'),
+                'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now"))
+            ];
+
+            $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+            redirect('Controller_Order/getWaitingConfirmationOrder');
+        }
+    }
 }

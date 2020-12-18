@@ -166,6 +166,7 @@ class Controller_Customer extends CI_Controller{
 	            $phone = $this->M_Customer->getPhoneByCode($code);
 	            $data['data'] = $this->M_Customer->getOneById($code);
 	            $data['balance'] = number_format($this->T_Wallet->getCurrentBalance($phone),2,',','.');
+	            $data['current_balance'] = $this->T_Wallet->getCurrentBalance($phone);
 	        }
 	        $this->load->view('customer/withdrawal', $data);
 	    }

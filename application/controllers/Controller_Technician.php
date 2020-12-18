@@ -274,6 +274,7 @@ class Controller_Technician extends CI_Controller{
                 $phone = $this->M_Technician->getPhoneByCode($code);
                 $data['data'] = $this->M_Technician->getOneById($code);
                 $data['balance'] = number_format($this->T_Wallet->getCurrentBalance($phone), 2, ',', '.');
+                $data['current_balance'] = $this->T_Wallet->getCurrentBalance($phone);
             }
             $this->load->view('technician/withdrawal', $data);
         }

@@ -63,7 +63,7 @@
                         <div class="form-group row">
                            <label class="col-sm-3 col-form-label" for="amount">Amount</label>
                            <div class="col-sm-9">
-                              <input type="number" class="form-control" id="amount" name="amount" placeholder="0" min="10000" max="<?=$balance?>" />
+                              <input type="number" class="form-control" id="amount" name="amount" placeholder="0" min="10000" max="<?=$current_balance?>" />
                            </div>
                         </div>
 

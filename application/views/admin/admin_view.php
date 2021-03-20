@@ -119,6 +119,18 @@
                            <?php } ?>                          
                         </div>
                       </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Status</label>
+                          <div class="col-sm-9">
+                              <?php if ($admin_detail->up_active_status == 1) { ?>
+                                 <label class="badge badge-success">Aktif</label>
+                              <?php } else if ($admin_detail->up_active_status == 0) { ?>
+                                 <label class="badge badge-danger">Nonaktif</label>
+                              <?php } ?>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -129,16 +141,6 @@
                           </div>
                         </div>
                       </div>                                           
-                    </div>
-                    <div class="row">
-                      <!-- <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Status</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="active_status" name="active_status"/>
-                          </div>
-                        </div>
-                      </div> -->
                     </div>
                     <p class="card-description">
                       Informasi Akun

@@ -27,7 +27,7 @@
         <div class="col-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Cari Data Teknisi</h4>
+              <h4 class="card-title">Cari Data Pengaduan</h4>
               <form class="form-inline justify-content-center">
                 <label for="from_date">Mulai Tanggal</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="from_date" placeholder="yyyy-mm-dd">
@@ -54,10 +54,9 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-10 col-12">
-                  <h4 class="card-title">Data Teknisi</h4>
+                  <h4 class="card-title">Data Pengaduan</h4>
                 </div>
                 <div class="col-sm-2 col-12">
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Technician/createTechnician">Tambah</a> 
                   <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="#">Cetak</a>
                 </div>
               </div>
@@ -65,9 +64,9 @@
                 <table class="table table-bordered data-table">
                   <thead>
                     <tr>
-                      <th style="text-align: center">Nama</th>
-                      <th style="text-align: center">Email</th>
-                      <th style="text-align: center">Terakhir Login</th>
+                      <th style="text-align: center">Kode Pengaduan</th>
+                      <th style="text-align: center">Kode Pesanan</th>
+                      <th style="text-align: center">Judul Pengaduan</th>
                       <th style="text-align: center">Status</th>
                       <th style="text-align: center">Aksi</th>
                     </tr>
@@ -75,20 +74,20 @@
                   <tbody>
                     <?php 
                       $no=0;
-                      foreach ($list as $list_technician){
+                      foreach ($list as $list_complain){
                       $no++;
                     ?>
                       <tr>
-                        <td><?=$list_technician->first_name . ' ' . $list_technician->middle_name . ' ' . $list_technician->last_name?></td>
-                        <td><?=$list_technician->email?></td>
-                        <td><?=$list_technician->last_login_datetime?></td>
+                        <td><?=$list_complain->complain_code?></td>
+                        <td><?=$list_complain->order_code?></td>
+                        <td><?=$list_complain->subject?></td>
                         <td style="text-align: center">
                           <?php
-                            if($list_technician->up_active_status == '1'){
+                            if($list_complain->active_status == '1'){
                           ?>
                             <label class="badge badge-success">Aktif</label>
                           <?php
-                            } elseif($list_technician->up_active_status == '0'){
+                            } elseif($list_complain->active_status == '0'){
                           ?>
                             <label class="badge badge-danger">Nonaktif</label>
                           <?php
@@ -96,10 +95,10 @@
                           ?>
                         </td>
                         <td style="text-align: center">
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Technician/getOne/<?=$list_technician->user_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
+                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Complain/getOne/<?=$list_complain->complain_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>
                           </a>
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Technician/updateTechnician/<?=$list_technician->user_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
+                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Complain/updateComplain/<?=$list_complain->complain_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
                             <i class="mdi mdi-pencil"></i>
                           </a>
                         </td>

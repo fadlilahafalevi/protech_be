@@ -87,13 +87,13 @@
                               </label>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Alamat</label>
-                          <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required></textarea>
+                          <div class="col-sm-5">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="radio" class="form-check-input" name="gender" id="gender" value="P">
+                                Perempuan
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -107,16 +107,6 @@
                           </div>
                         </div>
                       </div>                                           
-                    </div>
-                    <div class="row">
-                      <!-- <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Status</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="active_status" name="active_status"/>
-                          </div>
-                        </div>
-                      </div> -->
                     </div>
                     <p class="card-description">
                       Informasi Akun

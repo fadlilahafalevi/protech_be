@@ -1,0 +1,19 @@
+<?php
+class M_ServiceCategory extends CI_Model{
+	function getAllServiceCategory(){
+		$this->db->select('*');
+		$this->db->from('tbl_service_category');
+	    $this->db->order_by('created_datetime','desc');    
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	function getServiceCategoryDetailByCode($service_category_code) {
+		$this->db->select('*');
+		$this->db->from('tbl_service_category');
+    	$this->db->join('tbl_user_login ul', 'ul.user_code=up.user_code');
+		$this->db->where('service_category_code', $service_category_code);
+		$query = $this->db->get();
+		return $query->result();
+	}
+}

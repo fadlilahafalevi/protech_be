@@ -3,22 +3,22 @@ class Controller_Customer extends CI_Controller{
 	function index(){
         $this->load->model('M_Customer');
         
-		if($this->session->userdata('akses')=='1'){
-			$data['data']=$this->M_Customer->getAllCustomer();
+		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
+			$data['list']=$this->M_Customer->getAllCustomer();
 			$this->load->view('admin/customer',$data);
 		}else{
 	        echo "Halaman tidak ditemukan";
 	    }
 	}
 
-	public function getOne($code='') {
-		if($this->session->userdata('akses')=='1'){
+	function getOne($code='') {
+		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 
 			$this->load->model("M_Customer");
 
 			$data['code'] = $code;
 			if (isset($code)) {
-				$data['data'] = $this->M_Customer->getOneById($code);
+				$data['data'] = $this->M_Customer->getCustomerDetailByCode($code);
 			}
 
 			$this->load->view('admin/customer_view', $data);
@@ -26,18 +26,20 @@ class Controller_Customer extends CI_Controller{
 		}
 	}
 
-	public function createCustomer() {
-		$this->load->view('customer/customer_create');
-	}
+	// function createCustomer() {
+	// 	if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
+	// 		$this->load->view('customer/customer_create');
+	// 	}
+	// }
 
-	public function updateCustomer($code = '') {
-		if($this->session->userdata('akses')=='1'){
+	function updateCustomer($code = '') {
+		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 
 			$this->load->model("M_Customer");
 
 			$data['customer_code'] = $code;
 			if (isset($code)) {
-				$listData = $this->M_Customer->getOneById($code);
+				$listData = $this->M_Customer->getCustomerDetailByCode($code);
 				$data['data'] = $listData;
 				
 				foreach ($listData as $field) {
@@ -53,122 +55,107 @@ class Controller_Customer extends CI_Controller{
 		}
 	}
 
-	public function saveData() {
+	function saveData() {
 		$this->load->model("M_Customer");
-		$this->load->model("M_Metadata");
-		$this->load->model("R_AuditLogging");
 		$this->load->model("M_General");
-	
-		$customer_code = $this->M_General->getSequence('tbl_customer', 3, 'C');
-		$email = $this->input->post('email');
-		$password = md5($this->input->post('password'));
-		$role_id = '3';
-		$fullname = $this->input->post('fullname');
-		$phone = $this->input->post('phone');
-		$full_address =	$this->input->post('full_address');
-		$latitude =	$this->input->post('latitude');
-		$longitude = $this->input->post('longitude');
-		$active_status = '1';
 
-		$data_wallet = [ 'phone' => $phone,
-        'user_code' => $customer_code,
-		'balance' => 0,
-		'total_debit' => 0,
-		'total_credit' => 0,
-		];
+		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-		$this->M_General->insertData('tbl_wallet', $data_wallet);
-
-		$data = [ 'customer_code' => $customer_code,
-			'email' => $email,
-			'password'  => $password,
-			'role_id' => $role_id,
-			'fullname' => $fullname,
-			'phone' => $phone,
-			'full_address' => $full_address,
-			'latitude' => $latitude,
-			'longitude' => $longitude,
-			'active_status' => $active_status
-		];
-
-		$this->M_General->insertData('tbl_customer', $data);
-
-		$this->M_Metadata->createMeta('tbl_customer', 'customer_code', $customer_code, $fullname);
-		$this->R_AuditLogging->insertLog('CUSTOMER', 'CREATE', $customer_code);
-
-		redirect('Controller_Login');
-	}
-
-	public function updateData() {
-		$this->load->model("M_Customer");
-		$this->load->model("M_Metadata");
-		$this->load->model("R_AuditLogging");
-		$this->load->model("M_General");
-	
-		if ($this->session->userdata('akses') == '1') {
-
-			$customer_code = $this->input->post('customer_code');
+			$user_code = $this->M_General->getSequence('tbl_user_profile', 3, 'C');
 			$email = $this->input->post('email');
-			$fullname = $this->input->post('fullname');
-			$phone_old = $this->input->post('phone_old');
+			$password = md5($this->input->post('password'));
+			$role_id = '4';
+			$first_name = $this->input->post('first_name');
+			$middle_name = $this->input->post('middle_name');
+			$last_name = $this->input->post('last_name');
+			$gender = $this->input->post('gender');
+			$date_of_birth = $this->input->post('date_of_birth');
+			$identity_no = $this->input->post('identity_no');
 			$phone = $this->input->post('phone');
-			$full_address = $this->input->post('full_address');
+			$address =	$this->input->post('address');
+			$longitude =	$this->input->post('longitude');
 			$latitude =	$this->input->post('latitude');
-			$longitude = $this->input->post('longitude');
-			$active_status = $this->input->post('active_status');
+			$active_status = '1';
+			$now = date("Y-m-d H:i:s");
 
-			if ($active_status != 1) {
-				$active_status = 0;
-			}
-
-			$data = ['email' => $email,
-			'fullname' => $fullname,
-			'phone' => $phone,
-			'full_address' => $full_address,
-			'latitude' => $latitude,
-			'longitude' => $longitude,
-			'active_status' => $active_status
+			$data_profile = [ 'user_code' => $user_code,
+				'first_name'  => $first_name,
+				'middle_name' => $middle_name,
+				'last_name' => $last_name,
+				'gender' => $gender,
+				'date_of_birth' => $date_of_birth,
+				'identity_no' => $identity_no,
+				'phone' => $phone,
+				'address' => $address,
+				'longitude' => $longitude,
+				'latitude' => $latitude,
+				'active_status' => $active_status,
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
 			];
 
-			$data_wallet = [
-			'phone' => $phone
+			$this->M_General->insertData('tbl_user_profile', $data_profile);
+
+			$data_login = [ 'user_code' => $user_code,
+				'role_id' => $role_id,
+				'email' => $email,
+				'password'  => $password,
+				'active_status' => $active_status,
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
 			];
 
-			$this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone_old);
-			$this->M_General->updateData('tbl_customer', $data, 'customer_code', $customer_code);
-			$this->M_Metadata->updateMeta('tbl_customer', 'customer_code', $customer_code,  $this->session->userdata('code'));
-			$this->R_AuditLogging->insertLog('CUSTOMER', 'UPDATE', $this->session->userdata('code'));
-			redirect('Controller_Customer');
+			$this->M_General->insertData('tbl_user_login', $data_login);
+
+			redirect('Controller_Login');
 		}
 	}
 
-	public function goTopUp($code = '') {
-        if ($this->session->userdata('akses') == '3') {
-
-            $this->load->model("M_Customer");
-
-            $data['code'] = $code;
-            if (isset($code)) {
-                $data['data'] = $this->M_Customer->getOneById($code);
-            }
-            $this->load->view('customer/topup', $data);
-        }
-	}
+	function updateData() {
+		$this->load->model("M_Customer");
+		$this->load->model("M_General");
 	
-	public function goWithdrawal($code = '') {
-	    if ($this->session->userdata('akses') == '3') {
-	        
-	        $this->load->model("M_Customer");
-	        $this->load->model("T_Wallet");
-	        
-	        $data['code'] = $code;
-	        if (isset($code)) {
-	            $phone = $this->M_Customer->getPhoneByCode($code);
-	            $data['data'] = $this->M_Customer->getOneById($code);
-	            $data['balance'] = number_format($this->T_Wallet->getCurrentBalance($phone),2,',','.');
-	            $data['current_balance'] = $this->T_Wallet->getCurrentBalance($phone);
-	        }
-	        $this->load->view('customer/withdrawal', $data);
-	    }
+		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
+
+			$payment_account_id = $this->input->post('payment_account_id');
+			$user_code = $this->input->post('user_code');
+			$email = $this->input->post('email');
+			$password = md5($this->input->post('password'));
+			$role_id = '4';
+			$first_name = $this->input->post('first_name');
+			$middle_name = $this->input->post('middle_name');
+			$last_name = $this->input->post('last_name');
+			$gender = $this->input->post('gender');
+			$date_of_birth = $this->input->post('date_of_birth');
+			$identity_no = $this->input->post('identity_no');
+			$phone = $this->input->post('phone');
+			$address =	$this->input->post('address');
+			$longitude =	$this->input->post('longitude');
+			$latitude =	$this->input->post('latitude');
+			$active_status = 0;
+
+			if (isset($_POST['active_status'])) {
+				$active_status = 1;
+			}
+
+			$data_profile = [ 'user_code' => $user_code,
+				'first_name'  => $first_name,
+				'middle_name' => $middle_name,
+				'last_name' => $last_name,
+				'gender' => $gender,
+				'date_of_birth' => $date_of_birth,
+				'identity_no' => $identity_no,
+				'phone' => $phone,
+				'address' => $address,
+				'longitude' => $longitude,
+				'latitude' => $latitude,
+				'active_status' => $active_status
+			];
+
+			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);
+			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
+
+			redirect('Controller_Customer');
+		}
 	}
 }

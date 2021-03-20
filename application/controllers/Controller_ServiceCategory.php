@@ -1,47 +1,47 @@
 <?php
-class Controller_Service extends CI_Controller{
+class Controller_ServiceCategory extends CI_Controller{
 	function index(){
         $this->load->model('M_ServiceCategory');
         
-		if($this->session->userdata('akses')=='1'){
-			$data['data']=$this->M_ServiceCategory->getAllService();
-			$this->load->view('admin/service',$data);
+		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
+			$data['list']=$this->M_ServiceCategory->getAllServiceCategory();
+			$this->load->view('admin/service_category',$data);
 		}else{
 	        echo "Halaman tidak ditemukan";
 	    }
 	}
 
-	public function getOne($id = '') {
-		if($this->session->userdata('akses')=='1'){
+	public function getOne($code = '') {
+		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 
 			$this->load->model("M_ServiceCategory");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->M_ServiceCategory->getOneById($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$data['data'] = $this->M_ServiceCategory->getServiceCategoryDetailByCode($code);
 			}
 
-			$this->load->view('admin/service_view', $data);
+			$this->load->view('admin/service_category_view', $data);
 
 		}
 	}
 
-	public function createService() {
-		if($this->session->userdata('akses')=='1'){
+	public function createServiceCategory() {
+		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 
-			$this->load->view('admin/service_create');
+			$this->load->view('admin/service_category_create');
 
 		}
 	}
 
-	public function updateService($id = '') {
-		if($this->session->userdata('akses')=='1'){
+	public function updateServiceCategory($code = '') {
+		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 
 			$this->load->model("M_ServiceCategory");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$listData = $this->M_ServiceCategory->getOneById($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_ServiceCategory->getServiceCategoryDetailByCode($code);
 				$data['data'] = $listData;
 				
 				foreach ($listData as $field) {
@@ -52,7 +52,7 @@ class Controller_Service extends CI_Controller{
 				}
 			}
 
-			$this->load->view('admin/service_edit', $data);
+			$this->load->view('admin/service_category_edit', $data);
 
 		}
 	}
@@ -60,36 +60,48 @@ class Controller_Service extends CI_Controller{
 	public function saveData() {
 		$this->load->model("M_ServiceCategory");
 	
-		if ($this->session->userdata('akses') == '1') {
+		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-			$nextSeq = sprintf("%02d", $this->M_ServiceCategory->getNextSequenceId());
-			$serviceCode = "S".$nextSeq;
+			$service_category_code = $this->M_General->getSequence('tbl_service_category', 2, 'K');
+			$service_category_name 	=	$this->input->post('service_category_name');
+			$active_status = '1';
+			$now = date("Y-m-d H:i:s");
 
-			$service_name 	=	$this->input->post('service_name');
-			$service_desc	=	$this->input->post('service_desc');
+			$data_service_category = [ 'service_category_code' => $service_category_code,
+				'service_category_name'  => $service_category_name,
+				'active_status' => $active_status,
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
+			];
 
-			$this->M_ServiceCategory->inputData($serviceCode, $service_name, $service_desc);
+			$this->M_General->insertData('tbl_service_category', $data_service_category);
 
-			redirect('Controller_Service');
+			redirect('Controller_ServiceCategory');
 		}
 	}
 
 	public function updateData() {
 		$this->load->model("M_ServiceCategory");
 	
-		if ($this->session->userdata('akses') == '1') {
+		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-			$service_code = $this->input->post('service_code');
-			$service_name = $this->input->post('service_name');
-			$active_status = $this->input->post('active_status');
+			$service_category_code = $this->input->post('service_category_code');
+			$service_category_name = $this->input->post('service_category_name');
+			$active_status = 0;
 
-			if ($active_status != 1) {
-				$active_status = 0;
+			if (isset($_POST['active_status'])) {
+				$active_status = 1;
 			}
 
-			$this->M_ServiceCategory->updateData($service_code, $service_name, $active_status);
+			$data_service_category = [ 'service_category_code' => $service_category_code,
+				'service_category_name'  => $service_category_name,
+				'active_status' => $active_status
+			];
 
-			redirect('Controller_Service');
+			$this->M_General->updateData('tbl_service_category', $data_service_category, 'service_category_code', $service_category_code);
+			$this->M_General->updateMeta('tbl_service_category', 'service_category_code', $service_category_code,  $this->session->userdata('user_name'));
+
+			redirect('Controller_ServiceCategory');
 		}
 	}
 }

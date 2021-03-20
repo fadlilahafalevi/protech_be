@@ -12,7 +12,7 @@ class Controller_Admin extends CI_Controller{
 	    }
 	}
 
-	public function getOne($code = '') {
+	function getOne($code = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Admin");
@@ -27,7 +27,7 @@ class Controller_Admin extends CI_Controller{
 		}
 	}
 
-	public function createAdmin() {
+	function createAdmin() {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->view('admin/admin_create');
@@ -35,7 +35,7 @@ class Controller_Admin extends CI_Controller{
 		}
 	}
 
-	public function updateAdmin($code = '') {
+	function updateAdmin($code = '') {
 		if($this->session->userdata('akses')=='1'){
 
 			$this->load->model("M_Admin");
@@ -58,9 +58,8 @@ class Controller_Admin extends CI_Controller{
 		}
 	}
 
-	public function saveData() {
+	function saveData() {
 		$this->load->model("M_Admin");
-		$this->load->model("M_Metadata");
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
@@ -80,6 +79,7 @@ class Controller_Admin extends CI_Controller{
 			$longitude =	$this->input->post('longitude');
 			$latitude =	$this->input->post('latitude');
 			$active_status = '1';
+			$now = date("Y-m-d H:i:s");
 
 			$data_profile = [ 'user_code' => $user_code,
 				'first_name'  => $first_name,
@@ -92,29 +92,30 @@ class Controller_Admin extends CI_Controller{
 				'address' => $address,
 				'longitude' => $longitude,
 				'latitude' => $latitude,
-				'active_status' => $active_status
+				'active_status' => $active_status,
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
 			];
 
 			$this->M_General->insertData('tbl_user_profile', $data_profile);
-			$this->M_Metadata->createMeta('tbl_user_profile', 'user_code', $user_code, $this->session->userdata('user_name'));
 
 			$data_login = [ 'user_code' => $user_code,
 				'role_id' => $role_id,
 				'email' => $email,
 				'password'  => $password,
-				'active_status' => $active_status
+				'active_status' => $active_status,
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
 			];
 
 			$this->M_General->insertData('tbl_user_login', $data_login);
-			$this->M_Metadata->createMeta('tbl_user_login', 'user_code', $user_code, $this->session->userdata('user_name'));
 
 			redirect('Controller_Admin');
 		}
 	}
 
-	public function updateData() {
+	function updateData() {
 		$this->load->model("M_Admin");
-		$this->load->model("M_Metadata");
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
@@ -131,12 +132,10 @@ class Controller_Admin extends CI_Controller{
 			$longitude =	$this->input->post('longitude');
 			$latitude =	$this->input->post('latitude');
 			$active_status = 0;
-			//$active_status = $this->input->post('active_status');
 
 			if (isset($_POST['active_status'])) {
 				$active_status = 1;
 			}
-			// $active_status = isset($_POST['active_status']) ? 1 : 0;
 
 			$data_profile = [ 'user_code' => $user_code,
 				'first_name'  => $first_name,
@@ -153,7 +152,7 @@ class Controller_Admin extends CI_Controller{
 			];
 
 			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);
-			$this->M_Metadata->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
+			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
 			redirect('Controller_Admin');
 		}
 	}

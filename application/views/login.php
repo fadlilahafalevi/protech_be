@@ -5,17 +5,17 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PROTECH</title>
+  <title>TEKNISI APP</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="/protech/assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="/protech/assets/vendors/base/vendor.bundle.base.css">
+  <link rel="stylesheet" href="/teknisi-app/assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="/teknisi-app/assets/vendors/base/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="/protech/assets/css/style.css">
+  <link rel="stylesheet" href="/teknisi-app/assets/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="/protech/assets/images/logo_mini.png" />
+  <link rel="shortcut icon" href="/teknisi-app/assets/images/logo_mini.png" />
 </head>
 
 <body>
@@ -26,7 +26,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" >
               <div class="brand-logo">
-                <img src="/protech/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
+                <img src="/teknisi-app/assets/images/logo.svg" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
               </div>
               <br/>
               <center>
@@ -59,13 +59,13 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="/protech/assets/vendors/base/vendor.bundle.base.js"></script>
+  <script src="/teknisi-app/assets/vendors/base/vendor.bundle.base.js"></script>
 
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="/protech/assets/js/off-canvas.js"></script>
-  <script src="/protech/assets/js/hoverable-collapse.js"></script>
-  <script src="/protech/assets/js/template.js"></script>
+  <script src="/teknisi-app/assets/js/off-canvas.js"></script>
+  <script src="/teknisi-app/assets/js/hoverable-collapse.js"></script>
+  <script src="/teknisi-app/assets/js/template.js"></script>
   <!-- endinject -->
 </body>
 

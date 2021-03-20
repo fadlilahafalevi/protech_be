@@ -20,36 +20,18 @@ class Controller_Login extends CI_Controller{
 
             $xcadmin = $cadmin->row_array();
             
-            if($xcadmin['role_id'] == '1'){ //admin
+            if($xcadmin['role_id'] == '1'){ //superadmin
                 $this->session->set_userdata('akses', '1');
-                $code    = $xcadmin['code'];
-                $fullname  = $xcadmin['fullname'];
-                $emailUser  = $xcadmin['email'];
-                $phoneUser  = $xcadmin['phone'];
-                $this->session->set_userdata('code', $code);
-                $this->session->set_userdata('fullname', $fullname);
-                $this->session->set_userdata('email', $emailUser);
-                $this->session->set_userdata('phone', $phoneUser);
-            } elseif($xcadmin['role_id'] == '2'){ //teknisi
-                $this->session->set_userdata('akses','2');
-                $code    = $xcadmin['code'];
-                $fullname  = $xcadmin['fullname'];
-                $emailUser  = $xcadmin['email'];
-                $phoneUser  = $xcadmin['phone'];
-                $this->session->set_userdata('code', $code);
-                $this->session->set_userdata('fullname', $fullname);
-                $this->session->set_userdata('email', $emailUser);
-                $this->session->set_userdata('phone', $phoneUser);
-            } elseif($xcadmin['role_id'] == '3'){ //customer
-                $this->session->set_userdata('akses','3');
-                $code    = $xcadmin['code'];
-                $fullname  = $xcadmin['fullname'];
-                $emailUser  = $xcadmin['email'];
-                $phoneUser  = $xcadmin['phone'];
-                $this->session->set_userdata('code', $code);
-                $this->session->set_userdata('fullname', $fullname);
-                $this->session->set_userdata('email', $emailUser);
-                $this->session->set_userdata('phone', $phoneUser);
+                $user_code    = $xcadmin['user_code'];
+                $user_name    = $xcadmin['fullname'];
+                $this->session->set_userdata('user_code', $user_code);
+                $this->session->set_userdata('user_name', $user_name);
+            } elseif($xcadmin['role_id'] == '2'){ //admin
+                $this->session->set_userdata('akses', '2');
+                $user_code    = $xcadmin['user_code'];
+                $user_name    = $xcadmin['fullname'];
+                $this->session->set_userdata('user_code', $user_code);
+                $this->session->set_userdata('user_name', $user_name);
             }
         }
         
@@ -58,9 +40,6 @@ class Controller_Login extends CI_Controller{
                 redirect('Controller_Dashboard');
             } 
             else if($this->session->userdata('akses')=='2') {
-                redirect('Controller_Dashboard');
-            }
-            else if($this->session->userdata('akses')=='3') {
                 redirect('Controller_Dashboard');
             }
         }else{

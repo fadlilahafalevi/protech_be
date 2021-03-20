@@ -19,7 +19,7 @@ class Controller_Admin extends CI_Controller{
 
 			$data['code'] = $code;
 			if (isset($code)) {
-				$data['data'] = $this->M_Admin->getOneById($code);
+				$data['data'] = $this->M_Admin->getAdminDetailByCode($code);
 			}
 
 			$this->load->view('admin/admin_view', $data);
@@ -40,14 +40,14 @@ class Controller_Admin extends CI_Controller{
 
 			$this->load->model("M_Admin");
 
-			$data['admin_code'] = $code;
+			$data['user_code'] = $code;
 			if (isset($code)) {
-				$listData = $this->M_Admin->getOneById($code);
+				$listData = $this->M_Admin->getAdminDetailByCode($code);
 				$data['data'] = $listData;
 				
 				foreach ($listData as $field) {
-					$active_status = $field->active_status;
-					if ($active_status == 1) {
+					$up_active_status = $field->up_active_status;
+					if ($up_active_status == 1) {
 						$data['checked'] = "checked";
 					}
 				}
@@ -61,35 +61,52 @@ class Controller_Admin extends CI_Controller{
 	public function saveData() {
 		$this->load->model("M_Admin");
 		$this->load->model("M_Metadata");
-		$this->load->model("R_AuditLogging");
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$admin_code = $this->M_General->getSequence('tbl_admin', 2, 'A');
+			$user_code = $this->M_General->getSequence('tbl_user_profile', 3, 'A');
 			$email = $this->input->post('email');
 			$password = md5('password');
-		    $role_id = '1';
-			$fullname = $this->input->post('fullname');
+		    $role_id = '2';
+			$first_name = $this->input->post('first_name');
+			$middle_name = $this->input->post('middle_name');
+			$last_name = $this->input->post('last_name');
+			$gender = $this->input->post('gender');
+			$date_of_birth = $this->input->post('date_of_birth');
+			$identity_no = $this->input->post('identity_no');
 			$phone = $this->input->post('phone');
-			$full_address =	$this->input->post('full_address');
-			$identity_number =	$this->input->post('identity_number');
+			$address =	$this->input->post('address');
+			$longitude =	$this->input->post('longitude');
+			$latitude =	$this->input->post('latitude');
 			$active_status = '1';
 
-			$data = [ 'admin_code' => $admin_code,
-				'email' => $email,
-				'password'  => $password,
-				'role_id' => $role_id,
-				'fullname' => $fullname,
+			$data_profile = [ 'user_code' => $user_code,
+				'first_name'  => $first_name,
+				'middle_name' => $middle_name,
+				'last_name' => $last_name,
+				'gender' => $gender,
+				'date_of_birth' => $date_of_birth,
+				'identity_no' => $identity_no,
 				'phone' => $phone,
-				'full_address' => $full_address,
-				'identity_number' => $identity_number,
+				'address' => $address,
+				'longitude' => $longitude,
+				'latitude' => $latitude,
 				'active_status' => $active_status
 			];
 
-			$this->M_General->insertData('tbl_admin', $data);
-			$this->M_Metadata->createMeta('tbl_admin', 'admin_code', $admin_code, $fullname);
-			$this->R_AuditLogging->insertLog('ADMIN', 'CREATE', $this->session->userdata('code'));
+			$this->M_General->insertData('tbl_user_profile', $data_profile);
+			$this->M_Metadata->createMeta('tbl_user_profile', 'user_code', $user_code, $this->session->userdata('user_name'));
+
+			$data_login = [ 'user_code' => $user_code,
+				'role_id' => $role_id,
+				'email' => $email,
+				'password'  => $password,
+				'active_status' => $active_status
+			];
+
+			$this->M_General->insertData('tbl_user_login', $data_login);
+			$this->M_Metadata->createMeta('tbl_user_login', 'user_code', $user_code, $this->session->userdata('user_name'));
 
 			redirect('Controller_Admin');
 		}
@@ -98,34 +115,45 @@ class Controller_Admin extends CI_Controller{
 	public function updateData() {
 		$this->load->model("M_Admin");
 		$this->load->model("M_Metadata");
-		$this->load->model("R_AuditLogging");
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1') {
 
-			$admin_code = $this->input->post('admin_code');
-			$email = $this->input->post('email');
-			$fullname = $this->input->post('fullname');
+			$user_code = $this->input->post('user_code');
+			$first_name = $this->input->post('first_name');
+			$middle_name = $this->input->post('middle_name');
+			$last_name = $this->input->post('last_name');
+			$gender = $this->input->post('gender');
+			$date_of_birth = $this->input->post('date_of_birth');
+			$identity_no = $this->input->post('identity_no');
 			$phone = $this->input->post('phone');
-			$full_address = $this->input->post('full_address');
-			$identity_number = $this->input->post('identity_number');
-			$active_status = $this->input->post('active_status');
+			$address =	$this->input->post('address');
+			$longitude =	$this->input->post('longitude');
+			$latitude =	$this->input->post('latitude');
+			$active_status = 0;
+			//$active_status = $this->input->post('active_status');
 
-			if ($active_status != 1) {
-				$active_status = 0;
+			if (isset($_POST['active_status'])) {
+				$active_status = 1;
 			}
+			// $active_status = isset($_POST['active_status']) ? 1 : 0;
 
-			$data = ['email' => $email,
-				'fullname' => $fullname,
+			$data_profile = [ 'user_code' => $user_code,
+				'first_name'  => $first_name,
+				'middle_name' => $middle_name,
+				'last_name' => $last_name,
+				'gender' => $gender,
+				'date_of_birth' => $date_of_birth,
+				'identity_no' => $identity_no,
 				'phone' => $phone,
-				'full_address' => $full_address,
-				'identity_number' => $identity_number,
+				'address' => $address,
+				'longitude' => $longitude,
+				'latitude' => $latitude,
 				'active_status' => $active_status
 			];
 
-			$this->M_General->updateData('tbl_admin', $data, 'admin_code', $admin_code);
-			$this->M_Metadata->updateMeta('tbl_admin', 'admin_code', $admin_code,  $this->session->userdata('code'));
-			$this->R_AuditLogging->insertLog('ADMIN', 'UPDATE', $this->session->userdata('code'));
+			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);
+			$this->M_Metadata->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
 			redirect('Controller_Admin');
 		}
 	}

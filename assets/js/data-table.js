@@ -7,7 +7,7 @@
         [5, 10, 15, "All"]
       ],
       "iDisplayLength": 10,
-      "language": { 
+      "language": {
         search: ""
       }
     });

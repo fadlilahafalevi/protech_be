@@ -16,7 +16,7 @@
       <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Lihat Data Jenis Layanan</h4>
+                  <h4 class="card-title">Ubah Data Jenis Layanan</h4>
                   <?php
                      foreach ($data as $service_type_detail) {
                   ?>

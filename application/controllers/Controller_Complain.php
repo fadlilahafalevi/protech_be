@@ -26,11 +26,14 @@ class Controller_Complain extends CI_Controller{
 		}
 	}
 
-	// function createComplain() {
-	// 	if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
-	// 		$this->load->view('complain/complain_create');
-	// 	}
-	// }
+	function createComplain() {
+		if($this->session->userdata('akses') == '4'){
+			$this->load->model("M_General");
+			
+			$data['complain_code'] = $this->M_General->getSequence('tbl_complain', 3, 'P');
+			$this->load->view('admin/complain_create', $data);
+		}
+	}
 
 	function updateComplain($code = '') {
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
@@ -61,7 +64,7 @@ class Controller_Complain extends CI_Controller{
 
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-			$complain_code = $this->M_General->getSequence('tbl_complain', 3, 'C');
+			$complain_code = $this->input->post('complain_code');
 			$order_code = $this->input->post('order_code');
 			$subject = $this->input->post('subject');
 			$complain_desc = $this->input->post('complain_desc');

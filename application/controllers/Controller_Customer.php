@@ -26,11 +26,11 @@ class Controller_Customer extends CI_Controller{
 		}
 	}
 
-	// function createCustomer() {
-	// 	if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
-	// 		$this->load->view('customer/customer_create');
-	// 	}
-	// }
+	function createCustomer() {
+		if($this->session->userdata('akses') == '4'){
+			$this->load->view('admin/customer_create');
+		}
+	}
 
 	function updateCustomer($code = '') {
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){

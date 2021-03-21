@@ -36,7 +36,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/teknisi-app/index.php/Controller_Complain">
               <i class="mdi mdi-view-headline menu-icon"></i>
               <span class="menu-title">Pengaduan</span>
             </a>

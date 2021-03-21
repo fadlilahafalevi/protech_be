@@ -57,6 +57,7 @@
                   <h4 class="card-title">Data Pelanggan</h4>
                 </div>
                 <div class="col-sm-2 col-12">
+                  <!-- <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Customer/createCustomer">Tambah</a>  -->
                   <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="#">Cetak</a>
                 </div>
               </div>

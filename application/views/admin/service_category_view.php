@@ -24,6 +24,16 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Kode Kategori Layanan</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="service_category_code" name="service_category_code" value="<?= $service_category_detail->service_category_code ?>" disabled="disabled" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Kategori Layanan</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" id="service_category_name" name="service_category_name" value="<?=$service_category_detail->service_category_name?>" disabled="disabled"/>

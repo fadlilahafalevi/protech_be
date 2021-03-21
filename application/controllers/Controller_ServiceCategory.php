@@ -28,9 +28,10 @@ class Controller_ServiceCategory extends CI_Controller{
 
 	public function createServiceCategory() {
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
-
-			$this->load->view('admin/service_category_create');
-
+			$this->load->model("M_General");
+			$data['service_category_code'] = $this->M_General->getSequence('tbl_service_category', 2, 'K');
+			
+			$this->load->view('admin/service_category_create', $data);
 		}
 	}
 
@@ -58,11 +59,12 @@ class Controller_ServiceCategory extends CI_Controller{
 	}
 
 	public function saveData() {
+		$this->load->model("M_General");
 		$this->load->model("M_ServiceCategory");
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-			$service_category_code = $this->M_General->getSequence('tbl_service_category', 2, 'K');
+			$service_category_code 	=	$this->input->post('service_category_code');
 			$service_category_name 	=	$this->input->post('service_category_name');
 			$active_status = '1';
 			$now = date("Y-m-d H:i:s");
@@ -81,6 +83,7 @@ class Controller_ServiceCategory extends CI_Controller{
 	}
 
 	public function updateData() {
+		$this->load->model("M_General");
 		$this->load->model("M_ServiceCategory");
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {

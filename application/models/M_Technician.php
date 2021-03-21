@@ -20,19 +20,12 @@ class M_Technician extends CI_Model{
 		return $query->result();
 	}
 	
-	function getCheckedServiceByTechID($id){
-		$query = $this->db->get('tbl_service_category');
-		$return = array();
-
-		foreach ($query->result() as $category) {
-			$return[$category->service_category_code] = $category;
-			$return[$category->service_category_code]->subs = $this->getCheckedServiceDetailByTechID($category->service_category_code, $id);
-		}
-		return $return;
-	}
-
-	function getCheckedServiceDetailByTechID($service_category_code, $id) {
-        $query=$this->db->query("select	sc.service_category_name, sr.is_checked, sd.* from tbl_service_detail sd left join tbl_service_category sc on sc.service_category_code = sd.service_category_code left join (select *, 1 as 'is_checked' from tbl_service_ref where technician_code = '$id') sr on sr.service_detail_code = sd.service_detail_code where sd.service_category_code = '$service_category_code'");
-        return $query->result();
+	function getCheckedServiceType($user_code){
+		$this->db->select('st.service_type_code, st.service_type_name, if(sr.service_ref_id is null, "false", "true") as checked, sc.service_category_name');
+		$this->db->from('tbl_service_type st');
+    	$this->db->join('tbl_service_ref sr', "st.service_type_code=sr.service_type_code and sr.user_code='".$user_code."'", 'left');
+    	$this->db->join('tbl_service_category sc', 'sc.service_category_code=st.service_category_code', 'left');
+		$query = $this->db->get();
+		return $query->result();
 	}
 }

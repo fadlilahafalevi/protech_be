@@ -4,130 +4,234 @@
    <!-- Required meta tags -->
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <title>PROTECH</title>
+   <title>TEKNISI APP</title>
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
-<?php require 'application/views/menubar.php'; ?>
-<div class="container-fluid page-body-wrapper">
+<?php require 'application/views/sidebar.php'; ?>
+
+<!-- first row starts here -->
   <div class="main-panel">
-    <div class="content-wrapper pb-0">
-      <div class="page-header">
-        <h3 class="page-title">View Technician</h3>
-      </div>
-      <!-- first row starts here -->
-      <div class="row">
-        <div class="col-lg-12 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-               <h4 class="card-title"></h4>
-                     <?php
-                        foreach ($data as $technician_detail) {
-                     ?>
-                    <form class="forms-sample">
+    <div class="content-wrapper">
+      <?php
+        foreach ($data as $technician_detail) {
+      ?>
+      <form class="form-sample">
+      <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Lihat Data Teknisi</h4>
+                    <p class="card-description">
+                      Informasi Pribadi
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="technician_code">Technician Code</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="technician_code" name="technician_code" value="<?=$technician_detail->technician_code?>" disabled="disabled">
-                           </div>
+                          <label class="col-sm-3 col-form-label">Nama Depan</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" id="first_name" name="first_name" value="<?=$technician_detail->first_name?>" disabled="disabled" />
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="email">Email</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="email" name="email" value="<?=$technician_detail->email?>" disabled="disabled">
-                           </div>
+                          <label class="col-sm-3 col-form-label">Nomor KTP</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="identity_no" name="identity_no" value="<?=$technician_detail->identity_no?>" disabled="disabled"/>
+                          </div>
                         </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="fullname">Fullname</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="fullname" name="fullname" value="<?=$technician_detail->fullname?>" disabled="disabled">
-                           </div>
+                          <label class="col-sm-3 col-form-label">Nama Tengah</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?=$technician_detail->middle_name?>" disabled="disabled" />
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="phone">Phone</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="phone" name="phone" value="<?=$technician_detail->phone?>" disabled="disabled">
-                           </div>
+                          <label class="col-sm-3 col-form-label">Nomor Telepon</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="phone" name="phone" value="<?=$technician_detail->phone?>" disabled="disabled"/>
+                          </div>
                         </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="identity_number">Identity Number</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="identity_number" name="identity_number" value="<?=$technician_detail->identity_number?>" disabled="disabled">
-                           </div>
+                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?=$technician_detail->last_name?>" disabled="disabled"/>
+                          </div>
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="pass_photo">Pass Photo</label>
-                           <div class="col-sm-9">
-                              <img src="data:<?php echo $technician_detail->pass_photo; ?>;base64,<?php echo $technician_detail->pass_photo; ?>" width="250">
-                           </div>
+                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" disabled="disabled"><?=$technician_detail->address?></textarea>
+                          </div>
                         </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="ktp_photo">KTP Photo</label>
-                           <div class="col-sm-9">
-                              <img src="data:<?php echo $technician_detail->ktp_photo; ?>;base64,<?php echo $technician_detail->ktp_photo; ?>" width="250">
-                           </div>
+                          <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                            <?php if ($technician_detail->gender == 'L') { ?>
+                              <div class="col-sm-4">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="gender" id="gender" value="L" checked disabled="disabled">
+                                      Laki-laki
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-sm-5">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="gender" id="gender" value="P" disabled="disabled">
+                                      Perempuan
+                                    </label>
+                                 </div>
+                              </div>
+                           <?php } else if ($technician_detail->gender == 'P') { ?>
+                              <div class="col-sm-4">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="gender" id="gender" value="L" disabled="disabled">
+                                      Laki-laki
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-sm-5">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="gender" id="gender" value="P" checked disabled="disabled">
+                                      Perempuan
+                                    </label>
+                                 </div>
+                              </div>
+                           <?php } ?>                        
                         </div>
+                      </div>
+                      <div class="col-md-6">
                         <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="bank_account_number">Bank Account Number</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="bank_account_number" name="bank_account_number" value="<?=$technician_detail->bank_account_number?>" disabled="disabled">
-                           </div>
-                        </div>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="full_address">Full Address</label>
-                           <div class="col-sm-9">
-                              <textarea type="text" class="form-control" id="full_address" name="full_address" disabled="disabled"><?=$technician_detail->full_address?></textarea>
-                           </div>
-                        </div>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="avg_rate">Average Rate</label>
-                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="avg_rate" name="avg_rate" value="<?=$technician_detail->avg_rate?>" disabled="disabled">
-                           </div>
-                        </div>
-                        <div class="form-group row">
-                           <label class="col-sm-3 col-form-label" for="active">Active Status</label>
-                           <div class="col-sm-9">
-                              <?php if ($technician_detail->active_status == 1) { ?>
-                                 <label class="badge badge-success">Active</label>
-                              <?php } else if ($technician_detail->active_status == 0) { ?>
-                                 <label class="badge badge-danger">Inactive</label>
+                          <label class="col-sm-3 col-form-label">Status</label>
+                          <div class="col-sm-9">
+                              <?php if ($technician_detail->up_active_status == 1) { ?>
+                                 <label class="badge badge-success">Aktif</label>
+                              <?php } else if ($technician_detail->up_active_status == 0) { ?>
+                                 <label class="badge badge-danger">Nonaktif</label>
                               <?php } ?>
-                           </div>
+                          </div>
                         </div>
-                        <div class="card">
-                        <div class="card-body">
-                          <h4 class="card-title">Service</h4>
-                          <?php 
-                            foreach ($list_checked_service_detail as $list_checked_service_detail){
-                          ?>
-                           <h4 class="card-title"><?=$list_checked_service_detail->service_category_name?></h4>
-                           <?php foreach ($list_checked_service_detail->subs as $list_detail) {
-                              $checkbox = "";
-                              if($list_detail->is_checked == 1){
-                                 $checkbox = "checked";
-                              }
-                              ?>
-                            <div class="form-check form-check-flat form-check-primary">
-                              <input type="checkbox" name="<?=$list_detail->service_detail_code?>" value="<?=$list_detail->service_detail_code?>" <?=$checkbox?> disabled="disabled"> <?=$list_detail->service_detail_name?>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$technician_detail->date_of_birth?>" disabled="disabled" />
+                          </div>
+                        </div>
+                      </div>                                           
+                    </div>
+                    <p class="card-description">
+                      Informasi Akun
+                    </p>
+                    <div class="row">
+                       <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                              <input type="email" class="form-control" id="email" name="email" value="<?=$technician_detail->email?>" disabled="disabled"/>
                             </div>
-                           <?php } ?>
-                          <?php } ?>
+                          </div>
                         </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Akun OVO</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" id="account_number_ovo" name="account_number_ovo" value="<?=$technician_detail->account_number_ovo?>" disabled="disabled"/>
+                            </div>
+                          </div>
                         </div>
-                        <br>
-                        <a class="btn btn-light" href="/protech/index.php/Controller_Technician">Back</a>
-                     </form>
-                     <?php
-                        }
-                     ?>
-                  </div>
-               </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-9">
+                              <input type="password" class="form-control" id="password" name="password" value="<?=$technician_detail->password?>" disabled="disabled"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Akun GoPay</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" id="account_number_gopay" name="account_number_gopay" value="<?=$technician_detail->account_number_gopay?>" disabled="disabled"/>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
             </div>
-         </div>
+            <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-10 col-12">
+                      <h4 class="card-title">Keahlian</h4>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered data-table">
+                      <thead>
+                        <tr>
+                          <th style="text-align: center">Kategori Layanan</th>
+                          <th style="text-align: center">Jenis Layanan</th>
+                          <th style="text-align: center">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php 
+                          $no=0;
+                          foreach ($list_checked_service_type as $list_checked_service_type){
+                          $no++;
+                        ?>
+                          <tr>
+                            <td style="text-align: center"><?=$list_checked_service_type->service_category_name?></td>
+                            <td style="text-align: center"><?=$list_checked_service_type->service_type_name?></td>
+                            <td style="text-align: center"><input type="checkbox" name="<?=$list_checked_service_type->service_type_code?>" value="<?=$list_checked_service_type->service_type_code?>" disabled
+                              <?php if($list_checked_service_type->checked == 'true') {?> 
+                                checked 
+                              <?php }?> ></td>
+                          </tr>
+                        <?php
+                          }
+                        ?>    
+                      </tbody>
+                    </table>
+                  </div>
+                  <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Technician">Kembali</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          </form>
+          <?php
+            }
+          ?>
+        </div>
       </div>
-   </div>
-</div>
 <?php require 'application/views/footer.php'; ?>
 </body>
 </html>

@@ -11,15 +11,15 @@ class Controller_Technician extends CI_Controller{
 	    }
 	}
 
-	public function getOne($id='') {
+	function getOne($code='') {
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 
 			$this->load->model("M_Technician");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->M_Technician->getTechnicianDetailByCode($id);
-				//$data['list_checked_service_detail'] = $this->M_Technician->getCheckedServiceByTechID($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$data['data'] = $this->M_Technician->getTechnicianDetailByCode($code);
+				$data['list_checked_service_type'] = $this->M_Technician->getCheckedServiceType($code);
 			}
 
 			$this->load->view('admin/technician_view', $data);
@@ -27,7 +27,7 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function createTechnician() {
+	function createTechnician() {
 		$this->load->model("M_ServiceType");
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 			$data['list_service_type'] = $this->M_ServiceType->getAllServiceType();
@@ -36,17 +36,16 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function updateTechnician($id = '') {
+	function updateTechnician($code = '') {
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 
 			$this->load->model("M_Technician");
-			$this->load->model("M_Service");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$listData = $this->M_Technician->getTechnicianDetailByCode($id);
+			$data['code'] = $code;
+			if (isset($code)) {
+				$listData = $this->M_Technician->getTechnicianDetailByCode($code);
 				$data['data'] = $listData;
-				//$data['list_checked_service_detail'] = $this->M_Technician->getCheckedServiceByTechID($id);
+				$data['list_checked_service_type'] = $this->M_Technician->getCheckedServiceType($code);
 				
 				foreach ($listData as $field) {
 					$active_status = $field->active_status;
@@ -61,7 +60,7 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function saveData() {
+	function saveData() {
 		$this->load->model("M_Technician");
 		$this->load->model("M_ServiceType");
 		$this->load->model("M_General");
@@ -105,6 +104,17 @@ class Controller_Technician extends CI_Controller{
 
 			$this->M_General->insertData('tbl_user_profile', $data_profile);
 
+			$data_login = [ 'user_code' => $user_code,
+				'role_id' => $role_id,
+				'email' => $email,
+				'password'  => $password,
+				'active_status' => $active_status,
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
+			];
+
+			$this->M_General->insertData('tbl_user_login', $data_login);
+
 			$listServiceType = $this->M_ServiceType->getAllServiceType();
 			foreach ($listServiceType as $service_type) {
 				$code = $service_type->service_type_code;
@@ -121,7 +131,7 @@ class Controller_Technician extends CI_Controller{
 		}
 	}
 
-	public function updateData() {
+	function updateData() {
 		$this->load->model("M_Technician");
 		$this->load->model("M_ServiceType");
 		$this->load->model("M_General");
@@ -166,7 +176,7 @@ class Controller_Technician extends CI_Controller{
 			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);
 			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
 
-			$this->M_Technician->deleteData('tbl_service_ref', $user_code);
+			$this->M_General->deleteData('tbl_service_ref', "user_code = '" . $user_code . "'");
 			$listServiceType = $this->M_ServiceType->getAllServiceType();
 			foreach ($listServiceType as $service_type) {
 				$code = $service_type->service_type_code;
@@ -178,8 +188,6 @@ class Controller_Technician extends CI_Controller{
 					$this->M_General->insertData('tbl_service_ref', $data_ref);
 				}
 			}
-
-			$this->M_General->updateMeta('tbl_service_ref', 'user_code', $user_code, $this->session->userdata('user_name'));
 			redirect('Controller_Technician');
 		}
 	}

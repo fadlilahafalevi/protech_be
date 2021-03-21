@@ -24,9 +24,32 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Kode Jenis Layanan</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="service_type_code" name="service_type_code" value="<?= $service_type_detail->service_type_code ?>" disabled="disabled" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Kategori Layanan</label>
+                          <div class="col-sm-9">
+                            <select class="form-control" name="service_category_code" disabled="disabled">
+                            <?php foreach($list_service_category as $list_service_category){ ?>
+                              <option value="<?php echo $list_service_category->service_category_code; ?>" <?php if($list_service_category->service_category_code == $service_type_detail->service_category_code) { ?>
+                                selected <?php } ?> ><?php echo $list_service_category->service_category_name; ?></option>
+                            <?php } ?>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="service_type_name" name="service_type_name" value="<?=$service_type_detail->service_category_name?>" disabled="disabled"/>
+                            <input type="text" class="form-control" id="service_type_name" name="service_type_name" value="<?=$service_type_detail->service_type_name?>" disabled="disabled"/>
                           </div>
                         </div>
                       </div>
@@ -58,19 +81,6 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Kategori Layanan</label>
-                          <div class="col-sm-9">
-                            <select class="form-control" name="service_category_code" disabled="disabled">
-                            <?php foreach($list_service_category as $list_service_category){ ?>
-                              <option value="<?php echo $list_service_category['service_category_code']; ?>" <?php if($list_service_category['service_category_code'] == $service_type_detail->service_category_code) { ?>
-                                selected <?=}?> ><?php echo $list_service_category['service_category_code']; ?></option>
-                            <?php } ?>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Type Layanan</label>
@@ -111,8 +121,6 @@
                            <?php } ?> 
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Status</label>

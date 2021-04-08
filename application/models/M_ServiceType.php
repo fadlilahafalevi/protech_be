@@ -4,6 +4,7 @@ class M_ServiceType extends CI_Model{
 		$this->db->select('st.*, sc.service_category_name');
 		$this->db->from('tbl_service_type st');
 		$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+	    $this->db->order_by('st.created_datetime','asc');    
 		$query = $this->db->get();
 		return $query->result();
 	}

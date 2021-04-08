@@ -82,7 +82,6 @@ class Controller_Technician extends CI_Controller{
 			$longitude =	$this->input->post('longitude');
 			$latitude =	$this->input->post('latitude');
 			$account_number_ovo =	$this->input->post('account_number_ovo');
-			$account_number_gopay =	$this->input->post('account_number_gopay');
 			$active_status = '1';
 			$now = date("Y-m-d H:i:s");
 
@@ -97,6 +96,7 @@ class Controller_Technician extends CI_Controller{
 				'address' => $address,
 				'longitude' => $longitude,
 				'latitude' => $latitude,
+				'account_number_ovo' => $account_number_ovo,
 				'active_status' => $active_status,
 				'created_by' => $this->session->userdata('user_name'),
 				'created_datetime' => $now

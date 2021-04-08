@@ -5,7 +5,7 @@ class M_Customer extends CI_Model{
 		$this->db->from('tbl_user_profile up');
     	$this->db->join('tbl_user_login ul', 'ul.user_code=up.user_code');
 	    $this->db->where('ul.role_id',4);
-	    $this->db->order_by('up.created_datetime','desc');    
+	    $this->db->order_by('up.created_datetime','asc');    
 		$query = $this->db->get();
 		return $query->result();
 	}

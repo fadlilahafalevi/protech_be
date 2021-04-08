@@ -3,7 +3,7 @@ class M_Complain extends CI_Model{
 	function getAllComplain(){
 		$this->db->select('*');
 		$this->db->from('tbl_complain');
-	    $this->db->order_by('created_datetime','desc');    
+	    $this->db->order_by('created_datetime','asc');    
 		$query = $this->db->get();
 		return $query->result();
 	}

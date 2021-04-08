@@ -3,7 +3,7 @@ class M_ServiceCategory extends CI_Model{
 	function getAllServiceCategory(){
 		$this->db->select('*');
 		$this->db->from('tbl_service_category');
-	    $this->db->order_by('created_datetime','desc');    
+	    $this->db->order_by('created_datetime','asc');    
 		$query = $this->db->get();
 		return $query->result();
 	}

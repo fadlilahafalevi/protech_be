@@ -173,14 +173,6 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Akun GoPay</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="account_number_gopay" name="account_number_gopay" value="<?=$technician_detail->account_number_gopay?>" />
-                            </div>
-                          </div>
-                        </div>
                     </div>
                 </div>
               </div>

@@ -26,13 +26,9 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5" >
               <div class="brand-logo">
-                <img src="/teknisi-app/assets/images/logo.svg" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
+                <img src="/teknisi-app/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
               </div>
               <br/>
-              <center>
-                <h4>Hello! Let's get started</h4>
-                <h6 class="font-weight-light">Login to continue.</h6>
-              </center>
               <form class="pt-3" action="<?php echo base_url() . 'Controller_Login/cekuser' ?>" method="post">
                 <div class="form-group">
                   <input type="text" name="email" class="form-control form-control-lg" id="email" placeholder="Email">
@@ -45,7 +41,7 @@
                   <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">LOGIN</button>
                   <br/>
                   <center>
-                    <h5>Don't have an account? Register <a href="<?php echo base_url() . 'Controller_Customer/createCustomer' ?>" target="_blank">here </a></h5>
+                    <h5>Belum punya akun? Daftar <a href="<?php echo base_url() . 'Controller_Customer/createCustomer' ?>" target="_blank">di sini </a></h5>
                   </center>
                 </div>
               </form>

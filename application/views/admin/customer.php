@@ -24,31 +24,34 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
-        <div class="col-12 grid-margin stretch-card">
+        <!-- <div class="col-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
-              <h4 class="card-title">Cari Data Pelanggan</h4>
+              <h4 class="card-title">Cetak Data Pelanggan</h4>
               <form class="form-inline justify-content-center">
-                <label for="from_date">Mulai Tanggal</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="from_date" placeholder="yyyy-mm-dd">
-                <div class="input-group-addon input-group-append" style="margin-right: 50px;">
-                  <div class="input-group-text">
-                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Mulai Tanggal</label>
+                      <div class="col-sm-9">
+                          <input type="text" class="form-control" id="from_date" name="from_date" placeholder="yyyy-mm-dd"/>
+                      </div>
+                    </div>
                   </div>
-                </div> 
-                <label for="to_date">Sampai Tanggal</label>
-                <input type="text" class="form-control mb-2 mr-sm-2" id="to_date" placeholder="yyyy-mm-dd">
-                <div class="input-group-addon input-group-append" style="margin-right: 50px;">
-                  <div class="input-group-text">
-                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Sampai Tanggal</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="to_date" name="to_date" placeholder="yyyy-mm-dd"/>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <button type="submit" class="btn btn-primary btn-sm">Cari</button>
+                <button type="submit" class="btn btn-primary btn-sm">Cetak</button>
               </form>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
@@ -57,8 +60,8 @@
                   <h4 class="card-title">Data Pelanggan</h4>
                 </div>
                 <div class="col-sm-2 col-12">
-                  <!-- <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Customer/createCustomer">Tambah</a>  -->
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="#">Cetak</a>
+                  <!-- <a class="btn btn-primary btn-sm" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Customer/createCustomer">Tambah</a>  -->
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Customer/printCustomer">Cetak</a>
                 </div>
               </div>
               <div class="table-responsive">

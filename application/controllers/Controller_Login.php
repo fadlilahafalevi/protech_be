@@ -32,6 +32,12 @@ class Controller_Login extends CI_Controller{
                 $user_name    = $xcadmin['fullname'];
                 $this->session->set_userdata('user_code', $user_code);
                 $this->session->set_userdata('user_name', $user_name);
+            } elseif($xcadmin['role_id'] == '4'){ //pelanggan
+                $this->session->set_userdata('akses', '4');
+                $user_code    = $xcadmin['user_code'];
+                $user_name    = $xcadmin['fullname'];
+                $this->session->set_userdata('user_code', $user_code);
+                $this->session->set_userdata('user_name', $user_name);
             }
         }
         
@@ -41,6 +47,9 @@ class Controller_Login extends CI_Controller{
             } 
             else if($this->session->userdata('akses')=='2') {
                 redirect('Controller_Dashboard');
+            }
+            else if($this->session->userdata('akses')=='4') {
+                redirect('Controller_DashboardCustomer');
             }
         }else{
             redirect('Controller_Login/login_failed');

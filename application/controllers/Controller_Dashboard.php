@@ -19,6 +19,10 @@ class Controller_Dashboard extends CI_Controller {
 
 			$this->load->view('admin/dashboard');
 
+	    }  else if ($this->session->userdata('akses')=='4') {
+
+	    	$this->load->view('customer/dashboard');
+	    	
 	    } else {
 	        echo "Halaman tidak ditemukan";
 	    }

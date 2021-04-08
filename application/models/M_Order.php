@@ -1,7 +1,8 @@
 <?php
 class M_Order extends CI_Model{
 	public function searchTechnician($latitude, $longitude, $service_code){
-		$result=$this->db->query("SELECT * , (6371 * 2 * ASIN(SQRT( POWER(SIN(( $latitude - t.latitude) *  pi()/180 / 2), 2) +COS( $latitude * pi()/180) * COS(t.latitude * pi()/180) * POWER(SIN(( $longitude - t.longitude) * pi()/180 / 2), 2) ))) as distance, t.technician_code as tech_id FROM  tbl_technician t LEFT JOIN tbl_service_ref sr on sr.technician_code = t.technician_code WHERE sr.service_detail_code = '$service_code'  HAVING distance <= 10 ORDER BY distance");
+		$result=$this->db->query("SELECT *, @rownum := @rownum + 1 as row_number, (6371 * 2 * ASIN(SQRT( POWER(SIN(( $latitude - tup.latitude) *  pi()/180 / 2), 2) +COS( $latitude * pi()/180) * COS(tup.latitude * pi()/180) * POWER(SIN(( $longitude - tup.longitude) * pi()/180 / 2), 2) ))) as distance, tup.user_code as tech_id FROM tbl_user_profile tup cross join (select @rownum := 0) r LEFT JOIN tbl_service_ref sr on sr.user_code = tup.user_code WHERE sr.service_type_code = '$service_code'  ");
+		//HAVING distance <= 10 ORDER BY distance
 		return $result->result();
 	}
 	

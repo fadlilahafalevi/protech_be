@@ -211,47 +211,90 @@ class Controller_Order extends CI_Controller{
 	}
 
 	public function searchTechnician() {
-		if ($this->session->userdata('akses') == '3') {
-			$this->load->model("M_Order");
-			$latitude =	$this->input->post('latitude');
-			$longitude = $this->input->post('longitude');
-			$service_detail_code = $this->input->post('service_detail_code');
-			$data['fix_datetime'] = $this->input->post('fix_datetime');
-			$data['fix_datetime'] = $this->input->post('fix_datetime');
-			$data['encoded_fix_datetime'] = base64_encode ( $this->input->post('fix_datetime') );
-			$data['service_detail_code'] = $this->input->post('service_detail_code');
-			$data['service'] = $this->input->post('service');
-			$data['full_address'] = $this->input->post('full_address');
-			$data['encoded_full_address'] = base64_encode ( $this->input->post('full_address') );
-			$data['longitude'] = $this->input->post('longitude');
-			$data['latitude'] = $this->input->post('latitude');
-			$data['data'] = $this->M_Order->searchTechnician($latitude, $longitude, $service_detail_code);
-			$this->load->view('customer/order_result_technician', $data);
+		$this->load->model("M_Order");
+		
+		$latitude =	$this->input->post('latitude');
+		$longitude = $this->input->post('longitude');
+		$service_category_code = $this->input->post('service_category_code');
+		$service_type_code = $this->input->post('service_type_code');
+
+		$data['jenis_layanan'] = $this->input->post('jenis_layanan');
+		$data['waktu_perbaikan'] = $this->input->post('waktu_perbaikan');
+		$data['alamat'] = $this->input->post('alamat');
+		$data['catatan_alamat'] = $this->input->post('catatan_alamat');
+		$data['foto_kerusakan'] = $this->input->post('foto_kerusakan');
+		$data['detail_keluhan'] = $this->input->post('detail_keluhan');
+		$data['metode_pembayaran'] = $this->input->post('metode_pembayaran');
+		$data['latitude'] = $this->input->post('latitude');
+		$data['longitude'] = $this->input->post('longitude');
+		$data['service_category_code'] = $this->input->post('service_category_code');
+		$data['service_type_code'] = $this->input->post('service_type_code');
+
+		$data['data'] = $this->M_Order->searchTechnician($latitude, $longitude, $service_type_code);
+		$this->listTechnician($data);
+		// $this->load->view('customer/order_result_technician', $data);
+	}
+
+	public function listTechnician($data = '') {
+		if(is_array($data) && count($data) > 0) {
+			
+			$nearestTech = $data['data'];
+
+			$dataView['jenis_layanan'] = $data['jenis_layanan'];
+			$dataView['waktu_perbaikan'] = $data['waktu_perbaikan'];
+			$dataView['alamat'] = $data['alamat'];
+			$dataView['catatan_alamat'] = $data['catatan_alamat'];
+			$dataView['foto_kerusakan'] = $data['foto_kerusakan'];
+			$dataView['detail_keluhan'] = $data['detail_keluhan'];
+			$dataView['metode_pembayaran'] = $data['metode_pembayaran'];
+			$dataView['latitude'] = $data['latitude'];
+			$dataView['longitude'] = $data['longitude'];
+			$dataView['service_category_code'] = $data['service_category_code'];
+			$dataView['service_type_code'] = $data['service_type_code'];
+			$dataView['nearestTech'] = $nearestTech;
+
+			$this->load->view('customer/nearest_technician', $dataView);
+		} else {
+			echo "No result found";
 		}
 	}
 
-	public function confirmOrder($technician_id, $encoded_full_address, $latitude, $longitude, $encoded_fix_datetime, $service, $service_detail_code) {
-		if ($this->session->userdata('akses') == '3') {
-			$this->load->model("M_Order");
-			$this->load->model("M_Customer");
-			$this->load->model("M_Technician");
-			$this->load->model("M_Service");
-			$this->load->model("M_General");
+	public function confirmOrder() {
+		$this->load->model("M_Order");
+		$this->load->model("M_Customer");
+		$this->load->model("M_Technician");
+		$this->load->model("M_Service");
+		$this->load->model("M_General");
 
-			$data['order_id'] = $this->M_General->getSequenceOrder('tbl_order', '4');
-			$data['email'] = $this->session->userdata('email');
-			$data['technician'] = $this->M_Technician->getOneById($technician_id);
-			$data['customer'] = $this->M_Customer->getDataCustomerByEmail($this->session->userdata('email'));
-			$data['full_address'] = base64_decode ( $encoded_full_address );
-			$data['longitude'] = $longitude;
-			$data['latitude'] = $latitude;
-			$data['technician_id'] = $technician_id;
-			$data['fix_datetime'] = base64_decode( $encoded_fix_datetime );
-			$data['service'] = $this->M_Service->getServiceDetailByCode($service_detail_code);
-			$data['fee'] = $this->M_Service->getPriceByServiceDetailCode($service_detail_code);
+		$data['jenis_layanan'] = $this->input->post('jenis_layanan');
+		$data['waktu_perbaikan'] = $this->input->post('waktu_perbaikan');
+		$data['alamat'] = $this->input->post('alamat');
+		$data['catatan_alamat'] = $this->input->post('catatan_alamat');
+		$data['foto_kerusakan'] = $this->input->post('foto_kerusakan');
+		$data['detail_keluhan'] = $this->input->post('detail_keluhan');
+		$data['metode_pembayaran'] = $this->input->post('metode_pembayaran');
+		$data['latitude'] = $this->input->post('latitude');
+		$data['longitude'] = $this->input->post('longitude');
+		$data['service_category_code'] = $this->input->post('service_category_code');
+		$data['service_type_code'] = $this->input->post('service_type_code');
 
-			$this->load->view('customer/order_confirmation', $data);
+		$this->load->view('customer/order_confirmation', $data);
+	}
+
+	public function preOrder($service_category_code) {
+		if ($this->session->userdata('akses') == '4') {
+			$this->load->model("M_ServiceCategory");
+			$this->load->model("M_ServiceType");
+
+			$service_category = $this->M_ServiceCategory->getServiceCategoryDetailByCode($service_category_code);
+			$service_type = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($service_category_code);
+			
+			$data['service_category'] = $service_category;
+			$data['service_type'] = $service_type;
+
+			$this->load->view('customer/pre_order', $data);
 		}
+
 	}
 
 	public function inputOrder() {

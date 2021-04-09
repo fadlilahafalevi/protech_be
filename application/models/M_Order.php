@@ -41,10 +41,14 @@ class M_Order extends CI_Model{
 		return $query->result();
 	}
 
-	function getOrderDetailByCode($order_code) {
-		$this->db->select('*');
+	function getOrderDetailAfterOrderByCode($order_code) {
+		$this->db->select('*, concat(upt.first_name, \' \', upt.middle_name, \' \', upt.last_name) as nama_teknisi ');
 		$this->db->from('tbl_order o');
     	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code');
+    	$this->db->join('tbl_user_profile upc', 'upc.user_code = o.customer_code');
+    	$this->db->join('tbl_user_profile upt', 'upt.user_code = o.technician_code');
+    	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code');
+    	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
 		$this->db->where('o.order_code', $order_code);
 		$query = $this->db->get();
 		return $query->result();

@@ -7,7 +7,8 @@ class M_General extends CI_Model{
 	}
 	
 	function getSequenceOrder($tbl_name, $lpad) {
-	    $query=$this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'-', CONVERT( LPAD(count(*) + 1, $lpad, 0), varchar(10)) ) as next_code from $tbl_name");
+	    $query=$this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'', CONVERT( LPAD(count(*) + 1, $lpad, 0), varchar(10)) ) as next_code from $tbl_name");
+	    print_r($this->db->last_query());
 	    return $query->row()->next_code;
 	}
 

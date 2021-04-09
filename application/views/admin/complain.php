@@ -24,7 +24,7 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <div class="row">
-        <div class="col-12 grid-margin stretch-card">
+        <!-- <div class="col-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
               <h4 class="card-title">Cetak Data Pengaduan</h4>
@@ -51,7 +51,7 @@
               </form>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">

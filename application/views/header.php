@@ -194,7 +194,7 @@
     <script src="/teknisi-app/assets/js/dataTables.bootstrap4.js"></script>
     <!-- End custom js for this page-->
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAjQA6g48aCcxzRt-lsxin_XZX2vloSKw&callback=initialize&libraries=places" async defer></script>
+<!--     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAjQA6g48aCcxzRt-lsxin_XZX2vloSKw&callback=initialize&libraries=places" async defer></script> -->
     <script type="text/javascript">
       $(document).ready(function(){  
         $('.data-table').dataTable();      

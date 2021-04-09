@@ -29,7 +29,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Depan</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="user_code" name="user_code" value="<?=$technician_detail->user_code?>" readonly/>
+                              <input type="hidden" class="form-control" id="user_code" name="user_code" value="<?=$technician_detail->user_code?>" readonly/>
                               <input type="text" class="form-control" id="first_name" name="first_name" value="<?=$technician_detail->first_name?>" required />
                           </div>
                         </div>

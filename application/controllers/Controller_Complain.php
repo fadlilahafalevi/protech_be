@@ -65,14 +65,14 @@ class Controller_Complain extends CI_Controller{
 		$this->load->model("M_Complain");
 		$this->load->model("M_General");
 
-		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
+		if ($this->session->userdata('akses') == '4') {
 
 			$complain_code = $this->input->post('complain_code');
 			$order_code = $this->input->post('order_code');
 			$subject = $this->input->post('subject');
 			$complain_desc = $this->input->post('complain_desc');
 			$response = $this->input->post('response');
-			$complain_status = $this->input->post('complain_status');
+			$complain_status = "MENUNGGU";
 			$now = date("Y-m-d H:i:s");
 
 			$data_complain = [ 'complain_code' => $complain_code,

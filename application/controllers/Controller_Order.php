@@ -370,7 +370,7 @@ class Controller_Order extends CI_Controller{
 
 		$this->M_General->insertData('tbl_order_detail', $data_detail);
 
-		redirect(Controller_Order/getOneAfterOrderByCode/.$order_code);
+		redirect('Controller_Order/getOneAfterOrderByCode/'.$order_code);
 	}
 
 	public function getOneAfterOrderByCode($code = '') {

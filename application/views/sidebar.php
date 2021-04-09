@@ -52,9 +52,9 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#"> Pemesanan </a></li>
-                <li class="nav-item"> <a class="nav-link" href="#"> Pembayaran </a></li>
-                <li class="nav-item"> <a class="nav-link" href="#"> Penilaian dan Ulasan </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ReportOrder"> Pemesanan </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ReportPayment"> Pembayaran </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ReportRatingAndReview"> Penilaian dan Ulasan </a></li>
               </ul>
             </div>
           </li>

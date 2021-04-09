@@ -47,13 +47,6 @@ class Controller_Complain extends CI_Controller{
 			if (isset($code)) {
 				$listData = $this->M_Complain->getComplainDetailByCode($code);
 				$data['data'] = $listData;
-				
-				foreach ($listData as $field) {
-					$active_status = $field->active_status;
-					if ($active_status == 1) {
-						$data['checked'] = "checked";
-					}
-				}
 			}
 
 			$this->load->view('admin/complain_edit', $data);

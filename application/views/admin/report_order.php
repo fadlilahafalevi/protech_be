@@ -57,20 +57,20 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-10 col-12">
-                  <h4 class="card-title">Data Pengaduan</h4>
+                  <h4 class="card-title">Laporan Pemesanan</h4>
                 </div>
                 <div class="col-sm-2 col-12">
                   <!-- <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Complain/createComplain">Tambah</a>  -->
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Customer/printComplain">Cetak</a>
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_ReportOrder/printReportOrder">Cetak</a>
                 </div>
               </div>
               <div class="table-responsive">
                 <table class="table table-bordered data-table">
                   <thead>
                     <tr>
-                      <th style="text-align: center">Kode Pengaduan</th>
                       <th style="text-align: center">Kode Pesanan</th>
-                      <th style="text-align: center">Judul Pengaduan</th>
+                      <th style="text-align: center">Nama Teknisi</th>
+                      <th style="text-align: center">Waktu Perbaikan</th>
                       <th style="text-align: center">Status</th>
                       <th style="text-align: center">Aksi</th>
                     </tr>
@@ -78,20 +78,17 @@
                   <tbody>
                     <?php 
                       $no=0;
-                      foreach ($list as $list_complain){
+                      foreach ($list as $list_report){
                       $no++;
                     ?>
                       <tr>
-                        <td><?=$list_complain->complain_code?></td>
-                        <td><?=$list_complain->order_code?></td>
-                        <td><?=$list_complain->subject?></td>
-                        <td><?=$list_complain->complain_status?></td>
+                        <td><?=$list_report->order_code?></td>
+                        <td><?=$list_report->technician_name?></td>
+                        <td><?=$list_report->repair_datetime?></td>
+                        <td><?=$list_report->order_status?></td>
                         <td style="text-align: center">
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Complain/getOne/<?=$list_complain->complain_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
+                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_ReportOrder/getOne/<?=$list_report->order_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>
-                          </a>
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Complain/updateComplain/<?=$list_complain->complain_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
-                            <i class="mdi mdi-pencil"></i>
                           </a>
                         </td>
                       </tr>

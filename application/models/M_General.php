@@ -20,6 +20,7 @@ class M_General extends CI_Model{
 
 	function updateData($tblName, $data, $code_name, $code) {
 		$query = $this->db->update($tblName, $data, "$code_name = '$code'");
+		print_r($this->db->last_query());
 		return $query;
 	}
 	

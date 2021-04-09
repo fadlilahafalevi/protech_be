@@ -57,7 +57,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
               <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item" href="Controller_Order/getWaitingConfirmationOrder">
+              <a class="dropdown-item" href="/teknisi-app/index.php/Controller_Order/getWaitingConfirmationOrder">
                 <div class="item-thumbnail">
                   <div class="item-icon bg-success">
                     <i class="mdi mdi-information mx-0"></i>
@@ -86,7 +86,7 @@
               <?php
                 if($this->session->userdata('akses')=='3' || $this->session->userdata('akses') == '4'){
               ?>
-              <a class="dropdown-item" href="Controller_Settings">
+              <a class="dropdown-item" href="/teknisi-app/Controller_Settings">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>

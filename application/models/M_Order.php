@@ -23,11 +23,50 @@ class M_Order extends CI_Model{
 	    return $query->result();
 	}
 
+	public function getOne($code) {
+		$this->db->distinct();
+		$this->db->select('o.*, sc.*, concat(upt.first_name, \' \', upt.middle_name, \' \', upt.last_name) as nama_teknisi, concat(upc.first_name, \' \', upc.middle_name, \' \', upc.last_name) as nama_customer ');
+		$this->db->from('tbl_order o');
+    	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code');
+    	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code');
+    	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+    	$this->db->join('tbl_user_profile upc', 'upc.user_code = o.customer_code');
+    	$this->db->join('tbl_user_profile upt', 'upt.user_code = o.technician_code');
+    	$this->db->where('o.order_code', $code);
+	    $this->db->order_by('o.created_datetime','asc');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getOrderDetailByOrderCode($code) {
+		$this->db->distinct();
+		$this->db->select('*');
+		$this->db->from('tbl_order_detail od');
+    	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code');
+    	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+    	$this->db->where('od.order_code', $code);
+	    $this->db->order_by('od.created_datetime','asc');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function getAllByCustomerCode($code) {
 		$this->db->select('o.*, c.fullname as customer_name, t.fullname as technician_name');
 		$this->db->from('tbl_order o');
     	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code');
 	    $this->db->order_by('o.created_datetime','asc');    
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getAllByTechnicianCode($code) {
+		$this->db->distinct();
+		$this->db->select('o.*, sc.*');
+		$this->db->from('tbl_order o');
+    	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code');
+    	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code');
+    	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+	    $this->db->order_by('o.created_datetime','desc');    
 		$query = $this->db->get();
 		return $query->result();
 	}

@@ -164,7 +164,7 @@ class Controller_Order extends CI_Controller{
         }
     }
 
-	public function getOne($id='') {
+	public function getOne($code='') {
 		if($this->session->userdata('akses')=='1'){
 			$this->load->model("T_Order");
 
@@ -184,14 +184,17 @@ class Controller_Order extends CI_Controller{
 
 			$this->load->view('customer/order_view', $data);
 		} else if($this->session->userdata('akses')=='3'){
-			$this->load->model("T_Order");
+			$this->load->model("M_Order");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->T_Order->getOneById($id);
+			if (isset($code)) {
+				$data_order = $this->M_Order->getOne($code);
+				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$data['data'] = $data_order;
+				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
+				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H:i A');
 			}
 
-			$this->load->view('customer/order_view', $data);
+			$this->load->view('technician/order_view', $data);
 		}
 	}
 
@@ -415,9 +418,8 @@ class Controller_Order extends CI_Controller{
         } else if ($this->session->userdata('akses') == '4') {
             if (isset($code)) {
             	$data_order_detail = $this->M_Order->getOrderDetailAfterOrderByCode($code);
-            	$waktu_perbaikan = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H:i A');
             	$data['data'] = $data_order_detail;
-            	$data['waktu_perbaikan'] = $waktu_perbaikan;
+            	$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H:i A');
                 $this->load->view('customer/order_detail', $data);
             }
         } else {
@@ -440,13 +442,14 @@ class Controller_Order extends CI_Controller{
 	}
 
 	public function getAllByTechnicianCode($code = '') {
-		if($this->session->userdata('akses')=='2'){
+		if($this->session->userdata('akses')=='3'){
 
 			$this->load->model("M_Order");
 			
 			if(isset($code)) {
 				$data['data'] = $this->M_Order->getAllByTechnicianCode($code);
-				$this->load->view('technician/order', $data);
+				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$this->load->view('technician/order_list', $data);
 			}
 		} else {
 			redirect('Controller_Login');
@@ -519,45 +522,42 @@ class Controller_Order extends CI_Controller{
         }
     }
 	
-	public function requestNewService($order_code = '') {
-        if ($this->session->userdata('akses') == '2') {
-            $this->load->model("M_Order");
-            $this->load->model("M_Service");
-            if (isset($order_code)) {
-                $service_detail_code = $this->M_Order->getServiceTypeFromOrder($order_code);
-                $data['data'] = $this->M_Service->getRequestOrderTechnician($service_detail_code);
-                $data['order_code'] = $order_code;
-                $this->load->view('technician/request_new_service', $data);
-            }
+	public function requestNewService($order_code, $service_category_code) {
+        $this->load->model("M_Order");
+        $this->load->model("M_ServiceType");
+        if (isset($order_code)) {
+            $data['data'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($service_category_code);
+            $data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            $data['order_code'] = $order_code;
+            $data['service_category_code'] = $service_category_code;
+            $this->load->view('technician/add_new_services', $data);
         }
 	}
 	
-	public function requestNewServiceSubmit($order_code = '') {
-        if ($this->session->userdata('akses') == '2') {
-            $this->load->model("M_Order");
-            $this->load->model("M_Service");
-            $this->load->model("M_General");
-            if (isset($order_code)) {
-                $service_type_code_order = $this->M_Order->getServiceTypeFromOrder($order_code);
-                $list_request_service = $this->M_Service->getRequestOrderTechnician($service_type_code_order);
-                $data['order_code'] = $order_code;
+	public function requestNewServiceSubmit($order_code, $service_category_code) {
+        $this->load->model("M_Order");
+        $this->load->model("M_ServiceType");
+        $this->load->model("M_General");
 
-                foreach ($list_request_service as $service) {
-                    $code = $service->service_type_code;
-                    $service_type_code = $this->input->post($code);
-                    $price = $this->M_Service->getPriceByServiceTypeCode($service_type_code);
-                    if (isset($service_type_code)) {
-                    $data = [
-                        'order_code' => $order_code,
-                        'service_type_code' => $service_type_code,
-                        'price' => $price,
-                        'is_paid' => 0
-                    ];
-                        $this->M_General->insertData('tbl_order_detail', $data);
-                    }
+        if (isset($order_code)) {
+            $list_request_service = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($service_category_code);
+            $data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            $data['order_code'] = $order_code;
+
+            foreach ($list_request_service as $service) {
+                $code = $service->service_type_code;
+                $service_type_code = $this->input->post($code);
+                $price = $this->input->post('price-'.$code);
+                if (isset($service_type_code)) {
+                $data = [
+                    'order_code' => $order_code,
+                    'service_type_code' => $service_type_code,
+                    'price' => $price
+                ];
+                    $this->M_General->insertData('tbl_order_detail', $data);
                 }
-                redirect('Controller_Order/getOneByCode/'.$order_code);
             }
+            redirect('Controller_Order/getOne/'.$order_code);
         }
     }
     
@@ -711,14 +711,15 @@ class Controller_Order extends CI_Controller{
 
     public function confirmOrderTechnician($order_code, $status) {
     	$this->load->model("M_General");
+    	$status = str_replace("%20"," ",$status);
     	$data = [
                 'order_status' => $status,
-                'modified_by' => $this->session->userdata('code'),
+                'modified_by' => $this->session->userdata('user_name'),
                 'modified_datetime' => date("Y-m-d H:i:s")
             ];
 
        	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
-       	
+
     }
     
     public function rejectByAdmin($order_code) {

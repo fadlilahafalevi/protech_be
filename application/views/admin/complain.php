@@ -84,19 +84,7 @@
                         <td><?=$list_complain->complain_code?></td>
                         <td><?=$list_complain->order_code?></td>
                         <td><?=$list_complain->subject?></td>
-                        <td style="text-align: center">
-                          <?php
-                            if($list_complain->active_status == '1'){
-                          ?>
-                            <label class="badge badge-success">Aktif</label>
-                          <?php
-                            } elseif($list_complain->active_status == '0'){
-                          ?>
-                            <label class="badge badge-danger">Nonaktif</label>
-                          <?php
-                            }
-                          ?>
-                        </td>
+                        <td><?=$list_complain->complain_status?></td>
                         <td style="text-align: center">
                           <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Complain/getOne/<?=$list_complain->complain_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>

@@ -8,7 +8,7 @@
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <?php
-            if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
+            if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){ //SUPERADMIN DAN ADMIN
           ?>
           <li class="nav-item">
             <a class="nav-link" href="#">
@@ -25,7 +25,7 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
               <?php
-                if($this->session->userdata('akses')=='1'){
+                if($this->session->userdata('akses')=='1'){ //SUPERADMIN
               ?>
                 <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_Admin">Admin</a></li>
               <?php
@@ -65,14 +65,20 @@
 
 
         <?php
-          if($this->session->userdata('akses')=='3'){
+          if($this->session->userdata('akses')=='3'){ //TEKNISI
         ?>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
-          </li>          
+          </li>  
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-file menu-icon"></i>
+              <span class="menu-title">Pemesanan</span>
+            </a>
+          </li>         
         <?php
           }
         ?> 
@@ -80,7 +86,7 @@
 
 
         <?php
-          if($this->session->userdata('akses')=='4'){
+          if($this->session->userdata('akses')=='4'){ //PELANGGAN
         ?>
           <li class="nav-item">
             <a class="nav-link" href="/teknisi-app/index.php/Controller_DashboardCustomer">
@@ -88,18 +94,24 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>  
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="mdi mdi-circle-outline menu-icon"></i>
-              <span class="menu-title">Layanan</span>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="/teknisi-app/index.php/Controller_Technician">
+              <i class="mdi mdi mdi-account-multiple menu-icon"></i>
+              <span class="menu-title">Teknisi</span>
             </a>
-          </li> 
+          </li>  -->
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="mdi mdi-file menu-icon"></i>
               <span class="menu-title">Pemesanan</span>
             </a>
           </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-check menu-icon"></i>
+              <span class="menu-title">Penilaian dan Ulasan</span>
+            </a>
+          </li>   
           <li class="nav-item">
             <a class="nav-link" href="/teknisi-app/index.php/Controller_Complain">
               <i class="mdi mdi-view-headline menu-icon"></i>

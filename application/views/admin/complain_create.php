@@ -58,30 +58,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Respon</label>
-                          <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="response" name="response"></textarea>
-                          </div>
-                        </div>
-                      </div>                                        
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Status Pengaduan</label>
-                          <div class="col-sm-9">
-                            <select class="form-control" name="complain_status">
-                              <option value="MENUNGGU">Menunggu</option>
-                              <option value="DALAM PROSES">Dalam Proses</option>
-                              <option value="SELESAI">Selesai</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                     <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Complain">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button> 
                   </form>

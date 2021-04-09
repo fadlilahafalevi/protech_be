@@ -6,6 +6,9 @@ class Controller_Technician extends CI_Controller{
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 			$data['list']=$this->M_Technician->getAllTechnician();
 			$this->load->view('admin/technician',$data);
+		}else if($this->session->userdata('akses')=='4'){
+			$data['list']=$this->M_Technician->getAllTechnician();
+			$this->load->view('customer/technician',$data);
 		}else{
 	        echo "Halaman tidak ditemukan";
 	    }

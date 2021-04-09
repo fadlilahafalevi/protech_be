@@ -14,15 +14,16 @@
       }
     </style>
 
-    <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" rel="stylesheet">
-    <script crossorigin="anonymous" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="/protech/assets/css/bootstrap-datetimepicker.min.css" type="text/css" media="all" />
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="/protech/assets/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="/protech/assets/js/demo.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />|
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
@@ -31,14 +32,13 @@
 <!-- first row starts here -->
   <div class="main-panel">
     <div class="content-wrapper">
-      <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Order/searchTechnician'; ?>">
+      <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Order/searchTechnician'; ?>" enctype="multipart/form-data">
       <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Formulir Pemesanan Jasa</h4>
                   <?php foreach ($service_category as $service_category) { ?>
-                  <h4 class="card-title"><?php echo $service_category->service_category_name ?></h4>
-                  <input type="text" class="form-control" id="service_category_code" name="service_category_code" value="<?php echo $service_category->service_category_code ?>" />
+                  <h4 class="card-title">Formulir Pemesanan Jasa - <?php echo $service_category->service_category_name ?></h4>
+                  <input type="hidden" class="form-control" id="service_category_code" name="service_category_code" value="<?php echo $service_category->service_category_code ?>" />
                   <?php } ?>
 
                     <div class="row">
@@ -90,11 +90,19 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Waktu Perbaikan</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="waktu_perbaikan" name="waktu_perbaikan" required/>
+                            <div class="form-group">
+                              <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                <input name="waktu_perbaikan" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+
 
                     <div class="row">
                       <div class="col-md-6">
@@ -132,13 +140,14 @@
                     </div>
                     <input type="text" class="form-control" id="searchInput" name="searchInput">
                     <div id="map"></div>
-
+                    <br>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Foto Kerusakan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="foto_kerusakan" name="foto_kerusakan" required/>
+                            <input type="file" class="span3" id="foto_kerusakan" name="foto_kerusakan">
+                            <?php if($this->session->flashdata('error')){echo $this->session->flashdata('error');} ?>
                           </div>
                         </div>
                       </div>
@@ -246,6 +255,14 @@ function bindDataToForm(address,lat,lng){
    document.getElementById('latitude').value = lat;
    document.getElementById('longitude').value = lng;
 }
+</script>
+
+<script type="text/javascript">
+$(function() {
+  $('#datetimepicker1').datetimepicker({
+    format:'HH:mm'
+  });
+});
 </script>
 
 </body>

@@ -6,21 +6,21 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>TEKNISI APP</title>
 
-    <style>
-      input[type="text"][disabled] {
-        width: 413px;
-      }
-    </style>
+  <style>
+    input[type="text"][disabled] {
+      width: 413px;
+    }
+  </style>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />|
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />|
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
 
 </head>
 <body>
@@ -41,7 +41,7 @@
                     <div class="row">
                       <div class="form-group">
                         <label>Waktu Perbaikan</label>
-                        <input type="text" class="form-control" style="border: 0px" value="<?php echo $waktu_perbaikan ?>" disabled>
+                        <input type="text" class="form-control" style="width: 413px;" value="<?php echo $waktu_perbaikan ?>" disabled>
                       </div>
                     </div>
 
@@ -106,23 +106,9 @@
                         <input type="text" class="form-control" style="border: 0px" value="Rp <?php echo number_format($data[0]->price,2,',','.'); ?>" disabled>
                       </div>
                     </div>
-
-                    <div class="row">
-                      <div class="form-group">
-                        <label>Status Pemesanan</label>
-                        <!-- <input type="text" class="form-control" style="border: 0px" value="<?php echo $waktu_perbaikan ?>" disabled> -->
-                        <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
-                        <label class="badge badge-danger">Menunggu Konfirmasi</label>
-                        <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
-                        <label class="badge badge-warning">Dalam Proses</label>
-                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN') { ?>
-                        <label class="badge badge-info">Menunggu Pembayaran</label>
-                        <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
-                        <label class="badge badge-success">Selesai</label>
-                        <?php } ?>
-                      </div>
-                    </div>
-
+                    <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Technician">Kembali</a>
+                    <a class="btn btn-danger" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/SELESAI"><i class="mdi mdi-close-circle-outline"></i>&nbsp;Tolak</a>
+                    <a class="btn btn-success" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/DALAM PROSES"><i class="mdi mdi-check-circle-outline"></i>&nbsp;Terima</a>
                   </div>
                 </div>
               </div>

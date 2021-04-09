@@ -338,7 +338,7 @@ class Controller_Order extends CI_Controller{
 		$service_category = $this->M_ServiceCategory->getServiceCategoryDetailByCode($this->input->post('service_category_code'));
 		$service_type = $this->M_ServiceType->getServiceTypeDetailByCode($this->input->post('service_type_code'));
 		$technician = $this->M_Technician->getTechnicianDetailByCode($this->input->post('tech_code'));
-		$order_status_wc = 'WAITING CONFIRMATION';
+		$order_status_wc = 'MENUNGGU KONFIRMASI';
 		$order_code = $this->M_General->getSequenceOrder('tbl_order', 4);
 		$customer_code =  $this->session->userdata('user_code');
 		$customer_username = $this->session->userdata('user_name');
@@ -361,6 +361,7 @@ class Controller_Order extends CI_Controller{
 
 		$this->M_General->insertData('tbl_order', $data_tbl_order);
 
+		//insert into tbl_order_detail
 		$data_detail = [ 'order_code'  => $order_code,
 		'service_type_code' => $service_type_code,
 		'price' => $service_type[0]->price,
@@ -369,6 +370,16 @@ class Controller_Order extends CI_Controller{
 		];
 
 		$this->M_General->insertData('tbl_order_detail', $data_detail);
+
+		//insert into tbl_payment
+		$data_payment = [ 'order_code' => $order_code,
+		'payment_method' => $metode_pembayaran,
+		'total_payment' => $service_type[0]->price,
+		'created_by' => $customer_username,
+		'created_datetime' => $now
+		];
+
+		$this->M_General->insertData('tbl_payment', $data_payment);
 
 		redirect('Controller_Order/getOneAfterOrderByCode/'.$order_code);
 	}
@@ -391,6 +402,15 @@ class Controller_Order extends CI_Controller{
                 $data['data'] = $this->M_Order->getOneByCode($code);
                 $data['detail'] = $this->M_Order->getDetailByCode($code);
                 $this->load->view('technician/order_view', $data);
+            }
+        } else if ($this->session->userdata('akses') == '3') {
+            if (isset($code)) {
+            	$data_order_detail = $this->M_Order->getOrderDetailAfterOrderByCode($code);
+            	$waktu_perbaikan = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H:i A');
+            	$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            	$data['data'] = $data_order_detail;
+            	$data['waktu_perbaikan'] = $waktu_perbaikan;
+                $this->load->view('technician/order_confirmation_detail', $data);
             }
         } else if ($this->session->userdata('akses') == '4') {
             if (isset($code)) {
@@ -433,57 +453,57 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function confirmOrderByTech() {
-		if ($this->session->userdata('akses')=='2') {
+	// public function confirmOrderByTech() {
+	// 	if ($this->session->userdata('akses')=='2') {
 
-		    $this->load->model("M_Order");
-		    $this->load->model("M_Customer");
-		    $this->load->model("T_Wallet");
-		    $this->load->model("M_General");
+	// 	    $this->load->model("M_Order");
+	// 	    $this->load->model("M_Customer");
+	// 	    $this->load->model("T_Wallet");
+	// 	    $this->load->model("M_General");
 		    
-			$order_code = $this->input->post('order_code');
-			$is_approved = $this->input->post('is_approved');
-			if (isset($order_code)) {
-			    if ($is_approved == 1) {
-				    $this->M_Order->updateStatus($order_code, 'IN PROGRESS');
-			    } else {
-			        $paid_amount = $this->M_Order->getTotalPriceFromOrder($order_code);
-			        $customer_code = $this->M_Order->getCustomerCodeFromOrder($order_code);
-			        $customer_phone = $this->M_Customer->getPhoneByCode($customer_code);
-			        $balance = $this->T_Wallet->getCurrentBalance($customer_phone);
-			        $credit = $this->T_Wallet->getCurrentCredit($customer_phone);
-			        $data_wallet = [
-			            'balance' => $balance + $paid_amount,
-			            'total_credit' => $credit + $paid_amount
-			        ];
+	// 		$order_code = $this->input->post('order_code');
+	// 		$is_approved = $this->input->post('is_approved');
+	// 		if (isset($order_code)) {
+	// 		    if ($is_approved == 1) {
+	// 			    $this->M_Order->updateStatus($order_code, 'IN PROGRESS');
+	// 		    } else {
+	// 		        $paid_amount = $this->M_Order->getTotalPriceFromOrder($order_code);
+	// 		        $customer_code = $this->M_Order->getCustomerCodeFromOrder($order_code);
+	// 		        $customer_phone = $this->M_Customer->getPhoneByCode($customer_code);
+	// 		        $balance = $this->T_Wallet->getCurrentBalance($customer_phone);
+	// 		        $credit = $this->T_Wallet->getCurrentCredit($customer_phone);
+	// 		        $data_wallet = [
+	// 		            'balance' => $balance + $paid_amount,
+	// 		            'total_credit' => $credit + $paid_amount
+	// 		        ];
 			        
-			        $intermediaryWallet = '082213223526';
-			        $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
-			        $debitIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
-			        $data_wallet_intermediary = [
-			            'balance' => $balanceIntermediaryWallet + $paid_amount,
-			            'total_credit' => $debitIntermediaryWallet + $paid_amount
-			        ];
+	// 		        $intermediaryWallet = '082213223526';
+	// 		        $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
+	// 		        $debitIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
+	// 		        $data_wallet_intermediary = [
+	// 		            'balance' => $balanceIntermediaryWallet + $paid_amount,
+	// 		            'total_credit' => $debitIntermediaryWallet + $paid_amount
+	// 		        ];
 			        
-			        $data = [
-			            'to_phone' => $customer_phone,
-			            'from_phone' => $intermediaryWallet,
-			            'txn_amount' => $paid_amount,
-			            'txn_code' => 'PAYM',
-			            'order_code' => $order_code,
-			            'is_processed' => 1,
-			            'is_approved' => 1
-			        ];
+	// 		        $data = [
+	// 		            'to_phone' => $customer_phone,
+	// 		            'from_phone' => $intermediaryWallet,
+	// 		            'txn_amount' => $paid_amount,
+	// 		            'txn_code' => 'PAYM',
+	// 		            'order_code' => $order_code,
+	// 		            'is_processed' => 1,
+	// 		            'is_approved' => 1
+	// 		        ];
 			        
-			        $this->M_General->insertData('tbl_transaction_history', $data);
-			        $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $customer_phone);
-			        $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
-			        $this->M_Order->updateStatus($order_code, 'REJECTED BY TECH');
-			    }
-				redirect('Controller_Order/getOneByCode/'.$order_code);
-			}
-		}
-	}
+	// 		        $this->M_General->insertData('tbl_transaction_history', $data);
+	// 		        $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $customer_phone);
+	// 		        $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
+	// 		        $this->M_Order->updateStatus($order_code, 'REJECTED BY TECH');
+	// 		    }
+	// 			redirect('Controller_Order/getOneByCode/'.$order_code);
+	// 		}
+	// 	}
+	// }
 
 	public function finishOrderByTech($order_code = '', $technician_code = '') {
         if ($this->session->userdata('akses') == '2') {
@@ -597,76 +617,76 @@ class Controller_Order extends CI_Controller{
         redirect('Controller_Order/getOneByCode/'.$order_code);
     }
 	
-	public function transferPaymentIntermediaryWallet($user_type, $phone, $amount, $order_code) {
-	    $this->load->model("T_Wallet");
-	    $this->load->model("M_General");
+	// public function transferPaymentIntermediaryWallet($user_type, $phone, $amount, $order_code) {
+	//     $this->load->model("T_Wallet");
+	//     $this->load->model("M_General");
 	    
-	    $intermediaryWallet = '082213223526';
-	    $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
-	    $debitIntermediaryWallet = $this->T_Wallet->getCurrentDebit($intermediaryWallet);
-	    $creditIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
-	    if (strcasecmp($user_type, 'customer') == 0) {
-	        $txn_code = 'PAYM';
-	        $is_processed = '1';
-	        $is_approved = '1';
+	//     $intermediaryWallet = '082213223526';
+	//     $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
+	//     $debitIntermediaryWallet = $this->T_Wallet->getCurrentDebit($intermediaryWallet);
+	//     $creditIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
+	//     if (strcasecmp($user_type, 'customer') == 0) {
+	//         $txn_code = 'PAYM';
+	//         $is_processed = '1';
+	//         $is_approved = '1';
 	        
-	        $balance = $this->T_Wallet->getCurrentBalance($phone);
-	        $debit = $this->T_Wallet->getCurrentDebit($phone);
-	        $credit = $this->T_Wallet->getCurrentCredit($phone);
+	//         $balance = $this->T_Wallet->getCurrentBalance($phone);
+	//         $debit = $this->T_Wallet->getCurrentDebit($phone);
+	//         $credit = $this->T_Wallet->getCurrentCredit($phone);
 	        
-	        $data = [
-	            'from_phone' => $phone,
-	            'to_phone' => $intermediaryWallet,
-	            'txn_amount' => $amount,
-	            'txn_code' => $txn_code,
-	            'order_code' => $order_code,
-	            'is_processed' => $is_processed,
-	            'is_approved' => $is_approved
-	        ];
+	//         $data = [
+	//             'from_phone' => $phone,
+	//             'to_phone' => $intermediaryWallet,
+	//             'txn_amount' => $amount,
+	//             'txn_code' => $txn_code,
+	//             'order_code' => $order_code,
+	//             'is_processed' => $is_processed,
+	//             'is_approved' => $is_approved
+	//         ];
 	        
-	        $data_wallet = [
-	            'balance' => $balance - $amount,
-	            'total_debit' => $debit + $amount
-	        ];
+	//         $data_wallet = [
+	//             'balance' => $balance - $amount,
+	//             'total_debit' => $debit + $amount
+	//         ];
 	        
-	        $data_wallet_intermediary = [
-	            'balance' => $balanceIntermediaryWallet + $amount,
-	            'total_credit' => $creditIntermediaryWallet + $amount
-	        ];
-	    } else if (strcasecmp($user_type, 'technician') == 0) {
-	        $txn_code = 'PAYM';
-	        $is_processed = '1';
-	        $is_approved = '1';
+	//         $data_wallet_intermediary = [
+	//             'balance' => $balanceIntermediaryWallet + $amount,
+	//             'total_credit' => $creditIntermediaryWallet + $amount
+	//         ];
+	//     } else if (strcasecmp($user_type, 'technician') == 0) {
+	//         $txn_code = 'PAYM';
+	//         $is_processed = '1';
+	//         $is_approved = '1';
 	        
-	        $balance = $this->T_Wallet->getCurrentBalance($phone);
-	        $debit = $this->T_Wallet->getCurrentDebit($phone);
-	        $credit = $this->T_Wallet->getCurrentCredit($phone);
+	//         $balance = $this->T_Wallet->getCurrentBalance($phone);
+	//         $debit = $this->T_Wallet->getCurrentDebit($phone);
+	//         $credit = $this->T_Wallet->getCurrentCredit($phone);
 	        
-	        $data = [
-	            'to_phone' => $phone,
-	            'from_phone' => $intermediaryWallet,
-	            'txn_amount' => $amount,
-	            'txn_code' => $txn_code,
-	            'order_code' => $order_code,
-	            'is_processed' => $is_processed,
-	            'is_approved' => $is_approved
-	        ];
+	//         $data = [
+	//             'to_phone' => $phone,
+	//             'from_phone' => $intermediaryWallet,
+	//             'txn_amount' => $amount,
+	//             'txn_code' => $txn_code,
+	//             'order_code' => $order_code,
+	//             'is_processed' => $is_processed,
+	//             'is_approved' => $is_approved
+	//         ];
 	        
-	        $data_wallet = [
-	            'balance' => $balance + $amount,
-	            'total_credit' => $credit + $amount
-	        ];
+	//         $data_wallet = [
+	//             'balance' => $balance + $amount,
+	//             'total_credit' => $credit + $amount
+	//         ];
 	        
-	        $data_wallet_intermediary = [
-	            'balance' => $balanceIntermediaryWallet - $amount,
-	            'total_debit' => $debitIntermediaryWallet + $amount
-	        ];
-	    }
+	//         $data_wallet_intermediary = [
+	//             'balance' => $balanceIntermediaryWallet - $amount,
+	//             'total_debit' => $debitIntermediaryWallet + $amount
+	//         ];
+	//     }
 	    
-	    $this->M_General->insertData('tbl_transaction_history', $data);
-	    $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
-	    $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
-	}
+	//     $this->M_General->insertData('tbl_transaction_history', $data);
+	//     $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
+	//     $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
+	// }
 
 	public function cancelByCustomer($order_code) {
         if ($this->session->userdata('akses') == '3') {
@@ -680,13 +700,25 @@ class Controller_Order extends CI_Controller{
     }
 	
 	public function getWaitingConfirmationOrder() {
-        if ($this->session->userdata('akses') == '1') {
+        if ($this->session->userdata('akses') == '3') {
             $this->load->model("M_Order");
             
-            $data['data'] = $this->M_Order->getOrderByStatus('WAITING CONFIRMATION');
-            //$data['data'] = $this->M_Order->getOrderByStatus();
-            $this->load->view('admin/order_confirmation_list', $data);
+            $data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            $data['data'] = $this->M_Order->getOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            $this->load->view('technician/order_need_confirmation_list', $data);
         }
+    }
+
+    public function confirmOrderTechnician($order_code, $status) {
+    	$this->load->model("M_General");
+    	$data = [
+                'order_status' => $status,
+                'modified_by' => $this->session->userdata('code'),
+                'modified_datetime' => date("Y-m-d H:i:s")
+            ];
+
+       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+       	
     }
     
     public function rejectByAdmin($order_code) {

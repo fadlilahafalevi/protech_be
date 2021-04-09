@@ -6,6 +6,9 @@ class Controller_Complain extends CI_Controller{
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
 			$data['list']=$this->M_Complain->getAllComplain();
 			$this->load->view('admin/complain',$data);
+		}else if($this->session->userdata('akses')=='4'){
+			$data['list']=$this->M_Complain->getComplainDetailByUserCode($this->session->userdata('user_code'));
+			$this->load->view('customer/complain',$data);
 		}else{
 	        echo "Halaman tidak ditemukan";
 	    }

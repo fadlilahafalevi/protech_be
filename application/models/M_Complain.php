@@ -15,4 +15,13 @@ class M_Complain extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	function getComplainDetailByUserCode($user_code) {
+		$this->db->select('c.*');
+		$this->db->from('tbl_complain c');
+	    $this->db->join('tbl_order o', 'c.order_code = o.order_code');
+		$this->db->where('customer_code', $user_code);
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

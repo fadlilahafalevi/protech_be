@@ -27,9 +27,7 @@ class Controller_Customer extends CI_Controller{
 	}
 
 	function createCustomer() {
-		if($this->session->userdata('akses') == '4'){
-			$this->load->view('admin/customer_create');
-		}
+		$this->load->view('admin/customer_create');
 	}
 
 	function updateCustomer($code = '') {

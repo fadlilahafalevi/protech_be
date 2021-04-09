@@ -7,6 +7,9 @@
   <div class="container-fluid page-body-wrapper">
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+          <?php
+            if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
+          ?>
           <li class="nav-item">
             <a class="nav-link" href="#">
               <i class="mdi mdi-home menu-icon"></i>
@@ -55,6 +58,57 @@
               </ul>
             </div>
           </li>
+        <?php
+          }
+        ?> 
+
+
+
+        <?php
+          if($this->session->userdata('akses')=='3'){
+        ?>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>          
+        <?php
+          }
+        ?> 
+
+
+
+        <?php
+          if($this->session->userdata('akses')=='4'){
+        ?>
+          <li class="nav-item">
+            <a class="nav-link" href="/teknisi-app/index.php/Controller_DashboardCustomer">
+              <i class="mdi mdi-home menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>  
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-circle-outline menu-icon"></i>
+              <span class="menu-title">Layanan</span>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="mdi mdi-file menu-icon"></i>
+              <span class="menu-title">Pemesanan</span>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="/teknisi-app/index.php/Controller_Complain">
+              <i class="mdi mdi-view-headline menu-icon"></i>
+              <span class="menu-title">Pengaduan</span>
+            </a>
+          </li>         
+        <?php
+          }
+        ?> 
         </ul>
       </nav>
 </body>

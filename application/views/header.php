@@ -138,22 +138,34 @@
               </a>
             </div>
           </li> -->
+          <?php
+            if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2' || $this->session->userdata('akses')=='3' || $this->session->userdata('akses') == '4'){
+          ?>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="/teknisi-app/assets/images/faces/face5.jpg" alt="profile"/>
               <span class="nav-profile-name"><?=$this->session->userdata('user_name');?></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <!-- <a class="dropdown-item">
+              <?php
+                if($this->session->userdata('akses')=='3' || $this->session->userdata('akses') == '4'){
+              ?>
+              <a class="dropdown-item" href="Controller_Settings">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
-              </a> -->
+              </a>
+              <?php
+                }
+              ?> 
               <a class="dropdown-item" href="Controller_Login/logout">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
               </a>
             </div>
           </li>
+          <?php
+            }
+          ?> 
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>

@@ -109,6 +109,25 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
+                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/confirmOrderTechnician/<?=$order_code?>/MENUNGGU PEMBAYARAN">
+               <h3 align="center">Apakah anda yakin?</h3>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                <button type="submit" class="btn btn-primary">Ya</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Pembayaran -->
+<div class="modal fade" id="modalPembayaran" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+            <div class="modal-body">
                 <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/confirmOrderTechnician/<?=$order_code?>/SELESAI">
                <h3 align="center">Apakah anda yakin?</h3>
             </div>
@@ -246,8 +265,10 @@
                 <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
                 <a class="btn btn-danger" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/SELESAI"><i class="mdi mdi-close-circle-outline"></i>&nbsp;Tolak</a>
                 <a class="btn btn-success" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/DALAM PROSES"><i class="mdi mdi-check-circle-outline"></i>&nbsp;Terima</a>
-                <?php } else if ($data[0]->order_status == 'DALAM PROSES' || $data[0]->order_status == 'MENUNGGU PEMBAYARAN') { ?>
+                <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                   <button class="btn btn-danger" data-toggle="modal" data-target="#modalSelesai"></i>Selesai</button>
+                <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN') { ?>
+                  <button class="btn btn-danger" data-toggle="modal" data-target="#modalPembayaran"></i>Konfirmasi Pembayaran</button>
                 <?php } ?>
                 <?php if ($data[0]->order_status == 'SELESAI' && !is_null($review[0]->review_id)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>

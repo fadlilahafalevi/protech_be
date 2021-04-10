@@ -95,7 +95,7 @@
                   <div class="submenu">
                     <ul class="submenu-item">
                       <li class="nav-item">
-                        <a class="nav-link" href="/protech/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('code')?>">Order History</a>
+                        <a class="nav-link" href="/protech/index.php/Controller_Order/getAll/<?=$this->session->userdata('code')?>">Order History</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="/protech/index.php/Controller_Wallet/getTransactionByPhone/<?=$this->session->userdata('phone')?>">Transaction History</a>

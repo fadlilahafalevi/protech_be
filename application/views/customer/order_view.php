@@ -60,6 +60,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />|
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+  <script src='/teknisi-app/assets/bootstrap-star-rating/js/star-rating.min.js' type='text/javascript'></script>
+  <script src="/teknisi-app/assets/vendors_bu/font-awesome/css/font-awesome.min.css"></script>
 
 </head>
 <body>
@@ -103,14 +105,51 @@
     </div>
 </div>
 
-<!-- Modal Selesai -->
-<div class="modal fade" id="modalSelesai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Modal Bayar -->
+<div class="modal fade" id="modalBayar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/confirmOrderTechnician/<?=$order_code?>/SELESAI">
+                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>">
                <h3 align="center">Apakah anda yakin?</h3>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                <button type="submit" class="btn btn-primary">Ya</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ulasan -->
+<div class="modal fade" id="modalUlasan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
+               <h3 align="center">Berikan Ulasan Anda</h3>
+               <div class="rating">
+                  <input type="radio" name="rating" id="rating-5" value="5">
+                  <label for="rating-5"></label>
+                  <input type="radio" name="rating" id="rating-4" value="4">
+                  <label for="rating-4"></label>
+                  <input type="radio" name="rating" id="rating-3" value="3">
+                  <label for="rating-3"></label>
+                  <input type="radio" name="rating" id="rating-2" value="2">
+                  <label for="rating-2"></label>
+                  <input type="radio" name="rating" id="rating-1" value="1">
+                  <label for="rating-1"></label>
+                </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 col-form-label">Ulasan</label>
+                      <div class="col-sm-9" style="max-width: 100%">
+                        <textarea class="form-control" rows="4" cols="50" id="ulasan" name="ulasan" required ></textarea>
+                      </div>
+                    </div>
             </div>
             <!-- Modal Footer -->
             <div class="modal-footer">
@@ -129,7 +168,7 @@
             <!-- Modal Body -->
             <div class="modal-body">
                 <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
-               <h3 align="center">Ulasan Dari Pelanggan</h3>
+               <h3 align="center">Ulasan Anda</h3>
                <div class="rating">
                   <input disabled="disabled" type="radio" name="rating" id="rating-5" value="5" <?php if ($review[0]->rate == 5) { ?> checked="" <?php } ?>>
                   <label for="rating-5"></label>
@@ -220,6 +259,14 @@
                 </div>
 
                 <div class="row">
+                  <div class="form-group">
+                    <label>Total Biaya Layanan</label>
+                    <!-- <input type="text" class="form-control" style="border: 0px" value="<?php echo $waktu_perbaikan ?>" disabled> -->
+                    <input type="text" class="form-control" style="border: 0px" value="Rp <?php echo number_format($payment[0]->total_payment,2,',','.'); ?>" disabled>
+                  </div>
+                </div>
+
+                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label class="col-sm-3 col-form-label">Status Pemesanan</label>
@@ -239,14 +286,12 @@
                   </div>
                 </div>
 
-                <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->technician_code?>">Kembali</a>
-                <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
-                <a class="btn btn-danger" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/SELESAI"><i class="mdi mdi-close-circle-outline"></i>&nbsp;Tolak</a>
-                <a class="btn btn-success" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/DALAM PROSES"><i class="mdi mdi-check-circle-outline"></i>&nbsp;Terima</a>
-                <?php } else if ($data[0]->order_status == 'DALAM PROSES' || $data[0]->order_status == 'MENUNGGU PEMBAYARAN') { ?>
-                  <button class="btn btn-danger" data-toggle="modal" data-target="#modalSelesai"></i>Selesai</button>
-                <?php } ?>
-                <?php if ($data[0]->order_status == 'SELESAI' && !is_null($review[0]->review_id)) { ?>
+                <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
+                  <button class="btn btn-success" data-toggle="modal" data-target="#modalBayar"></i>Sudah Bayar</button>
+                <?php } else if ($data[0]->order_status == 'SELESAI' && is_null($review[0]->review_id)) { ?>
+                  <button class="btn btn-success" data-toggle="modal" data-target="#modalUlasan"></i>Tulis Ulasan</button>
+                <?php } else if ($data[0]->order_status == 'SELESAI' && !is_null($review[0]->review_id)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>
                 <?php } ?>
               </div>
@@ -265,10 +310,6 @@
                       </div>
                     </div>
                   </div>
-                <?php } ?>
-                <br>
-                <?php if ($data[0]->order_status == 'DALAM PROSES') { ?>
-                <button class="btn btn-info btn-md" data-toggle="modal" data-target="#myModalNorm"><i class="mdi mdi-plus"></i>Tambah Layanan</button>
                 <?php } ?>
               </div>
             </div>

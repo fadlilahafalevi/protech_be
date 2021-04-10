@@ -183,22 +183,46 @@ class Controller_Order extends CI_Controller{
 			}
 
 			$this->load->view('customer/order_view', $data);
-		} else if($this->session->userdata('akses')=='3'){
+		} else if($this->session->userdata('akses')=='3') {
 			$this->load->model("M_Order");
 			$this->load->model("M_ServiceType");
+			$this->load->model("M_Review");
 
 			if (isset($code)) {
 				$data_order = $this->M_Order->getOne($code);
+				$payment = $this->M_Order->getPayment($code);
+				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
+	            $data['service_category_code'] = $data_order[0]->service_category_code;
+	            $data['order_code'] = $code;
+				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$data['data'] = $data_order;
+				$data['review'] = $this->M_Review->getOneByOrderCode($code);
+				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
+				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H:i A');
+				$data['payment'] = $payment;
+			}
+
+			$this->load->view('technician/order_view', $data);
+		} else if($this->session->userdata('akses')=='4') {
+			$this->load->model("M_Order");
+			$this->load->model("M_ServiceType");
+			$this->load->model("M_Review");
+
+			if (isset($code)) {
+				$data_order = $this->M_Order->getOne($code);
+				$payment = $this->M_Order->getPayment($code);
 				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
 	            $data['service_category_code'] = $data_order[0]->service_category_code;
 	            $data['order_code'] = $code;
 				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
 				$data['data'] = $data_order;
 				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
+				$data['review'] = $this->M_Review->getOneByOrderCode($code);
 				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H:i A');
+				$data['payment'] = $payment;
 			}
 
-			$this->load->view('technician/order_view', $data);
+			$this->load->view('customer/order_view', $data);
 		}
 	}
 
@@ -445,7 +469,7 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function getAllByTechnicianCode($code = '') {
+	public function getAll($code = '') {
 		if($this->session->userdata('akses')=='3'){
 
 			$this->load->model("M_Order");
@@ -454,6 +478,14 @@ class Controller_Order extends CI_Controller{
 				$data['data'] = $this->M_Order->getAllByTechnicianCode($code);
 				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
 				$this->load->view('technician/order_list', $data);
+			}
+		} else if ($this->session->userdata('akses')=='4') {
+			$this->load->model("M_Order");
+			
+			if(isset($code)) {
+				$data['data'] = $this->M_Order->getAllByCustomerCode($code);
+				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$this->load->view('customer/order_list', $data);
 			}
 		} else {
 			redirect('Controller_Login');
@@ -545,9 +577,9 @@ class Controller_Order extends CI_Controller{
 
         if (isset($order_code)) {
             $list_request_service = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($service_category_code);
-            $data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            $data['count_order_NC'] = $this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
             $data['order_code'] = $order_code;
-
+            $new_price = 0;
             foreach ($list_request_service as $service) {
                 $code = $service->service_type_code;
                 $service_type_code = $this->input->post($code);
@@ -556,11 +588,22 @@ class Controller_Order extends CI_Controller{
                 $data = [
                     'order_code' => $order_code,
                     'service_type_code' => $service_type_code,
-                    'price' => $price
+                    'price' => $price,
+                    'created_by' => $this->session->userdata('user_name')
                 ];
                     $this->M_General->insertData('tbl_order_detail', $data);
+
+                $new_price = $new_price + $price;
                 }
             }
+
+            $payment = $this->M_Order->getPayment($order_code);
+            $new_price = $new_price + $payment[0]->total_payment;
+            $data_payment = [
+            	'total_payment' => $new_price
+            ];
+            $this->M_General->updateData('tbl_payment', $data_payment, 'order_code', $order_code);
+
             redirect('Controller_Order/getOne/'.$order_code);
         }
     }
@@ -599,26 +642,23 @@ class Controller_Order extends CI_Controller{
         redirect('Controller_Order/getOneByCode/'.$order_code);
     }
     
-    public function submitRating($order_code) {
+    public function submitReview($order_code) {
         $this->load->model("M_Order");
         $this->load->model("M_General");
         
-        $rating = $this->input->post('rate');
+        $rating = $this->input->post('rating');
+        $ulasan = $this->input->post('ulasan');
         $data = [
             'order_code' => $order_code,
-            'order_rate' => $rating
+            'rate' => $rating,
+            'review'=> $ulasan,
+            'created_by' => $this->session->userdata('user_name'),
+            'created_datetime' => date("Y-m-d H:i:s")
         ];
         
-        $technician_code = $this->M_Order->getTechnicianCodeFromOrder($order_code);
-        $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+        $this->M_General->insertData('tbl_review', $data);
 
-        $average_rate = $this->M_Order->getAverageRate($technician_code);
-        $data_average = [
-            'avg_rate' => $average_rate
-        ];
-        
-        $this->M_General->updateData('tbl_technician', $data_average, 'technician_code', $technician_code);
-        redirect('Controller_Order/getOneByCode/'.$order_code);
+        redirect('Controller_Order/getOne/'.$order_code);
     }
 	
 	// public function transferPaymentIntermediaryWallet($user_type, $phone, $amount, $order_code) {
@@ -723,7 +763,16 @@ class Controller_Order extends CI_Controller{
             ];
 
        	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+       	redirect('Controller_Order/getOne/'.$order_code);
+    }
 
+    public function confirmPayment($order_code) {
+    	$this->load->model("M_General");
+		$data_payment = [
+			'payment_date' => date("Y-m-d H:i:s")
+		];
+		$this->M_General->updateData('tbl_payment', $data_payment, 'order_code', $order_code);
+       	redirect('Controller_Order/getOne/'.$order_code);
     }
     
     public function rejectByAdmin($order_code) {

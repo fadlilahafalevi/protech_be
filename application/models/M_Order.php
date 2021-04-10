@@ -51,10 +51,14 @@ class M_Order extends CI_Model{
 	}
 
 	public function getAllByCustomerCode($code) {
-		$this->db->select('o.*, c.fullname as customer_name, t.fullname as technician_name');
+		$this->db->distinct();
+		$this->db->select('o.*, sc.*');
 		$this->db->from('tbl_order o');
     	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code');
-	    $this->db->order_by('o.created_datetime','asc');    
+    	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code');
+    	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+    	$this->db->where('customer_code', $code);
+	    $this->db->order_by('o.created_datetime','desc');    
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -66,6 +70,7 @@ class M_Order extends CI_Model{
     	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code');
     	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code');
     	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+    	$this->db->where('technician_code', $code);
 	    $this->db->order_by('o.created_datetime','desc');    
 		$query = $this->db->get();
 		return $query->result();
@@ -112,6 +117,14 @@ class M_Order extends CI_Model{
     	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
 	    $this->db->where('order_status','MENUNGGU KONFIRMASI');
 	    $this->db->where('technician_code', $technician_code);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function getPayment($order='') {
+		$this->db->select('*');
+		$this->db->from('tbl_payment');
+	    $this->db->where('order_code', $order);
 		$query = $this->db->get();
 		return $query->result();
 	}

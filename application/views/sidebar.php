@@ -74,7 +74,7 @@
             </a>
           </li>  
           <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_Order/getAllByTechnicianCode/<?=$this->session->userdata('user_code')?>">
+            <a class="nav-link" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$this->session->userdata('user_code')?>">
               <i class="mdi mdi-file menu-icon"></i>
               <span class="menu-title">Pemesanan</span>
             </a>
@@ -101,7 +101,7 @@
             </a>
           </li>  -->
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$this->session->userdata('user_code')?>">
               <i class="mdi mdi-file menu-icon"></i>
               <span class="menu-title">Pemesanan</span>
             </a>

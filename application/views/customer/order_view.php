@@ -277,9 +277,9 @@
                       <label class="badge badge-danger">Menunggu Konfirmasi</label>
                       <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                       <label class="badge badge-warning">Dalam Proses</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && (!$payment)) { ?>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
                       <label class="badge badge-info">Menunggu Pembayaran</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && ($payment)) { ?>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($payment[0]->payment_date)) { ?>
                       <label class="badge badge-info">Sudah Bayar</label>
                       <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                       <label class="badge badge-success">Selesai</label>
@@ -289,7 +289,7 @@
                 </div>
 
                 <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
-                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && (!$payment)) { ?>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalBayar"></i>Sudah Bayar</button>
                 <?php } else if ($data[0]->order_status == 'SELESAI' && (!$review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalUlasan"></i>Tulis Ulasan</button>

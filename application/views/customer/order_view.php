@@ -162,6 +162,7 @@
 </div>
 
 <!-- Modal Lihat Ulasan -->
+<?php if ($review) { ?>
 <div class="modal fade" id="modalLihatUlasan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -196,6 +197,7 @@
         </div>
     </div>
 </div>
+<?php } ?>
 
 <!-- first row starts here -->
   <div class="main-panel">
@@ -275,9 +277,9 @@
                       <label class="badge badge-danger">Menunggu Konfirmasi</label>
                       <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                       <label class="badge badge-warning">Dalam Proses</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && (!$payment)) { ?>
                       <label class="badge badge-info">Menunggu Pembayaran</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($payment[0]->payment_date)) { ?>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && ($payment)) { ?>
                       <label class="badge badge-info">Sudah Bayar</label>
                       <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                       <label class="badge badge-success">Selesai</label>
@@ -287,11 +289,11 @@
                 </div>
 
                 <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
-                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && (!$payment)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalBayar"></i>Sudah Bayar</button>
-                <?php } else if ($data[0]->order_status == 'SELESAI' && is_null($review[0]->review_id)) { ?>
+                <?php } else if ($data[0]->order_status == 'SELESAI' && (!$review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalUlasan"></i>Tulis Ulasan</button>
-                <?php } else if ($data[0]->order_status == 'SELESAI' && !is_null($review[0]->review_id)) { ?>
+                <?php } else if ($data[0]->order_status == 'SELESAI' && ($review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>
                 <?php } ?>
               </div>

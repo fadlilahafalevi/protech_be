@@ -123,6 +123,8 @@
 </div>
 
 <!-- Modal Lihat Ulasan -->
+
+<?php if ($review) { ?>
 <div class="modal fade" id="modalLihatUlasan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -157,6 +159,7 @@
         </div>
     </div>
 </div>
+<?php } ?>
 
 <!-- first row starts here -->
   <div class="main-panel">
@@ -228,7 +231,7 @@
                       <label class="badge badge-danger">Menunggu Konfirmasi</label>
                       <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                       <label class="badge badge-warning">Dalam Proses</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && (!$payment)) { ?>
                       <label class="badge badge-info">Menunggu Pembayaran</label>
                       <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($payment[0]->payment_date)) { ?>
                       <label class="badge badge-info">Sudah Bayar</label>

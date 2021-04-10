@@ -185,9 +185,13 @@ class Controller_Order extends CI_Controller{
 			$this->load->view('customer/order_view', $data);
 		} else if($this->session->userdata('akses')=='3'){
 			$this->load->model("M_Order");
+			$this->load->model("M_ServiceType");
 
 			if (isset($code)) {
 				$data_order = $this->M_Order->getOne($code);
+				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
+	            $data['service_category_code'] = $data_order[0]->service_category_code;
+	            $data['order_code'] = $code;
 				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
 				$data['data'] = $data_order;
 				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);

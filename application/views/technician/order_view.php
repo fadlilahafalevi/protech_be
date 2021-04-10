@@ -27,6 +27,52 @@
 <?php require 'application/views/header.php'; ?>
 <?php require 'application/views/sidebar.php'; ?>
 
+<!-- Modal -->
+<div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">
+                    Tambah Layanan
+                </h4>
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/requestNewServiceSubmit/<?=$order_code?>/<?=$service_category_code?>">
+                  <?php 
+                foreach ($data_layanan_tambahan as $service_type){
+              ?>
+              <input type="hidden" name="price-<?=$service_type->service_type_code?>" value="<?=$service_type->price?>" >
+                <div class="form-check form-check-flat form-check-primary">
+                  <input type="checkbox" name="<?=$service_type->service_type_code?>" value="<?=$service_type->service_type_code?>" > <?=$service_type->service_type_name?> - Rp. <?=$service_type->price?>
+                </div>
+              <?php } ?>
+                
+                
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                            Close
+                </button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- first row starts here -->
   <div class="main-panel">
     <div class="content-wrapper">
@@ -110,8 +156,9 @@
                     </div>
                   </div>
                 <?php } ?>
+                <br>
+                <button class="btn btn-info btn-md" data-toggle="modal" data-target="#myModalNorm"><i class="mdi mdi-plus"></i>Tambah Layanan</a>
               </div>
-                <a class="btn btn-info" href="../requestNewService/<?php echo $data[0]->order_code ?>/<?php echo $data[0]->service_category_code ?>"><i class="mdi mdi-plus"></i>&nbsp;Tambah Layanan</a>
             </div>
           </div>
         </div>
@@ -119,6 +166,8 @@
     </div>
   </div>
 <?php require 'application/views/footer.php'; ?>
-
+<script type="text/javascript">
+  
+</script>
 </body>
 </html>

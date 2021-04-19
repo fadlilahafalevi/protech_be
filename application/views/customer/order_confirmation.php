@@ -38,56 +38,80 @@
             <div class="card">
               <!-- <div class="card-body"> -->
                 <div class="card-body" style="">
-                  <font size="4" face="Courier New" >
-                  <table style="border-collapse:separate; border-spacing:0 15px; width: 910px; ">
-                    <tr" style="padding-bottom: 1em;">
-                      <th colspan="3" id="centered-text-table">DETAIL PEMESANAN - <?php echo $service_category[0]->service_category_name ?></th>
-                    </tr>
-                    <tr>
-                      <th colspan="3" id="centered-text-table">--------------------------------------------</th>
-                    </tr>
-                    <tr>
-                      <td width="200px">Jenis Layanan</td>
-                      <td width="10px">:</td>
-                      <td width="700px"><?php echo $jenis_layanan ?></td>
-                    </tr>
-                    <tr>
-                      <td>Layanan</td>
-                      <td>:</td>
-                      <td><?php echo $service_type[0]->service_type_name ?></td>
-                    </tr>
-                    <tr>
-                      <td>Waktu Perbaikan</td>
-                      <td>:</td>
-                      <td><?php echo $waktu_perbaikan ?></td>
-                    </tr>
-                    <tr>
-                      <td>Alamat</td>
-                      <td>:</td>
-                      <td><?php echo $alamat ?></td>
-                    </tr>
-                    <tr>
-                      <td>Foto Kerusakan</td>
-                      <td>:</td>
-                      <td><img src="data:image/png;base64,<?php echo $foto_kerusakan ?>" style="max-width: 200px" alt="Red dot" /></td>
-                    </tr>
-                    <tr>
-                      <td>Detail Keluhan</td>
-                      <td>:</td>
-                      <td><?php echo $detail_keluhan ?></td>
-                    </tr>
-                    <tr>
-                      <td>Metode Pembayaran</td>
-                      <td>:</td>
-                      <td><?php echo $metode_pembayaran ?></td>
-                    </tr>
-                    <tr>
-                      <td>Nama Teknisi</td>
-                      <td>:</td>
-                      <td><?php echo $technician[0]->first_name.' '.$technician[0]->middle_name.' '.$technician[0]->last_name ?></td>
-                    </tr>
-                  </table>
-                </font>
+                  <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Jenis Layanan</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $jenis_layanan ?>" disabled />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Layanan</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="layanan" name="layanan" value="<?php echo $service_type[0]->service_type_name ?>" disabled />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="3" disabled="disabled"><?php echo $alamat ?></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Waktu Perbaikan</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="waktu_perbaikan" name="waktu_perbaikan" value="<?php echo $waktu_perbaikan ?>" disabled />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Detail Keluhan</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="3" disabled="disabled"><?php echo $detail_keluhan ?></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Foto Kerusakan</label>
+                          <div class="col-sm-9">
+                            <img src="data:image/png;base64,<?php echo $foto_kerusakan ?>" alt="Red dot" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Nama Teknisi</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nama_teknisi" name="nama_teknisi" value="<?php echo $technician[0]->first_name.' '.$technician[0]->middle_name.' '.$technician[0]->last_name ?>" disabled />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Metode Pembayaran</label>
+                          <div class="col-sm-9">
+                            <input type="tetx" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="<?php echo $metode_pembayaran ?>" disabled />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                 <br>
         <button style="align-content: center;" type="submit" class="btn btn-success">Konfirmasi</button>
                 </div>

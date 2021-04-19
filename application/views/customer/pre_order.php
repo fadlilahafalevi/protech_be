@@ -115,7 +115,7 @@
                       </div>
                     </div>
 
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Catatan Alamat</label>
@@ -124,7 +124,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
@@ -251,7 +251,7 @@
 }
 
 function bindDataToForm(address,lat,lng){
-   document.getElementById('full_address').value = address;
+   document.getElementById('alamat').value = address;
    document.getElementById('latitude').value = lat;
    document.getElementById('longitude').value = lng;
 }

@@ -68,7 +68,7 @@
           if($this->session->userdata('akses')=='3'){ //TEKNISI
         ?>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/teknisi-app/index.php/Controller_DashboardTechnician">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -94,24 +94,12 @@
               <span class="menu-title">Dashboard</span>
             </a>
           </li>  
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_Technician">
-              <i class="mdi mdi mdi-account-multiple menu-icon"></i>
-              <span class="menu-title">Teknisi</span>
-            </a>
-          </li>  -->
           <li class="nav-item">
             <a class="nav-link" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$this->session->userdata('user_code')?>">
               <i class="mdi mdi-file menu-icon"></i>
               <span class="menu-title">Pemesanan</span>
             </a>
           </li> 
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="mdi mdi-check menu-icon"></i>
-              <span class="menu-title">Penilaian dan Ulasan</span>
-            </a>
-          </li>   
           <li class="nav-item">
             <a class="nav-link" href="/teknisi-app/index.php/Controller_Complain">
               <i class="mdi mdi-view-headline menu-icon"></i>

@@ -8,339 +8,519 @@
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
-<?php require 'application/views/sidebar.php'; ?>
-<div class="main-panel">
-        <div class="content-wrapper">
-          <div class="row">
-            <div class="col-md-12 grid-margin">
-              <div class="d-flex justify-content-between flex-wrap">
-                <div class="d-flex align-items-end flex-wrap">
-                  <div class="mr-md-3 mr-xl-5">
-                    <h2>Welcome back,</h2>
-                    <p class="mb-md-0">Your analytics dashboard template.</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="mdi mdi-home text-muted hover-cursor"></i>
-                    <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Dashboard&nbsp;/&nbsp;</p>
-                    <p class="text-primary mb-0 hover-cursor">Analytics</p>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-between align-items-end flex-wrap">
-                  <button type="button" class="btn btn-light bg-white btn-icon mr-3 d-none d-md-block ">
-                    <i class="mdi mdi-download text-muted"></i>
-                  </button>
-                  <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                    <i class="mdi mdi-clock-outline text-muted"></i>
-                  </button>
-                  <button type="button" class="btn btn-light bg-white btn-icon mr-3 mt-2 mt-xl-0">
-                    <i class="mdi mdi-plus text-muted"></i>
-                  </button>
-                  <button class="btn btn-primary mt-2 mt-xl-0">Generate report</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row" id="proBanner">
-            <div class="col-md-12 grid-margin">
-              <div class="card bg-gradient-primary border-0">
-                <div class="card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap">
-                  <p class="mb-0 text-white font-weight-medium">Like what you see? Checkout our premium version for more.</p>
-                  <div class="d-flex">
-                    <a href="https://github.com/Urbanui/MajesticAdmin-Free-Bootstrap-Admin-Template" target="_blank" class="btn btn-outline-light mr-2">Download free version</a>
-                    <a href="http://www.urbanui.com/majestic-admin-pro/template/" target="_blank" class="btn btn-outline-light mr-2 bg-gradient-danger border-0">Upgrade to Pro</a>
-                    <button id="bannerClose" class="btn border-0 p-0">
-                      <i class="mdi mdi-close text-white"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body dashboard-tabs p-0">
-                  <ul class="nav nav-tabs px-4" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#overview" role="tab" aria-controls="overview" aria-selected="true">Overview</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="sales-tab" data-toggle="tab" href="#sales" role="tab" aria-controls="sales" aria-selected="false">Sales</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" id="purchases-tab" data-toggle="tab" href="#purchases" role="tab" aria-controls="purchases" aria-selected="false">Purchases</a>
-                    </li>
-                  </ul>
-                  <div class="tab-content py-0 px-0">
-                    <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
-                      <div class="d-flex flex-wrap justify-content-xl-between">
-                        <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Start date</small>
-                            <div class="dropdown">
-                              <a class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium" href="#" role="button" id="dropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5 class="mb-0 d-inline-block">26 Jul 2018</h5>
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLinkA">
-                                <a class="dropdown-item" href="#">12 Aug 2018</a>
-                                <a class="dropdown-item" href="#">22 Sep 2018</a>
-                                <a class="dropdown-item" href="#">21 Oct 2018</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-currency-usd mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Revenue</small>
-                            <h5 class="mr-2 mb-0">$577545</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-eye mr-3 icon-lg text-success"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Total views</small>
-                            <h5 class="mr-2 mb-0">9833550</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Downloads</small>
-                            <h5 class="mr-2 mb-0">2233783</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-flag mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Flagged</small>
-                            <h5 class="mr-2 mb-0">3497843</h5>
-                          </div>
-                        </div>
-                      </div>
+<?php require 'application/views/menubar.php'; ?>
+<!-- Start Status area -->
+<div class="notika-status-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <h2><span class="counter">50,000</span></h2>
+                        <p>Total Website Traffics</p>
                     </div>
-                    <div class="tab-pane fade" id="sales" role="tabpanel" aria-labelledby="sales-tab">
-                      <div class="d-flex flex-wrap justify-content-xl-between">
-                        <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Start date</small>
-                            <div class="dropdown">
-                              <a class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium" href="#" role="button" id="dropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5 class="mb-0 d-inline-block">26 Jul 2018</h5>
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLinkA">
-                                <a class="dropdown-item" href="#">12 Aug 2018</a>
-                                <a class="dropdown-item" href="#">22 Sep 2018</a>
-                                <a class="dropdown-item" href="#">21 Oct 2018</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Downloads</small>
-                            <h5 class="mr-2 mb-0">2233783</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-eye mr-3 icon-lg text-success"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Total views</small>
-                            <h5 class="mr-2 mb-0">9833550</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-currency-usd mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Revenue</small>
-                            <h5 class="mr-2 mb-0">$577545</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-flag mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Flagged</small>
-                            <h5 class="mr-2 mb-0">3497843</h5>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <h2><span class="counter">90,000</span>k</h2>
+                        <p>Website Impressions</p>
                     </div>
-                    <div class="tab-pane fade" id="purchases" role="tabpanel" aria-labelledby="purchases-tab">
-                      <div class="d-flex flex-wrap justify-content-xl-between">
-                        <div class="d-none d-xl-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-calendar-heart icon-lg mr-3 text-primary"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Start date</small>
-                            <div class="dropdown">
-                              <a class="btn btn-secondary dropdown-toggle p-0 bg-transparent border-0 text-dark shadow-none font-weight-medium" href="#" role="button" id="dropdownMenuLinkA" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <h5 class="mb-0 d-inline-block">26 Jul 2018</h5>
-                              </a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuLinkA">
-                                <a class="dropdown-item" href="#">12 Aug 2018</a>
-                                <a class="dropdown-item" href="#">22 Sep 2018</a>
-                                <a class="dropdown-item" href="#">21 Oct 2018</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-currency-usd mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Revenue</small>
-                            <h5 class="mr-2 mb-0">$577545</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-eye mr-3 icon-lg text-success"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Total views</small>
-                            <h5 class="mr-2 mb-0">9833550</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-download mr-3 icon-lg text-warning"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Downloads</small>
-                            <h5 class="mr-2 mb-0">2233783</h5>
-                          </div>
-                        </div>
-                        <div class="d-flex py-3 border-md-right flex-grow-1 align-items-center justify-content-center p-3 item">
-                          <i class="mdi mdi-flag mr-3 icon-lg text-danger"></i>
-                          <div class="d-flex flex-column justify-content-around">
-                            <small class="mb-1 text-muted">Flagged</small>
-                            <h5 class="mr-2 mb-0">3497843</h5>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="sparkline-bar-stats2">1,4,8,3,5,6,4,8,3,3,9,5</div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <h2>$<span class="counter">40,000</span></h2>
+                        <p>Total Online Sales</p>
                     </div>
-                  </div>
+                    <div class="sparkline-bar-stats3">4,2,8,2,5,6,3,8,3,5,9,5</div>
                 </div>
-              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-7 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Cash deposits</p>
-                  <p class="mb-4">To start a blog, think of a topic about and first brainstorm party is ways to write details</p>
-                   <?php 
-                      $no=0;
-                      foreach ($listCategory as $listCategory){
-                      $no++;
-                    ?>
-                    <a href="Controller_Order/preorder/<?php echo $listCategory->service_category_code ?>"><?php echo $listCategory->service_category_name ?></a> <br>
-                  <?php } ?>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <h2><span class="counter">1,000</span></h2>
+                        <p>Total Support Tickets</p>
+                    </div>
+                    <div class="sparkline-bar-stats4">2,4,8,4,5,7,4,7,3,5,7,5</div>
                 </div>
-              </div>
             </div>
-            <div class="col-md-5 grid-margin stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Total sales</p>
-                  <h1>$ 28835</h1>
-                  <h4>Gross sales over the years</h4>
-                  <p class="text-muted">Today, many people rely on computers to do homework, work, and create or store useful information. Therefore, it is important </p>
-                  <div id="total-sales-chart-legend"></div>                  
-                </div>
-                <canvas id="total-sales-chart"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12 stretch-card">
-              <div class="card">
-                <div class="card-body">
-                  <p class="card-title">Recent Purchases</p>
-                  <div class="table-responsive">
-                    <table id="recent-purchases-listing" class="table">
-                      <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Status report</th>
-                            <th>Office</th>
-                            <th>Price</th>
-                            <th>Date</th>
-                            <th>Gross amount</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                            <td>Jeremy Ortega</td>
-                            <td>Levelled up</td>
-                            <td>Catalinaborough</td>
-                            <td>$790</td>
-                            <td>06 Jan 2018</td>
-                            <td>$2274253</td>
-                        </tr>
-                        <tr>
-                            <td>Alvin Fisher</td>
-                            <td>Ui design completed</td>
-                            <td>East Mayra</td>
-                            <td>$23230</td>
-                            <td>18 Jul 2018</td>
-                            <td>$83127</td>
-                        </tr>
-                        <tr>
-                            <td>Emily Cunningham</td>
-                            <td>support</td>
-                            <td>Makennaton</td>
-                            <td>$939</td>
-                            <td>16 Jul 2018</td>
-                            <td>$29177</td>
-                        </tr>
-                        <tr>
-                            <td>Minnie Farmer</td>
-                            <td>support</td>
-                            <td>Agustinaborough</td>
-                            <td>$30</td>
-                            <td>30 Apr 2018</td>
-                            <td>$44617</td>
-                        </tr>
-                        <tr>
-                            <td>Betty Hunt</td>
-                            <td>Ui design not completed</td>
-                            <td>Lake Sandrafort</td>
-                            <td>$571</td>
-                            <td>25 Jun 2018</td>
-                            <td>$78952</td>
-                        </tr>
-                        <tr>
-                            <td>Myrtie Lambert</td>
-                            <td>Ui design completed</td>
-                            <td>Cassinbury</td>
-                            <td>$36</td>
-                            <td>05 Nov 2018</td>
-                            <td>$36422</td>
-                        </tr>
-                        <tr>
-                            <td>Jacob Kennedy</td>
-                            <td>New project</td>
-                            <td>Cletaborough</td>
-                            <td>$314</td>
-                            <td>12 Jul 2018</td>
-                            <td>$34167</td>
-                        </tr>
-                        <tr>
-                            <td>Ernest Wade</td>
-                            <td>Levelled up</td>
-                            <td>West Fidelmouth</td>
-                            <td>$484</td>
-                            <td>08 Sep 2018</td>
-                            <td>$50862</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <!-- content-wrapper ends -->
+    </div>
+</div>
+<!-- End Status area-->
+<!-- Start Sale Statistic area-->
+<div class="sale-statistic-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+                <div class="sale-statistic-inner notika-shadow mg-tb-30">
+                    <div class="curved-inner-pro">
+                        <div class="curved-ctn">
+                            <h2>Sales Statistics</h2>
+                            <p>Vestibulum purus quam scelerisque, mollis nonummy metus</p>
+                        </div>
+                    </div>
+                    <div id="curved-line-chart" class="flot-chart-sts flot-chart"></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+                <div class="statistic-right-area notika-shadow mg-tb-30 sm-res-mg-t-0">
+                    <div class="past-day-statis">
+                        <h2>For The Past 30 Days</h2>
+                        <p>Fusce eget dolor id justo luctus the commodo vel pharetra nisi. Donec velit of libero.</p>
+                    </div>
+        <div class="dash-widget-visits"></div>
+                    <div class="past-statistic-an">
+                        <div class="past-statistic-ctn">
+                            <h3><span class="counter">3,20,000</span></h3>
+                            <p>Page Views</p>
+                        </div>
+                        <div class="past-statistic-graph">
+                            <div class="stats-bar"></div>
+                        </div>
+                    </div>
+                    <div class="past-statistic-an">
+                        <div class="past-statistic-ctn">
+                            <h3><span class="counter">1,03,000</span></h3>
+                            <p>Total Clicks</p>
+                        </div>
+                        <div class="past-statistic-graph">
+                            <div class="stats-line"></div>
+                        </div>
+                    </div>
+                    <div class="past-statistic-an">
+                        <div class="past-statistic-ctn">
+                            <h3><span class="counter">24,00,000</span></h3>
+                            <p>Site Visitors</p>
+                        </div>
+                        <div class="past-statistic-graph">
+                            <div class="stats-bar-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Sale Statistic area-->
+<!-- Start Email Statistic area-->
+<div class="notika-email-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="email-statis-inner notika-shadow">
+                    <div class="email-ctn-round">
+                        <div class="email-rdn-hd">
+            <h2>Email Statistics</h2>
+          </div>
+                        <div class="email-statis-wrap">
+                            <div class="email-round-nock">
+                                <input type="text" class="knob" value="0" data-rel="55" data-linecap="round" data-width="130" data-bgcolor="#E4E4E4" data-fgcolor="#00c292" data-thickness=".10" data-readonly="true">
+                            </div>
+                            <div class="email-ctn-nock">
+                                <p>Total Emails Sent</p>
+                            </div>
+                        </div>
+                        <div class="email-round-gp">
+                            <div class="email-round-pro">
+                                <div class="email-signle-gp">
+                                    <input type="text" class="knob" value="0" data-rel="75" data-linecap="round" data-width="90" data-bgcolor="#E4E4E4" data-fgcolor="#00c292" data-thickness=".10" data-readonly="true" disabled>
+                                </div>
+                                <div class="email-ctn-nock">
+                                    <p>Bounce Rate</p>
+                                </div>
+                            </div>
+                            <div class="email-round-pro">
+                                <div class="email-signle-gp">
+                                    <input type="text" class="knob" value="0" data-rel="35" data-linecap="round" data-width="90" data-bgcolor="#E4E4E4" data-fgcolor="#00c292" data-thickness=".10" data-readonly="true" disabled>
+                                </div>
+                                <div class="email-ctn-nock">
+                                    <p>Total Opened</p>
+                                </div>
+                            </div>
+                            <div class="email-round-pro sm-res-ds-n lg-res-mg-bl">
+                                <div class="email-signle-gp">
+                                    <input type="text" class="knob" value="0" data-rel="45" data-linecap="round" data-width="90" data-bgcolor="#E4E4E4" data-fgcolor="#00c292" data-thickness=".10" data-readonly="true" disabled>
+                                </div>
+                                <div class="email-ctn-nock">
+                                    <p>Total Ignored</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="recent-post-wrapper notika-shadow sm-res-mg-t-30 tb-res-ds-n dk-res-ds">
+                    <div class="recent-post-ctn">
+                        <div class="recent-post-title">
+                            <h2>Recent Posts</h2>
+                        </div>
+                    </div>
+                    <div class="recent-post-items">
+                        <div class="recent-post-signle rct-pt-mg-wp">
+                            <a href="#">
+                                <div class="recent-post-flex">
+                                    <div class="recent-post-img">
+                                        <img src="/teknisi-app/assets/notika/img/post/2.jpg" alt="" />
+                                    </div>
+                                    <div class="recent-post-it-ctn">
+                                        <h2>Smith</h2>
+                                        <p>Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="recent-post-signle">
+                            <a href="#">
+                                <div class="recent-post-flex rct-pt-mg">
+                                    <div class="recent-post-img">
+                                        <img src="/teknisi-app/assets/notika/img/post/1.jpg" alt="" />
+                                    </div>
+                                    <div class="recent-post-it-ctn">
+                                        <h2>John Deo</h2>
+                                        <p>Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="recent-post-signle">
+                            <a href="#">
+                                <div class="recent-post-flex rct-pt-mg">
+                                    <div class="recent-post-img">
+                                        <img src="/teknisi-app/assets/notika/img/post/4.jpg" alt="" />
+                                    </div>
+                                    <div class="recent-post-it-ctn">
+                                        <h2>Malika</h2>
+                                        <p>Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="recent-post-signle">
+                            <a href="#">
+                                <div class="recent-post-flex rct-pt-mg">
+                                    <div class="recent-post-img">
+                                        <img src="/teknisi-app/assets/notika/img/post/2.jpg" alt="" />
+                                    </div>
+                                    <div class="recent-post-it-ctn">
+                                        <h2>Smith</h2>
+                                        <p>Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="recent-post-signle">
+                            <a href="#">
+                                <div class="recent-post-flex rct-pt-mg">
+                                    <div class="recent-post-img">
+                                        <img src="/teknisi-app/assets/notika/img/post/1.jpg" alt="" />
+                                    </div>
+                                    <div class="recent-post-it-ctn">
+                                        <h2>John Deo</h2>
+                                        <p>Nunc quis diam diamurabitur at dolor elementum, dictum turpis vel</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="recent-post-signle">
+                            <a href="#">
+                                <div class="recent-post-flex rc-ps-vw">
+                                    <div class="recent-post-line rct-pt-mg">
+                                        <p>View All</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="recent-items-wp notika-shadow sm-res-mg-t-30">
+                    <div class="rc-it-ltd">
+                        <div class="recent-items-ctn">
+                            <div class="recent-items-title">
+                                <h2>Recent Items</h2>
+                            </div>
+                        </div>
+                        <div class="recent-items-inn">
+                            <table class="table table-inner table-vmiddle">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th style="width: 60px">Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="f-500 c-cyan">4555</td>
+                                        <td>Samsung Galaxy Mega</td>
+                                        <td class="f-500 c-cyan">$921</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="f-500 c-cyan">4556</td>
+                                        <td>Huawei Ascend P6</td>
+                                        <td class="f-500 c-cyan">$240</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="f-500 c-cyan">8778</td>
+                                        <td>HTC One M8</td>
+                                        <td class="f-500 c-cyan">$400</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="f-500 c-cyan">5667</td>
+                                        <td>Samsung Galaxy Alpha</td>
+                                        <td class="f-500 c-cyan">$870</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="f-500 c-cyan">7886</td>
+                                        <td>LG G3</td>
+                                        <td class="f-500 c-cyan">$790</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+          <div id="recent-items-chart" class="flot-chart-items flot-chart vt-ct-it tb-rc-it-res"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Email Statistic area-->
+<!-- Start Realtime sts area-->
+<div class="realtime-statistic-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="realtime-wrap notika-shadow mg-t-30">
+                    <div class="realtime-ctn">
+                        <div class="realtime-title">
+                            <h2>Realtime Visitors</h2>
+                        </div>
+                    </div>
+                    <div class="realtime-visitor-ctn">
+                        <div class="realtime-vst-sg">
+                            <h4><span class="counter">4,35,456</span></h4>
+                            <p>Visitors last 24h</p>
+                        </div>
+                        <div class="realtime-vst-sg">
+                            <h4><span class="counter">4,566</span></h4>
+                            <p>Visitors last 30m</p>
+                        </div>
+                    </div>
+                    <div class="realtime-map">
+                        <div class="vectorjsmarp" id="world-map"></div>
+                    </div>
+                    <div class="realtime-country-ctn realtime-ltd-mg">
+                        <h5>September 4, 21:44:02 (2 Mins 56 Seconds)</h5>
+                        <div class="realtime-ctn-bw">
+                            <div class="realtime-ctn-st">
+                                <span><img src="/teknisi-app/assets/notika/img/country/1.png" alt="" /></span> <span>United States</span>
+                            </div>
+                            <div class="realtime-bw">
+                                <span>Firefox</span>
+                            </div>
+                            <div class="realtime-bw">
+                                <span>Mac OSX</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="realtime-country-ctn">
+                        <h5>September 7, 20:44:02 (5 Mins 56 Seconds)</h5>
+                        <div class="realtime-ctn-bw">
+                            <div class="realtime-ctn-st">
+                                <span><img src="/teknisi-app/assets/notika/img/country/2.png" alt="" /></span> <span>Australia</span>
+                            </div>
+                            <div class="realtime-bw">
+                                <span>Firefox</span>
+                            </div>
+                            <div class="realtime-bw">
+                                <span>Mac OSX</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="realtime-country-ctn">
+                        <h5>September 9, 19:44:02 (10 Mins 56 Seconds)</h5>
+                        <div class="realtime-ctn-bw">
+                            <div class="realtime-ctn-st">
+                                <span><img src="/teknisi-app/assets/notika/img/country/3.png" alt="" /></span> <span>Brazil</span>
+                            </div>
+                            <div class="realtime-bw">
+                                <span>Firefox</span>
+                            </div>
+                            <div class="realtime-bw">
+                                <span>Mac OSX</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="add-todo-list notika-shadow mg-t-30">
+                    <div class="realtime-ctn">
+                        <div class="realtime-title">
+                            <h2>Add Todo</h2>
+                        </div>
+                    </div>
+                    <div class="card-box">
+                        <div class="todoapp">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6 col-sm-6 col-xs-12">
+                                    <h4 id="todo-message"><span id="todo-remaining"></span> of <span id="todo-total"></span> remaining</h4>
+                                </div>
+                                <div class="col-sm-6 col-md-6 col-sm-6 col-xs-12">
+                                    <div class="notika-todo-btn">
+                                        <a href="#" class="pull-right btn btn-primary btn-sm" id="btn-archive">Archive</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notika-todo-scrollbar">
+                                <ul class="list-group no-margn todo-list" id="todo-list"></ul>
+                            </div>
+                            <div id="todo-form">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-sm-12 col-xs-12 todo-inputbar">
+                                        <div class="form-group todo-flex">
+                                            <div class="nk-int-st">
+                                                <input type="text" id="todo-input-text" name="todo-input-text" class="form-control" placeholder="Add new todo">
+                                            </div>
+                                            <div class="todo-send">
+                                                <button class="btn-primary btn-md btn-block btn notika-add-todo" type="button" id="todo-btn-submit">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="notika-chat-list notika-shadow mg-t-30 tb-res-ds-n dk-res-ds">
+                    <div class="realtime-ctn">
+                        <div class="realtime-title">
+                            <h2>Chat Box</h2>
+                        </div>
+                    </div>
+                    <div class="card-box">
+                        <div class="chat-conversation">
+                            <div class="widgets-chat-scrollbar">
+                                <ul class="conversation-list">
+                                    <li class="clearfix">
+                                        <div class="chat-avatar">
+                                            <img src="/teknisi-app/assets/notika/img/post/1.jpg" alt="male">
+                                            <i>10:00</i>
+                                        </div>
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap">
+                                                <i>John Deo</i>
+                                                <p>
+                                                    Hello!
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix odd">
+                                        <div class="chat-avatar">
+                                            <img src="/teknisi-app/assets/notika/img/post/2.jpg" alt="Female">
+                                            <i>10:01</i>
+                                        </div>
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap chat-widgets-cn">
+                                                <i>Smith</i>
+                                                <p>
+                                                    Hi, How are you? What about our next meeting?
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="chat-avatar">
+                                            <img src="/teknisi-app/assets/notika/img/post/1.jpg" alt="male">
+                                            <i>10:01</i>
+                                        </div>
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap">
+                                                <i>John Deo</i>
+                                                <p>
+                                                    Yeah everything is fine
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix odd">
+                                        <div class="chat-avatar">
+                                            <img src="/teknisi-app/assets/notika/img/post/2.jpg" alt="male">
+                                            <i>10:02</i>
+                                        </div>
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap chat-widgets-cn">
+                                                <i>Smith</i>
+                                                <p>
+                                                    Wow that's great
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix">
+                                        <div class="chat-avatar">
+                                            <img src="/teknisi-app/assets/notika/img/post/1.jpg" alt="male">
+                                            <i>10:01</i>
+                                        </div>
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap">
+                                                <i>John Deo</i>
+                                                <p>
+                                                    Doing Better i am thinking about that..
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="clearfix odd">
+                                        <div class="chat-avatar">
+                                            <img src="/teknisi-app/assets/notika/img/post/2.jpg" alt="male">
+                                            <i>10:02</i>
+                                        </div>
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap chat-widgets-cn">
+                                                <i>Smith</i>
+                                                <p>
+                                                    Wow, You also tallent man...
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="chat-widget-input">
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-12 col-sm-12 col-xs-12 chat-inputbar">
+                                        <div class="form-group todo-flex">
+                                            <div class="nk-int-st">
+                                                <input type="text" class="form-control chat-input" placeholder="Enter your text">
+                                            </div>
+                                            <div class="chat-send">
+                                                <button type="submit" class="btn btn-md btn-primary btn-block notika-chat-btn">Send</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Realtime sts area-->
 <?php require 'application/views/footer.php'; ?>
 </body>
 </html>

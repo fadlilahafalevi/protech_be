@@ -4,18 +4,19 @@
   <title></title>
 </head>
 <body>
-  <!-- partial:partials/_footer.html -->
-          <footer class="footer">
-            <div class="d-sm-flex justify-content-center justify-content-sm-between">
-              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021 <a href="/teknisi-app/index.php/Controller_Dashboard" target="_blank">TEKNISI APP</a>. All rights reserved.</span>
+<!-- Start Footer area-->
+<div class="footer-copyright-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="footer-copy-right">
+                    <p>Copyright © 2018 
+. All rights reserved. Template by <a href="https://colorlib.com">Colorlib</a>.</p>
+                </div>
             </div>
-          </footer>
-        <!-- partial -->
-      </div>
-      <!-- main-panel ends -->
+        </div>
     </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-  <!-- container-scroller -->
+</div>
+<!-- End Footer area-->
 </body>
 </html>

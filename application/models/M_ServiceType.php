@@ -26,4 +26,20 @@ class M_ServiceType extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	function isInstalasiExists($service_category_code) {
+		$this->db->where('type','INSTALASI');
+		$this->db->where('service_category_code',$service_category_code);
+		return $this->db->count_all_results('tbl_service_type');
+	}
+
+	function getInstalasiService($service_category_code) {
+		$this->db->select('*, sc.service_category_name');
+		$this->db->from('tbl_service_type st');
+		$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+		$this->db->where('sc.service_category_code', $service_category_code);
+		$this->db->where('st.type', 'INSTALASI');
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

@@ -31,7 +31,7 @@
           <input type="hidden" class="form-control" id="latitude" name="latitude" value="<?php echo $latitude ?>" />
           <input type="hidden" class="form-control" id="longitude" name="longitude" value="<?php echo $longitude ?>" />
           <input type="hidden" class="form-control" id="service_category_code" name="service_category_code" value="<?php echo $service_category_code ?>" />
-          <input type="hidden" class="form-control" id="service_type_code" name="service_type_code" value="<?php echo $service_type_code ?>" />
+          <input type="text" class="form-control" id="service_type_code" name="service_type_code" value="<?php echo $service_type_code ?>" />
           <input type="hidden" class="form-control" id="tech_code" name="tech_code" value="<?php echo $technician_code ?>" />
           <!-- <?php print_r($service_type) ?> -->
           <div class="col-12 grid-margin">
@@ -89,20 +89,20 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Foto Kerusakan</label>
                           <div class="col-sm-9">
-                            <img src="data:image/png;base64,<?php echo $foto_kerusakan ?>" alt="Red dot" />
+                            <img width="800px" src="data:image/png;base64,<?php echo $foto_kerusakan ?>" alt="Red dot" />
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
+                      <!-- <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Teknisi</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" id="nama_teknisi" name="nama_teknisi" value="<?php echo $technician[0]->first_name.' '.$technician[0]->middle_name.' '.$technician[0]->last_name ?>" disabled />
                           </div>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Metode Pembayaran</label>

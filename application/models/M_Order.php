@@ -1,7 +1,14 @@
 <?php
 class M_Order extends CI_Model{
 	public function searchTechnician($latitude, $longitude, $service_code){
-		$result=$this->db->query("SELECT *, @rownum := @rownum + 1 as row_number, (6371 * 2 * ASIN(SQRT( POWER(SIN(( $latitude - tup.latitude) *  pi()/180 / 2), 2) +COS( $latitude * pi()/180) * COS(tup.latitude * pi()/180) * POWER(SIN(( $longitude - tup.longitude) * pi()/180 / 2), 2) ))) as distance, tup.user_code as tech_id FROM tbl_user_profile tup cross join (select @rownum := 0) r LEFT JOIN tbl_service_ref sr on sr.user_code = tup.user_code WHERE sr.service_type_code = '$service_code'  ");
+		$result=$this->db->query("SELECT *, @rownum := @rownum + 1 as row_number, (6371 * 2 * ASIN(SQRT( POWER(SIN(( $latitude - tup.latitude) *  pi()/180 / 2), 2) +COS( $latitude * pi()/180) * COS(tup.latitude * pi()/180) * POWER(SIN(( $longitude - tup.longitude) * pi()/180 / 2), 2) ))) as distance, tup.user_code as tech_id FROM tbl_user_profile tup cross join (select @rownum := 0) r LEFT JOIN tbl_service_ref sr on sr.user_code = tup.user_code WHERE sr.service_category_code = '$service_code'  ");
+		//HAVING distance <= 10 ORDER BY distance
+		return $result->result();
+	}
+
+	public function searchOrder($latitude, $longitude, $user_code){
+		$result=$this->db->query("SELECT @rownum := @rownum + 1 as row_number, (6371 * 2 * ASIN(SQRT( POWER(SIN(( -6.158305 - to2.latitude) *  pi()/180 / 2), 2) +COS( -6.158305 * pi()/180) * COS(to2.latitude * pi()/180) * POWER(SIN(( 826.809371 - to2.longitude) * pi()/180 / 2), 2) ))) as distance, to2.order_code, tsc.service_category_name, tst.service_type_name, concat(tupc.first_name, ' ', tupc.middle_name, ' ', tupc.last_name) as nama_customer, to2.photo 
+		FROM tbl_order to2 cross join (select @rownum := 0) r left join tbl_service_ref tsr on tsr.service_category_code = to2.service_category_code left join tbl_user_profile tupc on tupc.user_code = to2.customer_code left join tbl_service_category tsc on tsc.service_category_code = to2.service_category_code left join tbl_order_detail tod on tod.order_code = to2.order_code left join tbl_service_type tst on tst.service_type_code = tod.service_type_code where technician_code = '' and tsr.user_code = '$user_code'");
 		//HAVING distance <= 10 ORDER BY distance
 		return $result->result();
 	}
@@ -86,16 +93,16 @@ class M_Order extends CI_Model{
 	}
 
 	function getOrderDetailAfterOrderByCode($order_code) {
-		$this->db->select('*, concat(upt.first_name, \' \', upt.middle_name, \' \', upt.last_name) as nama_teknisi, concat(upc.first_name, \' \', upc.middle_name, \' \', upc.last_name) as nama_customer ');
+		$this->db->select('*, concat(upc.first_name, \' \', upc.middle_name, \' \', upc.last_name) as nama_customer ');
 		$this->db->from('tbl_order o');
     	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code');
     	$this->db->join('tbl_user_profile upc', 'upc.user_code = o.customer_code');
-    	$this->db->join('tbl_user_profile upt', 'upt.user_code = o.technician_code');
     	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code');
     	$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
 		$this->db->where('o.order_code', $order_code);
 		$query = $this->db->get();
 		return $query->result();
+		echo $this->db->last_query();
 	}
 
 	public function getCountOrderNeedConfirmationByTechCode($technician_code='') {

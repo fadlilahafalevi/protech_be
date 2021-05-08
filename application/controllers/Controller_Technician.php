@@ -48,7 +48,7 @@ class Controller_Technician extends CI_Controller{
 			if (isset($code)) {
 				$listData = $this->M_Technician->getTechnicianDetailByCode($code);
 				$data['data'] = $listData;
-				$data['list_checked_service_type'] = $this->M_Technician->getCheckedServiceType($code);
+				$data['list_checked_service_category'] = $this->M_Technician->getCheckedServiceType($code);
 				
 				foreach ($listData as $field) {
 					$active_status = $field->active_status;

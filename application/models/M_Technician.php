@@ -21,10 +21,9 @@ class M_Technician extends CI_Model{
 	}
 	
 	function getCheckedServiceType($user_code){
-		$this->db->select('st.service_type_code, st.service_type_name, if(sr.service_ref_id is null, "false", "true") as checked, sc.service_category_name');
-		$this->db->from('tbl_service_type st');
-    	$this->db->join('tbl_service_ref sr', "st.service_type_code=sr.service_type_code and sr.user_code='".$user_code."'", 'left');
-    	$this->db->join('tbl_service_category sc', 'sc.service_category_code=st.service_category_code', 'left');
+		$this->db->select('sc.service_category_code, if(sr.service_ref_id is null, "false", "true") as checked, sc.service_category_name');
+		$this->db->from('tbl_service_category sc');
+    	$this->db->join('tbl_service_ref sr', "sc.service_category_code=sr.service_category_code and sr.user_code='".$user_code."'", 'left');
 		$query = $this->db->get();
 		return $query->result();
 	}

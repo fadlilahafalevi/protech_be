@@ -188,7 +188,26 @@
             <div class="card-body">
               <h4 class="card-title">Detail Pemesanan</h4>
 
-                <div class="row">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Waktu Perbaikan</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" value="<?php echo $waktu_perbaikan ?>" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Alamat</label>
+                    <div class="col-sm-9">
+                      <textarea class="form-control" rows="4" disabled style="background-color: #ffffff; color: black;"><?php echo $data[0]->address; ?></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                <!-- <div class="row">
                   <div class="form-group">
                     <label>Waktu Perbaikan</label>
                     <input type="text" class="form-control" style="width: 413px;" value="<?php echo $waktu_perbaikan ?>" disabled>
@@ -200,52 +219,51 @@
                     <label>Alamat</label>
                     <textarea class="form-control" rows="4" cols="50" disabled style="background-color: #ffffff; color: black;"><?php echo $data[0]->address; ?></textarea>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="row">
-                  <div class="form-group">
-                    <label>Foto Kerusakan</label>
-                    <br>
-                    <img src="data:image/png;base64,<?php echo $data[0]->photo ?>" style="max-width: 200px" alt="Red dot" />
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Kategori Layanan</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" style="border: 0px" value="<?php echo $data[0]->service_category_name ?>" disabled>
+                    </div>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="form-group">
-                    <label>Detail Keluhan</label>
-                    <textarea class="form-control" rows="4" cols="50" disabled style="background-color: #ffffff; color: black;"><?php echo $data[0]->detail_keluhan; ?></textarea>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Detail Keluhan</label>
+                    <div class="col-sm-9">
+                      <textarea class="form-control" rows="4" cols="50" disabled style="background-color: #ffffff; color: black;"><?php echo $data[0]->detail_keluhan; ?></textarea>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="row">
-                  <div class="form-group">
-                    <label>Metode Pembayaran</label>
-                    <!-- <input type="text" class="form-control" style="border: 0px" value="<?php echo $waktu_perbaikan ?>" disabled> -->
-                    <input type="text" class="form-control" style="border: 0px" value="Tunai" disabled>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Nama Pelanggan</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" style="border: 0px" value="<?php echo $data[0]->service_category_name ?>" disabled>
+                    </div>
                   </div>
                 </div>
-
-                <div class="row">
-                  <div class="form-group">
-                    <label>Nama Customer</label>
-                    <!-- <input type="text" class="form-control" style="border: 0px" value="<?php echo $waktu_perbaikan ?>" disabled> -->
-                    <input type="text" class="form-control" style="border: 0px" value="<?php echo $data[0]->nama_customer ?>" disabled>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Metode Pembayaran</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" style="border: 0px" value="<?php echo $payment[0]->payment_method ?>" disabled>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="row">
-                  <div class="form-group">
-                    <label>Kategori Layanan</label>
-                    <!-- <input type="text" class="form-control" style="border: 0px" value="<?php echo $waktu_perbaikan ?>" disabled> -->
-                    <input type="text" class="form-control" style="border: 0px" value="<?php echo $data[0]->service_category_name ?>" disabled>
-                  </div>
-                </div>
-
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label class="col-sm-3 col-form-label">Status Pemesanan</label>
-                      <!-- <input type="text" class="form-control" style="border: 0px" value="<?php echo $waktu_perbaikan ?>" disabled> -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Status Pemesanan</label>
+                    <div class="col-sm-9">
                       <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
                       <label class="badge badge-danger">Menunggu Konfirmasi</label>
                       <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
@@ -260,6 +278,7 @@
                     </div>
                   </div>
                 </div>
+              </div>
 
                 <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->technician_code?>">Kembali</a>
                 <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>

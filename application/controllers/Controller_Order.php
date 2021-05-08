@@ -311,11 +311,26 @@ class Controller_Order extends CI_Controller{
 		$this->load->model("M_ServiceCategory");
 		$this->load->model("M_ServiceType");
 
+		$foto_kerusakan = '';
+		$config['upload_path']          = './assets/uploaded-image/';
+		$config['allowed_types']        = '*';
+		$config['max_size']             = 3000;
+		$this->load->library('upload', $config);
+		if ( !$this->upload->do_upload('foto_kerusakan') ) {
+			$error = array('error' => $this->upload->display_errors());
+			$this->session->set_flashdata('error',$error['error']);
+			redirect('Controller_Order/preorder/'.$this->input->post('service_category_code'), 'refresh');
+		} else {
+			$image_data = $this->upload->data();
+			$imgdata = file_get_contents($image_data['full_path']);
+			$foto_kerusakan = base64_encode($imgdata);
+		}
+
 		$data['jenis_layanan'] = $this->input->post('jenis_layanan');
 		$data['waktu_perbaikan'] = $this->input->post('waktu_perbaikan');
 		$data['alamat'] = $this->input->post('alamat');
 		$data['catatan_alamat'] = $this->input->post('catatan_alamat');
-		$data['foto_kerusakan'] = $this->input->post('foto_kerusakan');
+		$data['foto_kerusakan'] = $foto_kerusakan;
 		$data['detail_keluhan'] = $this->input->post('detail_keluhan');
 		$data['metode_pembayaran'] = $this->input->post('metode_pembayaran');
 		$data['latitude'] = $this->input->post('latitude');
@@ -327,7 +342,13 @@ class Controller_Order extends CI_Controller{
 		$data['service_type'] = $this->M_ServiceType->getServiceTypeDetailByCode($this->input->post('service_type_code'));
 		$data['technician'] = $this->M_Technician->getTechnicianDetailByCode($this->input->post('tech_code'));
 
-		print_r($data['service_type'][0]->price);
+		// print_r($data['service_type'][0]->price);
+
+		if ($this->input->post('jenis_layanan') == 'instalasi') {
+			$service_type = $this->M_ServiceType->getInstalasiService($this->input->post('service_category_code'));
+			$data['service_type'] = $service_type;
+			$data['service_type_code'] = $service_type[0]->service_type_code;
+		}
 
 		$this->load->view('customer/order_confirmation', $data);
 	}
@@ -339,9 +360,11 @@ class Controller_Order extends CI_Controller{
 
 			$service_category = $this->M_ServiceCategory->getServiceCategoryDetailByCode($service_category_code);
 			$service_type = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($service_category_code);
+			$isInstalasiExists = $this->M_ServiceType->isInstalasiExists($service_category_code);
 			
 			$data['service_category'] = $service_category;
 			$data['service_type'] = $service_type;
+			$data['isInstalasiExists'] = $isInstalasiExists;
 
 			$this->load->view('customer/pre_order', $data);
 		}
@@ -378,7 +401,6 @@ class Controller_Order extends CI_Controller{
 		//insert into tbl_order
 		$data_tbl_order = [ 'order_code'  => $order_code,
 		'customer_code' => $customer_code,
-		'technician_code' => $technician_code,
 		'address' => $alamat,
 		'latitude' => $latitude,
 		'longitude' => $longitude,
@@ -387,7 +409,8 @@ class Controller_Order extends CI_Controller{
 		'detail_keluhan' => $detail_keluhan,
 		'order_status' => $order_status_wc,
 		'created_by' => $customer_username,
-		'created_datetime' => $now
+		'created_datetime' => $now,
+		'service_category_code' => $service_category_code
 		];
 
 		$this->M_General->insertData('tbl_order', $data_tbl_order);
@@ -417,7 +440,6 @@ class Controller_Order extends CI_Controller{
 
 	public function getOneAfterOrderByCode($code = '') {
         $this->load->model("M_Order");
-        $this->load->model("M_Order");
 
         if ($this->session->userdata('akses') == '1') {
             if (isset($code)) {
@@ -435,19 +457,24 @@ class Controller_Order extends CI_Controller{
                 $this->load->view('technician/order_view', $data);
             }
         } else if ($this->session->userdata('akses') == '3') {
+
             if (isset($code)) {
             	$data_order_detail = $this->M_Order->getOrderDetailAfterOrderByCode($code);
             	$waktu_perbaikan = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H:i A');
+            	$payment = $this->M_Order->getPayment($code);
             	$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
             	$data['data'] = $data_order_detail;
             	$data['waktu_perbaikan'] = $waktu_perbaikan;
+            	$data['payment'] = $payment;
                 $this->load->view('technician/order_confirmation_detail', $data);
             }
         } else if ($this->session->userdata('akses') == '4') {
             if (isset($code)) {
             	$data_order_detail = $this->M_Order->getOrderDetailAfterOrderByCode($code);
+            	$payment = $this->M_Order->getPayment($code);
             	$data['data'] = $data_order_detail;
             	$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H:i A');
+            	$data['payment'] = $payment;
                 $this->load->view('customer/order_detail', $data);
             }
         } else {
@@ -732,23 +759,28 @@ class Controller_Order extends CI_Controller{
 	//     $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
 	// }
 
-	public function cancelByCustomer($order_code) {
-        if ($this->session->userdata('akses') == '3') {
+	// public function cancelByCustomer($order_code) {
+ //        if ($this->session->userdata('akses') == '3') {
 
-            $this->load->model("M_Order");
-            if (isset($order_code)) {
-                $this->M_Order->updateStatus($order_code, 'CANCELLED BY CUST');
-                redirect('Controller_Order/getOneByCode/' . $order_code);
-            }
-        }
-    }
+ //            $this->load->model("M_Order");
+ //            if (isset($order_code)) {
+ //                $this->M_Order->updateStatus($order_code, 'CANCELLED BY CUST');
+ //                redirect('Controller_Order/getOneByCode/' . $order_code);
+ //            }
+ //        }
+ //    }
 	
 	public function getWaitingConfirmationOrder() {
         if ($this->session->userdata('akses') == '3') {
             $this->load->model("M_Order");
-            
+            $this->load->model("M_Technician");
+
+            //get data technician
+            $technician_data = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
+            $order_data = $this->M_Order->searchOrder($technician_data[0]->latitude, $technician_data[0]->longitude, $this->session->userdata('user_code'));
             $data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
-            $data['data'] = $this->M_Order->getOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            // $data['data'] = $this->M_Order->getOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+            $data['data'] = $order_data;
             $this->load->view('technician/order_need_confirmation_list', $data);
         }
     }
@@ -757,6 +789,7 @@ class Controller_Order extends CI_Controller{
     	$this->load->model("M_General");
     	$status = str_replace("%20"," ",$status);
     	$data = [
+    			'technician_code' => $this->session->userdata('user_code'),
                 'order_status' => $status,
                 'modified_by' => $this->session->userdata('user_name'),
                 'modified_datetime' => date("Y-m-d H:i:s")

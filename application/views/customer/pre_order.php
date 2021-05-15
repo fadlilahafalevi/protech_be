@@ -6,33 +6,28 @@
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <title>TEKNISI APP</title>
 
-       <style>
-      #map {
-        width: 100%;
-        height: 300px;
-        border: 1px solid #000;
-      }
-      #pemeliharaan {
-          display: none;
-      }
-    </style>
+  <style>
+    #map {
+      width: 100%;
+      height: 300px;
+      border: 1px solid #000;
+    }
+    #pemeliharaan {
+        display: none;
+    }
+  </style>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />|
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js" integrity="sha512-he8U4ic6kf3kustvJfiERUpojM8barHoz0WYpAUDWQVn61efpm3aVAD8RWL8OloaDDzMZ1gZiubF9OSdYBqHfQ==" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-$(function() {
-  $('#datetimepicker1').datetimepicker({
-    format: 'YYYY-MM-DD HH:mm:ss'
-  });
-});
-</script>
 
 </head>
 <body>
@@ -97,7 +92,7 @@ $(function() {
                               <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
                                 <input name="waktu_perbaikan" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
                                 <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                  <div class="input-group-text"><i class="mdi mdi-calendar-clock"></i></div>
                                 </div>
                               </div>
                             </div>
@@ -105,7 +100,6 @@ $(function() {
                         </div>
                       </div>
                     </div>
-
 
                     <div class="row">
                       <div class="col-md-6">
@@ -117,17 +111,6 @@ $(function() {
                         </div>
                       </div>
                     </div>
-
-                    <!-- <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Catatan Alamat</label>
-                          <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="catatan_alamat" name="catatan_alamat"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
 
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
@@ -141,7 +124,7 @@ $(function() {
                           <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly" value="826.809371">
                        </div>
                     </div>
-                    <input type="text" class="form-control" id="searchInput" name="searchInput">
+                    <input type="text" class="form-control" id="searchInput" name="searchInput" style="top: 8px;">
                     <div id="map"></div>
                     <br>
                     <div class="row">
@@ -208,6 +191,8 @@ $(function() {
         draggable: true
     });
 
+
+
     var input = document.getElementById('searchInput');
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     var geocoder = new google.maps.Geocoder;
@@ -265,6 +250,24 @@ $("#dropdown").change(function(){
     
     if (value == "pemeliharaan")
         $("#pemeliharaan").show();
+});
+
+ $(function() {
+  var dateFormat = "DD-MM-YYYY";
+  var CurrDate = "27-06-2018";
+  var MinDate = "01-06-2018";
+  var MaxDate = "27-06-2018";
+  
+  dateCurr = moment(CurrDate, dateFormat);
+  dateMin = moment(MinDate, dateFormat);
+  dateMax = moment(MaxDate, dateFormat);
+  
+  $("#datetimepicker1").datetimepicker({
+    format: dateFormat,
+    date: dateCurr,
+    minDate: dateMin,
+    maxDate: dateMax,
+  });
 });
 </script>
 

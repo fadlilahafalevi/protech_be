@@ -189,7 +189,6 @@
                       <thead>
                         <tr>
                           <th style="text-align: center">Kategori Layanan</th>
-                          <th style="text-align: center">Jenis Layanan</th>
                           <th style="text-align: center">Status</th>
                         </tr>
                       </thead>
@@ -201,8 +200,7 @@
                         ?>
                           <tr>
                             <td style="text-align: center"><?=$list_checked_service_type->service_category_name?></td>
-                            <td style="text-align: center"><?=$list_checked_service_type->service_type_name?></td>
-                            <td style="text-align: center"><input type="checkbox" name="<?=$list_checked_service_type->service_type_code?>" value="<?=$list_checked_service_type->service_type_code?>" disabled
+                            <td style="text-align: center"><input type="checkbox" name="<?=$list_checked_service_type->service_category_code?>" value="<?=$list_checked_service_type->service_category_code?>" disabled
                               <?php if($list_checked_service_type->checked == 'true') {?> 
                                 checked 
                               <?php }?> ></td>

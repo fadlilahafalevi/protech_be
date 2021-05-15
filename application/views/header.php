@@ -93,7 +93,7 @@
               <?php
                 }
               ?> 
-              <a class="dropdown-item" href="Controller_Login/logout">
+              <a class="dropdown-item" href="/teknisi-app/index.php/Controller_Login/logout">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
               </a>

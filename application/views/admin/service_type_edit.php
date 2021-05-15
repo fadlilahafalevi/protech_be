@@ -84,82 +84,13 @@
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Type Layanan</label>
-                          <?php if ($service_type_detail->type == 'INSTALASI') { ?>
-                              <div class="col-sm-2">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="INSTALASI" checked>
-                                    Instalasi
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-sm-2">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="REPARASI">
-                                    Reparasi
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="PEMELIHARAAN">
-                                    Pemeliharaan
-                                  </label>
-                                </div>
-                              </div>
-                           <?php } else if ($service_type_detail->type == 'REPARASI') { ?>
-                              <div class="col-sm-2">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="INSTALASI">
-                                    Instalasi
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-sm-2">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="REPARASI" checked>
-                                    Reparasi
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="PEMELIHARAAN">
-                                    Reparasi
-                                  </label>
-                                </div>
-                              </div>
-                           <?php } else if ($service_type_detail->type == 'PEMELIHARAAN') { ?>
-                              <div class="col-sm-2">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="INSTALASI">
-                                    Instalasi
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-sm-2">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="REPARASI">
-                                    Reparasi
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-sm-3">
-                                <div class="form-check">
-                                  <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="type" id="type" value="PEMELIHARAAN" checked>
-                                    Reparasi
-                                  </label>
-                                </div>
-                              </div>
-                           <?php } ?>
+                          <div class="col-sm-9">
+                            <select class="form-control" name="type">
+                              <option value="INSTALASI" <?php if ($service_type_detail->type == 'INSTALASI') { ?> selected <?php } ?> >Instalasi</option>
+                              <option value="REPARASI" <?php if ($service_type_detail->type == 'REPARASI') { ?> selected <?php } ?> >Perbaikan</option>
+                              <option value="PEMELIHARAAN" <?php if ($service_type_detail->type == 'PEMELIHARAAN') { ?> selected <?php } ?> >Pemeliharaan</option>
+                            </select>
+                          </div>
                         </div>
                       </div>
                       <div class="col-md-6">

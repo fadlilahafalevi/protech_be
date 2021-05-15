@@ -195,13 +195,13 @@
                       <tbody>
                         <?php 
                           $no=0;
-                          foreach ($list_checked_service_type as $list_checked_service_type){
+                          foreach ($list_checked_service_category as $list_checked_service_category){
                           $no++;
                         ?>
                           <tr>
-                            <td style="text-align: center"><?=$list_checked_service_type->service_category_name?></td>
-                            <td style="text-align: center"><input type="checkbox" name="<?=$list_checked_service_type->service_category_code?>" value="<?=$list_checked_service_type->service_category_code?>" disabled
-                              <?php if($list_checked_service_type->checked == 'true') {?> 
+                            <td style="text-align: center"><?=$list_checked_service_category->service_category_name?></td>
+                            <td style="text-align: center"><input type="checkbox" name="<?=$list_checked_service_category->service_category_code?>" value="<?=$list_checked_service_category->service_category_code?>" disabled
+                              <?php if($list_checked_service_category->checked == 'true') {?> 
                                 checked 
                               <?php }?> ></td>
                           </tr>

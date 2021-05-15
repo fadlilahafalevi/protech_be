@@ -22,7 +22,7 @@ class Controller_Technician extends CI_Controller{
 			$data['code'] = $code;
 			if (isset($code)) {
 				$data['data'] = $this->M_Technician->getTechnicianDetailByCode($code);
-				$data['list_checked_service_type'] = $this->M_Technician->getCheckedServiceType($code);
+				$data['list_checked_service_category'] = $this->M_Technician->getCheckedServiceCategory($code);
 			}
 
 			$this->load->view('admin/technician_view', $data);
@@ -31,9 +31,9 @@ class Controller_Technician extends CI_Controller{
 	}
 
 	function createTechnician() {
-		$this->load->model("M_ServiceType");
+		$this->load->model("M_ServiceCategory");
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
-			$data['list_service_type'] = $this->M_ServiceType->getAllServiceType();
+			$data['list_service_category'] = $this->M_ServiceCategory->getAllServiceCategory();
 
 			$this->load->view('admin/technician_create', $data);
 		}
@@ -48,7 +48,7 @@ class Controller_Technician extends CI_Controller{
 			if (isset($code)) {
 				$listData = $this->M_Technician->getTechnicianDetailByCode($code);
 				$data['data'] = $listData;
-				$data['list_checked_service_category'] = $this->M_Technician->getCheckedServiceType($code);
+				$data['list_checked_service_category'] = $this->M_Technician->getCheckedServiceCategory($code);
 				
 				foreach ($listData as $field) {
 					$active_status = $field->active_status;
@@ -65,7 +65,7 @@ class Controller_Technician extends CI_Controller{
 
 	function saveData() {
 		$this->load->model("M_Technician");
-		$this->load->model("M_ServiceType");
+		$this->load->model("M_ServiceCategory");
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
@@ -118,14 +118,14 @@ class Controller_Technician extends CI_Controller{
 
 			$this->M_General->insertData('tbl_user_login', $data_login);
 
-			$listServiceType = $this->M_ServiceType->getAllServiceType();
-			foreach ($listServiceType as $service_type) {
-				$code = $service_type->service_type_code;
-				$service_type_code = $this->input->post($code);
-				$data_ref = [ 'service_type_code' => $service_type_code,
+			$listServiceCategory = $this->M_ServiceCategory->getAllServiceCategory();
+			foreach ($listServiceCategory as $service_category) {
+				$code = $service_category->service_category_code;
+				$service_category_code = $this->input->post($code);
+				$data_ref = [ 'service_category_code' => $service_category_code,
 				'user_code'  => $user_code
 				];
-				if (isset($service_type_code)) {
+				if (isset($service_category_code)) {
 					$this->M_General->insertData('tbl_service_ref', $data_ref);
 				}
 			}
@@ -136,7 +136,7 @@ class Controller_Technician extends CI_Controller{
 
 	function updateData() {
 		$this->load->model("M_Technician");
-		$this->load->model("M_ServiceType");
+		$this->load->model("M_ServiceCategory");
 		$this->load->model("M_General");
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
@@ -180,14 +180,14 @@ class Controller_Technician extends CI_Controller{
 			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
 
 			$this->M_General->deleteData('tbl_service_ref', "user_code = '" . $user_code . "'");
-			$listServiceType = $this->M_ServiceType->getAllServiceType();
-			foreach ($listServiceType as $service_type) {
-				$code = $service_type->service_type_code;
-				$service_type_code = $this->input->post($code);
-				$data_ref = [ 'service_type_code' => $service_type_code,
+			$listServiceCategory = $this->M_ServiceCategory->getAllServiceCategory();
+			foreach ($listServiceCategory as $service_category) {
+				$code = $service_category->service_category_code;
+				$service_category_code = $this->input->post($code);
+				$data_ref = [ 'service_category_code' => $service_category_code,
 				'user_code'  => $user_code
 				];
-				if (isset($service_type_code)) {
+				if (isset($service_category_code)) {
 					$this->M_General->insertData('tbl_service_ref', $data_ref);
 				}
 			}

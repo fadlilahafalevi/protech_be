@@ -201,7 +201,7 @@
                         ?>
                           <tr>
                             <td style="text-align: center"><?=$list_checked_service_category->service_category_name?></td>
-                            <td style="text-align: center"><input type="checkbox" name="<?=$list_checked_service_category->service_category_code?>" value="<?=$list_checked_service_category->service_category_name?>" 
+                            <td style="text-align: center"><input type="checkbox" name="<?=$list_checked_service_category->service_category_code?>" value="<?=$list_checked_service_category->service_category_code?>" 
                               <?php if($list_checked_service_category->checked == 'true') {?> 
                                 checked 
                               <?php }?> ></td>

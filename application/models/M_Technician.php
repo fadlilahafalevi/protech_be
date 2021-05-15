@@ -20,7 +20,7 @@ class M_Technician extends CI_Model{
 		return $query->result();
 	}
 	
-	function getCheckedServiceType($user_code){
+	function getCheckedServiceCategory($user_code){
 		$this->db->select('sc.service_category_code, if(sr.service_ref_id is null, "false", "true") as checked, sc.service_category_name');
 		$this->db->from('tbl_service_category sc');
     	$this->db->join('tbl_service_ref sr', "sc.service_category_code=sr.service_category_code and sr.user_code='".$user_code."'", 'left');

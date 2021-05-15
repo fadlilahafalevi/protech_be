@@ -57,8 +57,6 @@ class Controller_Customer extends CI_Controller{
 		$this->load->model("M_Customer");
 		$this->load->model("M_General");
 
-		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
-
 			$user_code = $this->M_General->getSequence('tbl_user_profile', 3, 'C');
 			$email = $this->input->post('email');
 			$password = md5($this->input->post('password'));
@@ -106,7 +104,6 @@ class Controller_Customer extends CI_Controller{
 			$this->M_General->insertData('tbl_user_login', $data_login);
 
 			redirect('Controller_Login');
-		}
 	}
 
 	function updateData() {

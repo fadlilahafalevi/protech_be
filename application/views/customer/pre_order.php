@@ -53,10 +53,10 @@
                           <div class="col-sm-9">
                             <select class="form-control" style="color: black" name="jenis_layanan" id="dropdown">
                               <?php if ($isInstalasiExists > 0) { ?>
-                              <option value="instalasi">Instalasi</option>
+                              <option value="INSTALASI">Instalasi</option>
                               <?php } ?>
-                              <option value="perbaikan">Perbaikan</option>
-                              <option value="pemeliharaan">Pemeliharaan</option>
+                              <option value="PERBAIKAN">Perbaikan</option>
+                              <option value="PEMELIHARAAN">Pemeliharaan</option>
                             </select> 
                           </div>
                         </div>

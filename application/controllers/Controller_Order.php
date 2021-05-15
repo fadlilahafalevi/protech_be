@@ -344,10 +344,15 @@ class Controller_Order extends CI_Controller{
 
 		// print_r($data['service_type'][0]->price);
 
-		if ($this->input->post('jenis_layanan') == 'instalasi') {
-			$service_type = $this->M_ServiceType->getInstalasiService($this->input->post('service_category_code'));
+		if ($this->input->post('jenis_layanan') == 'INSTALASI') {
+			$service_type = $this->M_ServiceCategory->getInstalasiService($this->input->post('service_category_code'));
 			$data['service_type'] = $service_type;
 			$data['service_type_code'] = $service_type[0]->service_type_code;
+		}
+
+		if ($this->input->post('jenis_layanan') == 'PERBAIKAN') {
+			$service_type = $this->M_ServiceCategory->getServiceCategoryDetailByCode($this->input->post('service_category_code'));
+			$data['service_type'] = $service_type;
 		}
 
 		$this->load->view('customer/order_confirmation', $data);
@@ -397,6 +402,7 @@ class Controller_Order extends CI_Controller{
 		$customer_code =  $this->session->userdata('user_code');
 		$customer_username = $this->session->userdata('user_name');
 		$now = date("Y-m-d H:i:s");
+		
 
 		//insert into tbl_order
 		$data_tbl_order = [ 'order_code'  => $order_code,
@@ -415,10 +421,18 @@ class Controller_Order extends CI_Controller{
 
 		$this->M_General->insertData('tbl_order', $data_tbl_order);
 
+		if ($jenis_layanan == 'PERBAIKAN') {
+			$price = '20000';
+			$description = 'Pengecekan';
+		} else {
+			$price =  $service_type[0]->price;
+		}
+
 		//insert into tbl_order_detail
 		$data_detail = [ 'order_code'  => $order_code,
-		'service_type_code' => $service_type_code,
-		'price' => $service_type[0]->price,
+		'service_type_code' => empty($service_type_code) ? NULL : $service_type_code,
+		'price' => $price,
+		'description' => $description,
 		'created_by' => $customer_username,
 		'created_datetime' => $now
 		];
@@ -428,7 +442,7 @@ class Controller_Order extends CI_Controller{
 		//insert into tbl_payment
 		$data_payment = [ 'order_code' => $order_code,
 		'payment_method' => $metode_pembayaran,
-		'total_payment' => $service_type[0]->price,
+		'total_payment' => $price,
 		'created_by' => $customer_username,
 		'created_datetime' => $now
 		];

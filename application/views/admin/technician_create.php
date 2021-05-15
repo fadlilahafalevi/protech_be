@@ -167,8 +167,8 @@
                         ?>
                           <tr>
                             <td style="text-align: center"><?=$list_service_type->service_category_name?></td>
-                            <td style="text-align: center"><?=$list_service_type->service_type_name?></td>
-                            <td style="text-align: center"><input type="checkbox" name="<?=$list_service_type->service_type_code?>" value="<?=$list_service_type->service_type_code?>" > </td>
+                            <td style="text-align: center"><?=$list_service_type->service_category_code?></td>
+                            <td style="text-align: center"><input type="checkbox" name="<?=$list_service_type->service_category_code?>" value="<?=$list_service_type->service_category_code?>" > </td>
                           </tr>
                         <?php
                           }

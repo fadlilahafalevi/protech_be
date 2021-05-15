@@ -8,7 +8,6 @@
 
   <style>
     input[type="text"][disabled] {
-      width: 413px;
     }
     .rating {
       display: flex;
@@ -289,7 +288,7 @@
                 <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN') { ?>
                   <button class="btn btn-danger" data-toggle="modal" data-target="#modalPembayaran"></i>Konfirmasi Pembayaran</button>
                 <?php } ?>
-                <?php if ($data[0]->order_status == 'SELESAI' && !is_null($review[0]->review_id)) { ?>
+                <?php if ($data[0]->order_status == 'SELESAI' && !empty($review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>
                 <?php } ?>
               </div>

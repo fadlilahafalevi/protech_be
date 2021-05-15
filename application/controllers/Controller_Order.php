@@ -198,7 +198,7 @@ class Controller_Order extends CI_Controller{
 				$data['data'] = $data_order;
 				$data['review'] = $this->M_Review->getOneByOrderCode($code);
 				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
-				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H:i A');
+				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H.i');
 				$data['payment'] = $payment;
 			}
 
@@ -218,7 +218,7 @@ class Controller_Order extends CI_Controller{
 				$data['data'] = $data_order;
 				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
 				$data['review'] = $this->M_Review->getOneByOrderCode($code);
-				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H:i A');
+				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H.i');
 				$data['payment'] = $payment;
 			}
 
@@ -327,7 +327,7 @@ class Controller_Order extends CI_Controller{
 		}
 
 		$data['jenis_layanan'] = $this->input->post('jenis_layanan');
-		$data['waktu_perbaikan'] = $this->input->post('waktu_perbaikan');
+		$data['waktu_perbaikan'] = date_format(date_create_from_format("d/m/Y H.i", $this->input->post('waktu_perbaikan')),"d/m/Y H.i");
 		$data['alamat'] = $this->input->post('alamat');
 		$data['catatan_alamat'] = $this->input->post('catatan_alamat');
 		$data['foto_kerusakan'] = $foto_kerusakan;
@@ -359,11 +359,11 @@ class Controller_Order extends CI_Controller{
 			$this->load->model("M_ServiceType");
 
 			$service_category = $this->M_ServiceCategory->getServiceCategoryDetailByCode($service_category_code);
-			$service_type = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($service_category_code);
+			$service_type_pemeliharaan = $this->M_ServiceType->getServiceTypeDetailByCodeAndType($service_category_code, 'PEMELIHARAAN');
 			$isInstalasiExists = $this->M_ServiceType->isInstalasiExists($service_category_code);
 			
 			$data['service_category'] = $service_category;
-			$data['service_type'] = $service_type;
+			$data['service_type'] = $service_type_pemeliharaan;
 			$data['isInstalasiExists'] = $isInstalasiExists;
 
 			$this->load->view('customer/pre_order', $data);
@@ -378,7 +378,7 @@ class Controller_Order extends CI_Controller{
 		$this->load->model("M_Technician");
 
 		$jenis_layanan = $this->input->post('jenis_layanan');
-		$waktu_perbaikan = DateTime::createFromFormat('m/d/Y H:i A', $this->input->post('waktu_perbaikan'))->format('Y-m-d H:i:s');
+		$waktu_perbaikan = date_format(date_create_from_format("d/m/Y H.i", $this->input->post('waktu_perbaikan')),"Y-m-d H.i");
 		$alamat = $this->input->post('alamat');
 		$catatan_alamat = $this->input->post('catatan_alamat');
 		$foto_kerusakan = $this->input->post('foto_kerusakan');
@@ -459,8 +459,8 @@ class Controller_Order extends CI_Controller{
         } else if ($this->session->userdata('akses') == '3') {
 
             if (isset($code)) {
-            	$data_order_detail = $this->M_Order->getOrderDetailAfterOrderByCode($code);
-            	$waktu_perbaikan = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H:i A');
+            	$data_order_detail = $this->M_Order->getOne($code);
+            	$waktu_perbaikan = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H.i');
             	$payment = $this->M_Order->getPayment($code);
             	$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
             	$data['data'] = $data_order_detail;
@@ -470,10 +470,10 @@ class Controller_Order extends CI_Controller{
             }
         } else if ($this->session->userdata('akses') == '4') {
             if (isset($code)) {
-            	$data_order_detail = $this->M_Order->getOrderDetailAfterOrderByCode($code);
+            	$data_order_detail = $this->M_Order->getOne($code);
             	$payment = $this->M_Order->getPayment($code);
             	$data['data'] = $data_order_detail;
-            	$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H:i A');
+            	$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H.i');
             	$data['payment'] = $payment;
                 $this->load->view('customer/order_detail', $data);
             }

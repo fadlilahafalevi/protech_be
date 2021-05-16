@@ -372,6 +372,8 @@ class Controller_Order extends CI_Controller{
 			$data['isInstalasiExists'] = $isInstalasiExists;
 
 			$this->load->view('customer/pre_order', $data);
+		} else {
+			redirect('Controller_Login');
 		}
 
 	}

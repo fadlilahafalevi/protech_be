@@ -27,6 +27,19 @@
         ?>
         <div class="col-12 grid-margin stretch-card">
           <div class="card">
+            <div class="card-header">
+              #<?=$list_complain->complain_code?>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><?=$list_complain->subject?></h5>
+              <p class="card-text"><?=$list_complain->complain_desc?></p>
+              <a href="#" class="btn btn-primary"><?=$list_complain->complain_status?></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-12 grid-margin stretch-card">
+          <div class="card">
             <div class="card-body">
               <h4 class="card-title">Kode Pengaduan : <?=$list_complain->complain_code?></h4>
               <h4 class="card-title">Kode Pesanan : <?=$list_complain->order_code?></h4> 
@@ -36,7 +49,7 @@
               <h4 class="card-title">Status : <?=$list_complain->complain_status?></h4>
             </div>
           </div>
-        </div>
+        </div> -->
         <?php
           }
         ?>

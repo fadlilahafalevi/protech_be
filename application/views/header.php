@@ -86,7 +86,7 @@
               <?php
                 if($this->session->userdata('akses')=='3' || $this->session->userdata('akses') == '4'){
               ?>
-              <a class="dropdown-item" href="/teknisi-app/Controller_Settings">
+              <a class="dropdown-item" href="/teknisi-app/index.php/Controller_Settings">
                 <i class="mdi mdi-settings text-primary"></i>
                 Settings
               </a>
@@ -99,9 +99,12 @@
               </a>
             </div>
           </li>
-          <?php
-            }
-          ?> 
+          <?php } else { ?>
+          <li class="nav-item nav-profile dropdown">
+            <a class="btn btn-primary" type="button" id="btnLogin" data-toggle="Login" href="<?php echo base_url() . 'Controller_Login' ?>">LOGIN</a> &nbsp;&nbsp;
+            <a class="btn btn-primary" type="button" id="btnRegister" data-toggle="Register" href="<?php echo base_url() . 'Controller_Customer/createCustomer' ?>">REGISTER</a>
+          </li>
+          <?php } ?>
         </ul>
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>

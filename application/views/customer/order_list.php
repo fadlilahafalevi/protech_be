@@ -28,7 +28,7 @@
                     <tr>
                       <th style="text-align: center">No</th>
                       <th style="text-align: center">Kode Pesanan</th>
-                      <th style="text-align: center">Tanggal</th>
+                      <th style="text-align: center">Tanggal Pengerjaan</th>
                       <th style="text-align: center">Kategori</th>
                       <th style="text-align: center">Status</th>
                       <th style="text-align: center">Aksi</th>
@@ -43,11 +43,13 @@
                       <tr>
                         <td><?=$no?></td>
                         <td><?=$data->order_code?></td>
-                        <td><?php echo DateTime::createFromFormat('Y-m-d H:i:s', $data->created_datetime)->format('m/d/Y H:i A') ?></td>
+                        <td><?php echo DateTime::createFromFormat('Y-m-d H:i:s', $data->repair_datetime)->format('d/m/Y H:i') ?></td>
                         <td><?=$data->service_category_name?></td>
                         <td style="text-align: center">
                         <?php if ($data->order_status == 'MENUNGGU KONFIRMASI') { ?>
                         <label class="badge badge-danger">Menunggu Konfirmasi</label>
+                        <?php } else if ($data->order_status == 'DITERIMA') { ?>
+                        <label class="badge badge-warning">Diterima</label>
                         <?php } else if ($data->order_status == 'DALAM PROSES') { ?>
                         <label class="badge badge-warning">Dalam Proses</label>
                         <?php } else if ($data->order_status == 'MENUNGGU PEMBAYARAN') { ?>
@@ -59,6 +61,9 @@
                         <td style="text-align: center">
                           <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Order/getOne/<?=$data->order_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye btn-icon-prepend"></i>
+                          </a>
+                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Order/printDetailOrder/<?=$data->order_code?>" data-toggle="tooltip" title="Print Detail Order" style="padding: 4px">
+                            <i class="mdi mdi-library-books"></i>
                           </a>
                         </td>
                       </tr>

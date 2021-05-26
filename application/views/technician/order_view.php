@@ -319,7 +319,7 @@
                   <a class="btn btn-info" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/DALAM PROSES"><i class="mdi mdi-check-circle-outline"></i>Diproses</a>
                 <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                   <button class="btn btn-danger" data-toggle="modal" data-target="#modalSelesai"></i>Selesai</button>
-                <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN') { ?>
+                <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($payment[0]->payment_date)) { ?>
                   <button class="btn btn-danger" data-toggle="modal" data-target="#modalPembayaran"></i>Konfirmasi Pembayaran</button>
                 <?php } ?>
                 <?php if ($data[0]->order_status == 'SELESAI' && !empty($review)) { ?>

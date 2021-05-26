@@ -153,4 +153,82 @@ class Controller_Customer extends CI_Controller{
 			redirect('Controller_Customer');
 		}
 	}
+
+	function printCustomer() {
+		$this->load->library('ReportHeaderLandscape');
+        $this->load->model("M_Customer");
+        $this->load->helper('download');
+        
+        // $order_history = $this->M_Order->getAll($from, $to);
+        $customer = $this->M_Customer->getAllCustomer();
+
+        $pdf = new FPDF('L', 'mm', 'A4');
+        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+
+        $pdf->AddPage();
+        $pdf->AliasNbPages();
+
+        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->Cell(0, 7, 'Data Pelanggan', 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
+
+        $pdf->SetFont('Courier', 'B', 8);
+
+        $pdf->Cell(5, 7, 'No', 1, 0, 'C');
+        $pdf->Cell(30, 7, 'Nama', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Email', 1, 0, 'C');
+        $pdf->Cell(30, 7, 'KTP', 1, 0, 'C');
+        $pdf->Cell(30, 7, 'Jenis Kelamin', 1, 0, 'C');
+        $pdf->Cell(30, 7, 'Tanggal Lahir', 1, 0, 'C');
+        $pdf->Cell(25, 7, 'Telepon', 1, 0, 'C',);
+        $pdf->Cell(120, 7, 'Alamat', 1, 0, 'C',);
+        $pdf->Cell(25, 7, 'Status', 1, 1, 'C',);
+
+        $pdf->SetWidths(Array(5,30,40,30,30,30,25,120,25));
+        $pdf->SetLineHeight(5);
+
+        $pdf->SetFont('Courier', '', 8);
+        $no = 1;
+        foreach ($customer as $data) {
+        	if ($data->gender == 'L') {
+        		$gender = 'Laki-laki';
+        	} else {
+        		$gender = 'Perempuan';
+        	}
+
+        	if ($data->up_active_status == 1) {
+        		$status = 'Aktif';
+        	} else {
+        		$status = 'Tidak Aktif';
+        	}
+
+            /*$pdf->Cell(5, 6, $no, 1, 0);
+            $pdf->Cell(30, 6, $data->first_name.' '.$data->middle_name.' '.$data->last_name, 1, 0);
+            $pdf->Cell(40, 6, $data->email, 1, 0);
+            $pdf->Cell(30, 6, $data->identity_no, 1, 0);
+            $pdf->Cell(30, 6, $gender, 1, 0);
+            $pdf->Cell(30, 6, $data->date_of_birth, 1, 0);
+            $pdf->Cell(25, 6, $data->phone, 1, 0);
+            $pdf->MultiCell(120, 6, $data->address,'T,R,L,B', 'L');
+            $pdf->Cell(25, 6, $status, 1, 1);*/
+
+            $pdf->Row(Array(
+            	$no,
+            	$data->first_name.' '.$data->middle_name.' '.$data->last_name,
+            	$data->email,
+            	$data->identity_no,
+            	$gender,
+            	$data->date_of_birth,
+            	$data->phone,
+            	$data->address,
+            	$status
+            ));
+            $no ++;
+        }
+        
+        $filename = 'list_data_pelanggan'.date("Ymdhis").'.pdf';
+        
+        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
+        force_download('./assets/downloaded-pdf/'.$filename,NULL);
+	}
 }

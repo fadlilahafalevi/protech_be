@@ -16,6 +16,168 @@ class Controller_Order extends CI_Controller{
 	        echo "Halaman tidak ditemukan";
 	    }
 	}
+
+	function printDetailOrder($order_code) {
+		$this->load->library('ReportHeaderLandscape');
+        $this->load->model("M_Order");
+        $this->load->helper('download');
+        
+        // $order_history = $this->M_Order->getAll($from, $to);
+        $order = $this->M_Order->getOne($order_code);
+
+        $pdf = new FPDF('L', 'mm', 'A4');
+        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+
+        $pdf->AddPage();
+        $pdf->AliasNbPages();
+
+        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->Cell(0, 7, 'Data Pemesanan', 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
+
+        $pdf->SetFont('Courier', 'B', 8);
+
+        $pdf->SetX(110);
+        $pdf->Cell(50, 7, 'Kode Pesanan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->order_code, 0, 1, 'L');
+
+        $pdf->SetX(110);
+		$pdf->Cell(50, 7, 'Nama Pelanggan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->nama_customer, 0, 1, 'L');
+
+        $pdf->SetX(110);
+		$pdf->Cell(50, 7, 'Nama Teknisi', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->nama_teknisi, 0, 1, 'L');
+
+        $pdf->SetX(110);
+		$pdf->Cell(50, 7, 'Kategori Layanan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->service_category_name, 0, 1, 'L');
+
+        $pdf->SetX(110);
+		$pdf->Cell(50, 7, 'Tipe Layanan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->service_type_name, 0, 1, 'L');
+
+        $pdf->SetX(110);
+		$pdf->Cell(50, 7, 'Waktu Pengerjaan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->repair_datetime, 0, 1, 'L');
+
+        $pdf->SetX(110);
+        $pdf->SetWidths(Array(50,5,100));
+        $pdf->SetLineHeight(7);
+        $pdf->Row(Array('Alamat', ':', $order[0]->alamat_pengerjaan), 0);
+
+        $pdf->SetX(110);
+		$pdf->Cell(50, 7, 'Foto Kerusakan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+		// const TEMPIMGLOC = 'tempimg.png';
+		define('TEMPIMGLOC', 'tempimg.png');
+
+		$dataURI    = "data:image/png;base64,".$order[0]->photo;
+		$dataPieces = explode(',',$dataURI);
+		$encodedImg = $dataPieces[1];
+		$decodedImg = base64_decode($encodedImg);
+
+		//  Check if image was properly decoded
+		if( $decodedImg!==false )
+		{
+		    //  Save image to a temporary location
+		    if( file_put_contents(TEMPIMGLOC,$decodedImg)!==false )
+		    {
+		        $pdf->Image(TEMPIMGLOC, null, null, 80);
+
+		        //  Delete image from server
+		        unlink(TEMPIMGLOC);
+		    }
+		}
+        
+        $filename = 'list_detail_pemesanan_'.$order[0]->order_code.'_'.date("Ymdhis").'.pdf';
+        
+        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
+        force_download('./assets/downloaded-pdf/'.$filename,NULL);
+	}
+
+	function printInvoice($order_code) {
+		$this->load->library('ReportHeaderLandscape');
+        $this->load->model("M_Order");
+        $this->load->helper('download');
+        
+        // $order_history = $this->M_Order->getAll($from, $to);
+        $order = $this->M_Order->getOne($order_code);
+
+        $pdf = new FPDF('L', 'mm', 'A4');
+        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+
+        $pdf->AddPage();
+        $pdf->AliasNbPages();
+
+        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->Cell(0, 7, 'Kuitansi', 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
+
+        $pdf->SetFont('Courier', 'B', 8);
+
+        $pdf->SetX(70);
+        $pdf->Cell(50, 7, 'Kode Pesanan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(70, 7, $order[0]->order_code, 0, 0, 'L');
+
+        $pdf->SetX(190);
+		$pdf->Cell(50, 7, 'Waktu Pengerjaan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->repair_datetime, 0, 1, 'L');
+
+        $pdf->SetX(70);
+		$pdf->Cell(50, 7, 'Nama Pelanggan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->nama_customer, 0, 0, 'L');
+
+        $pdf->SetX(190);
+        $pdf->SetWidths(Array(50,5,70));
+        $pdf->SetLineHeight(7);
+        $pdf->Row(Array('Alamat', ':', $order[0]->alamat_pengerjaan), 0);
+
+        $pdf->SetX(70);
+		$pdf->Cell(50, 7, 'Nama Teknisi', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->nama_teknisi, 0, 0, 'L');
+
+        $pdf->SetX(190);
+		$pdf->Cell(50, 7, 'Kategori Layanan', 0, 0, 'L');
+        $pdf->Cell(5, 7, ':', 0, 0, 'C');
+        $pdf->Cell(100, 7, $order[0]->service_category_name, 0, 1, 'L');
+
+        $order_detail = $this->M_Order->getOrderDetailByOrderCode($code);
+
+        $pdf->Cell(10, 7, 'No', 0, 0, 'L');
+        $pdf->Cell(50, 7, 'Jenis Layanan', 0, 0, 'L');
+        $pdf->Cell(50, 7, 'Harga', 0, 1, 'L');
+
+        $no = 1;
+        $total_pembayaran = 0;
+        foreach ($order_detail as $data) {
+
+        	$pdf->Cell(10, 7, $no, 1, 0, 'L');
+	        $pdf->Cell(50, 7, $data->service_type_name, 1, 0, 'L');
+	        $pdf->Cell(50, 7, 'Rp '.number_format($data->price,2,',','.'), 1, 1, 'L');
+	        $no ++;
+	        $total_pembayaran = $total_pembayaran + $data->price;
+	    }
+
+    	$pdf->Cell(10, 7, '', 0, 0, 'L');
+        $pdf->Cell(50, 7, '', 0, 0, 'L');
+        $pdf->Cell(50, 7, 'Rp '.number_format($total_pembayaran,2,',','.'), 0, 1, 'L');
+        
+        $filename = 'list_detail_pemesanan_'.$order[0]->order_code.'_'.date("Ymdhis").'.pdf';
+        
+        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
+        force_download('./assets/downloaded-pdf/'.$filename,NULL);
+	}
 	
 	public function orderHistory() {
 	    if($this->session->userdata('akses')=='1'){
@@ -34,136 +196,7 @@ class Controller_Order extends CI_Controller{
 	    }
 	}
 	
-	public function downloadOrderHistory($from, $to) {
-	    if($this->session->userdata('akses')=='1'){
-	        $this->load->library('ReportHeaderLandscape');
-	        $this->load->model("M_Order");
-	        $this->load->library('pdf');
-	        $this->load->helper('download');
-	        
-	        $order_history = $this->M_Order->getAll($from, $to);
-
-	        $pdf = new FPDF('L', 'mm', 'A4');
-	        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
-
-            $pdf->AddPage();
-
-            $pdf->SetFont('Courier', 'B', 16);
-            $pdf->Cell(0, 7, 'Report Order', 0, 1, 'C');
-            $pdf->Cell(10, 7, '', 0, 1);
-
-            $pdf->SetFont('Courier', 'B', 10);
-
-            $pdf->Cell(5, 6, 'No', 1, 0, 'C');
-            $pdf->Cell(30, 6, 'Order Code', 1, 0, 'C');
-            $pdf->Cell(40, 6, 'Order Time', 1, 0, 'C');
-            $pdf->Cell(50, 6, 'Customer', 1, 0, 'C');
-            $pdf->Cell(50, 6, 'Technician', 1, 0, 'C');
-            $pdf->Cell(50, 6, 'Service', 1, 0, 'C');
-            $pdf->Cell(50, 6, 'Status', 1, 1, 'C',);
-
-            $pdf->SetFont('Courier', '', 8);
-            $no = 1;
-            foreach ($order_history as $data) {
-                $pdf->Cell(5, 6, $no, 1, 0);
-                $pdf->Cell(30, 6, $data->order_code, 1, 0);
-                $pdf->Cell(40, 6, $data->created_datetime, 1, 0);
-                $pdf->Cell(50, 6, $data->customer_name, 1, 0);
-                $pdf->Cell(50, 6, $data->technician_name, 1, 0);
-                $pdf->Cell(50, 6, $data->service, 1, 0);
-                $pdf->Cell(50, 6, $data->order_status, 1, 1);
-                $no ++;
-            }
-	        
-	        $filename = 'order_history_report_'.date("Ymdhis").'.pdf';
-	        
-	        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
-	        force_download('./assets/downloaded-pdf/'.$filename,NULL);
-	    }
-	}
 	
-	public function downloadInvoice($code) {
-        if ($this->session->userdata('akses') == '3') {
-            $this->load->library('ReportHeader');
-            $this->load->model("M_Order");
-            $this->load->library('pdf');
-            $this->load->helper('download');
-
-            $order = $this->M_Order->getOneByCode($code);
-            foreach ($order as $data) {
-                $customer_name = $data->customer_name;
-                $technician_name = $data->technician_name;
-                $address = $data->address;
-                $fix_datetime = $data->fix_datetime;
-            }
-            $pdf = new FPDF('P', 'mm', 'A4');
-            $pdf = $this->reportheader->getInstance($code);
-
-            $pdf->AddPage();
-            /* output the result */
-
-            /* set font to Courier, bold, 14pt */
-            $pdf->SetFont('Courier', 'B', 20);
-
-            /* Cell(width , height , text , border , end line , [align] ) */
-
-            $pdf->Cell(75, 10, '', 0, 0);
-            $pdf->Cell(59, 5, 'Invoice', 0, 0);
-            $pdf->Cell(59, 10, '', 0, 1);
-
-            $pdf->Cell(34, 5, '', 0, 1);
-            $pdf->Cell(59, 5, '', 0, 1);
-
-            $pdf->SetFont('Courier', 'B', 12);
-            $pdf->Cell(130, 10, 'Detail Repairing', 0, 1);
-            
-            $pdf->SetFont('Courier', '', 8);
-            $pdf->Cell(40, 5, 'Address', 0, 0);
-            $pdf->MultiCell(150, 5, ': '.$address, 0, 1);
-            $pdf->Cell(40, 5, 'Customer Name', 0, 0);
-            $pdf->Cell(50, 5, ': '.$customer_name, 0, 1);
-            $pdf->Cell(40, 5, 'Technician Name', 0, 0);
-            $pdf->Cell(50, 5, ': '.$technician_name, 0, 1);
-            $pdf->Cell(40, 5, 'Repair Datetime', 0, 0);
-            $pdf->Cell(25, 5, ': '.$fix_datetime, 0, 1);
-            $pdf->Cell(59, 5, '', 0, 1);
-            
-            $pdf->SetFont('Courier', 'B', 12);
-            $pdf->Cell(130, 10, 'Detail Service', 0, 1);
-
-            $pdf->SetFont('Courier', 'B', 8);
-            /* Heading Of the table */
-            $pdf->Cell(10, 6, 'No', 1, 0, 'C');
-            $pdf->Cell(35, 6, 'Service Code', 1, 0, 'C');
-            $pdf->Cell(100, 6, 'Service Name', 1, 0, 'C');
-            $pdf->Cell(30, 6, 'Price', 1, 1, 'C'); /* end of line */
-            /* Heading Of the table end */
-            $pdf->SetFont('Courier', '', 8);
-            $detail = $this->M_Order->getDetailByCode($code);
-            $no=1;
-            $total_price = 0;
-            foreach ($detail as $detail) {
-                $pdf->Cell(10, 6, $no, 1, 0, 'C');
-                $pdf->Cell(35, 6, $detail->service_type_code, 1, 0, 'C');
-                $pdf->Cell(100, 6, $detail->service, 1, 0, 'C');
-                $pdf->Cell(30, 6, 'Rp. '.number_format($detail->price, 2, ',', '.'), 1, 1, 'R');
-                $no++;
-                $total_price = $total_price + $detail->price;
-            }
-
-            $pdf->Cell(10, 6, '', 0, 0);
-            $pdf->Cell(35, 6, '', 0, 0);
-            $pdf->Cell(100, 6, 'Subtotal', 1, 0, 'R');
-            $pdf->Cell(30, 6, 'Rp. '.number_format($total_price, 2, ',', '.'), 1, 1, 'R');
-
-            $filename = 'invoice_order_' . $code . '_' . date("Ymdhis") . '.pdf';
-
-            $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
-
-            force_download('./assets/downloaded-pdf/' . $filename, NULL);
-        }
-    }
-
 	public function getOne($code='') {
 		if($this->session->userdata('akses')=='1'){
 			$this->load->model("T_Order");
@@ -345,7 +378,7 @@ class Controller_Order extends CI_Controller{
 		// print_r($data['service_type'][0]->price);
 
 		if ($this->input->post('jenis_layanan') == 'INSTALASI') {
-			$service_type = $this->M_ServiceCategory->getInstalasiService($this->input->post('service_category_code'));
+			$service_type = $this->M_ServiceType->getInstalasiService($this->input->post('service_category_code'));
 			$data['service_type'] = $service_type;
 			$data['service_type_code'] = $service_type[0]->service_type_code;
 		}

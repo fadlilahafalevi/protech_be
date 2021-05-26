@@ -107,4 +107,58 @@ class Controller_ServiceCategory extends CI_Controller{
 			redirect('Controller_ServiceCategory');
 		}
 	}
+
+	function printServiceCategory() {
+		$this->load->library('ReportHeaderLandscape');
+        $this->load->model("M_ServiceCategory");
+        $this->load->helper('download');
+        
+        // $order_history = $this->M_Order->getAll($from, $to);
+        $service_category = $this->M_ServiceCategory->getAllServiceCategory();
+
+        $pdf = new FPDF('L', 'mm', 'A4');
+        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+
+        $pdf->AddPage();
+        $pdf->AliasNbPages();
+
+        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->Cell(0, 7, 'Data Kategori Layanan', 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
+
+        $pdf->SetFont('Courier', 'B', 8);
+		$pdf->SetX(110);
+
+        $pdf->Cell(10, 7, 'No', 1, 0, 'C');
+        $pdf->Cell(50, 7, 'Kode Kategori Layanan', 1, 0, 'C');
+        $pdf->Cell(50, 7, 'Nama Kategori Layanan', 1, 0, 'C');
+        $pdf->Cell(25, 7, 'Status', 1, 1, 'C',);
+
+        $pdf->SetWidths(Array(10,50,50,25));
+        $pdf->SetLineHeight(5);
+
+        $pdf->SetFont('Courier', '', 8);
+        $no = 1;
+        foreach ($service_category as $data) {
+			$pdf->SetX(110);
+        	if ($data->up_active_status == 1) {
+        		$status = 'Aktif';
+        	} else {
+        		$status = 'Tidak Aktif';
+        	}
+
+            $pdf->Row(Array(
+            	$no,
+            	$data->service_category_code,
+            	$data->service_category_name,
+            	$status
+            ));
+            $no ++;
+        }
+        
+        $filename = 'list_data_kategori_layanan'.date("Ymdhis").'.pdf';
+        
+        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
+        force_download('./assets/downloaded-pdf/'.$filename,NULL);
+	}
 }

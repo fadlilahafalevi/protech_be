@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-sm-2 col-12">
                   <!-- <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Complain/createComplain">Tambah</a>  -->
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Customer/printComplain">Cetak</a>
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Complain/printComplain">Cetak</a>
                 </div>
               </div>
               <div class="table-responsive">

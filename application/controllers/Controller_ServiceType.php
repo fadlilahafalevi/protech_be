@@ -134,4 +134,65 @@ class Controller_ServiceType extends CI_Controller{
 			redirect('Controller_ServiceType');
 		}
 	}
+
+	function printServiceType() {
+		$this->load->library('ReportHeaderLandscape');
+        $this->load->model("M_ServiceType");
+        $this->load->helper('download');
+        
+        // $order_history = $this->M_Order->getAll($from, $to);
+        $service_type = $this->M_ServiceType->getAllServiceType();
+
+        $pdf = new FPDF('L', 'mm', 'A4');
+        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+
+        $pdf->AddPage();
+        $pdf->AliasNbPages();
+
+        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->Cell(0, 7, 'Data Jenis Layanan', 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
+
+        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetX(30);
+
+        $pdf->Cell(5, 7, 'No', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Kode Jenis Layanan', 1, 0, 'C');
+        $pdf->Cell(70, 7, 'Nama Jenis Layanan', 1, 0, 'C');
+        $pdf->Cell(50, 7, 'Kategori Layanan', 1, 0, 'C');
+        $pdf->Cell(50, 7, 'Harga', 1, 0, 'C');
+        $pdf->Cell(50, 7, 'Tipe', 1, 0, 'C');
+        $pdf->Cell(25, 7, 'Status', 1, 1, 'C',);
+
+        $pdf->SetWidths(Array(5,40,70,50,50,50,25));
+        $pdf->SetLineHeight(5);
+
+        $pdf->SetFont('Courier', '', 8);
+        $no = 1;
+        foreach ($service_type as $data) {
+        	$pdf->SetX(30);
+
+        	if ($data->service_type_status == 1) {
+        		$status = 'Aktif';
+        	} else {
+        		$status = 'Tidak Aktif';
+        	}
+
+            $pdf->Row(Array(
+            	$no,
+            	$data->service_type_code,
+            	$data->service_type_name,
+            	$data->service_category_name,
+            	'Rp '.number_format($data->price,2,',','.'),
+            	$data->type,
+            	$status
+            ));
+            $no ++;
+        }
+        
+        $filename = 'list_data_jenis_layanan'.date("Ymdhis").'.pdf';
+        
+        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
+        force_download('./assets/downloaded-pdf/'.$filename,NULL);
+	}
 }

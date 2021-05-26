@@ -248,7 +248,7 @@ $("#dropdown").change(function(){
     var value = $(this).children("option:selected").val();
     $("#pemeliharaan").hide(); 
     
-    if (value == "pemeliharaan")
+    if (value == "PEMELIHARAAN")
         $("#pemeliharaan").show();
 });
 

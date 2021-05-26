@@ -1,7 +1,7 @@
 <?php
 class M_ServiceType extends CI_Model{
 	function getAllServiceType(){
-		$this->db->select('st.*, sc.service_category_name');
+		$this->db->select('st.*, sc.service_category_name, st.active_status as service_type_status');
 		$this->db->from('tbl_service_type st');
 		$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
 	    $this->db->order_by('st.created_datetime','asc');    

@@ -111,4 +111,57 @@ class Controller_Complain extends CI_Controller{
 			redirect('Controller_Complain');
 		}
 	}
+
+	function printComplain() {
+		$this->load->library('ReportHeaderLandscape');
+        $this->load->model("M_Complain");
+        $this->load->helper('download');
+        
+        // $order_history = $this->M_Order->getAll($from, $to);
+        $complain = $this->M_Complain->getAllComplain();
+
+        $pdf = new FPDF('L', 'mm', 'A4');
+        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+
+        $pdf->AddPage();
+        $pdf->AliasNbPages();
+
+        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->Cell(0, 7, 'Data Pengaduan', 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
+
+        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetX(30);
+
+        $pdf->Cell(5, 7, 'No', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Kode Pengaduan', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Kode Pesanan', 1, 0, 'C');
+        $pdf->Cell(70, 7, 'Judul Pengaduan', 1, 0, 'C');
+        $pdf->Cell(120, 7, 'Deskripsi', 1, 0, 'C');
+        $pdf->Cell(25, 7, 'Status', 1, 1, 'C',);
+
+        $pdf->SetWidths(Array(5,40,40,70,120,25));
+        $pdf->SetLineHeight(5);
+
+        $pdf->SetFont('Courier', '', 8);
+        $no = 1;
+        foreach ($complain as $data) {
+        	$pdf->SetX(30);
+
+            $pdf->Row(Array(
+            	$no,
+            	$data->complain_code,
+            	$data->order_code,
+            	$data->subject,
+            	$data->complain_desc,
+            	$data->complain_status
+            ));
+            $no ++;
+        }
+        
+        $filename = 'list_data_pengaduan'.date("Ymdhis").'.pdf';
+        
+        $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
+        force_download('./assets/downloaded-pdf/'.$filename,NULL);
+	}
 }

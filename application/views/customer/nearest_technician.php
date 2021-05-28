@@ -100,7 +100,6 @@
           <input type="hidden" class="form-control" id="foto_kerusakan" name="foto_kerusakan" value="<?php echo $foto_kerusakan ?>" />
           <!-- <img src="data:image/png;base64,<?php echo $foto_kerusakan ?>" alt="Red dot" /> -->
           <input type="hidden" class="form-control" id="detail_keluhan" name="detail_keluhan" value="<?php echo $detail_keluhan ?>" />
-          <input type="hidden" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="<?php echo $metode_pembayaran ?>" />
           <input type="hidden" class="form-control" id="latitude" name="latitude" value="<?php echo $latitude ?>" />
           <input type="hidden" class="form-control" id="longitude" name="longitude" value="<?php echo $longitude ?>" />
           <input type="hidden" class="form-control" id="service_category_code" name="service_category_code" value="<?php echo $service_category_code ?>" />

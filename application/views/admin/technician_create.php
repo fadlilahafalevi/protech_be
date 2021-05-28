@@ -83,10 +83,20 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Belakang</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="last_name" name="last_name"/>
+                            <input type="text" class="form-control" id="last_name" name="last_name" />
                           </div>
                         </div>
                       </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" />
+                            </div>
+                          </div>
+                        </div> 
+                    </div>
+                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Alamat</label>
@@ -94,7 +104,28 @@
                             <textarea class="form-control" rows="4" cols="50" id="address" name="address" required></textarea>
                           </div>
                         </div>
-                      </div>
+                      </div> 
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                              <div class="col-sm-4">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="gender" id="gender" value="L">
+                                      Laki-laki
+                                    </label>
+                                 </div>
+                              </div>
+                              <div class="col-sm-5">
+                                 <div class="form-check">
+                                    <label class="form-check-label">
+                                      <input type="radio" class="form-check-input" name="gender" id="gender" value="P">
+                                      Perempuan
+                                    </label>
+                                 </div>
+                              </div>                        
+                        </div>
+                      </div>                                                             
                     </div>
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
@@ -110,47 +141,7 @@
                     </div>
                     <input type="text" class="form-control" id="searchInput" name="searchInput" style="top: 8px;">
                     <div id="map"></div>
-                    <br>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                            <div class="col-sm-4">
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="gender" id="gender" value="L">
-                                  Laki-laki
-                                </label>
-                              </div>
-                            </div>
-                            <div class="col-sm-5">
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="gender" id="gender" value="P">
-                                  Perempuan
-                                </label>
-                              </div>
-                            </div>                        
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                          <div class="col-sm-9">
-                            <div class="form-group">
-                              <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
-                                <input name="waktu_perbaikan" type="text" class="form-control datepicker-input" data-target="#datetimepicker1" />
-                                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
-                                  <div class="input-group-text"><i class="mdi mdi-calendar-clock"></i></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>                                           
-                    </div>
+                    <br><br><br>
                     <p class="card-description">
                       Informasi Akun
                     </p>
@@ -165,23 +156,13 @@
                         </div>
                         <div class="col-md-6">
                           <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Akun OVO</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="account_number_ovo" name="account_number_ovo"/>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Password</label>
                             <div class="col-sm-9">
                               <input type="password" class="form-control" id="password" name="password" required/>
                             </div>
                           </div>
                         </div>
-                    </div>
+                      </div>
                 </div>
               </div>
             </div>

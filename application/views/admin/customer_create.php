@@ -76,6 +76,16 @@
                           </div>
                         </div>
                       </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                            <div class="col-sm-9">
+                              <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" />
+                            </div>
+                          </div>
+                        </div> 
+                    </div>
+                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Alamat</label>
@@ -83,23 +93,7 @@
                             <textarea class="form-control" rows="4" cols="50" id="address" name="address" required></textarea>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="row" hidden>
-                       <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
-                       <div class="col-sm-9">
-                          <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly" value="-6.158305">
-                       </div>
-                    </div>
-                    <div class="row" hidden>
-                       <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
-                       <div class="col-sm-9">
-                          <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly" value="826.809371">
-                       </div>
-                    </div>
-                    <input type="text" class="form-control" id="searchInput" name="searchInput" style="top: 8px;">
-                    <div id="map"></div>
-                    <div class="row">
+                      </div> 
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
@@ -120,18 +114,23 @@
                                  </div>
                               </div>                        
                         </div>
-                      </div>
+                      </div>                                                             
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" />
-                          </div>
-                        </div>
-                      </div>                                           
+                    <div class="row" hidden>
+                       <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
+                       <div class="col-sm-9">
+                          <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly" value="-6.158305">
+                       </div>
                     </div>
+                    <div class="row" hidden>
+                       <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
+                       <div class="col-sm-9">
+                          <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly" value="826.809371">
+                       </div>
+                    </div>
+                    <input type="text" class="form-control" id="searchInput" name="searchInput" style="top: 8px;">
+                    <div id="map"></div>
+                    <br><br><br>
                     <p class="card-description">
                       Informasi Akun
                     </p>

@@ -71,14 +71,22 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$customer_detail->date_of_birth?>" disabled="disabled"/>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Alamat</label>
                           <div class="col-sm-9">
                             <textarea class="form-control" rows="4" cols="50" id="address" name="address" disabled="disabled"><?=$customer_detail->address?></textarea>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
@@ -119,6 +127,8 @@
                            <?php } ?>                          
                         </div>
                       </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Status</label>
@@ -130,17 +140,7 @@
                               <?php } ?>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$customer_detail->date_of_birth?>" disabled="disabled"/>
-                          </div>
-                        </div>
-                      </div>                                           
+                      </div>                                                              
                     </div>
                     <p class="card-description">
                       Informasi Akun
@@ -154,6 +154,14 @@
                           </div>
                         </div>
                       </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Password</label>
+                            <div class="col-sm-9">
+                              <input type="password" class="form-control" id="password" name="password" value="<?=$customer_detail->password?>" disabled="disabled"/>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                     <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Customer">Kembali</a>
                   </form>

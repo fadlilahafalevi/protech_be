@@ -149,22 +149,17 @@
                         </div>
                       </div>
                     </div>
-
-                    <div class="row">
+                    <div class="row" hidden>
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Metode Pembayaran</label>
                           <div class="col-sm-9">
-                            <select class="form-control" style="color: black" name="metode_pembayaran">
-                              <option value="Tunai">Tunai</option>
-                              <option value="OVO">OVO</option>
-                            </select> 
+                            <input type="hidden" class="form-control" id="metode_pembayaran" name="metode_pembayaran" readonly="readonly" value="TUNAI">
                           </div>
                         </div>
                       </div>
                     </div>
-
-              <button type="submit" class="btn btn-primary">Pesan</button> 
+                    <button type="submit" class="btn btn-primary">Pesan</button> 
                     </div>
                 </div>
               </div>

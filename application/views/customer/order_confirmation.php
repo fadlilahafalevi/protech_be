@@ -81,8 +81,8 @@
                     </div>
                   </div>
 
-                  <?php if ($jenis_layanan == 'PEMELIHARAAN') {?>
                   <div class="row">
+                  <?php if ($jenis_layanan == 'PEMELIHARAAN') {?>
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Layanan</label>
@@ -91,18 +91,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
                 <?php } ?>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Alamat</label>
-                        <div class="col-sm-9">
-                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $alamat ?></textarea>
-                        </div>
-                      </div>
-                    </div>
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Waktu Perbaikan</label>
@@ -112,6 +101,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group row">
@@ -121,27 +111,36 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Alamat</label>
+                        <div class="col-sm-9">
+                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $alamat ?></textarea>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Foto Kerusakan</label>
                         <div class="col-sm-9">
-                          <img width="560px" src="data:image/png;base64,<?php echo $foto_kerusakan ?>" alt="Red dot" />
+                          <img width="415px" src="data:image/png;base64,<?php echo $foto_kerusakan ?>" alt="Red dot" />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Metode Pembayaran</label>
-                        <div class="col-sm-9">
-                          <input type="tetx" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="<?php echo $metode_pembayaran ?>" disabled />
+                    <div class="row" hidden>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Metode Pembayaran</label>
+                          <div class="col-sm-9">
+                            <input type="hidden" class="form-control" id="metode_pembayaran" name="metode_pembayaran" readonly="readonly" value="TUNAI">
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
                 <br>
                 <button class="btn btn-success btn-md" data-toggle="modal" data-target="#myModalNorm"></i>Konfirmasi</button>
                 </div>

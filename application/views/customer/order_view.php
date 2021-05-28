@@ -315,6 +315,7 @@
                         <label class="badge badge-info">Sudah Bayar</label>
                         <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                         <label class="badge badge-success">Selesai</label>
+                        <a href="/teknisi-app/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>">Download Kuitansi</a>
                         <?php } ?>
                       </div>
                     </div>

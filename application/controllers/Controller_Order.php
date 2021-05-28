@@ -152,28 +152,41 @@ class Controller_Order extends CI_Controller{
         $pdf->Cell(5, 7, ':', 0, 0, 'C');
         $pdf->Cell(100, 7, $order[0]->service_category_name, 0, 1, 'L');
 
-        $order_detail = $this->M_Order->getOrderDetailByOrderCode($code);
+        $order_detail = $this->M_Order->getOrderDetailByOrderCode($order_code);
 
-        $pdf->Cell(10, 7, 'No', 0, 0, 'L');
-        $pdf->Cell(50, 7, 'Jenis Layanan', 0, 0, 'L');
-        $pdf->Cell(50, 7, 'Harga', 0, 1, 'L');
+        $pdf->SetX(190);
+		$pdf->Cell(50, 7, '', 0, 0, 'L');
+        $pdf->Cell(5, 7, '', 0, 0, 'C');
+        $pdf->Cell(100, 7, '', 0, 1, 'L');
+		$pdf->Cell(50, 7, '', 0, 0, 'L');
+        $pdf->Cell(5, 7, '', 0, 0, 'C');
+        $pdf->Cell(100, 7, '', 0, 1, 'L');
+		$pdf->Cell(50, 7, '', 0, 0, 'L');
+        $pdf->Cell(5, 7, '', 0, 0, 'C');
+        $pdf->Cell(100, 7, '', 0, 1, 'L');
+
+        $pdf->SetX(120);
+        $pdf->Cell(10, 7, 'No', 1, 0, 'C');
+        $pdf->Cell(80, 7, 'Jenis Layanan', 1, 0, 'C');
+        $pdf->Cell(50, 7, 'Harga', 1, 1, 'C');
 
         $no = 1;
         $total_pembayaran = 0;
         foreach ($order_detail as $data) {
-
+        	$pdf->SetX(120);
         	$pdf->Cell(10, 7, $no, 1, 0, 'L');
-	        $pdf->Cell(50, 7, $data->service_type_name, 1, 0, 'L');
+	        $pdf->Cell(80, 7, $data->service_type_name, 1, 0, 'L');
 	        $pdf->Cell(50, 7, 'Rp '.number_format($data->price,2,',','.'), 1, 1, 'L');
 	        $no ++;
 	        $total_pembayaran = $total_pembayaran + $data->price;
 	    }
 
+	    $pdf->SetX(120);
     	$pdf->Cell(10, 7, '', 0, 0, 'L');
-        $pdf->Cell(50, 7, '', 0, 0, 'L');
+        $pdf->Cell(80, 7, 'Total ', 0, 0, 'R');
         $pdf->Cell(50, 7, 'Rp '.number_format($total_pembayaran,2,',','.'), 0, 1, 'L');
         
-        $filename = 'list_detail_pemesanan_'.$order[0]->order_code.'_'.date("Ymdhis").'.pdf';
+        $filename = 'Kuitansi_'.$order[0]->order_code.'_'.date("Ymdhis").'.pdf';
         
         $pdf->Output(FCPATH.'assets\\downloaded-pdf\\'.$filename,'F');
         force_download('./assets/downloaded-pdf/'.$filename,NULL);

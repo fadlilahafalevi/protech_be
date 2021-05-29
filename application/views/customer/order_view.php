@@ -300,8 +300,6 @@
                         <label class="badge badge-info">Sudah Bayar</label>
                         <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                         <label class="badge badge-success">Selesai</label>
-                        <a href="/teknisi-app/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>">Download Kuitansi</a>
-                        <?php } ?>
                       </div>
                     </div>
                   </div>
@@ -312,8 +310,11 @@
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalBayar"></i>Sudah Bayar</button>
                 <?php } else if ($data[0]->order_status == 'SELESAI' && (!$review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalUlasan"></i>Tulis Ulasan</button>
+                  <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
                 <?php } else if ($data[0]->order_status == 'SELESAI' && ($review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>
+                  <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
+                  <?php } ?>
                 <?php } ?>
               </div>
             </div>

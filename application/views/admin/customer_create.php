@@ -28,7 +28,7 @@
       <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Tambah Data Pelanggan</h4>
+                  <h4 class="card-title">Registrasi</h4>
                   <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/saveData'; ?>">
                     <p class="card-description">
                       Informasi Pribadi
@@ -44,12 +44,12 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nomor KTP</label>
+                          <label class="col-sm-3 col-form-label">Nomor Telepon</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="identity_no" name="identity_no" required/>
+                            <input type="text" class="form-control" id="phone" name="phone" required/>
                           </div>
                         </div>
-                      </div>
+                      </div>                      
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -57,24 +57,6 @@
                           <label class="col-sm-3 col-form-label">Nama Tengah</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" id="middle_name" name="middle_name" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nomor Telepon</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="phone" name="phone" required/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="last_name" name="last_name" />
                           </div>
                         </div>
                       </div>
@@ -90,12 +72,12 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required></textarea>
+                            <input type="text" class="form-control" id="last_name" name="last_name" />
                           </div>
                         </div>
-                      </div> 
+                      </div>
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
@@ -116,7 +98,17 @@
                                  </div>
                               </div>                        
                         </div>
-                      </div>                                                             
+                      </div>  
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required></textarea>
+                          </div>
+                        </div>
+                      </div>                                                            
                     </div>
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>

@@ -29,26 +29,8 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Depan</label>
                           <div class="col-sm-9">
-                              <input type="text" class="form-control" id="user_code" name="user_code" value="<?=$customer_detail->user_code?>" readonly/>
+                              <input type="hidden" class="form-control" id="user_code" name="user_code" value="<?=$customer_detail->user_code?>" readonly/>
                               <input type="text" class="form-control" id="first_name" name="first_name" value="<?=$customer_detail->first_name?>" required/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nomor KTP</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="identity_no" name="identity_no" value="<?=$customer_detail->identity_no?>" readonly/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Tengah</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?=$customer_detail->middle_name?>" />
                           </div>
                         </div>
                       </div>
@@ -64,9 +46,9 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
+                          <label class="col-sm-3 col-form-label">Nama Tengah</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?=$customer_detail->last_name?>"/>
+                            <input type="text" class="form-control" id="middle_name" name="middle_name" value="<?=$customer_detail->middle_name?>" />
                           </div>
                         </div>
                       </div>
@@ -82,9 +64,9 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required><?=$customer_detail->address?></textarea>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?=$customer_detail->last_name?>"/>
                           </div>
                         </div>
                       </div>
@@ -129,6 +111,16 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required><?=$customer_detail->address?></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <p class="card-description">
                       Informasi Akun
                     </p>
@@ -141,8 +133,6 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Password</label>

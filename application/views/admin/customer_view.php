@@ -35,9 +35,9 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nomor KTP</label>
+                          <label class="col-sm-3 col-form-label">Nomor Telepon</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="identity_no" name="identity_no" value="<?=$customer_detail->identity_no?>" disabled="disabled"/>
+                            <input type="text" class="form-control" id="phone" name="phone" value="<?=$customer_detail->phone?>" disabled="disabled"/>
                           </div>
                         </div>
                       </div>
@@ -53,24 +53,6 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nomor Telepon</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="phone" name="phone" value="<?=$customer_detail->phone?>" disabled="disabled"/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?=$customer_detail->last_name?>" disabled="disabled"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$customer_detail->date_of_birth?>" disabled="disabled"/>
@@ -81,9 +63,9 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" disabled="disabled"><?=$customer_detail->address?></textarea>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?=$customer_detail->last_name?>" disabled="disabled"/>
                           </div>
                         </div>
                       </div>
@@ -129,6 +111,14 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" disabled="disabled"><?=$customer_detail->address?></textarea>
+                          </div>
+                        </div>
+                      </div>
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Status</label>

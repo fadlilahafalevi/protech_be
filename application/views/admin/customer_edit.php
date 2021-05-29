@@ -36,9 +36,9 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nomor KTP</label>
+                          <label class="col-sm-3 col-form-label">Nomor Telepon</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="identity_no" name="identity_no" value="<?=$customer_detail->identity_no?>" required/>
+                            <input type="text" class="form-control" id="phone" name="phone" value="<?=$customer_detail->phone?>" required/>
                           </div>
                         </div>
                       </div>
@@ -54,24 +54,6 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nomor Telepon</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="phone" name="phone" value="<?=$customer_detail->phone?>" required/>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?=$customer_detail->last_name?>"/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$customer_detail->date_of_birth?>" />
@@ -82,9 +64,9 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <label class="col-sm-3 col-form-label">Nama Belakang</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required><?=$customer_detail->address?></textarea>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="<?=$customer_detail->last_name?>"/>
                           </div>
                         </div>
                       </div>
@@ -132,6 +114,14 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required><?=$customer_detail->address?></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Status</label>
                           <div class="col-sm-9">
                               <?php if ($customer_detail->up_active_status == 1) { ?>
@@ -159,7 +149,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Password</label>
                             <div class="col-sm-9">
-                              <input type="password" class="form-control" id="password" name="password" value="<?=$customer_detail->password?>" required disabled="disabled"/>
+                              <input type="password" class="form-control" id="password" name="password" value="<?=$customer_detail->password?>" required/>
                             </div>
                           </div>
                         </div>

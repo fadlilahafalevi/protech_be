@@ -72,12 +72,12 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required><?=$admin_detail->address?></textarea>
+                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$admin_detail->date_of_birth?>" />
                           </div>
                         </div>
-                      </div>
+                      </div> 
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -122,6 +122,16 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required><?=$admin_detail->address?></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Status</label>
                           <div class="col-sm-9">
                               <?php if ($admin_detail->up_active_status == 1) { ?>
@@ -133,16 +143,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$admin_detail->date_of_birth?>" />
-                          </div>
-                        </div>
-                      </div>                                           
-                    </div>
                     <p class="card-description">
                       Informasi Akun
                     </p>
@@ -152,6 +152,14 @@
                           <label class="col-sm-3 col-form-label">Email</label>
                           <div class="col-sm-9">
                             <input type="email" class="form-control" id="email" name="email" value="<?=$admin_detail->email?>" disabled="disabled"/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Password</label>
+                          <div class="col-sm-9">
+                            <input type="password" class="form-control" id="password" name="password" value="<?=$admin_detail->password?>" required/>
                           </div>
                         </div>
                       </div>

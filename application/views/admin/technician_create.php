@@ -16,16 +16,14 @@
     }
   </style>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js" integrity="sha512-he8U4ic6kf3kustvJfiERUpojM8barHoz0WYpAUDWQVn61efpm3aVAD8RWL8OloaDDzMZ1gZiubF9OSdYBqHfQ==" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
+  <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" crossorigin="anonymous">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment-with-locales.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+  <script src="https://rawgit.com/tempusdominus/bootstrap-4/master/build/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link href="https://rawgit.com/tempusdominus/bootstrap-4/master/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
@@ -87,14 +85,20 @@
                           </div>
                         </div>
                       </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                            <div class="col-sm-9">
-                              <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" />
-                            </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
+                          <div class="col-sm-2">
+                            <select class="form-control" style="color: black" name="tanggal_lahir" id="daydropdown"></select>
                           </div>
-                        </div> 
+                          <div class="col-sm-3"> 
+                            <select class="form-control" style="color: black" name="bulan_lahir" id="monthdropdown"></select>
+                          </div>
+                          <div class="col-sm-2"> 
+                            <select class="form-control" style="color: black" name="tahun_lahir" id="yeardropdown"></select>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -275,6 +279,67 @@ function bindDataToForm(address,lat,lng){
    document.getElementById('latitude').value = lat;
    document.getElementById('longitude').value = lng;
 }
+
+var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
+}
+
+function populateDates(){
+  var today = new Date(),
+      day = today.getUTCDate(),
+      month = today.getUTCMonth(),
+      year = 1960,
+      yearNow = today.getUTCFullYear(),
+      daysInCurrMonth = daysInMonth(month, year);
+
+  // Year
+  for(var i = 0; i < 61; i++){
+    var opt = document.createElement('option');
+    opt.value = i + year;
+    opt.text = i + year;
+    yeardropdown.appendChild(opt);
+  }
+
+  // Month
+  for(var i = 0; i < 12; i++){
+    var opt = document.createElement('option');
+    opt.value = i+1;
+    opt.text = months[i];
+    monthdropdown.appendChild(opt);
+  }
+
+  // Day
+  for(var i = 0; i < daysInCurrMonth; i++){
+    var opt = document.createElement('option');
+    opt.value = i + 1;
+    opt.text = i + 1;
+    daydropdown.appendChild(opt);
+  }
+}
+
+var daydropdown = document.getElementById("daydropdown"),
+    monthdropdown = document.getElementById("monthdropdown"),
+    yeardropdown = document.getElementById("yeardropdown");
+
+// Change handler for months
+monthdropdown.onchange = function(){
+  var newMonth = months.indexOf(monthdropdown.value) + 1,
+      newYear = yeardropdown.value;
+  
+  daysInCurrMonth = daysInMonth(newMonth, newYear);
+
+  daydropdown.innerHTML = "";
+  for(var i = 0; i < daysInCurrMonth; i++){
+    var opt = document.createElement('option');
+    opt.value = i + 1;
+    opt.text = i + 1;
+    daydropdown.appendChild(opt);
+  }
+}
+
+populateDates();
 </script>
 </body>
 </html>

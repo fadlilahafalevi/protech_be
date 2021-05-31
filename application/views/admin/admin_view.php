@@ -163,7 +163,7 @@
                         </div>
                       </div>
                     </div>
-                    <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Admin">Kembali</a>
+                    <a class="btn btn-light" href="/protechapp/index.php/Controller_Admin">Kembali</a>
                   </form>
                   <?php
                      }

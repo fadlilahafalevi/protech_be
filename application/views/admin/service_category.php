@@ -22,8 +22,8 @@
                   <h4 class="card-title">Data Kategori Layanan</h4>
                 </div>
                 <div class="col-sm-2 col-12">
-                  <a class="btn btn-primary btn-sm" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_ServiceCategory/createServiceCategory">Tambah</a> 
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_ServiceCategory/printServiceCategory">Cetak</a>
+                  <a class="btn btn-primary btn-sm" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_ServiceCategory/createServiceCategory">Tambah</a> 
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_ServiceCategory/printServiceCategory">Cetak</a>
                 </div>
               </div>
               <div class="table-responsive">
@@ -59,10 +59,10 @@
                           ?>
                         </td>
                         <td style="text-align: center">
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_ServiceCategory/getOne/<?=$list_service_category->service_category_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_ServiceCategory/getOne/<?=$list_service_category->service_category_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>
                           </a>
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_ServiceCategory/updateServiceCategory/<?=$list_service_category->service_category_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_ServiceCategory/updateServiceCategory/<?=$list_service_category->service_category_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
                             <i class="mdi mdi-pencil"></i>
                           </a>
                         </td>

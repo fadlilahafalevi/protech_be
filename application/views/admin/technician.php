@@ -22,8 +22,8 @@
                   <h4 class="card-title">Data Teknisi</h4>
                 </div>
                 <div class="col-sm-2 col-12">
-                  <a class="btn btn-primary btn-sm" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Technician/createTechnician">Tambah</a> 
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Technician/printTechnician">Cetak</a>
+                  <a class="btn btn-primary btn-sm" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_Technician/createTechnician">Tambah</a> 
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_Technician/printTechnician">Cetak</a>
                 </div>
               </div>
               <div class="table-responsive">
@@ -61,10 +61,10 @@
                           ?>
                         </td>
                         <td style="text-align: center">
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Technician/getOne/<?=$list_technician->user_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_Technician/getOne/<?=$list_technician->user_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>
                           </a>
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Technician/updateTechnician/<?=$list_technician->user_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_Technician/updateTechnician/<?=$list_technician->user_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
                             <i class="mdi mdi-pencil"></i>
                           </a>
                         </td>

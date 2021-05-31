@@ -128,7 +128,7 @@
               <div class="wthree-services-info">
                 <i class="fa fa-wrench" aria-hidden="true"></i>
                 <h4><?php echo $listCategory->service_category_name ?></h4><br>
-                <center><a href="/teknisi-app/index.php/Controller_Order/preorder/<?php echo $listCategory->service_category_code ?>" class="btn btn-success">Pesan</a></center>
+                <center><a href="/protechapp/index.php/Controller_Order/preorder/<?php echo $listCategory->service_category_code ?>" class="btn btn-success">Pesan</a></center>
               </div>
             </div>
           </div>

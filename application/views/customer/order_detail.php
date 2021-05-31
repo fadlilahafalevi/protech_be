@@ -110,7 +110,7 @@
                   </div>
                 </div>
 
-                <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
+                <a class="btn btn-light" href="/protechapp/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
 
                 </div>
 

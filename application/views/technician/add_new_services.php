@@ -31,7 +31,7 @@
                   <input type="checkbox" name="<?=$service_type->service_type_code?>" value="<?=$service_type->service_type_code?>" > <?=$service_type->service_type_name?> - Rp. <?=$service_type->price?>
                 </div>
               <?php } ?>
-              <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getOne/<?=$order_code?>">Kembali</a>
+              <a class="btn btn-light" href="/protechapp/index.php/Controller_Order/getOne/<?=$order_code?>">Kembali</a>
               <button type="submit" class="btn btn-primary">Submit</button> 
               </form>
             </div>

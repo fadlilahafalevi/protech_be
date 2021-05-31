@@ -27,19 +27,19 @@
               <?php
                 if($this->session->userdata('akses')=='1'){ //SUPERADMIN
               ?>
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_Admin">Admin</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_Admin">Admin</a></li>
               <?php
                 }
               ?>
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_Customer">Pelanggan</a></li>
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_Technician">Teknisi</a></li>
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ServiceCategory">Kategori Layanan</a></li>
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ServiceType">Jenis Layanan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_Customer">Pelanggan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_Technician">Teknisi</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_ServiceCategory">Kategori Layanan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_ServiceType">Jenis Layanan</a></li>
               </ul>
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_Complain">
+            <a class="nav-link" href="/protechapp/index.php/Controller_Complain">
               <i class="mdi mdi-view-headline menu-icon"></i>
               <span class="menu-title">Pengaduan</span>
             </a>
@@ -52,9 +52,9 @@
             </a>
             <div class="collapse" id="auth">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ReportOrder"> Pemesanan </a></li>
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ReportPayment"> Pembayaran </a></li>
-                <li class="nav-item"> <a class="nav-link" href="/teknisi-app/index.php/Controller_ReportRatingAndReview"> Penilaian dan Ulasan </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_ReportOrder"> Pemesanan </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_ReportPayment"> Pembayaran </a></li>
+                <li class="nav-item"> <a class="nav-link" href="/protechapp/index.php/Controller_ReportRatingAndReview"> Penilaian dan Ulasan </a></li>
               </ul>
             </div>
           </li>
@@ -68,13 +68,13 @@
           if($this->session->userdata('akses')=='3'){ //TEKNISI
         ?>
           <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_DashboardTechnician">
+            <a class="nav-link" href="/protechapp/index.php/Controller_DashboardTechnician">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>  
           <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$this->session->userdata('user_code')?>">
+            <a class="nav-link" href="/protechapp/index.php/Controller_Order/getAll/<?=$this->session->userdata('user_code')?>">
               <i class="mdi mdi-file menu-icon"></i>
               <span class="menu-title">Pemesanan</span>
             </a>
@@ -89,19 +89,19 @@
           if($this->session->userdata('akses')=='4'){ //PELANGGAN
         ?>
           <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_DashboardCustomer">
+            <a class="nav-link" href="/protechapp/index.php/Controller_DashboardCustomer">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
           </li>  
           <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$this->session->userdata('user_code')?>">
+            <a class="nav-link" href="/protechapp/index.php/Controller_Order/getAll/<?=$this->session->userdata('user_code')?>">
               <i class="mdi mdi-file menu-icon"></i>
               <span class="menu-title">Pemesanan</span>
             </a>
           </li> 
           <li class="nav-item">
-            <a class="nav-link" href="/teknisi-app/index.php/Controller_Complain">
+            <a class="nav-link" href="/protechapp/index.php/Controller_Complain">
               <i class="mdi mdi-view-headline menu-icon"></i>
               <span class="menu-title">Pengaduan</span>
             </a>

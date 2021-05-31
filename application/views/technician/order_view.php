@@ -72,7 +72,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/requestNewServiceSubmit/<?=$order_code?>/<?=$service_category_code?>">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/requestNewServiceSubmit/<?=$order_code?>/<?=$service_category_code?>">
                   <?php 
                 foreach ($data_layanan_tambahan as $service_type){
               ?>
@@ -98,7 +98,7 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/confirmOrderTechnician/<?=$order_code?>/MENUNGGU PEMBAYARAN">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/confirmOrderTechnician/<?=$order_code?>/MENUNGGU PEMBAYARAN">
                <h3 align="center">Apakah anda yakin?</h3>
             </div>
             <!-- Modal Footer -->
@@ -117,7 +117,7 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/confirmOrderTechnician/<?=$order_code?>/SELESAI">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/confirmOrderTechnician/<?=$order_code?>/SELESAI">
                <h3 align="center">Apakah anda yakin?</h3>
             </div>
             <!-- Modal Footer -->
@@ -138,7 +138,7 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
                <h3 align="center">Ulasan Dari Pelanggan</h3>
                <div class="rating">
                   <input disabled="disabled" type="radio" name="rating" id="rating-5" value="5" <?php if ($review[0]->rate == 5) { ?> checked="" <?php } ?>>
@@ -296,7 +296,7 @@
                     </div>
               </div>
 
-                <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->technician_code?>">Kembali</a>
+                <a class="btn btn-light" href="/protechapp/index.php/Controller_Order/getAll/<?=$data[0]->technician_code?>">Kembali</a>
 
                 
                 <?php if ($data[0]->order_status == 'DITERIMA') { ?>

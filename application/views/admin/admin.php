@@ -22,7 +22,7 @@
                   <h4 class="card-title">Data Admin</h4>
                 </div>
                 <div class="col-sm-2 col-12">
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Admin/createAdmin">Tambah</a>
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_Admin/createAdmin">Tambah</a>
                 </div>
               </div>
               <div class="table-responsive">
@@ -60,10 +60,10 @@
                           ?>
                         </td>
                         <td style="text-align: center">
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Admin/getOne/<?=$list_admin->user_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_Admin/getOne/<?=$list_admin->user_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>
                           </a>
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Admin/updateAdmin/<?=$list_admin->user_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_Admin/updateAdmin/<?=$list_admin->user_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
                             <i class="mdi mdi-pencil"></i>
                           </a>
                         </td>

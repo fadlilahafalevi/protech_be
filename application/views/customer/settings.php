@@ -153,7 +153,7 @@
                         </div>
                       </div>
                     </div>
-                    <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Settings/updateProfile">Ubah</a>
+                    <a class="btn btn-primary" href="/protechapp/index.php/Controller_Settings/updateProfile">Ubah</a>
                   </form>
                   <?php
                      }

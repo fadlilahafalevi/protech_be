@@ -18,7 +18,7 @@
           <h4 class="card-title">Data Pengaduan</h4>
         </div>
         <div class="col-sm-2 col-12">
-          <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Complain/createComplain">Tambah</a>
+          <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_Complain/createComplain">Tambah</a>
         </div>
       </div>
       <div class="row">

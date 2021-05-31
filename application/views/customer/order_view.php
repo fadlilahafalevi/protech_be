@@ -59,8 +59,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />|
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
-  <script src='/teknisi-app/assets/bootstrap-star-rating/js/star-rating.min.js' type='text/javascript'></script>
-  <script src="/teknisi-app/assets/vendors_bu/font-awesome/css/font-awesome.min.css"></script>
+  <script src='/protechapp/assets/bootstrap-star-rating/js/star-rating.min.js' type='text/javascript'></script>
+  <script src="/protechapp/assets/vendors_bu/font-awesome/css/font-awesome.min.css"></script>
 
 </head>
 <body>
@@ -84,7 +84,7 @@
             </div>
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/requestNewServiceSubmit/<?=$order_code?>/<?=$service_category_code?>">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/requestNewServiceSubmit/<?=$order_code?>/<?=$service_category_code?>">
                   <?php 
                 foreach ($data_layanan_tambahan as $service_type){
               ?>
@@ -110,7 +110,7 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>">
                <h3 align="center">Apakah anda yakin?</h3>
             </div>
             <!-- Modal Footer -->
@@ -129,7 +129,7 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
                <h3 align="center">Berikan Ulasan Anda</h3>
                <div class="rating">
                   <input type="radio" name="rating" id="rating-5" value="5">
@@ -167,7 +167,7 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/teknisi-app/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
                <h3 align="center">Ulasan Anda</h3>
                <div class="rating">
                   <input disabled="disabled" type="radio" name="rating" id="rating-5" value="5" <?php if ($review[0]->rate == 5) { ?> checked="" <?php } ?>>
@@ -305,15 +305,15 @@
                   </div>
                 </div>
 
-                <a class="btn btn-light" href="/teknisi-app/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
+                <a class="btn btn-light" href="/protechapp/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
                 <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalBayar"></i>Sudah Bayar</button>
                 <?php } else if ($data[0]->order_status == 'SELESAI' && (!$review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalUlasan"></i>Tulis Ulasan</button>
-                  <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
+                  <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
                 <?php } else if ($data[0]->order_status == 'SELESAI' && ($review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>
-                  <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
+                  <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
                   <?php } ?>
                 <?php } ?>
               </div>

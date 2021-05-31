@@ -11,10 +11,10 @@
     <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="/teknisi-app/assets/css/bootstrap-datetimepicker.min.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/protechapp/assets/css/bootstrap-datetimepicker.min.css" type="text/css" media="all" />
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-    <script type="text/javascript" src="/teknisi-app/assets/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript" src="/teknisi-app/assets/js/demo.js"></script> -->
+    <script type="text/javascript" src="/protechapp/assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/protechapp/assets/js/demo.js"></script> -->
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
@@ -60,8 +60,8 @@
                   <h4 class="card-title">Laporan Pembayaran</h4>
                 </div>
                 <div class="col-sm-2 col-12">
-                  <!-- <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_Complain/createComplain">Tambah</a>  -->
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_ReportPayment/printReportPayment">Cetak</a>
+                  <!-- <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_Complain/createComplain">Tambah</a>  -->
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_ReportPayment/printReportPayment">Cetak</a>
                 </div>
               </div>
               <div class="table-responsive">

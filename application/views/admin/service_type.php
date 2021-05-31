@@ -22,8 +22,8 @@
                   <h4 class="card-title">Data Jenis Layanan</h4>
                 </div>
                 <div class="col-sm-2 col-12">
-                  <a class="btn btn-primary btn-sm" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_ServiceType/createServiceType">Tambah</a> 
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/teknisi-app/index.php/Controller_ServiceType/printServiceType">Cetak</a>
+                  <a class="btn btn-primary btn-sm" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_ServiceType/createServiceType">Tambah</a> 
+                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_ServiceType/printServiceType">Cetak</a>
                 </div>
               </div>
               <div class="table-responsive">
@@ -61,10 +61,10 @@
                           ?>
                         </td>
                         <td style="text-align: center">
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_ServiceType/getOne/<?=$list_service_type->service_type_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_ServiceType/getOne/<?=$list_service_type->service_type_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>
                           </a>
-                          <a class="btn btn-primary" href="/teknisi-app/index.php/Controller_ServiceType/updateServiceType/<?=$list_service_type->service_type_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_ServiceType/updateServiceType/<?=$list_service_type->service_type_code?>" data-toggle="tooltip" title="Ubah" style="padding: 4px">
                             <i class="mdi mdi-pencil"></i>
                           </a>
                         </td>

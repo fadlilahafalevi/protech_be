@@ -72,7 +72,10 @@ class Controller_Admin extends CI_Controller{
 			$middle_name = $this->input->post('middle_name');
 			$last_name = $this->input->post('last_name');
 			$gender = $this->input->post('gender');
-			$date_of_birth = $this->input->post('date_of_birth');
+			$tanggal_lahir = $this->input->post('tanggal_lahir');
+			$bulan_lahir = $this->input->post('bulan_lahir');
+			$tahun_lahir = $this->input->post('tahun_lahir');
+			$date_of_birth = $tahun_lahir.'-'.$bulan_lahir.'-'.$tanggal_lahir;
 			$identity_no = $this->input->post('identity_no');
 			$phone = $this->input->post('phone');
 			$address =	$this->input->post('address');

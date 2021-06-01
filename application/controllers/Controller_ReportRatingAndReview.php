@@ -4,14 +4,18 @@ class Controller_ReportRatingAndReview extends CI_Controller{
         $this->load->model('M_ReportRatingAndReview');
         
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
-			$data['list']=$this->M_ReportRatingAndReview->getAllReportRatingAndReview();
+             $from_date = $this->input->post('from_date');
+            $to_date = $this->input->post('to_date');
+			$data['list']=$this->M_ReportRatingAndReview->getAllReportRatingAndReview($from_date, $to_date);
+            $data['from_date'] = $from_date;
+            $data['to_date'] = $to_date;
 			$this->load->view('admin/report_ratingandreview',$data);
 		}else{
 	        echo "Halaman tidak ditemukan";
 	    }
 	}
 
-	function printReportRatingAndReview() {
+	function printReportRatingAndReview($from_date = '', $to_date = '') {
 		$this->load->library('ReportHeaderLandscape');
         $this->load->model("M_ReportRatingAndReview");
         $this->load->helper('download');
@@ -27,6 +31,19 @@ class Controller_ReportRatingAndReview extends CI_Controller{
 
         $pdf->SetFont('Courier', 'B', 16);
         $pdf->Cell(0, 7, 'Data Penilaian Dan Ulasan', 0, 1, 'C');
+
+        if ($from_date != '' and $to_date != '') {
+            setlocale(LC_ALL, 'IND');
+            $from_date_new = strftime( "%d %B %Y", DateTime::createFromFormat('Y-m-d', $from_date)->getTimestamp());
+            $to_date_new = strftime( "%d %B %Y", DateTime::createFromFormat('Y-m-d', $to_date)->getTimestamp());
+
+            $pdf->SetFont('Courier', '', 8);
+            $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
+        }
+
+        $pdf->SetFont('Courier', '', 8);
+        $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
+        $pdf->Cell(10, 7, '', 0, 1);
         $pdf->Cell(10, 7, '', 0, 1);
 
         $pdf->SetFont('Courier', 'B', 8);

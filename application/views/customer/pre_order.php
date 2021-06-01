@@ -17,18 +17,6 @@
     }
   </style>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/locale/id.min.js" integrity="sha512-he8U4ic6kf3kustvJfiERUpojM8barHoz0WYpAUDWQVn61efpm3aVAD8RWL8OloaDDzMZ1gZiubF9OSdYBqHfQ==" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.js" integrity="sha256-2JRzNxMJiS0aHOJjG+liqsEOuBb6++9cY4dSOyiijX4=" crossorigin="anonymous"></script>
-
-
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
@@ -248,20 +236,14 @@ $("#dropdown").change(function(){
 });
 
  $(function() {
-  var dateFormat = "DD-MM-YYYY";
+  var dateFormat = "DD-MM-YYYY HH.mm";
   var CurrDate = "27-06-2018";
   var MinDate = "01-06-2018";
   var MaxDate = "27-06-2018";
-  
-  dateCurr = moment(CurrDate, dateFormat);
-  dateMin = moment(MinDate, dateFormat);
-  dateMax = moment(MaxDate, dateFormat);
-  
+
   $("#datetimepicker1").datetimepicker({
     format: dateFormat,
-    date: dateCurr,
-    minDate: dateMin,
-    maxDate: dateMax,
+    minDate: new Date()
   });
 });
 </script>

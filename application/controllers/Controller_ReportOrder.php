@@ -4,29 +4,43 @@ class Controller_ReportOrder extends CI_Controller{
         $this->load->model('M_ReportOrder');
         
 		if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){
-			$data['list']=$this->M_ReportOrder->getAllReportOrder();
+            $from_date = $this->input->post('from_date');
+            $to_date = $this->input->post('to_date');
+			$data['list']=$this->M_ReportOrder->getAllReportOrder($from_date, $to_date);
+            $data['from_date'] = $from_date;
+            $data['to_date'] = $to_date;
 			$this->load->view('admin/report_order',$data);
 		}else{
 	        echo "Halaman tidak ditemukan";
 	    }
 	}
 
-	function printReportOrder() {
+	function printReportOrder($from_date = '', $to_date = '') {
 		$this->load->library('ReportHeaderLandscape');
         $this->load->model("M_ReportOrder");
         $this->load->helper('download');
         
         // $order_history = $this->M_Order->getAll($from, $to);
-        $order = $this->M_ReportOrder->getAllReportOrder();
+        $order = $this->M_ReportOrder->getAllReportOrder($from_date, $to_date);
 
         $pdf = new FPDF('L', 'mm', 'A4');
-        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+        $pdf = $this->reportheaderlandscape->getInstance($from_date, $to_date);
 
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
         $pdf->SetFont('Courier', 'B', 16);
         $pdf->Cell(0, 7, 'Data Pemesanan', 0, 1, 'C');
+
+        if ($from_date != '' and $to_date != '') {
+            setlocale(LC_ALL, 'IND');
+            $from_date_new = strftime( "%d %B %Y", DateTime::createFromFormat('Y-m-d', $from_date)->getTimestamp());
+            $to_date_new = strftime( "%d %B %Y", DateTime::createFromFormat('Y-m-d', $to_date)->getTimestamp());
+
+            $pdf->SetFont('Courier', '', 8);
+            $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
+        }
+
         $pdf->Cell(10, 7, '', 0, 1);
 
         $pdf->SetFont('Courier', 'B', 8);

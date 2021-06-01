@@ -1,9 +1,15 @@
 <?php
 class M_Complain extends CI_Model{
-	function getAllComplain(){
+	function getAllComplain($from_date = '', $to_date = ''){
 		$this->db->select('*');
 		$this->db->from('tbl_complain');
-	    $this->db->order_by('created_datetime','asc');    
+		 if ($from_date != '') {
+			$this->db->where('DATE(created_datetime) >=', $from_date);
+		}
+		if ($to_date != '') {
+			$this->db->where('DATE(created_datetime) <=', $to_date);
+		}
+	    $this->db->order_by('created_datetime','asc'); 
 		$query = $this->db->get();
 		return $query->result();
 	}

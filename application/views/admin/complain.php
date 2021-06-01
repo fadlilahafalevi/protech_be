@@ -6,15 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>TEKNISI APP</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css">
-<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
-
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
@@ -25,35 +16,6 @@
 <!-- first row starts here -->
   <div class="main-panel">
     <div class="content-wrapper">
-      <div class="row">
-        <!-- <div class="col-12 grid-margin stretch-card">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">Cetak Data Pengaduan</h4>
-              <form class="form-inline justify-content-center">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Mulai Tanggal</label>
-                      <div class="col-sm-9">
-                          <input type="text" class="form-control" id="from_date" name="from_date" placeholder="yyyy-mm-dd"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Sampai Tanggal</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" id="to_date" name="to_date" placeholder="yyyy-mm-dd"/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-sm">Cetak</button>
-              </form>
-            </div>
-          </div>
-        </div> -->
         <div class="col-lg-12 grid-margin stretch-card">
           <div class="card">
             <div class="card-body">
@@ -61,17 +23,41 @@
                 <div class="col-sm-10 col-12">
                   <h4 class="card-title">Data Pengaduan</h4>
                 </div>
-                <div class="container">
-                    <label for="startDate">Start Date</label>
-                    <input id="startDate" name="startDate" type="text" class="form-control" />
-                    &nbsp;
-                    <label for="endDate">End Date</label>
-                    <input id="endDate" name="endDate" type="text" class="form-control" />
-                </div>
-                <div class="col-sm-2 col-12">
-                  <!-- <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_Complain/createComplain">Tambah</a>  -->
-                  <a class="btn btn-primary btn-sm float-right" style="margin-bottom: 20px;" href="/protechapp/index.php/Controller_Complain/printComplain">Cetak</a>
-                </div>
+                <form class="form-inline justify-content-center" method="post" action="<?php echo base_url() . 'Controller_Complain'; ?>" enctype="multipart/form-data">
+                <!-- <form class="form-inline justify-content-center"> -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Mulai Tanggal</label>
+                        <div class="col-sm-9">
+                          <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                            <input name="from_date" type="search" class="form-control datetimepicker-input" data-target="#datetimepicker1" value="<?php echo $from_date?>" read-only="true" />
+                            <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="mdi mdi-calendar-clock"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Sampai Tanggal</label>
+                        <div class="col-sm-9">
+                          <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                            <input name="to_date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" value="<?php echo $to_date?>" read-only />
+                            <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                              <div class="input-group-text"><i class="mdi mdi-calendar-clock"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button type="submit" class="btn btn-success btn-sm">Filter</button>
+                  &nbsp;
+                  <a class="btn btn-primary btn-sm" href="/protechapp/index.php/Controller_Complain/printComplain/<?=$from_date?>/<?=$to_date?>">Cetak</a>
+                </form>
               </div>
               <div class="table-responsive">
                 <table class="table table-bordered data-table">
@@ -195,27 +181,18 @@
     hookValidatorEvt();
 };
 
+ $(function() {
+  var dateFormat = "DD-MM-YYYY";
 
-$(function () {
-    var sd = new Date(), ed = new Date();
-  
-    $('#startDate').datetimepicker({ 
-      pickTime: false, 
-      format: "YYYY/MM/DD", 
-      defaultDate: sd, 
-      maxDate: ed 
-    });
-  
-    $('#endDate').datetimepicker({ 
-      pickTime: false, 
-      format: "YYYY/MM/DD", 
-      defaultDate: ed, 
-      minDate: sd 
-    });
+  $("#datetimepicker1").datetimepicker({
+    format: dateFormat
+  });
 
-    //passing 1.jquery form object, 2.start date dom Id, 3.end date dom Id
-    bindDateRangeValidation($("#form"), 'startDate', 'endDate');
+  $("#datetimepicker2").datetimepicker({
+    format: dateFormat
+  });
 });
+
 </script>
 
 <?php require 'application/views/footer.php'; ?>

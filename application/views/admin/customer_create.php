@@ -77,7 +77,7 @@
                             <select class="form-control" style="color: black" name="bulan_lahir" id="monthdropdown"></select>
                           </div>
                           <div class="col-sm-2"> 
-                            <select class="form-control" style="color: black" name="tahun_lahir" id="yeardropdown"></select> 
+                            <select class="form-control" style="color: black" name="tahun_lahir" id="yeardropdown"></select>
                           </div>
                         </div>
                       </div> 
@@ -253,7 +253,7 @@ function populateDates(){
       daysInCurrMonth = daysInMonth(month, year);
 
   // Year
-  for(var i = 0; i < 61; i++){
+  for(var i = 0; i < 62; i++){
     var opt = document.createElement('option');
     opt.value = i + year;
     opt.text = i + year;
@@ -283,8 +283,8 @@ var daydropdown = document.getElementById("daydropdown"),
 
 // Change handler for months
 monthdropdown.onchange = function(){
-  var newMonth = months.indexOf(monthdropdown.value) + 1,
-      newYear = yeardropdown.value;
+  var newMonth = monthdropdown.options[monthdropdown.selectedIndex].value,
+      newYear = yeardropdown.options[yeardropdown.selectedIndex].value;
   
   daysInCurrMonth = daysInMonth(newMonth, newYear);
 

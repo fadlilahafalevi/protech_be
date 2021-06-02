@@ -373,7 +373,7 @@ class Controller_Order extends CI_Controller{
 		}
 
 		$data['jenis_layanan'] = $this->input->post('jenis_layanan');
-		$waktu_perbaikan = $this->input->post('waktu_perbaikan');
+		$data['waktu_perbaikan'] = $this->input->post('waktu_perbaikan');
 		$data['alamat'] = $this->input->post('alamat');
 		$data['catatan_alamat'] = $this->input->post('catatan_alamat');
 		$data['foto_kerusakan'] = $foto_kerusakan;

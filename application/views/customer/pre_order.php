@@ -236,7 +236,7 @@ $("#dropdown").change(function(){
 });
 
  $(function() {
-  var dateFormat = "DD-MM-YYYY HH.mm";
+  var dateFormat = "YYYY-MM-DD HH:mm";
   var CurrDate = "27-06-2018";
   var MinDate = "01-06-2018";
   var MaxDate = "27-06-2018";

@@ -431,7 +431,8 @@ class Controller_Order extends CI_Controller{
 		$this->load->model("M_Technician");
 
 		$jenis_layanan = $this->input->post('jenis_layanan');
-		$waktu_perbaikan = date_format(date_create_from_format("d/m/Y H.i", $this->input->post('waktu_perbaikan')),"Y-m-d H.i");
+		// $waktu_perbaikan = date_format(date_create_from_format("d/m/Y H.i", $this->input->post('waktu_perbaikan')),"Y-m-d H.i");
+		$waktu_perbaikan = $this->input->post('waktu_perbaikan');
 		$alamat = $this->input->post('alamat');
 		$catatan_alamat = $this->input->post('catatan_alamat');
 		$foto_kerusakan = $this->input->post('foto_kerusakan');

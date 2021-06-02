@@ -21,10 +21,10 @@ class Controller_ReportRatingAndReview extends CI_Controller{
         $this->load->helper('download');
         
         // $order_history = $this->M_Order->getAll($from, $to);
-        $ratingReview = $this->M_ReportRatingAndReview->getAllReportRatingAndReview();
+        $ratingReview = $this->M_ReportRatingAndReview->getAllReportRatingAndReview($from_date, $to_date);
 
         $pdf = new FPDF('L', 'mm', 'A4');
-        $pdf = $this->reportheaderlandscape->getInstance($from, $to);
+        $pdf = $this->reportheaderlandscape->getInstance($from_date, $to_date);
 
         $pdf->AddPage();
         $pdf->AliasNbPages();
@@ -40,10 +40,7 @@ class Controller_ReportRatingAndReview extends CI_Controller{
             $pdf->SetFont('Courier', '', 8);
             $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
         }
-
-        $pdf->SetFont('Courier', '', 8);
-        $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
-        $pdf->Cell(10, 7, '', 0, 1);
+        
         $pdf->Cell(10, 7, '', 0, 1);
 
         $pdf->SetFont('Courier', 'B', 8);

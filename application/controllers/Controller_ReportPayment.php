@@ -41,8 +41,6 @@ class Controller_ReportPayment extends CI_Controller{
             $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
         }
 
-        $pdf->SetFont('Courier', '', 8);
-        $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
         $pdf->SetFont('Courier', 'B', 8);

@@ -93,6 +93,22 @@
   </div>
 </div>
 
+<script>
+$(function() {
+  var dateFormat = "YYYY-MM-DD";
+
+  $("#datetimepicker1").datetimepicker({
+    format: dateFormat,
+    ignoreReadonly: true
+  });
+
+  $("#datetimepicker2").datetimepicker({
+    format: dateFormat,
+    ignoreReadonly: true
+  });
+});
+</script>
+
 <?php require 'application/views/footer.php'; ?>
 </body>
 </html>

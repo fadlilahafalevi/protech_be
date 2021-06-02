@@ -182,7 +182,7 @@
 };
 
  $(function() {
-  var dateFormat = "DD-MM-YYYY";
+  var dateFormat = "YYYY-MM-DD";
 
   $("#datetimepicker1").datetimepicker({
     format: dateFormat

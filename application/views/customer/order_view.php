@@ -300,6 +300,7 @@
                         <label class="badge badge-info">Sudah Bayar</label>
                         <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                         <label class="badge badge-success">Selesai</label>
+                        <?php } ?>
                       </div>
                     </div>
                   </div>
@@ -315,7 +316,6 @@
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>
                   <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
                   <?php } ?>
-                <?php } ?>
               </div>
             </div>
             <div class="card">

@@ -55,11 +55,17 @@
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                          <div class="col-sm-9">
-                            <input type="text" class="form-control" id="date_of_birth" name="date_of_birth" value="<?=$customer_detail->date_of_birth?>" />
+                          <div class="col-sm-2">
+                            <select class="form-control" style="color: black" name="tanggal_lahir" id="daydropdown"></select>
+                          </div>
+                          <div class="col-sm-3"> 
+                            <select class="form-control" style="color: black" name="bulan_lahir" id="monthdropdown"></select>
+                          </div>
+                          <div class="col-sm-2"> 
+                            <select class="form-control" style="color: black" name="tahun_lahir" id="yeardropdown"></select>
                           </div>
                         </div>
-                      </div> 
+                      </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
@@ -167,5 +173,81 @@
         </div>
       </div>
 <?php require 'application/views/footer.php'; ?>
+
+<script>
+var months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
+}
+
+function populateDates(){
+  var today = new Date(),
+      day = today.getUTCDate(),
+      month = today.getUTCMonth(),
+      year = 1960,
+      yearNow = today.getUTCFullYear(),
+      daysInCurrMonth = daysInMonth(month, year);
+
+  var daySelected = <?php echo $data[0]->d_dob ?>,
+      monthSelected = <?php echo $data[0]->m_dob ?>,
+      yearSelected = <?php echo $data[0]->y_dob ?>;
+
+  // Year
+  for(var i = 0; i < 62; i++){
+    var opt = document.createElement('option');
+    opt.value = i + year;
+    opt.text = i + year;
+    if ((i + year) == yearSelected) {
+      opt.selected = true;
+    }
+    yeardropdown.appendChild(opt);
+  }
+
+  // Month
+  for(var i = 0; i < 12; i++){
+    var opt = document.createElement('option');
+    opt.value = i+1;
+    opt.text = months[i];
+    if ((i + 1) == monthSelected) {
+      opt.selected = true;
+    }
+    monthdropdown.appendChild(opt);
+  }
+
+  // Day
+  for(var i = 0; i < daysInCurrMonth; i++){
+    var opt = document.createElement('option');
+    opt.value = i + 1;
+    opt.text = i + 1;
+    if ((i + 1) == daySelected) {
+      opt.selected = true;
+    }
+    daydropdown.appendChild(opt);
+  }
+}
+
+var daydropdown = document.getElementById("daydropdown"),
+    monthdropdown = document.getElementById("monthdropdown"),
+    yeardropdown = document.getElementById("yeardropdown");
+
+// Change handler for months
+monthdropdown.onchange = function(){
+  var newMonth = monthdropdown.options[monthdropdown.selectedIndex].value,
+      newYear = yeardropdown.options[yeardropdown.selectedIndex].value;
+  
+  daysInCurrMonth = daysInMonth(newMonth, newYear);
+
+  daydropdown.innerHTML = "";
+  for(var i = 0; i < daysInCurrMonth; i++){
+    var opt = document.createElement('option');
+    opt.value = i + 1;
+    opt.text = i + 1;
+    daydropdown.appendChild(opt);
+  }
+}
+
+populateDates();
+</script>
 </body>
 </html>

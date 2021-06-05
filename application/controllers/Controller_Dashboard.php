@@ -11,14 +11,22 @@ class Controller_Dashboard extends CI_Controller {
 	}
 	
 	function index(){
+
+		$this->load->model("M_Dashboard");
+
 		if($this->session->userdata('akses')=='1'){
 
-			$this->load->view('admin/dashboard');
+			$data['service_ref'] = $this->M_Dashboard->getServiceByTechnician();
+
+			// $this->load->view('admin/dashboard', $data);
 
 		} else if($this->session->userdata('akses')=='2'){
+			
+			$data['service_ref'] = $this->M_Dashboard->getServiceByTechnician();
+			$data['order_by_month'] = $this->M_Dashboard->getOrderByMonth();
+			$data['order_by_status'] = $this->M_Dashboard->getOrderByStatus();
 
-			$this->load->view('admin/dashboard');
-
+			$this->load->view('admin/dashboard', $data);
 	    }  else if ($this->session->userdata('akses')=='4') {
 
 	    	$this->load->view('customer/dashboard');

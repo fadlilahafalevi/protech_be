@@ -22,21 +22,21 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 grid-margin stretch-card">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="card-title">Bar chart</h4>
-                <canvas id="order_by_month_chart"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
           <div class="col-lg-6 grid-margin grid-margin-lg-0 stretch-card">
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">Jumlah Order Berdasarkan Status</h4>
                 <canvas id="order_by_status"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Jumlah Order Berdasarkan Bulan (Tahun <?php echo date("Y") ?>)</h4>
+                <canvas id="order_by_month_chart"></canvas>
               </div>
             </div>
           </div>

@@ -15,4 +15,13 @@ class M_ServiceCategory extends CI_Model{
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	function getActiveServiceCategory(){
+		$this->db->select('*');
+		$this->db->from('tbl_service_category');
+		$this->db->where('active_status', 1);
+	    $this->db->order_by('created_datetime','asc');    
+		$query = $this->db->get();
+		return $query->result();
+	}
 }

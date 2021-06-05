@@ -13,18 +13,16 @@ class Controller_Dashboard extends CI_Controller {
 	function index(){
 
 		$this->load->model("M_Dashboard");
+			
+		$data['service_ref'] = $this->M_Dashboard->getServiceByTechnician();
+		$data['order_by_month'] = $this->M_Dashboard->getOrderByMonth();
+		$data['order_by_status'] = $this->M_Dashboard->getOrderByStatus();
 
 		if($this->session->userdata('akses')=='1'){
 
-			$data['service_ref'] = $this->M_Dashboard->getServiceByTechnician();
-
-			// $this->load->view('admin/dashboard', $data);
+			$this->load->view('admin/dashboard', $data);
 
 		} else if($this->session->userdata('akses')=='2'){
-			
-			$data['service_ref'] = $this->M_Dashboard->getServiceByTechnician();
-			$data['order_by_month'] = $this->M_Dashboard->getOrderByMonth();
-			$data['order_by_status'] = $this->M_Dashboard->getOrderByStatus();
 
 			$this->load->view('admin/dashboard', $data);
 	    }  else if ($this->session->userdata('akses')=='4') {

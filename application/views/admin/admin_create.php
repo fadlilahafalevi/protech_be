@@ -18,6 +18,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Tambah Data Admin</h4>
                   <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Admin/saveData'; ?>">
+                    <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
                     <p class="card-description">
                       Informasi Pribadi
                     </p>
@@ -121,14 +122,6 @@
                           <label class="col-sm-3 col-form-label">Email</label>
                           <div class="col-sm-9">
                             <input type="email" class="form-control" id="email" name="email" required/>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Password</label>
-                          <div class="col-sm-9">
-                            <input type="password" class="form-control" id="password" name="password" required/>
                           </div>
                         </div>
                       </div>

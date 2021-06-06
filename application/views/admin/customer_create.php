@@ -37,6 +37,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Registrasi</h4>
                   <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/saveData'; ?>">
+                    <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
                     <p class="card-description">
                       Informasi Pribadi
                     </p>

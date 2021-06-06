@@ -137,6 +137,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Password</label>
                           <div class="col-sm-9">
+                            <input type="hidden" class="form-control" id="old_password" name="old_password" value="<?=$customer_detail->password?>"/>
                             <input type="password" class="form-control" id="password" name="password" value="<?=$customer_detail->password?>"/>
                           </div>
                         </div>

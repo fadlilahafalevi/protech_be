@@ -16,6 +16,12 @@
   <link rel="stylesheet" href="/protechapp/assets/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="/protechapp/assets/images/logo_mini.png" />
+
+  <!-- <script>
+    setTimeout(function(){
+      window.location.href = 'http://localhost/protechapp/';
+    }, 5000);
+  </script> -->
 </head>
 
 <body>
@@ -28,24 +34,13 @@
               <div class="brand-logo">
                 <img src="/protechapp/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
               </div>
-              <br/>
-              <form class="pt-3" action="<?php echo base_url() . 'Controller_Login/cekuser' ?>" method="post">
-                <div class="form-group">
-                  <input type="text" name="email" class="form-control form-control-lg" id="email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                  <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Password">
-                </div>
-                <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
-                <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">LOGIN</button>
-                  <br/>
-                  <center>
-                    <h5>Belum punya akun? Daftar <a href="<?php echo base_url() . 'Controller_Customer/createCustomer' ?>" target="_blank">di sini </a></h5><br>
-                    <h5> <a href="<?php echo base_url() . 'Controller_Login/forgot_password' ?>" target="_blank">Lupa password?</a></h5>
-                  </center>
-                </div>
-              </form>
+              <?php if (isset($expired_message)) { ?>
+                <h6> <?php echo $expired_message ?> </h6>
+              <?php } else if (isset($used_token_message)) { ?>
+                <h6> <?php echo $used_token_message ?> </h6>
+              <?php } else { ?>
+                <h6>Verifikasi email <?php echo $token_data[0]->email ?> telah berhasil dilakukan. Anda akan diarahkan ke halaman login, atau klik <a href="http://localhost/protechapp/"> disini </a> untuk langsung ke halaman login.</h6>
+              <?php } ?>
             </div>
           </div>
         </div>

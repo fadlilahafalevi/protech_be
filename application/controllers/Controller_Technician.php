@@ -70,68 +70,84 @@ class Controller_Technician extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-			$user_code = $this->M_General->getSequence('tbl_user_profile', 3, 'T');
-			$email = $this->input->post('email');
-			$password = md5($this->input->post('password'));
-			$role_id = '3';
-			$first_name = $this->input->post('first_name');
-			$middle_name = $this->input->post('middle_name');
-			$last_name = $this->input->post('last_name');
-			$gender = $this->input->post('gender');
-			$tanggal_lahir = $this->input->post('tanggal_lahir');
-			$bulan_lahir = $this->input->post('bulan_lahir');
-			$tahun_lahir = $this->input->post('tahun_lahir');
-			$date_of_birth = $tahun_lahir.'-'.$bulan_lahir.'-'.$tanggal_lahir;
-			$identity_no = $this->input->post('identity_no');
-			$phone = $this->input->post('phone');
-			$address =	$this->input->post('address');
-			$longitude =	$this->input->post('longitude');
-			$latitude =	$this->input->post('latitude');
-			$active_status = '1';
-			$now = date("Y-m-d H:i:s");
+			$is_email_exist = $this->M_General->check_existing_email($this->input->post('email'));
 
-			$data_profile = [ 'user_code' => $user_code,
-				'first_name'  => $first_name,
-				'middle_name' => $middle_name,
-				'last_name' => $last_name,
-				'gender' => $gender,
-				'date_of_birth' => $date_of_birth,
-				'identity_no' => $identity_no,
-				'phone' => $phone,
-				'address' => $address,
-				'longitude' => $longitude,
-				'latitude' => $latitude,
-				'active_status' => $active_status,
-				'created_by' => $this->session->userdata('user_name'),
-				'created_datetime' => $now
-			];
+			if ($is_email_exist == false) {
+				$user_code = $this->M_General->getSequence('tbl_user_profile', 3, 'T');
+				$email = $this->input->post('email');
+				// $password = md5($this->input->post('password'));
+				$role_id = '3';
+				$first_name = $this->input->post('first_name');
+				$middle_name = $this->input->post('middle_name');
+				$last_name = $this->input->post('last_name');
+				$gender = $this->input->post('gender');
+				$tanggal_lahir = $this->input->post('tanggal_lahir');
+				$bulan_lahir = $this->input->post('bulan_lahir');
+				$tahun_lahir = $this->input->post('tahun_lahir');
+				$date_of_birth = $tahun_lahir.'-'.$bulan_lahir.'-'.$tanggal_lahir;
+				$identity_no = $this->input->post('identity_no');
+				$phone = $this->input->post('phone');
+				$address =	$this->input->post('address');
+				$longitude =	$this->input->post('longitude');
+				$latitude =	$this->input->post('latitude');
+				$active_status = '0';
+				$now = date("Y-m-d H:i:s");
 
-			$this->M_General->insertData('tbl_user_profile', $data_profile);
-
-			$data_login = [ 'user_code' => $user_code,
-				'role_id' => $role_id,
-				'email' => $email,
-				'password'  => $password,
-				'active_status' => $active_status,
-				'created_by' => $this->session->userdata('user_name'),
-				'created_datetime' => $now
-			];
-
-			$this->M_General->insertData('tbl_user_login', $data_login);
-
-			$listServiceCategory = $this->M_ServiceCategory->getAllServiceCategory();
-			foreach ($listServiceCategory as $service_category) {
-				$code = $service_category->service_category_code;
-				$service_category_code = $this->input->post($code);
-				$data_ref = [ 'service_category_code' => $service_category_code,
-				'user_code'  => $user_code
+				$data_profile = [ 'user_code' => $user_code,
+					'first_name'  => $first_name,
+					'middle_name' => $middle_name,
+					'last_name' => $last_name,
+					'gender' => $gender,
+					'date_of_birth' => $date_of_birth,
+					'identity_no' => $identity_no,
+					'phone' => $phone,
+					'address' => $address,
+					'longitude' => $longitude,
+					'latitude' => $latitude,
+					'active_status' => $active_status,
+					'created_by' => $this->session->userdata('user_name'),
+					'created_datetime' => $now
 				];
-				if (isset($service_category_code)) {
-					$this->M_General->insertData('tbl_service_ref', $data_ref);
-				}
-			}
 
-			redirect('Controller_Technician');
+				$this->M_General->insertData('tbl_user_profile', $data_profile);
+
+				$data_login = [ 'user_code' => $user_code,
+					'role_id' => $role_id,
+					'email' => $email,
+					'active_status' => $active_status,
+					'created_by' => $this->session->userdata('user_name'),
+					'created_datetime' => $now
+				];
+
+				$this->M_General->insertData('tbl_user_login', $data_login);
+
+				$listServiceCategory = $this->M_ServiceCategory->getAllServiceCategory();
+				foreach ($listServiceCategory as $service_category) {
+					$code = $service_category->service_category_code;
+					$service_category_code = $this->input->post($code);
+					$data_ref = [ 'service_category_code' => $service_category_code,
+					'user_code'  => $user_code
+					];
+					if (isset($service_category_code)) {
+						$this->M_General->insertData('tbl_service_ref', $data_ref);
+					}
+				}
+
+				$data_token = [ 'user_code' => $user_code,
+					'token' => $token,
+					'usage' => 'NEW PASSWORD',
+					'expired_datetime'  => $expired_datetime,
+					'used' => 0
+				];
+
+				$this->M_General->insertData('tbl_token', $data_token);
+
+				redirect('Controller_Email/send_email_new_password/'.urlencode($email).'/'.$token."/".urlencode('Controller_Technician'));
+			} else {
+				$url=base_url('Controller_Technician/createTechnician');
+		        echo $this->session->set_flashdata('msg','Email telah digunakan.');
+		        redirect($url);
+			}
 		}
 	}
 
@@ -145,7 +161,7 @@ class Controller_Technician extends CI_Controller{
 			$payment_account_id = $this->input->post('payment_account_id');
 			$user_code = $this->input->post('user_code');
 			$email = $this->input->post('email');
-			$password = md5($this->input->post('password'));
+			// $password = md5($this->input->post('password'));
 			$role_id = '4';
 			$first_name = $this->input->post('first_name');
 			$middle_name = $this->input->post('middle_name');
@@ -181,6 +197,12 @@ class Controller_Technician extends CI_Controller{
 			];
 
 			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);
+
+			$data_login = [
+				'active_status' => $active_status
+			]
+			$this->M_General->updateData('tbl_user_login', $data_login, 'user_code', $user_code);
+			
 			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
 
 			$this->M_General->deleteData('tbl_service_ref', "user_code = '" . $user_code . "'");

@@ -56,7 +56,11 @@ class Controller_Customer extends CI_Controller{
 	function saveData() {
 		$this->load->model("M_Customer");
 		$this->load->model("M_General");
+		$this->load->model("M_Token");
 
+		$is_email_exist = $this->M_General->check_existing_email($this->input->post('email'));
+
+		if ($is_email_exist == false) {
 			$user_code = $this->M_General->getSequence('tbl_user_profile', 3, 'C');
 			$email = $this->input->post('email');
 			$password = md5($this->input->post('password'));
@@ -74,8 +78,10 @@ class Controller_Customer extends CI_Controller{
 			$address =	$this->input->post('address');
 			$longitude =	$this->input->post('longitude');
 			$latitude =	$this->input->post('latitude');
-			$active_status = '1';
+			$active_status = '0';
 			$now = date("Y-m-d H:i:s");
+			$token = $this->M_Token->generateRandomToken();
+			$expired_datetime = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +48 hours"));
 
 			$data_profile = [ 'user_code' => $user_code,
 				'first_name'  => $first_name,
@@ -101,12 +107,27 @@ class Controller_Customer extends CI_Controller{
 				'password'  => $password,
 				'active_status' => $active_status,
 				'created_by' => $this->session->userdata('user_name'),
-				'created_datetime' => $now
+				'created_datetime' => $now,
+				'verification_code' => $verification_code
 			];
 
 			$this->M_General->insertData('tbl_user_login', $data_login);
 
-			redirect('Controller_Login');
+			$data_token = [ 'user_code' => $user_code,
+				'token' => $token,
+				'usage' => 'EMAIL VERIFICATION',
+				'expired_datetime'  => $expired_datetime,
+				'used' => 0
+			];
+
+			$this->M_General->insertData('tbl_token', $data_token);
+
+			redirect('Controller_Email/send_email_verification/'.urlencode($email).'/'.$token);
+		} else if ($is_email_exist == true) {
+			$url=base_url('Controller_Customer/createCustomer');
+	        echo $this->session->set_flashdata('msg','Email telah digunakan.');
+	        redirect($url);
+		}
 	}
 
 	function updateData() {
@@ -118,7 +139,7 @@ class Controller_Customer extends CI_Controller{
 			$payment_account_id = $this->input->post('payment_account_id');
 			$user_code = $this->input->post('user_code');
 			$email = $this->input->post('email');
-			$password = md5($this->input->post('password'));
+			// $password = md5($this->input->post('password'));
 			$role_id = '4';
 			$first_name = $this->input->post('first_name');
 			$middle_name = $this->input->post('middle_name');
@@ -151,9 +172,15 @@ class Controller_Customer extends CI_Controller{
 				'longitude' => $longitude,
 				'latitude' => $latitude,
 				'active_status' => $active_status
+				// 'active_status' => $active_status
 			];
-
 			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);
+
+			$data_login = [
+				'active_status' => $active_status
+			];
+			$this->M_General->updateData('tbl_user_login', $data_login, 'user_code', $user_code);
+
 			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
 
 			redirect('Controller_Customer');

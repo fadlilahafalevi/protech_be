@@ -8,7 +8,7 @@ class M_General extends CI_Model{
 	
 	function getSequenceOrder($tbl_name, $lpad) {
 	    $query=$this->db->query("SELECT concat(date_format(CURDATE(), '%Y%m%d'),'', CONVERT( LPAD(count(*) + 1, $lpad, 0), varchar(10)) ) as next_code from $tbl_name");
-	    print_r($this->db->last_query());
+	    // print_r($this->db->last_query());
 	    return $query->row()->next_code;
 	}
 
@@ -20,7 +20,7 @@ class M_General extends CI_Model{
 
 	function updateData($tblName, $data, $code_name, $code) {
 		$query = $this->db->update($tblName, $data, "$code_name = '$code'");
-		print_r($this->db->last_query());
+		// print_r($this->db->last_query());
 		return $query;
 	}
 	
@@ -31,6 +31,19 @@ class M_General extends CI_Model{
 	function updateMeta($tbl_name, $code_name, $code_data, $username){
 		$query=$this->db->query("UPDATE $tbl_name set modified_by = '$username', modified_datetime = current_timestamp() where $code_name = '$code_data'");
 		return $query;
+	}
+
+	function check_existing_email($email = '') {
+		$this->db->select('count(*) as count');
+		$this->db->from('tbl_user_login');
+	    $this->db->where('email', $email);
+		$query = $this->db->get();
+		$count_result = $query->result();
+		if ($count_result[0]->count > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

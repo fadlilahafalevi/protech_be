@@ -62,7 +62,7 @@
                           <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/getOne/<?=$data->order_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye btn-icon-prepend"></i>
                           </a>
-                           <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/printDetailOrder/<?=$data->order_code?>" data-toggle="tooltip" title="Print Detail Order" style="padding: 4px">
+                           <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/printDetailOrder/<?=$data->order_code?>" data-toggle="tooltip" title="Cetak" style="padding: 4px">
                             <i class="mdi mdi-library-books"></i>
                           </a>
                         </td>

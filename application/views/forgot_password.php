@@ -29,21 +29,17 @@
                 <img src="/protechapp/assets/images/logo.png" style="display: block; margin-left: auto; margin-right: auto;width: 200px;height: 50px;" alt="logo">
               </div>
               <br/>
-              <form class="pt-3" action="<?php echo base_url() . 'Controller_Login/cekuser' ?>" method="post">
+              <center>
+                <h5>Masukkan email anda yang terdaftar pada Protech</h5><br>
+              </center>
+              <form class="pt-3" action="<?php echo base_url() . 'Controller_Login/forgot_password_submit' ?>" method="post">
                 <div class="form-group">
                   <input type="text" name="email" class="form-control form-control-lg" id="email" placeholder="Email">
                 </div>
-                <div class="form-group">
-                  <input type="password" name="password" class="form-control form-control-lg" id="password" placeholder="Password">
-                </div>
                 <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
                 <div class="mt-3">
-                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">LOGIN</button>
+                  <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SUBMIT</button>
                   <br/>
-                  <center>
-                    <h5>Belum punya akun? Daftar <a href="<?php echo base_url() . 'Controller_Customer/createCustomer' ?>" target="_blank">di sini </a></h5><br>
-                    <h5> <a href="<?php echo base_url() . 'Controller_Login/forgot_password' ?>" target="_blank">Lupa password?</a></h5>
-                  </center>
                 </div>
               </form>
             </div>

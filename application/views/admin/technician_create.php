@@ -25,6 +25,7 @@
   <div class="main-panel">
     <div class="content-wrapper">
       <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Technician/saveData'; ?>">
+                    <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
       <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
@@ -147,14 +148,6 @@
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
                               <input type="email" class="form-control" id="email" name="email" required/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-9">
-                              <input type="password" class="form-control" id="password" name="password" required/>
                             </div>
                           </div>
                         </div>

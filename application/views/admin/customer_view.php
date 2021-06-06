@@ -144,14 +144,6 @@
                           </div>
                         </div>
                       </div>
-                        <div class="col-md-6">
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Password</label>
-                            <div class="col-sm-9">
-                              <input type="password" class="form-control" id="password" name="password" value="<?=$customer_detail->password?>" disabled="disabled"/>
-                            </div>
-                          </div>
-                        </div>
                     </div>
                     <a class="btn btn-light" href="/protechapp/index.php/Controller_Customer">Kembali</a>
                   </form>

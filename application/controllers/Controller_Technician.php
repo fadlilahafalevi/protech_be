@@ -200,7 +200,7 @@ class Controller_Technician extends CI_Controller{
 
 			$data_login = [
 				'active_status' => $active_status
-			]
+			];
 			$this->M_General->updateData('tbl_user_login', $data_login, 'user_code', $user_code);
 			
 			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));

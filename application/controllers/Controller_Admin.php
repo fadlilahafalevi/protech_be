@@ -178,6 +178,12 @@ class Controller_Admin extends CI_Controller{
 			];
 
 			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);
+
+			$data_login = [
+				'active_status' => $active_status
+			];
+			$this->M_General->updateData('tbl_user_login', $data_login, 'user_code', $user_code);
+			
 			$this->M_General->updateMeta('tbl_user_profile', 'user_code', $user_code,  $this->session->userdata('user_name'));
 			redirect('Controller_Admin');
 		}

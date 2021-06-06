@@ -157,7 +157,7 @@
                           <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Email</label>
                             <div class="col-sm-9">
-                              <input type="email" class="form-control" id="email" name="email" value="<?=$technician_detail->email?>" required />
+                              <input type="email" class="form-control" id="email" name="email" value="<?=$technician_detail->email?>" required disabled="disabled" />
                             </div>
                           </div>
                         </div>

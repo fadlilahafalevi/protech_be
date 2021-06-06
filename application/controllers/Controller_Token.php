@@ -88,7 +88,7 @@ class Controller_Token extends CI_Controller {
         }
 
         // $data['token_data'] = $token_data;
-        echo $this->session->set_flashdata('msg','Reset password sukes, silahkan login.');
+        echo $this->session->set_flashdata('msg','Reset password sukses, silahkan login.');
         // $flash_message = urlencode('Reset password sukes, silahkan login.');
         redirect('Controller_Login');
         // $this->load->view('verification_success',$data);

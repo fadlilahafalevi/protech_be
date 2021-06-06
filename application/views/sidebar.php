@@ -11,7 +11,7 @@
             if($this->session->userdata('akses')=='1' || $this->session->userdata('akses') == '2'){ //SUPERADMIN DAN ADMIN
           ?>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="/protechapp/index.php/Controller_Dashboard">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>

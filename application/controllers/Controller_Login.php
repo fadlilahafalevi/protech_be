@@ -21,6 +21,13 @@ class Controller_Login extends CI_Controller{
         $password   = strip_tags(stripslashes($this->input->post('password',TRUE)));
 
         $cadmin = $this->Login->cekadmin($email,$password);
+
+        $is_email_exist = $this->M_General->check_existing_email($email);
+        if ($is_email_exist == false) {
+            $url=base_url('Controller_Login');
+            echo $this->session->set_flashdata('msg','User tidak aktif');
+            redirect($url);
+        }
         
         if($cadmin->num_rows() > 0){
             $this->session->set_userdata('masuk', true);
@@ -77,7 +84,9 @@ class Controller_Login extends CI_Controller{
                 } else if ($is_verified == 1 && $active_status == 1) {
                     redirect('Controller_DashboardCustomer');
                 } else if ($active_status == 0) {
-                    redirect('Controller_Login/login_failed');
+                    $url=base_url('Controller_Login');
+                    echo $this->session->set_flashdata('msg','User tidak aktif');
+                    redirect($url);
                 }
                 
             }
@@ -88,7 +97,7 @@ class Controller_Login extends CI_Controller{
 
     function login_failed(){
         $url=base_url('Controller_Login');
-        echo $this->session->set_flashdata('msg','Username atau Password Salah / User Inactive');
+        echo $this->session->set_flashdata('msg','Username atau Password Salah');
         redirect($url);
     }
 
@@ -115,7 +124,7 @@ class Controller_Login extends CI_Controller{
             redirect('Controller_Token/request_reset_password/'.urlencode($email));
         } else {
             $url=base_url('Controller_Login/forgot_password');
-            echo $this->session->set_flashdata('msg','Email tidak ditemukan.');
+            echo $this->session->set_flashdata('msg','Email tidak ditemukan');
             redirect($url);
         }
     }

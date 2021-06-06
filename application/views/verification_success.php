@@ -17,11 +17,11 @@
   <!-- endinject -->
   <link rel="shortcut icon" href="/protechapp/assets/images/logo_mini.png" />
 
-  <!-- <script>
+  <script>
     setTimeout(function(){
       window.location.href = 'http://localhost/protechapp/';
-    }, 5000);
-  </script> -->
+    }, 10000);
+  </script>
 </head>
 
 <body>

@@ -212,6 +212,7 @@ class Controller_Token extends CI_Controller {
 
         $this->M_General->insertData('tbl_token', $data_token);
 
+        $this->session->sess_destroy();
         redirect('Controller_Email/send_email_verification/'.urlencode($email).'/'.$token);
     }
 

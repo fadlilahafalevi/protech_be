@@ -68,26 +68,36 @@ class Controller_Login extends CI_Controller{
             $this->M_General->updateData('tbl_user_login', $data, 'user_code', $this->session->userdata('user_code'));
 
             if($this->session->userdata('akses')=='1'){
-                redirect('Controller_Dashboard');
+                if ($active_status == 1) {
+                    redirect('Controller_Dashboard');
+                } else if ($active_status == 0) {
+                   redirect('Controller_Login/user_inactive');
+                }
             } 
             else if($this->session->userdata('akses')=='2') {
-                redirect('Controller_Dashboard');
+                if ($active_status == 1) {
+                    redirect('Controller_Dashboard');
+                } else if ($active_status == 0) {
+                   redirect('Controller_Login/user_inactive');
+                }
             }
             else if($this->session->userdata('akses')=='3') {
-                redirect('Controller_DashboardTechnician');
+                if ($active_status == 1) {
+                    redirect('Controller_DashboardTechnician');
+                } else if ($active_status == 0) {
+                   redirect('Controller_Login/user_inactive');
+                }
             }
             else if($this->session->userdata('akses')=='4') {
                 $is_verified = $xcadmin['is_verified'];
                 $active_status = $xcadmin['active_status'];
+                
                 if ($is_verified == 0) {
                     redirect('Controller_Login/account_not_verified');
                 } else if ($is_verified == 1 && $active_status == 1) {
                     redirect('Controller_DashboardCustomer');
                 } else if ($active_status == 0) {
-                    $this->session->sess_destroy();
-                    $url=base_url('Controller_Login');
-                    echo $this->session->set_flashdata('msg','User tidak aktif');
-                    redirect($url);
+                   redirect('Controller_Login/user_inactive');
                 }
                 
             }
@@ -99,6 +109,13 @@ class Controller_Login extends CI_Controller{
     function login_failed(){
         $url=base_url('Controller_Login');
         echo $this->session->set_flashdata('msg','Username atau Password Salah');
+        redirect($url);
+    }
+
+    function user_inactive() {
+        $this->session->sess_destroy();
+        $url=base_url('Controller_Login');
+        echo $this->session->set_flashdata('msg','User tidak aktif');
         redirect($url);
     }
 

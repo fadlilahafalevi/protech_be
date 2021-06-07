@@ -6,7 +6,7 @@ class Login extends CI_Model{
 			from tbl_user_login ul 
 			join tbl_user_profile up on up.user_code = ul.user_code
 			join tbl_user_role ur on ur.role_id = ul.role_id
-			where email = '$email' and password=md5('$password') and ul.active_status=1");
+			where email = '$email' and password=md5('$password')");
         // echo $this->db->last_query();
         return $hasil;
     }

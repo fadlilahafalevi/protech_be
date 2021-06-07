@@ -84,6 +84,7 @@ class Controller_Login extends CI_Controller{
                 } else if ($is_verified == 1 && $active_status == 1) {
                     redirect('Controller_DashboardCustomer');
                 } else if ($active_status == 0) {
+                    $this->session->sess_destroy();
                     $url=base_url('Controller_Login');
                     echo $this->session->set_flashdata('msg','User tidak aktif');
                     redirect($url);

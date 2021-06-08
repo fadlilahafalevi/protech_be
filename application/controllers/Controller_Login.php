@@ -53,7 +53,7 @@ class Controller_Login extends CI_Controller{
                     $this->session->set_userdata('user_code', $user_code);
                     $this->session->set_userdata('user_name', $user_name);
                 }
-            } else if ($xcadmin['active_status'] == 1) {
+            } else if ($xcadmin['active_status'] == 0) {
                 redirect('Controller_Login/user_inactive');
             }
         } else {

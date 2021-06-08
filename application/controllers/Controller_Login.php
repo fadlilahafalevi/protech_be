@@ -23,10 +23,10 @@ class Controller_Login extends CI_Controller{
         $cadmin = $this->Login->cekadmin($email,$password);
         
         if($cadmin->num_rows() > 0){
-            if ($active_status == 1) {
-                $this->session->set_userdata('masuk', true);
+            $xcadmin = $cadmin->row_array();
 
-                $xcadmin = $cadmin->row_array();
+            if ($xcadmin['active_status'] == 1) {
+                $this->session->set_userdata('masuk', true);
                 
                 if($xcadmin['role_id'] == '1'){ //superadmin
                     $this->session->set_userdata('akses', '1');
@@ -53,7 +53,7 @@ class Controller_Login extends CI_Controller{
                     $this->session->set_userdata('user_code', $user_code);
                     $this->session->set_userdata('user_name', $user_name);
                 }
-            } else if ($active_status == 0) {
+            } else if ($xcadmin['active_status'] == 1) {
                 redirect('Controller_Login/user_inactive');
             }
         } else {
@@ -89,7 +89,7 @@ class Controller_Login extends CI_Controller{
 
     function login_failed(){
         $url=base_url('Controller_Login');
-        echo $this->session->set_flashdata('msg','Username atau Password Salah');
+        echo $this->session->set_flashdata('msg','Email atau Password Salah');
         redirect($url);
     }
 

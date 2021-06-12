@@ -67,6 +67,7 @@ class Controller_Technician extends CI_Controller{
 		$this->load->model("M_Technician");
 		$this->load->model("M_ServiceCategory");
 		$this->load->model("M_General");
+		$this->load->model("M_Token");
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
@@ -92,6 +93,8 @@ class Controller_Technician extends CI_Controller{
 				$latitude =	$this->input->post('latitude');
 				$active_status = '0';
 				$now = date("Y-m-d H:i:s");
+				$token = $this->M_Token->generateRandomToken();
+				$expired_datetime = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +48 hours"));
 
 				$data_profile = [ 'user_code' => $user_code,
 					'first_name'  => $first_name,

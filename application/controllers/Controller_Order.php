@@ -185,6 +185,16 @@ class Controller_Order extends CI_Controller{
     	$pdf->Cell(10, 7, '', 0, 0, 'L');
         $pdf->Cell(80, 7, 'Total ', 0, 0, 'R');
         $pdf->Cell(50, 7, 'Rp '.number_format($total_pembayaran,2,',','.'), 0, 1, 'L');
+
+        $pdf->SetY(160);
+        $pdf->SetX(250);
+        $pdf->Cell(50, 7, 'Tulungagung, '.date("d F Y"), 0, 1, 'C');
+        $pdf->Cell(50, 7, '', 0, 1, 'C');
+        $pdf->Cell(50, 7, '', 0, 1, 'C');
+        $pdf->SetX(250);
+        $pdf->Cell(50, 7, $order[0]->nama_teknisi, 0, 1, 'C');
+        $pdf->SetX(250);
+        $pdf->Cell(50, 7, '(Teknisi)', 0, 1, 'C');
         
         $filename = 'Kuitansi_'.$order[0]->order_code.'_'.date("Ymdhis").'.pdf';
         
@@ -236,7 +246,9 @@ class Controller_Order extends CI_Controller{
 
 			if (isset($code)) {
 				$data_order = $this->M_Order->getOne($code);
+				$customer_wa = preg_replace("/^0/", "62", $data_order[0]->customer_phone);
 				$payment = $this->M_Order->getPayment($code);
+				$data['customer_wa'] = $customer_wa;
 				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
 	            $data['service_category_code'] = $data_order[0]->service_category_code;
 	            $data['order_code'] = $code;
@@ -257,6 +269,8 @@ class Controller_Order extends CI_Controller{
 			if (isset($code)) {
 				$data_order = $this->M_Order->getOne($code);
 				$payment = $this->M_Order->getPayment($code);
+				$technician_wa = preg_replace("/^0/", "62", $data_order[0]->technician_phone);
+				$data['technician_wa'] = $technician_wa;
 				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
 	            $data['service_category_code'] = $data_order[0]->service_category_code;
 	            $data['order_code'] = $code;
@@ -435,6 +449,7 @@ class Controller_Order extends CI_Controller{
 		$waktu_perbaikan = $this->input->post('waktu_perbaikan');
 		$alamat = $this->input->post('alamat');
 		$catatan_alamat = $this->input->post('catatan_alamat');
+		$catatan_alamat = $this->input->post('catatan_alamat');
 		$foto_kerusakan = $this->input->post('foto_kerusakan');
 		$detail_keluhan = $this->input->post('detail_keluhan');
 		$metode_pembayaran = $this->input->post('metode_pembayaran');
@@ -457,6 +472,7 @@ class Controller_Order extends CI_Controller{
 		$data_tbl_order = [ 'order_code'  => $order_code,
 		'customer_code' => $customer_code,
 		'address' => $alamat,
+		'address_note' => $catatan_alamat,
 		'latitude' => $latitude,
 		'longitude' => $longitude,
 		'repair_datetime' => $waktu_perbaikan,
@@ -850,16 +866,25 @@ class Controller_Order extends CI_Controller{
 
     public function confirmOrderTechnician($order_code, $status) {
     	$this->load->model("M_General");
-    	$status = str_replace("%20"," ",$status);
-    	$data = [
-    			'technician_code' => $this->session->userdata('user_code'),
-                'order_status' => $status,
-                'modified_by' => $this->session->userdata('user_name'),
-                'modified_datetime' => date("Y-m-d H:i:s")
-            ];
+    	$this->load->model("M_Order");
 
-       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
-       	redirect('Controller_Order/getOne/'.$order_code);
+    	$order = $this->M_Order->getOne($order_code);
+    	if($order[0]->order_statu == 'MENUNGGU KONFIRMASI') {
+	    	$status = str_replace("%20"," ",$status);
+	    	$data = [
+	    			'technician_code' => $this->session->userdata('user_code'),
+	                'order_status' => $status,
+	                'modified_by' => $this->session->userdata('user_name'),
+	                'modified_datetime' => date("Y-m-d H:i:s")
+	            ];
+
+	       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+	       	redirect('Controller_Order/getOne/'.$order_code);
+		} else {
+			$url=base_url('Controller_Order/getOneAfterOrderByCode/'.$order_code);
+	        echo $this->session->set_flashdata('msg','Pesanan sudah diambil oleh teknisi lain');
+	        redirect($url);
+	    }
     }
 
     public function confirmPayment($order_code) {

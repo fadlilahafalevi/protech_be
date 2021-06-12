@@ -34,6 +34,7 @@ class M_Order extends CI_Model{
 		$this->db->distinct();
 		$this->db->select('*, concat(upt.first_name, \' \', upt.middle_name, \' \', upt.last_name) as nama_teknisi, concat(upc.first_name, \' \', upc.middle_name, \' \', upc.last_name) as nama_customer, st.type as jenis_layanan ');
 		$this->db->select('o.address as alamat_pengerjaan, od.description as order_description, od.price as order_price ');
+		$this->db->select('upc.phone as customer_phone, upt.phone as technician_phone ');
 		$this->db->from('tbl_order o');
     	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code', 'left');
     	$this->db->join('tbl_service_type st', 'st.service_type_code = od.service_type_code', 'left');

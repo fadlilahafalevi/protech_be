@@ -100,6 +100,17 @@
                       </div>
                     </div>
 
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Catatan Alamat</label>
+                          <div class="col-sm-9">
+                            <textarea class="form-control" rows="4" cols="50" id="catatan_alamat" name="catatan_alamat" ></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                        <div class="col-sm-9">

@@ -107,8 +107,7 @@ class Controller_Customer extends CI_Controller{
 				'password'  => $password,
 				'active_status' => $active_status,
 				'created_by' => $this->session->userdata('user_name'),
-				'created_datetime' => $now,
-				'verification_code' => $verification_code
+				'created_datetime' => $now
 			];
 
 			$this->M_General->insertData('tbl_user_login', $data_login);

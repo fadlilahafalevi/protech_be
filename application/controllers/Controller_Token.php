@@ -17,21 +17,17 @@ class Controller_Token extends CI_Controller {
         $used = $token_data[0]->used;
         $token_id = $token_data[0]->token_id;
         //jika token sudah expired
-        if ($now_datetime > $expired_datetime) {
-            $data['expired_message'] = 'Link sudah expired, silahkan login kembali untuk request verifikasi email yang baru.';
+        if ($now_datetime > $expired_datetime || $used == 1) {
+            $data['expired_message'] = 'Link sudah expired, silahkan klik <a href="http://localhost/protechapp/index.php/Controller_Token/request_email_verification/'.$token.'">disini</a> untuk request verifikasi email yang baru.';
         } else {
-            if ($used == 1) {
-                $data['used_token_message'] = 'Link ini sudah pernah digunakan sebagai verifikasi email, email anda telah terverifikasi.';
-            } else {
-                $data_verification = [ 
-                    'is_verified' => 1,
-                    'active_status' =>1
-                 ];
-                $this->M_General->updateData('tbl_user_login', $data_verification, 'user_code', $token_user_code);
+            $data_verification = [ 
+                'is_verified' => 1,
+                'active_status' =>1
+             ];
+            $this->M_General->updateData('tbl_user_login', $data_verification, 'user_code', $token_user_code);
 
-                $data_token = [ 'used' => 1 ];
-                $this->M_General->updateData('tbl_token', $data_token, 'token_id', $token_id);
-            }
+            $data_token = [ 'used' => 1 ];
+            $this->M_General->updateData('tbl_token', $data_token, 'token_id', $token_id);
         }
 
         $data['token_data'] = $token_data;
@@ -60,7 +56,7 @@ class Controller_Token extends CI_Controller {
         $token_id = $token_data[0]->token_id;
         //jika token sudah expired
         if ($now_datetime > $expired_datetime) {
-            $data['expired_message'] = 'Link sudah expired silahkan request reset password kembali.';
+            $data['expired_message'] = 'Link sudah kadaluarsa silahkan request reset password kembali.';
         } else {
             if ($used == 1) {
                 $data['used_token_message'] = 'Link ini sudah pernah digunakan sebagai reset password.';
@@ -115,7 +111,7 @@ class Controller_Token extends CI_Controller {
         $token_id = $token_data[0]->token_id;
         //jika token sudah expired
         if ($now_datetime > $expired_datetime) {
-            $data['expired_message'] = 'Link sudah expired silahkan hubungi admin.';
+            $data['expired_message'] = 'Link sudah kadaluarsa silahkan hubungi admin.';
         } else {
             if ($used == 1) {
                 $data['used_token_message'] = 'Link ini sudah pernah digunakan sebagai pembuatan password baru.';

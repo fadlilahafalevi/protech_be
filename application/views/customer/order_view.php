@@ -238,17 +238,18 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Waktu Perbaikan</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" id="waktu_perbaikan" name="waktu_perbaikan" value="<?php echo $waktu_perbaikan ?>" disabled />
+                        <p align="left" style="color: red">Estimasi teknisi akan datang 15-30 menit sebelum waktu pengerjaan</p>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Detail Keluhan</label>
@@ -257,11 +258,22 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Alamat</label>
                       <div class="col-sm-9">
                         <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->alamat_pengerjaan; ?></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Catatan Alamat</label>
+                      <div class="col-sm-9">
+                        <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->address_note; ?></textarea>
                       </div>
                     </div>
                   </div>
@@ -276,6 +288,10 @@
                       </div>
                     </div>
                   </div>
+                </div>
+
+                <?php if($data[0]->order_status != 'MENUNGGU KONFIRMASI') {?>
+                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Nama Teknisi</label>
@@ -284,7 +300,25 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Nomor Teknisi</label>
+                      <div class="col-sm-9">
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->technician_phone ?>" disabled />
+                          <div class="input-group-append">
+                            <button class="btn btn-sm btn-success"  onclick=" window.open('http://wa.me/<?php echo $technician_wa?>','_blank')" type="button">
+                              <i class="mdi mdi-whatsapp"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <!-- <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->nama_teknisi ?>" disabled /> -->
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                <?php } ?>
+
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">

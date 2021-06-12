@@ -33,9 +33,8 @@
       <div class="col-12 grid-margin">
               <div class="card">
                 <div class="card-body">
-                  <!-- <?php foreach ($data as $detail) { ?> -->
                   <h4 class="card-title">Detail Pemesanan</h4>
-                  <!-- <?php } ?> -->
+                  <p align="left" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
 
                   <div class="row">
                     <div class="col-md-6">
@@ -73,6 +72,9 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="row">
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Waktu Perbaikan</label>
@@ -81,9 +83,6 @@
                         </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div class="row">
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Detail Keluhan</label>
@@ -92,6 +91,9 @@
                         </div>
                       </div>
                     </div>
+                  </div>
+
+                  <div class="row">
                     <div class="col-md-6">
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Alamat</label>
@@ -100,7 +102,16 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Catatan Alamat</label>
+                        <div class="col-sm-9">
+                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->address_note; ?></textarea>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group row">

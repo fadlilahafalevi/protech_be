@@ -8,7 +8,7 @@ class M_Order extends CI_Model{
 
 	public function searchOrder($latitude, $longitude, $user_code){
 		$result=$this->db->query("SELECT @rownum := @rownum + 1 as row_number, (6371 * 2 * ASIN(SQRT( POWER(SIN(( -6.158305 - to2.latitude) *  pi()/180 / 2), 2) +COS( -6.158305 * pi()/180) * COS(to2.latitude * pi()/180) * POWER(SIN(( 826.809371 - to2.longitude) * pi()/180 / 2), 2) ))) as distance, to2.order_code, tsc.service_category_name, tst.service_type_name, concat(tupc.first_name, ' ', tupc.middle_name, ' ', tupc.last_name) as nama_customer, to2.photo 
-		FROM tbl_order to2 cross join (select @rownum := 0) r left join tbl_service_ref tsr on tsr.service_category_code = to2.service_category_code left join tbl_user_profile tupc on tupc.user_code = to2.customer_code left join tbl_service_category tsc on tsc.service_category_code = to2.service_category_code left join tbl_order_detail tod on tod.order_code = to2.order_code left join tbl_service_type tst on tst.service_type_code = tod.service_type_code where technician_code = '' and tsr.user_code = '$user_code'");
+		FROM tbl_order to2 cross join (select @rownum := 0) r left join tbl_service_ref tsr on tsr.service_category_code = to2.service_category_code left join tbl_user_profile tupc on tupc.user_code = to2.customer_code left join tbl_service_category tsc on tsc.service_category_code = to2.service_category_code left join tbl_order_detail tod on tod.order_code = to2.order_code left join tbl_service_type tst on tst.service_type_code = tod.service_type_code where technician_code = '' and tsr.user_code = '$user_code' and to2.order_status = 'MENUNGGU KONFIRMASI'");
 		//HAVING distance <= 10 ORDER BY distance
 		return $result->result();
 	}

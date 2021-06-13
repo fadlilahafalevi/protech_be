@@ -869,7 +869,7 @@ class Controller_Order extends CI_Controller{
     	$this->load->model("M_Order");
 
     	$order = $this->M_Order->getOne($order_code);
-    	if($order[0]->order_statu == 'MENUNGGU KONFIRMASI') {
+    	if ($order[0]->order_status == 'MENUNGGU KONFIRMASI') {
 	    	$status = str_replace("%20"," ",$status);
 	    	$data = [
 	    			'technician_code' => $this->session->userdata('user_code'),
@@ -880,8 +880,12 @@ class Controller_Order extends CI_Controller{
 
 	       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
 	       	redirect('Controller_Order/getOne/'.$order_code);
-		} else {
+		} else if ($order[0]->order_status == 'DIBATALKAN') {
 			$url=base_url('Controller_Order/getOneAfterOrderByCode/'.$order_code);
+	        echo $this->session->set_flashdata('msg','Pesanan dibatalkan otomatis oleh sistem');
+	        redirect($url);
+	    } else {
+	    	$url=base_url('Controller_Order/getOneAfterOrderByCode/'.$order_code);
 	        echo $this->session->set_flashdata('msg','Pesanan sudah diambil oleh teknisi lain');
 	        redirect($url);
 	    }

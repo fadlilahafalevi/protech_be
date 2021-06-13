@@ -81,7 +81,7 @@ class Controller_Customer extends CI_Controller{
 			$active_status = '0';
 			$now = date("Y-m-d H:i:s");
 			$token = $this->M_Token->generateRandomToken();
-			$expired_datetime = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +48 hours"));
+			$expired_datetime = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +2 minutes"));
 
 			$data_profile = [ 'user_code' => $user_code,
 				'first_name'  => $first_name,

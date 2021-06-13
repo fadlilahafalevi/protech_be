@@ -163,7 +163,7 @@ class Controller_Token extends CI_Controller {
             if ($now_datetime > $expired_datetime) {
                 $token = $this->M_Token->generateRandomToken();
             }
-            $expired_datetime_new = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +48 hours"));
+            $expired_datetime_new = date("Y-m-d H:i:s",strtotime(date("Y-m-d H:i:s")." +1 minutes"));
 
             $data_token = [ 'user_code' => $token_user_code,
                 'token' => $token,

@@ -334,6 +334,8 @@
                         <label class="badge badge-info">Sudah Bayar</label>
                         <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                         <label class="badge badge-success">Selesai</label>
+                        <?php } else if ($data->order_status == 'DIBATALKAN') { ?>
+                        <label class="badge badge-danger">Dibatalkan</label>
                         <?php } ?>
                       </div>
                     </div>

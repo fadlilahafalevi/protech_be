@@ -33,7 +33,7 @@ class M_Order extends CI_Model{
 	public function getOne($code) {
 		$this->db->distinct();
 		$this->db->select('*, concat(upt.first_name, \' \', upt.middle_name, \' \', upt.last_name) as nama_teknisi, concat(upc.first_name, \' \', upc.middle_name, \' \', upc.last_name) as nama_customer, st.type as jenis_layanan ');
-		$this->db->select('o.address as alamat_pengerjaan, od.description as order_description, od.price as order_price ');
+		$this->db->select('o.address as alamat_pengerjaan, od.description as order_description, tp.total_payment as order_price ');
 		$this->db->select('upc.phone as customer_phone, upt.phone as technician_phone ');
 		$this->db->from('tbl_order o');
     	$this->db->join('tbl_order_detail od', 'od.order_code=o.order_code', 'left');
@@ -41,6 +41,7 @@ class M_Order extends CI_Model{
     	$this->db->join('tbl_service_category sc', 'sc.service_category_code = o.service_category_code', 'left');
     	$this->db->join('tbl_user_profile upc', 'upc.user_code = o.customer_code', 'left');
     	$this->db->join('tbl_user_profile upt', 'upt.user_code = o.technician_code', 'left');
+    	$this->db->join('tbl_payment tp', 'tp.order_code = o.order_code', 'left');
     	$this->db->where('o.order_code', $code);
 	    $this->db->order_by('o.created_datetime','asc');
 		$query = $this->db->get();

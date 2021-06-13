@@ -869,7 +869,7 @@ class Controller_Order extends CI_Controller{
     	$this->load->model("M_Order");
 
     	$order = $this->M_Order->getOne($order_code);
-    	if ($order[0]->order_status == 'MENUNGGU KONFIRMASI') {
+    	if (($order[0]->order_status == 'MENUNGGU KONFIRMASI') || ($order[0]->order_status == 'DITERIMA' && $this->session->userdata('user_code') == $order[0]->technician_code)) {
 	    	$status = str_replace("%20"," ",$status);
 	    	$data = [
 	    			'technician_code' => $this->session->userdata('user_code'),

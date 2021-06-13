@@ -115,11 +115,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Biaya</label>
                         <div class="col-sm-9">
-                          <?php if ($data[0]->price != null) { ?>
-                          <input type="text" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="Rp <?php echo number_format($data[0]->price,2,',','.'); ?>" disabled />
-                          <?php  } else { ?>
                           <input type="text" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="Rp <?php echo number_format($data[0]->order_price,2,',','.'); ?>" disabled />
-                          <?php } ?>
                         </div>
                       </div>
                     </div>

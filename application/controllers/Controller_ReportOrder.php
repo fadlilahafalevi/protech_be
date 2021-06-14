@@ -29,7 +29,7 @@ class Controller_ReportOrder extends CI_Controller{
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
-        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 7, 'Data Pemesanan', 0, 1, 'C');
 
         if ($from_date != '' and $to_date != '') {
@@ -37,13 +37,13 @@ class Controller_ReportOrder extends CI_Controller{
             $from_date_new = strftime( "%d %B %Y", DateTime::createFromFormat('Y-m-d', $from_date)->getTimestamp());
             $to_date_new = strftime( "%d %B %Y", DateTime::createFromFormat('Y-m-d', $to_date)->getTimestamp());
 
-            $pdf->SetFont('Courier', '', 8);
+            $pdf->SetFont('Arial', '', 8);
             $pdf->Cell(0, 7, $from_date_new.' Sampai '.$to_date_new, 0, 1, 'C');
         }
 
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 8);
         $pdf->SetX(20);
 
         $pdf->Cell(5, 7, 'No', 1, 0, 'C');
@@ -57,7 +57,7 @@ class Controller_ReportOrder extends CI_Controller{
         $pdf->SetWidths(Array(5,30,70,70,50,50,40));
         $pdf->SetLineHeight(5);
 
-        $pdf->SetFont('Courier', '', 8);
+        $pdf->SetFont('Arial', '', 8);
         $no = 1;
         foreach ($order as $data) {
         	$pdf->SetX(20);

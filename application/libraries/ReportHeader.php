@@ -12,7 +12,7 @@ class ReportHeader extends FPDF {
         $this->Image(FCPATH.'assets\\images\\logo.png', 120, 3, 80);
 
         // Arial bold 15
-        $this->SetFont('Courier', '', 8);
+        $this->SetFont('Arial', '', 8);
         // Move to the right
         if ($this->order_code != '') {
             $this->Cell(50, 5, 'Order Code : #'.$this->order_code, 0, 1, 'L');

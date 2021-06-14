@@ -149,11 +149,11 @@ class Controller_ServiceType extends CI_Controller{
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
-        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 7, 'Data Jenis Layanan', 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 8);
         $pdf->SetX(30);
 
         $pdf->Cell(5, 7, 'No', 1, 0, 'C');
@@ -167,7 +167,7 @@ class Controller_ServiceType extends CI_Controller{
         $pdf->SetWidths(Array(5,40,70,50,50,50,25));
         $pdf->SetLineHeight(5);
 
-        $pdf->SetFont('Courier', '', 8);
+        $pdf->SetFont('Arial', '', 8);
         $no = 1;
         foreach ($service_type as $data) {
         	$pdf->SetX(30);

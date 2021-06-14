@@ -18,7 +18,7 @@ class ReportHeaderLandscape extends PDF_MC_Table {
         $this->Image(FCPATH.'assets\\images\\logo.png', 135, 3, 80);
 
         // Arial bold 15
-        $this->SetFont('Courier', '', 8);
+        $this->SetFont('Arial', '', 8);
         // Move to the right
         date_default_timezone_set("Asia/Bangkok");
         // $this->Cell(50, 5, 'Date : ' . date("Y/m/d h:i:sa"), 0, 1, 'L');

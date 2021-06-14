@@ -200,26 +200,25 @@ class Controller_Customer extends CI_Controller{
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
-        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 7, 'Data Pelanggan', 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 8);
 
         $pdf->Cell(5, 7, 'No', 1, 0, 'C');
-        $pdf->Cell(30, 7, 'Nama', 1, 0, 'C');
-        $pdf->Cell(40, 7, 'Email', 1, 0, 'C');
-        $pdf->Cell(30, 7, 'KTP', 1, 0, 'C');
+        $pdf->Cell(40, 7, 'Nama', 1, 0, 'C');
+        $pdf->Cell(50, 7, 'Email', 1, 0, 'C');
         $pdf->Cell(30, 7, 'Jenis Kelamin', 1, 0, 'C');
         $pdf->Cell(30, 7, 'Tanggal Lahir', 1, 0, 'C');
         $pdf->Cell(25, 7, 'Telepon', 1, 0, 'C',);
-        $pdf->Cell(120, 7, 'Alamat', 1, 0, 'C',);
+        $pdf->Cell(125, 7, 'Alamat', 1, 0, 'C',);
         $pdf->Cell(25, 7, 'Status', 1, 1, 'C',);
 
-        $pdf->SetWidths(Array(5,30,40,30,30,30,25,120,25));
+        $pdf->SetWidths(Array(5,40,50,30,30,25,125,25));
         $pdf->SetLineHeight(5);
 
-        $pdf->SetFont('Courier', '', 8);
+        $pdf->SetFont('Arial', '', 8);
         $no = 1;
         foreach ($customer as $data) {
         	if ($data->gender == 'L') {
@@ -248,7 +247,6 @@ class Controller_Customer extends CI_Controller{
             	$no,
             	$data->first_name.' '.$data->middle_name.' '.$data->last_name,
             	$data->email,
-            	$data->identity_no,
             	$gender,
             	$data->date_of_birth,
             	$data->phone,

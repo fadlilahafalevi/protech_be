@@ -31,11 +31,11 @@ class Controller_Order extends CI_Controller{
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
-        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 7, 'Data Pemesanan', 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 8);
 
         $pdf->SetX(110);
         $pdf->Cell(50, 7, 'Kode Pesanan', 0, 0, 'L');
@@ -116,11 +116,11 @@ class Controller_Order extends CI_Controller{
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
-        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 7, 'Kuitansi', 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 8);
 
         $pdf->SetX(70);
         $pdf->Cell(50, 7, 'Kode Pesanan', 0, 0, 'L');

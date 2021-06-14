@@ -238,11 +238,11 @@ class Controller_Technician extends CI_Controller{
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
-        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 7, 'Data Teknisi', 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 8);
 
         $pdf->Cell(5, 7, 'No', 1, 0, 'C');
         $pdf->Cell(30, 7, 'Nama', 1, 0, 'C');
@@ -251,13 +251,15 @@ class Controller_Technician extends CI_Controller{
         $pdf->Cell(30, 7, 'Jenis Kelamin', 1, 0, 'C');
         $pdf->Cell(30, 7, 'Tanggal Lahir', 1, 0, 'C');
         $pdf->Cell(25, 7, 'Telepon', 1, 0, 'C',);
-        $pdf->Cell(120, 7, 'Alamat', 1, 0, 'C',);
-        $pdf->Cell(25, 7, 'Status', 1, 1, 'C',);
+        $pdf->Cell(60, 7, 'Alamat', 1, 0, 'C',);
+        $pdf->Cell(55, 7, 'Kategori Layanan', 1, 0, 'C',);
+        $pdf->Cell(15, 7, 'Rating', 1, 0, 'C');
+        $pdf->Cell(15, 7, 'Status', 1, 1, 'C',);
 
-        $pdf->SetWidths(Array(5,30,40,30,30,30,25,120,25));
+        $pdf->SetWidths(Array(5,30,40,30,30,30,25,60,55,15,15));
         $pdf->SetLineHeight(5);
 
-        $pdf->SetFont('Courier', '', 8);
+        $pdf->SetFont('Arial', '', 8);
         $no = 1;
         foreach ($technician as $data) {
         	if ($data->gender == 'L') {
@@ -291,6 +293,8 @@ class Controller_Technician extends CI_Controller{
             	$data->date_of_birth,
             	$data->phone,
             	$data->address,
+            	$data->service_category_name,
+            	$data->rating,
             	$status
             ));
             $no ++;

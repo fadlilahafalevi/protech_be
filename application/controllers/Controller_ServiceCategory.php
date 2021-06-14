@@ -122,11 +122,11 @@ class Controller_ServiceCategory extends CI_Controller{
         $pdf->AddPage();
         $pdf->AliasNbPages();
 
-        $pdf->SetFont('Courier', 'B', 16);
+        $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 7, 'Data Kategori Layanan', 0, 1, 'C');
         $pdf->Cell(10, 7, '', 0, 1);
 
-        $pdf->SetFont('Courier', 'B', 8);
+        $pdf->SetFont('Arial', 'B', 8);
 		$pdf->SetX(110);
 
         $pdf->Cell(10, 7, 'No', 1, 0, 'C');
@@ -137,11 +137,11 @@ class Controller_ServiceCategory extends CI_Controller{
         $pdf->SetWidths(Array(10,50,50,25));
         $pdf->SetLineHeight(5);
 
-        $pdf->SetFont('Courier', '', 8);
+        $pdf->SetFont('Arial', '', 8);
         $no = 1;
         foreach ($service_category as $data) {
 			$pdf->SetX(110);
-        	if ($data->up_active_status == 1) {
+        	if ($data->active_status == 1) {
         		$status = 'Aktif';
         	} else {
         		$status = 'Tidak Aktif';

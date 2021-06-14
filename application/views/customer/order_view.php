@@ -48,6 +48,12 @@
     .rating > input:not(:checked) ~ label:hover ~ label {
       background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23d8b11e' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
     }
+
+    #image-preview{
+    display:none;
+    width : 250px;
+    height : 300px;
+    }
   </style>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -110,8 +116,8 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>">
-               <h3 align="center">Apakah anda yakin?</h3>
+              <form role="form" method="post" action="/protechapp/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>">
+              <h3 align="center">Apakah anda yakin?</h3>
             </div>
             <!-- Modal Footer -->
             <div class="modal-footer">
@@ -319,6 +325,46 @@
                 </div>
                 <?php } ?>
 
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && (!is_null($data[0]->payment_date) || $data[0]->receipt == '')) {?>
+                <form id="form_receipt" method="post" action="/protechapp/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>" enctype="multipart/form-data">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Bukti Pembayaran</label>
+                        <div class="col-sm-9">
+                          <input type="file" class="span3" id="receipt" name="receipt" onchange="previewImage();">
+                          <?php if($this->session->flashdata('error')){echo $this->session->flashdata('error');} ?>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-sm-9">
+                          <img id="image-preview" alt="image preview"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <?php } ?>
+
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($data[0]->payment_date)) { ?>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Bukti Pembayaran</label>
+                      <div class="col-sm-9">
+                        <img width="415px" src="data:image/png;base64,<?php echo $data[0]->receipt ?>" alt="Red dot" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <?php } ?>
+
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
@@ -328,10 +374,12 @@
                         <label class="badge badge-danger">Menunggu Konfirmasi</label>
                         <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                         <label class="badge badge-warning">Dalam Proses</label>
-                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
+                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($data[0]->payment_date)) { ?>
                         <label class="badge badge-info">Menunggu Pembayaran</label>
-                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($payment[0]->payment_date)) { ?>
+                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($data[0]->payment_date) && (!is_null($data[0]->receipt) || $data[0]->receipt != '') ) { ?>
                         <label class="badge badge-info">Sudah Bayar</label>
+                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($data[0]->payment_date) && !(!is_null($data[0]->receipt) || $data[0]->receipt != '')) { ?>
+                        <label class="badge badge-info">Pembayaran Ditolak</label>
                         <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                         <label class="badge badge-success">Selesai</label>
                         <?php } else if ($data[0]->order_status == 'DIBATALKAN') { ?>
@@ -343,8 +391,8 @@
                 </div>
 
                 <a class="btn btn-light" href="/protechapp/index.php/Controller_Order/getAll/<?=$data[0]->customer_code?>">Kembali</a>
-                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
-                  <button class="btn btn-success" data-toggle="modal" data-target="#modalBayar"></i>Sudah Bayar</button>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($data[0]->payment_date)) { ?>
+                  <button class="btn btn-success" type="submit" form="form_receipt" value="Submit"></i>Sudah Bayar</button>
                 <?php } else if ($data[0]->order_status == 'SELESAI' && (!$review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalUlasan"></i>Tulis Ulasan</button>
                   <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/printInvoice/<?php echo $data[0]->order_code ?>"></i>Download Kuitansi</a>
@@ -378,7 +426,15 @@
   </div>
 <?php require 'application/views/footer.php'; ?>
 <script type="text/javascript">
-  
+  function previewImage() {
+    document.getElementById("image-preview").style.display = "block";
+    var oFReader = new FileReader();
+     oFReader.readAsDataURL(document.getElementById("receipt").files[0]);
+
+    oFReader.onload = function(oFREvent) {
+      document.getElementById("image-preview").src = oFREvent.target.result;
+    };
+  };
 </script>
 </body>
 </html>

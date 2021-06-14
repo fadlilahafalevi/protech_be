@@ -231,14 +231,29 @@ class Controller_Order extends CI_Controller{
 
 			$this->load->view('admin/order_view', $data);
 		} else if($this->session->userdata('akses')=='2'){
-			$this->load->model("T_Order");
+			$this->load->model("M_Order");
+			$this->load->model("M_ServiceType");
+			$this->load->model("M_Review");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->T_Order->getOneById($id);
+			if (isset($code)) {
+				$data_order = $this->M_Order->getOne($code);
+				$customer_wa = preg_replace("/^0/", "62", $data_order[0]->customer_phone);
+				$technician_wa = preg_replace("/^0/", "62", $data_order[0]->technician_phone);
+				$payment = $this->M_Order->getPayment($code);
+				$data['customer_wa'] = $customer_wa;
+				$data['technician_wa'] = $technician_wa;
+				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
+	            $data['service_category_code'] = $data_order[0]->service_category_code;
+	            $data['order_code'] = $code;
+				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$data['data'] = $data_order;
+				$data['review'] = $this->M_Review->getOneByOrderCode($code);
+				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
+				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H.i');
+				$data['payment'] = $payment;
 			}
 
-			$this->load->view('customer/order_view', $data);
+			$this->load->view('admin/order_view', $data);
 		} else if($this->session->userdata('akses')=='3') {
 			$this->load->model("M_Order");
 			$this->load->model("M_ServiceType");
@@ -286,84 +301,84 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	public function createOrder($serviceDetailCode = '') {
-		if($this->session->userdata('akses')=='3'){
+	// public function createOrder($serviceDetailCode = '') {
+	// 	if($this->session->userdata('akses')=='3'){
 
-			$this->load->model("M_Service");
+	// 		$this->load->model("M_Service");
 			
-			if(isset($serviceDetailCode)) {
-				$data['data'] = $this->M_Service->getServiceDetailByCode($serviceDetailCode);
-				$this->load->view('customer/order_create_location', $data);
-			}
+	// 		if(isset($serviceDetailCode)) {
+	// 			$data['data'] = $this->M_Service->getServiceDetailByCode($serviceDetailCode);
+	// 			$this->load->view('customer/order_create_location', $data);
+	// 		}
 
-		} else {
-			redirect('Controller_Login');
-		}
-	}
+	// 	} else {
+	// 		redirect('Controller_Login');
+	// 	}
+	// }
 
-	public function searchTechnician() {
-		$this->load->model("M_Order");
+	// public function searchTechnician() {
+	// 	$this->load->model("M_Order");
 		
-		$foto_kerusakan = '';
-		$config['upload_path']          = './assets/uploaded-image/';
-		$config['allowed_types']        = '*';
-		$config['max_size']             = 3000;
-		$this->load->library('upload', $config);
-		if ( !$this->upload->do_upload('foto_kerusakan') ) {
-			$error = array('error' => $this->upload->display_errors());
-			$this->session->set_flashdata('error',$error['error']);
-			redirect('Controller_Order/preorder/'.$this->input->post('service_category_code'), 'refresh');
-		} else {
-			$image_data = $this->upload->data();
-			$imgdata = file_get_contents($image_data['full_path']);
-			$foto_kerusakan = base64_encode($imgdata);
-		}
+	// 	$foto_kerusakan = '';
+	// 	$config['upload_path']          = './assets/uploaded-image/';
+	// 	$config['allowed_types']        = '*';
+	// 	$config['max_size']             = 3000;
+	// 	$this->load->library('upload', $config);
+	// 	if ( !$this->upload->do_upload('foto_kerusakan') ) {
+	// 		$error = array('error' => $this->upload->display_errors());
+	// 		$this->session->set_flashdata('error',$error['error']);
+	// 		redirect('Controller_Order/preorder/'.$this->input->post('service_category_code'), 'refresh');
+	// 	} else {
+	// 		$image_data = $this->upload->data();
+	// 		$imgdata = file_get_contents($image_data['full_path']);
+	// 		$foto_kerusakan = base64_encode($imgdata);
+	// 	}
 
-		$latitude =	$this->input->post('latitude');
-		$longitude = $this->input->post('longitude');
-		$service_category_code = $this->input->post('service_category_code');
-		$service_type_code = $this->input->post('service_type_code');
+	// 	$latitude =	$this->input->post('latitude');
+	// 	$longitude = $this->input->post('longitude');
+	// 	$service_category_code = $this->input->post('service_category_code');
+	// 	$service_type_code = $this->input->post('service_type_code');
 
-		$data['jenis_layanan'] = $this->input->post('jenis_layanan');
-		$data['waktu_perbaikan'] = $this->input->post('waktu_perbaikan');
-		$data['alamat'] = $this->input->post('alamat');
-		$data['catatan_alamat'] = $this->input->post('catatan_alamat');
-		$data['foto_kerusakan'] = $foto_kerusakan;
-		$data['detail_keluhan'] = $this->input->post('detail_keluhan');
-		$data['metode_pembayaran'] = $this->input->post('metode_pembayaran');
-		$data['latitude'] = $this->input->post('latitude');
-		$data['longitude'] = $this->input->post('longitude');
-		$data['service_category_code'] = $this->input->post('service_category_code');
-		$data['service_type_code'] = $this->input->post('service_type_code');
+	// 	$data['jenis_layanan'] = $this->input->post('jenis_layanan');
+	// 	$data['waktu_perbaikan'] = $this->input->post('waktu_perbaikan');
+	// 	$data['alamat'] = $this->input->post('alamat');
+	// 	$data['catatan_alamat'] = $this->input->post('catatan_alamat');
+	// 	$data['foto_kerusakan'] = $foto_kerusakan;
+	// 	$data['detail_keluhan'] = $this->input->post('detail_keluhan');
+	// 	$data['metode_pembayaran'] = $this->input->post('metode_pembayaran');
+	// 	$data['latitude'] = $this->input->post('latitude');
+	// 	$data['longitude'] = $this->input->post('longitude');
+	// 	$data['service_category_code'] = $this->input->post('service_category_code');
+	// 	$data['service_type_code'] = $this->input->post('service_type_code');
 
-		$data['data'] = $this->M_Order->searchTechnician($latitude, $longitude, $service_type_code);
-		$this->listTechnician($data);
-		// $this->load->view('customer/order_result_technician', $data);
-	}
+	// 	$data['data'] = $this->M_Order->searchTechnician($latitude, $longitude, $service_type_code);
+	// 	$this->listTechnician($data);
+	// 	// $this->load->view('customer/order_result_technician', $data);
+	// }
 
-	public function listTechnician($data = '') {
-		if(is_array($data) && count($data) > 0) {
+	// public function listTechnician($data = '') {
+	// 	if(is_array($data) && count($data) > 0) {
 			
-			$nearestTech = $data['data'];
+	// 		$nearestTech = $data['data'];
 
-			$dataView['jenis_layanan'] = $data['jenis_layanan'];
-			$dataView['waktu_perbaikan'] = $data['waktu_perbaikan'];
-			$dataView['alamat'] = $data['alamat'];
-			$dataView['catatan_alamat'] = $data['catatan_alamat'];
-			$dataView['foto_kerusakan'] = $data['foto_kerusakan'];
-			$dataView['detail_keluhan'] = $data['detail_keluhan'];
-			$dataView['metode_pembayaran'] = $data['metode_pembayaran'];
-			$dataView['latitude'] = $data['latitude'];
-			$dataView['longitude'] = $data['longitude'];
-			$dataView['service_category_code'] = $data['service_category_code'];
-			$dataView['service_type_code'] = $data['service_type_code'];
-			$dataView['nearestTech'] = $nearestTech;
+	// 		$dataView['jenis_layanan'] = $data['jenis_layanan'];
+	// 		$dataView['waktu_perbaikan'] = $data['waktu_perbaikan'];
+	// 		$dataView['alamat'] = $data['alamat'];
+	// 		$dataView['catatan_alamat'] = $data['catatan_alamat'];
+	// 		$dataView['foto_kerusakan'] = $data['foto_kerusakan'];
+	// 		$dataView['detail_keluhan'] = $data['detail_keluhan'];
+	// 		$dataView['metode_pembayaran'] = $data['metode_pembayaran'];
+	// 		$dataView['latitude'] = $data['latitude'];
+	// 		$dataView['longitude'] = $data['longitude'];
+	// 		$dataView['service_category_code'] = $data['service_category_code'];
+	// 		$dataView['service_type_code'] = $data['service_type_code'];
+	// 		$dataView['nearestTech'] = $nearestTech;
 
-			$this->load->view('customer/nearest_technician', $dataView);
-		} else {
-			echo "No result found";
-		}
-	}
+	// 		$this->load->view('customer/nearest_technician', $dataView);
+	// 	} else {
+	// 		echo "No result found";
+	// 	}
+	// }
 
 	public function confirmOrder() {
 		$this->load->model("M_Order");
@@ -598,71 +613,19 @@ class Controller_Order extends CI_Controller{
 		}
 	}
 
-	// public function confirmOrderByTech() {
-	// 	if ($this->session->userdata('akses')=='2') {
-
-	// 	    $this->load->model("M_Order");
-	// 	    $this->load->model("M_Customer");
-	// 	    $this->load->model("T_Wallet");
-	// 	    $this->load->model("M_General");
-		    
-	// 		$order_code = $this->input->post('order_code');
-	// 		$is_approved = $this->input->post('is_approved');
-	// 		if (isset($order_code)) {
-	// 		    if ($is_approved == 1) {
-	// 			    $this->M_Order->updateStatus($order_code, 'IN PROGRESS');
-	// 		    } else {
-	// 		        $paid_amount = $this->M_Order->getTotalPriceFromOrder($order_code);
-	// 		        $customer_code = $this->M_Order->getCustomerCodeFromOrder($order_code);
-	// 		        $customer_phone = $this->M_Customer->getPhoneByCode($customer_code);
-	// 		        $balance = $this->T_Wallet->getCurrentBalance($customer_phone);
-	// 		        $credit = $this->T_Wallet->getCurrentCredit($customer_phone);
-	// 		        $data_wallet = [
-	// 		            'balance' => $balance + $paid_amount,
-	// 		            'total_credit' => $credit + $paid_amount
-	// 		        ];
-			        
-	// 		        $intermediaryWallet = '082213223526';
-	// 		        $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
-	// 		        $debitIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
-	// 		        $data_wallet_intermediary = [
-	// 		            'balance' => $balanceIntermediaryWallet + $paid_amount,
-	// 		            'total_credit' => $debitIntermediaryWallet + $paid_amount
-	// 		        ];
-			        
-	// 		        $data = [
-	// 		            'to_phone' => $customer_phone,
-	// 		            'from_phone' => $intermediaryWallet,
-	// 		            'txn_amount' => $paid_amount,
-	// 		            'txn_code' => 'PAYM',
-	// 		            'order_code' => $order_code,
-	// 		            'is_processed' => 1,
-	// 		            'is_approved' => 1
-	// 		        ];
-			        
-	// 		        $this->M_General->insertData('tbl_transaction_history', $data);
-	// 		        $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $customer_phone);
-	// 		        $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
-	// 		        $this->M_Order->updateStatus($order_code, 'REJECTED BY TECH');
-	// 		    }
-	// 			redirect('Controller_Order/getOneByCode/'.$order_code);
-	// 		}
-	// 	}
-	// }
-
-	public function finishOrderByTech($order_code = '', $technician_code = '') {
-        if ($this->session->userdata('akses') == '2') {
-            $this->load->model("M_Order");
-            $this->load->model("M_Technician");
-            if (isset($order_code)) {
-                $total_amount = $this->M_Order->getTotalPriceFromOrder($order_code);
-                $phone = $this->M_Technician->getPhoneByCode($technician_code);
-                $this->M_Order->updateStatus($order_code, 'FINISHED');
-                $this->transferPaymentIntermediaryWallet('technician', $phone, $total_amount, $order_code);
-                redirect('Controller_Order/getOneByCode/' . $order_code);
-            }
-        }
-    }
+	// public function finishOrderByTech($order_code = '', $technician_code = '') {
+ //        if ($this->session->userdata('akses') == '2') {
+ //            $this->load->model("M_Order");
+ //            $this->load->model("M_Technician");
+ //            if (isset($order_code)) {
+ //                $total_amount = $this->M_Order->getTotalPriceFromOrder($order_code);
+ //                $phone = $this->M_Technician->getPhoneByCode($technician_code);
+ //                $this->M_Order->updateStatus($order_code, 'FINISHED');
+ //                $this->transferPaymentIntermediaryWallet('technician', $phone, $total_amount, $order_code);
+ //                redirect('Controller_Order/getOneByCode/' . $order_code);
+ //            }
+ //        }
+ //    }
 	
 	public function requestNewService($order_code, $service_category_code) {
         $this->load->model("M_Order");
@@ -714,39 +677,39 @@ class Controller_Order extends CI_Controller{
         }
     }
     
-    public function approvedRequestByCustomer($order_code, $phone) {
-        $this->load->model("M_Order");
-        $this->load->model("T_Wallet");
-        $this->load->model("M_General");
+    // public function approvedRequestByCustomer($order_code, $phone) {
+    //     $this->load->model("M_Order");
+    //     $this->load->model("T_Wallet");
+    //     $this->load->model("M_General");
         
-        $total_unpaid = $this->M_Order->getUnpaidOrderCustomer($order_code);
-        $total_balance_customer = $this->T_Wallet->getCurrentBalance($phone);
-        $is_approved = $this->input->post('is_approved');
+    //     $total_unpaid = $this->M_Order->getUnpaidOrderCustomer($order_code);
+    //     $total_balance_customer = $this->T_Wallet->getCurrentBalance($phone);
+    //     $is_approved = $this->input->post('is_approved');
         
-        if ($is_approved == 1) {
-            if ($total_balance_customer >= $total_unpaid) {
-                //update status order detail to paid
-                $data = [
-                    'order_code' => $order_code,
-                    'is_paid' => 1
-                ];
-                $this->M_General->updateData('tbl_order_detail', $data, 'order_code', $order_code);
+    //     if ($is_approved == 1) {
+    //         if ($total_balance_customer >= $total_unpaid) {
+    //             //update status order detail to paid
+    //             $data = [
+    //                 'order_code' => $order_code,
+    //                 'is_paid' => 1
+    //             ];
+    //             $this->M_General->updateData('tbl_order_detail', $data, 'order_code', $order_code);
                 
-                //update total price
-                $total_price = $this->M_Order->getTotalPriceFromOrder($order_code);
-                $data_order = [
-                    'total_amount' => $total_price
-                ];
-                $this->M_General->updateData('tbl_order', $data_order, 'order_code', $order_code);
+    //             //update total price
+    //             $total_price = $this->M_Order->getTotalPriceFromOrder($order_code);
+    //             $data_order = [
+    //                 'total_amount' => $total_price
+    //             ];
+    //             $this->M_General->updateData('tbl_order', $data_order, 'order_code', $order_code);
                 
-                $this->transferPaymentIntermediaryWallet('customer', $phone, $total_unpaid, $order_code);
-            }
-        } else {
-            $this->M_General->deleteData('tbl_order_detail', 'order_code = \''.$order_code.'\' and is_paid = 0');
-        }
+    //             $this->transferPaymentIntermediaryWallet('customer', $phone, $total_unpaid, $order_code);
+    //         }
+    //     } else {
+    //         $this->M_General->deleteData('tbl_order_detail', 'order_code = \''.$order_code.'\' and is_paid = 0');
+    //     }
         
-        redirect('Controller_Order/getOneByCode/'.$order_code);
-    }
+    //     redirect('Controller_Order/getOneByCode/'.$order_code);
+    // }
     
     public function submitReview($order_code) {
         $this->load->model("M_Order");
@@ -766,88 +729,6 @@ class Controller_Order extends CI_Controller{
 
         redirect('Controller_Order/getOne/'.$order_code);
     }
-	
-	// public function transferPaymentIntermediaryWallet($user_type, $phone, $amount, $order_code) {
-	//     $this->load->model("T_Wallet");
-	//     $this->load->model("M_General");
-	    
-	//     $intermediaryWallet = '082213223526';
-	//     $balanceIntermediaryWallet = $this->T_Wallet->getCurrentBalance($intermediaryWallet);
-	//     $debitIntermediaryWallet = $this->T_Wallet->getCurrentDebit($intermediaryWallet);
-	//     $creditIntermediaryWallet = $this->T_Wallet->getCurrentCredit($intermediaryWallet);
-	//     if (strcasecmp($user_type, 'customer') == 0) {
-	//         $txn_code = 'PAYM';
-	//         $is_processed = '1';
-	//         $is_approved = '1';
-	        
-	//         $balance = $this->T_Wallet->getCurrentBalance($phone);
-	//         $debit = $this->T_Wallet->getCurrentDebit($phone);
-	//         $credit = $this->T_Wallet->getCurrentCredit($phone);
-	        
-	//         $data = [
-	//             'from_phone' => $phone,
-	//             'to_phone' => $intermediaryWallet,
-	//             'txn_amount' => $amount,
-	//             'txn_code' => $txn_code,
-	//             'order_code' => $order_code,
-	//             'is_processed' => $is_processed,
-	//             'is_approved' => $is_approved
-	//         ];
-	        
-	//         $data_wallet = [
-	//             'balance' => $balance - $amount,
-	//             'total_debit' => $debit + $amount
-	//         ];
-	        
-	//         $data_wallet_intermediary = [
-	//             'balance' => $balanceIntermediaryWallet + $amount,
-	//             'total_credit' => $creditIntermediaryWallet + $amount
-	//         ];
-	//     } else if (strcasecmp($user_type, 'technician') == 0) {
-	//         $txn_code = 'PAYM';
-	//         $is_processed = '1';
-	//         $is_approved = '1';
-	        
-	//         $balance = $this->T_Wallet->getCurrentBalance($phone);
-	//         $debit = $this->T_Wallet->getCurrentDebit($phone);
-	//         $credit = $this->T_Wallet->getCurrentCredit($phone);
-	        
-	//         $data = [
-	//             'to_phone' => $phone,
-	//             'from_phone' => $intermediaryWallet,
-	//             'txn_amount' => $amount,
-	//             'txn_code' => $txn_code,
-	//             'order_code' => $order_code,
-	//             'is_processed' => $is_processed,
-	//             'is_approved' => $is_approved
-	//         ];
-	        
-	//         $data_wallet = [
-	//             'balance' => $balance + $amount,
-	//             'total_credit' => $credit + $amount
-	//         ];
-	        
-	//         $data_wallet_intermediary = [
-	//             'balance' => $balanceIntermediaryWallet - $amount,
-	//             'total_debit' => $debitIntermediaryWallet + $amount
-	//         ];
-	//     }
-	    
-	//     $this->M_General->insertData('tbl_transaction_history', $data);
-	//     $this->M_General->updateData('tbl_wallet', $data_wallet, 'phone', $phone);
-	//     $this->M_General->updateData('tbl_wallet', $data_wallet_intermediary, 'phone', $intermediaryWallet);
-	// }
-
-	// public function cancelByCustomer($order_code) {
- //        if ($this->session->userdata('akses') == '3') {
-
- //            $this->load->model("M_Order");
- //            if (isset($order_code)) {
- //                $this->M_Order->updateStatus($order_code, 'CANCELLED BY CUST');
- //                redirect('Controller_Order/getOneByCode/' . $order_code);
- //            }
- //        }
- //    }
 	
 	public function getWaitingConfirmationOrder() {
         if ($this->session->userdata('akses') == '3') {
@@ -869,7 +750,15 @@ class Controller_Order extends CI_Controller{
     	$this->load->model("M_Order");
 
     	$order = $this->M_Order->getOne($order_code);
-    	if (($order[0]->order_status == 'MENUNGGU KONFIRMASI') || ($order[0]->order_status == 'DITERIMA' && $this->session->userdata('user_code') == $order[0]->technician_code)) {
+    	if (!($order[0]->order_status == 'MENUNGGU KONFIRMASI') && !($this->session->userdata('user_code') == $order[0]->technician_code)) {
+	    	$url=base_url('Controller_Order/getOneAfterOrderByCode/'.$order_code);
+	        echo $this->session->set_flashdata('msg','Pesanan sudah diambil oleh teknisi lain');
+	        redirect($url);
+		} else if ($order[0]->order_status == 'DIBATALKAN') {
+			$url=base_url('Controller_Order/getOneAfterOrderByCode/'.$order_code);
+	        echo $this->session->set_flashdata('msg','Pesanan dibatalkan otomatis oleh sistem');
+	        redirect($url);
+	    } else {
 	    	$status = str_replace("%20"," ",$status);
 	    	$data = [
 	    			'technician_code' => $this->session->userdata('user_code'),
@@ -880,38 +769,81 @@ class Controller_Order extends CI_Controller{
 
 	       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
 	       	redirect('Controller_Order/getOne/'.$order_code);
-		} else if ($order[0]->order_status == 'DIBATALKAN') {
-			$url=base_url('Controller_Order/getOneAfterOrderByCode/'.$order_code);
-	        echo $this->session->set_flashdata('msg','Pesanan dibatalkan otomatis oleh sistem');
-	        redirect($url);
-	    } else {
-	    	$url=base_url('Controller_Order/getOneAfterOrderByCode/'.$order_code);
-	        echo $this->session->set_flashdata('msg','Pesanan sudah diambil oleh teknisi lain');
-	        redirect($url);
 	    }
     }
 
     public function confirmPayment($order_code) {
+    	if ($this->session->userdata('akses') == '4') {
+	    	$this->load->model("M_General");
+	    	$receipt = '';
+			$config['upload_path']          = './assets/uploaded-image/';
+			$config['allowed_types']        = '*';
+			$config['max_size']             = 3000;
+			$this->load->library('upload', $config);
+			if ( !$this->upload->do_upload('receipt') ) {
+				$error = array('error' => $this->upload->display_errors());
+				$this->session->set_flashdata('error',$error['error']);
+				redirect('Controller_Order/getOne/'.$order_code, 'refresh');
+			} else {
+				$image_data = $this->upload->data();
+				$imgdata = file_get_contents($image_data['full_path']);
+				$receipt = base64_encode($imgdata);
+			}
+
+			$data_payment = [
+				'payment_date' => date("Y-m-d H:i:s"),
+				'receipt' => $receipt
+			];
+			$this->M_General->updateData('tbl_payment', $data_payment, 'order_code', $order_code);
+	       	redirect('Controller_Order/getOne/'.$order_code);
+       } else if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
+       		$data = [
+	                'order_status' => 'SELESAI',
+	                'modified_by' => $this->session->userdata('user_name'),
+	                'modified_datetime' => date("Y-m-d H:i:s")
+	            ];
+
+	       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+
+       }
+    }
+
+    public function payment_admin_action($order_code, $action) {
     	$this->load->model("M_General");
-		$data_payment = [
-			'payment_date' => date("Y-m-d H:i:s")
-		];
-		$this->M_General->updateData('tbl_payment', $data_payment, 'order_code', $order_code);
-       	redirect('Controller_Order/getOne/'.$order_code);
+    	if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
+    		if ($action = 'TERIMA') {
+	       		$data = [
+		                'order_status' => 'SELESAI',
+		                'modified_by' => $this->session->userdata('user_name'),
+		                'modified_datetime' => date("Y-m-d H:i:s")
+		            ];
+
+		       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+			} else if ($action = 'TOLAK') {
+				$data = [
+		                'receipt' => '',
+		                'modified_by' => $this->session->userdata('user_name'),
+		                'modified_datetime' => date("Y-m-d H:i:s")
+		            ];
+
+		       	$this->M_General->updateData('tbl_payment', $data, 'order_code', $order_code);
+			}
+			redirect('Controller_Order/getOne/'.$order_code);
+		}
     }
     
-    public function rejectByAdmin($order_code) {
-        if ($this->session->userdata('akses') == '1') {
-            $this->load->model("M_General");
-            $data = [
-                'order_code' => $order_code,
-                'order_status' => 'REJECTED BY ADMIN',
-                'modified_by' => $this->session->userdata('code'),
-                'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now"))
-            ];
+    // public function rejectByAdmin($order_code) {
+    //     if ($this->session->userdata('akses') == '1') {
+    //         $this->load->model("M_General");
+    //         $data = [
+    //             'order_code' => $order_code,
+    //             'order_status' => 'REJECTED BY ADMIN',
+    //             'modified_by' => $this->session->userdata('code'),
+    //             'modified_datetime' => date("Y-m-d h:i:sa", strtotime("now"))
+    //         ];
 
-            $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
-            redirect('Controller_Order/getWaitingConfirmationOrder');
-        }
-    }
+    //         $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+    //         redirect('Controller_Order/getWaitingConfirmationOrder');
+    //     }
+    // }
 }

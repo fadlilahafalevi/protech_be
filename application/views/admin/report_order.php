@@ -81,7 +81,7 @@
                         <td><?=$list_report->repair_datetime?></td>
                         <td><?=$list_report->order_status?></td>
                         <td style="text-align: center">
-                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_ReportOrder/getOne/<?=$list_report->order_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
+                          <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/getOne/<?=$list_report->order_code?>" data-toggle="tooltip" title="Lihat" style="padding: 4px">
                             <i class="mdi mdi-eye"></i>
                           </a>
                         </td>

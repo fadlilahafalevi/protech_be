@@ -452,7 +452,9 @@ class Controller_Order extends CI_Controller{
 		if ($this->session->userdata('akses') == '4') {
 			$this->load->model("M_ServiceCategory");
 			$this->load->model("M_ServiceType");
+			$this->load->model("M_Order");
 
+			$existing_repair_datetime = $this->M_Order->get_existing_repair_datetime($service_category_code, $this->session->userdata('user_code'));
 			$service_category = $this->M_ServiceCategory->getServiceCategoryDetailByCode($service_category_code);
 			$service_type_pemeliharaan = $this->M_ServiceType->getServiceTypeDetailByCodeAndType($service_category_code, 'PEMELIHARAAN');
 			$isInstalasiExists = $this->M_ServiceType->isInstalasiExists($service_category_code);
@@ -460,6 +462,7 @@ class Controller_Order extends CI_Controller{
 			$data['service_category'] = $service_category;
 			$data['service_type'] = $service_type_pemeliharaan;
 			$data['isInstalasiExists'] = $isInstalasiExists;
+			$data['existing_repair_datetime'] = $existing_repair_datetime;
 
 			$this->load->view('customer/pre_order', $data);
 		} else {

@@ -38,6 +38,42 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-6" hidden>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Nama Layanan Instalasi</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nama_instalasi" name="nama_instalasi" value="Instalasi" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Harga Layanan Instalasi</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="harga_instalasi" name="harga_instalasi" required/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6" hidden>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Nama Layanan Pengecekan</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nama_pengecekan" name="nama_pengecekan" value="Pengecekan" readonly="readonly" required/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Harga Layanan Pengecekan</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="harga_pengecekan" name="harga_pengecekan" required/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <a class="btn btn-light" href="/protechapp/index.php/Controller_ServiceCategory">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button> 
                   </form>

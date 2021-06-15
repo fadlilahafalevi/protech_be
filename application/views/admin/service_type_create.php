@@ -45,7 +45,8 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Jenis Layanan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="service_type_name" name="service_type_name" required/>
+                            <input type="text" class="form-control" id="service_type_name" name="service_type_name" required></input>
+                            <p align="left" style="color: red">Jangan menggunakan kata "Pengecekan" sebagai nama jenis layanan</p>
                           </div>
                         </div>
                       </div>
@@ -82,7 +83,6 @@
                           <label class="col-sm-3 col-form-label">Type Layanan</label>
                           <div class="col-sm-9">
                             <select class="form-control" name="type">
-                              <option value="INSTALASI">Instalasi</option>
                               <option value="REPARASI">Perbaikan</option>
                               <option value="PEMELIHARAAN">Pemeliharaan</option>
                             </select>
@@ -100,5 +100,15 @@
         </div>
       </div>
 <?php require 'application/views/footer.php'; ?>
+
+<script type="text/javascript">
+$('#service_type_name').keyup(function () {
+    if (!this.value.match(/[PENGECEKAN]/)) {
+        this.value = this.value.replace(/[PENGECEKAN]/g, '');
+    }
+});
+// alert('Hello! I am an alert box!!');
+</script>
+
 </body>
 </html>

@@ -50,6 +50,7 @@
                           <label class="col-sm-3 col-form-label">Nama Jenis Layanan</label>
                           <div class="col-sm-9">
                             <input type="text" class="form-control" id="service_type_name" name="service_type_name" value="<?=$service_type_detail->service_type_name?>" required/>
+                            <p align="left" style="color: red">Jangan menggunakan kata "Pengecekan" sebagai nama jenis layanan</p>
                           </div>
                         </div>
                       </div>
@@ -86,7 +87,6 @@
                           <label class="col-sm-3 col-form-label">Type Layanan</label>
                           <div class="col-sm-9">
                             <select class="form-control" name="type">
-                              <option value="INSTALASI" <?php if ($service_type_detail->type == 'INSTALASI') { ?> selected <?php } ?> >Instalasi</option>
                               <option value="REPARASI" <?php if ($service_type_detail->type == 'REPARASI') { ?> selected <?php } ?> >Perbaikan</option>
                               <option value="PEMELIHARAAN" <?php if ($service_type_detail->type == 'PEMELIHARAAN') { ?> selected <?php } ?> >Pemeliharaan</option>
                             </select>

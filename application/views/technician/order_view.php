@@ -283,7 +283,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">Nomor Teknisi</label>
+                      <label class="col-sm-3 col-form-label">Nomor Pelanggan</label>
                       <div class="col-sm-9">
                         <div class="input-group">
                           <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->customer_phone ?>" disabled />

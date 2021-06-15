@@ -153,7 +153,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Metode Pembayaran</label>
                           <div class="col-sm-9">
-                            <input type="hidden" class="form-control" id="metode_pembayaran" name="metode_pembayaran" readonly="readonly" value="TUNAI">
+                            <input type="hidden" class="form-control" id="metode_pembayaran" name="metode_pembayaran" readonly="readonly" value="TRANSFER">
                           </div>
                         </div>
                       </div>

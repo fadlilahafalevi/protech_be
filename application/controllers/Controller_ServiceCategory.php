@@ -174,7 +174,7 @@ class Controller_ServiceCategory extends CI_Controller{
 					'modified_by' => $this->session->userdata('user_name'),
 					'modified_datetime' => $now
 				];
-				$this->M_General->updateData('tbl_service_category', $data_pengecekan, 'service_type_code', $code_pengecekan);
+				$this->M_General->updateData('tbl_service_type', $data_pengecekan, 'service_type_code', $code_pengecekan);
 			} else {
 				$data_pengecekan = [
 				'service_type_code' => $this->M_General->getSequence('tbl_service_type', 3, 'J'),

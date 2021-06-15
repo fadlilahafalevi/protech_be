@@ -19,6 +19,7 @@ class Controller_ServiceCategory extends CI_Controller{
 			$data['code'] = $code;
 			if (isset($code)) {
 				$data['data'] = $this->M_ServiceCategory->getServiceCategoryDetailByCode($code);
+				$data['instalasi_pengecekan'] = $this->M_ServiceCategory->get_instalasi_pengecekan($code);
 			}
 
 			$this->load->view('admin/service_category_view', $data);
@@ -43,6 +44,7 @@ class Controller_ServiceCategory extends CI_Controller{
 			$data['code'] = $code;
 			if (isset($code)) {
 				$listData = $this->M_ServiceCategory->getServiceCategoryDetailByCode($code);
+				$data['instalasi_pengecekan'] = $this->M_ServiceCategory->get_instalasi_pengecekan($code);
 				$data['data'] = $listData;
 				
 				foreach ($listData as $field) {
@@ -66,6 +68,11 @@ class Controller_ServiceCategory extends CI_Controller{
 
 			$service_category_code 	=	$this->input->post('service_category_code');
 			$service_category_name 	=	$this->input->post('service_category_name');
+			$nama_instalasi 	=	$this->input->post('nama_instalasi');
+			$harga_instalasi 	=	$this->input->post('harga_instalasi');
+			$nama_pengecekan 	=	$this->input->post('nama_pengecekan');
+			$harga_pengecekan 	=	$this->input->post('harga_pengecekan');
+
 			$active_status = '1';
 			$now = date("Y-m-d H:i:s");
 
@@ -77,6 +84,34 @@ class Controller_ServiceCategory extends CI_Controller{
 			];
 
 			$this->M_General->insertData('tbl_service_category', $data_service_category);
+
+			$data_instalasi = [
+				'service_type_code' => $this->M_General->getSequence('tbl_service_type', 3, 'J'),
+				'service_type_name' => $nama_instalasi,
+				'service_type_desc' => $nama_instalasi,
+				'service_category_code' => $service_category_code,
+				'price' => $harga_instalasi,
+				'unit' => 'unit',
+				'type' => 'INSTALASI',
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
+			];
+
+			$this->M_General->insertData('tbl_service_type', $data_instalasi);
+
+			$data_pengecekan = [
+				'service_type_code' => $this->M_General->getSequence('tbl_service_type', 3, 'J'),
+				'service_type_name' => $nama_pengecekan,
+				'service_type_desc' => $nama_pengecekan,
+				'service_category_code' => $service_category_code,
+				'price' => $harga_pengecekan,
+				'unit' => 'unit',
+				'type' => 'REPARASI',
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
+			];
+
+			$this->M_General->insertData('tbl_service_type', $data_pengecekan);
 
 			redirect('Controller_ServiceCategory');
 		}

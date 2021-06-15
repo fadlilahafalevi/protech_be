@@ -83,6 +83,7 @@
                                   <div class="input-group-text"><i class="mdi mdi-calendar-clock"></i></div>
                                 </div>
                               </div>
+                              <p align="left" style="color: red">Anda tidak bisa memilih tanggal yang sama untuk layanan yang sama</p>
                             </div>
                           </div>
                         </div>
@@ -254,7 +255,13 @@ $("#dropdown").change(function(){
 
   $("#datetimepicker1").datetimepicker({
     format: dateFormat,
-    minDate: new Date()
+    minDate: new Date(),
+    disabledDates: [
+      <?php foreach($existing_repair_datetime as $data) {
+        echo "'".$data->repair_datetime."'".",";
+      } ?>
+    ]
+     // disabledDates: ['2021-06-17']
   });
 });
 </script>

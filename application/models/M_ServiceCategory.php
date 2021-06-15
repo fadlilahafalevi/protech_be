@@ -26,6 +26,7 @@ class M_ServiceCategory extends CI_Model{
 	}
 
 	function get_instalasi_pengecekan($service_category_code) {
+		$this->db->select('tst.service_type_code as code_instalasi, tst2.service_type_code as code_pengecekan');
 		$this->db->select('tst.service_type_name as instalasi, tst2.service_type_name as pengecekan');
 		$this->db->select('tst.price as price_instalasi, tst2.price as price_pengecekan');
 		$this->db->from('tbl_service_category tsc');

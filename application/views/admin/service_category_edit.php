@@ -44,9 +44,9 @@
                     <div class="row">
                       <div class="col-md-6" hidden>
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Layanan Instalasi</label>
+                          <label class="col-sm-3 col-form-label">Code Instalasi</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nama_instalasi" name="nama_instalasi" value="Instalasi" required/>
+                            <input type="text" class="form-control" id="code_instalasi" name="code_instalasi" value="<?=$instalasi_pengecekan[0]->code_instalasi?>"/>
                           </div>
                         </div>
                       </div>
@@ -62,9 +62,9 @@
                     <div class="row">
                       <div class="col-md-6" hidden>
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Nama Layanan Pengecekan</label>
+                          <label class="col-sm-3 col-form-label">Code Layanan Pengecekan</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nama_pengecekan" name="nama_pengecekan" value="Pengecekan" readonly="readonly" required/>
+                            <input type="text" class="form-control" id="code_pengecekan" name="code_pengecekan" value="<?=$instalasi_pengecekan[0]->code_pengecekan?>"/>
                           </div>
                         </div>
                       </div>

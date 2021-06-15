@@ -127,6 +127,12 @@ class Controller_ServiceCategory extends CI_Controller{
 			$service_category_name = $this->input->post('service_category_name');
 			$active_status = 0;
 
+			$code_instalasi = $this->input->post('code_instalasi');
+			$harga_instalasi = $this->input->post('harga_instalasi');
+			$code_pengecekan = $this->input->post('code_pengecekan');
+			$harga_pengecekan =	$this->input->post('harga_pengecekan');
+			$now = date("Y-m-d H:i:s");
+
 			if (isset($_POST['active_status'])) {
 				$active_status = 1;
 			}
@@ -138,6 +144,52 @@ class Controller_ServiceCategory extends CI_Controller{
 
 			$this->M_General->updateData('tbl_service_category', $data_service_category, 'service_category_code', $service_category_code);
 			$this->M_General->updateMeta('tbl_service_category', 'service_category_code', $service_category_code,  $this->session->userdata('user_name'));
+
+			if (!($code_instalasi == '')) {
+				$data_instalasi = [
+					'price' => $harga_instalasi,
+					'modified_by' => $this->session->userdata('user_name'),
+					'modified_datetime' => $now
+				];
+				$this->M_General->updateData('tbl_service_type', $data_instalasi, 'service_type_code', $code_instalasi);
+			} else {
+				$data_instalasi = [
+				'service_type_code' => $this->M_General->getSequence('tbl_service_type', 3, 'J'),
+				'service_type_name' => 'Instalasi',
+				'service_type_desc' => 'Instalasi',
+				'service_category_code' => $service_category_code,
+				'price' => $harga_instalasi,
+				'unit' => 'unit',
+				'type' => 'INSTALASI',
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
+				];
+
+				$this->M_General->insertData('tbl_service_type', $data_instalasi);
+			}
+
+			if (!($code_instalasi == '')) {
+				$data_pengecekan = [
+					'price' => $harga_pengecekan,
+					'modified_by' => $this->session->userdata('user_name'),
+					'modified_datetime' => $now
+				];
+				$this->M_General->updateData('tbl_service_category', $data_pengecekan, 'service_type_code', $code_pengecekan);
+			} else {
+				$data_pengecekan = [
+				'service_type_code' => $this->M_General->getSequence('tbl_service_type', 3, 'J'),
+				'service_type_name' => 'Pengecekan',
+				'service_type_desc' => 'Pengecekan',
+				'service_category_code' => $service_category_code,
+				'price' => $harga_pengecekan,
+				'unit' => 'unit',
+				'type' => 'REPARASI',
+				'created_by' => $this->session->userdata('user_name'),
+				'created_datetime' => $now
+				];
+
+				$this->M_General->insertData('tbl_service_type', $data_pengecekan);
+			}
 
 			redirect('Controller_ServiceCategory');
 		}

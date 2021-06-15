@@ -294,6 +294,14 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label">Biaya</label>
+                      <div class="col-sm-9">
+                        <input type="text" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="Rp <?php echo number_format($data[0]->order_price,2,',','.'); ?>" disabled />
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <?php if($data[0]->order_status != 'MENUNGGU KONFIRMASI') {?>
@@ -318,7 +326,6 @@
                             </button>
                           </div>
                         </div>
-                        <!-- <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->nama_teknisi ?>" disabled /> -->
                       </div>
                     </div>
                   </div>

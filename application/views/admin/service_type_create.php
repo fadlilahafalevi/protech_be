@@ -102,12 +102,19 @@
 <?php require 'application/views/footer.php'; ?>
 
 <script type="text/javascript">
-$('#service_type_name').keyup(function () {
-    if (!this.value.match(/[PENGECEKAN]/)) {
-        this.value = this.value.replace(/[PENGECEKAN]/g, '');
-    }
-});
-// alert('Hello! I am an alert box!!');
+document.getElementById('service_type_name').addEventListener('keyup', function(e) {
+    var text = document.getElementById('service_type_name').value();
+        if (text.toUpperCase().search('MMM') !== -1) {
+          alert('MMM is not allowed!');
+          document.getElementById('service_type_name').value = '';
+        }
+        if (text.search('XXX') !== -1) {
+            alert('XXX is not allowed!');
+        }
+    text = text.replace(/MMM/g,'');
+    text = text.replace(/XXX/g,'');
+},false);
+alert(document.getElementById('service_type_name').value());
 </script>
 
 </body>

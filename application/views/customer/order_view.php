@@ -339,7 +339,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Bukti Pembayaran</label>
                         <div class="col-sm-9">
-                          <input type="file" class="span3" id="receipt" name="receipt" onchange="previewImage();">
+                          <input type="file" class="span3" id="receipt" name="receipt" onchange="previewImage();" required>
+                          <p align="left" style="color: red">Silahkan upload bukti pembayaran disini</p>
                           <?php if($this->session->flashdata('error')){echo $this->session->flashdata('error');} ?>
                         </div>
                       </div>

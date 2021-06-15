@@ -19,7 +19,7 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-sm-10 col-12">
-                  <h4 class="card-title">Data Teknisi</h4>
+                  <h4 class="card-title">Daftar Pemesanan</h4>
                 </div>
               </div>
               <div class="table-responsive">

@@ -123,8 +123,8 @@
             <!-- Modal Footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button>
-              <a class="btn btn-danger" href="/protechapp/index.php/Controller_Order/payment_admin_action/<?=$data[0]->order_code?>/TOLAK">Tolak</a>
-              <a class="btn btn-success" href="/protechapp/index.php/Controller_Order/payment_admin_action/<?=$data[0]->order_code?>/TERIMA">Terima</a>
+              <a class="btn btn-danger" href="/protechapp/index.php/Controller_Order/payment_admin_action/<?=$data[0]->order_code?>/TOLAK">Tidak</a>
+              <a class="btn btn-success" href="/protechapp/index.php/Controller_Order/payment_admin_action/<?=$data[0]->order_code?>/TERIMA">Ya</a>
             </div>
             <!-- </form> -->
         </div>

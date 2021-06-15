@@ -332,7 +332,7 @@
                 </div>
                 <?php } ?>
 
-                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && ($data[0]->receipt == '')) {?>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->receipt == '') {?>
                 <form id="form_receipt" method="post" action="/protechapp/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-6">
@@ -360,7 +360,7 @@
                 </form>
                 <?php } ?>
 
-                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->receipt != '')) { ?>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->receipt != '') { ?>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">

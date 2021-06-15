@@ -168,7 +168,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				$this->M_General->insertData('tbl_service_type', $data_instalasi);
 			}
 
-			if (!($code_instalasi == '')) {
+			if (!($code_pengecekan == '')) {
 				$data_pengecekan = [
 					'price' => $harga_pengecekan,
 					'modified_by' => $this->session->userdata('user_name'),

@@ -222,11 +222,26 @@ class Controller_Order extends CI_Controller{
 	
 	public function getOne($code='') {
 		if($this->session->userdata('akses')=='1'){
-			$this->load->model("T_Order");
+			$this->load->model("M_Order");
+			$this->load->model("M_ServiceType");
+			$this->load->model("M_Review");
 
-			$data['id'] = $id;
-			if (isset($id)) {
-				$data['data'] = $this->T_Order->getOneById($id);
+			if (isset($code)) {
+				$data_order = $this->M_Order->getOne($code);
+				$customer_wa = preg_replace("/^0/", "62", $data_order[0]->customer_phone);
+				$technician_wa = preg_replace("/^0/", "62", $data_order[0]->technician_phone);
+				$payment = $this->M_Order->getPayment($code);
+				$data['customer_wa'] = $customer_wa;
+				$data['technician_wa'] = $technician_wa;
+				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
+	            $data['service_category_code'] = $data_order[0]->service_category_code;
+	            $data['order_code'] = $code;
+				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$data['data'] = $data_order;
+				$data['review'] = $this->M_Review->getOneByOrderCode($code);
+				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
+				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H.i');
+				$data['payment'] = $payment;
 			}
 
 			$this->load->view('admin/order_view', $data);

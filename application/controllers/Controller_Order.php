@@ -257,7 +257,7 @@ class Controller_Order extends CI_Controller{
 				$payment = $this->M_Order->getPayment($code);
 				$data['customer_wa'] = $customer_wa;
 				$data['technician_wa'] = $technician_wa;
-				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
+				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCodeAndType($data_order[0]->service_category_code, $data_order[0]->type);
 	            $data['service_category_code'] = $data_order[0]->service_category_code;
 	            $data['order_code'] = $code;
 				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
@@ -279,7 +279,7 @@ class Controller_Order extends CI_Controller{
 				$customer_wa = preg_replace("/^0/", "62", $data_order[0]->customer_phone);
 				$payment = $this->M_Order->getPayment($code);
 				$data['customer_wa'] = $customer_wa;
-				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCode($data_order[0]->service_category_code);
+				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCodeAndType($data_order[0]->service_category_code, $data_order[0]->type);
 	            $data['service_category_code'] = $data_order[0]->service_category_code;
 	            $data['order_code'] = $code;
 				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
@@ -547,6 +547,7 @@ class Controller_Order extends CI_Controller{
 		$data_payment = [ 'order_code' => $order_code,
 		'payment_method' => $metode_pembayaran,
 		'total_payment' => $price,
+		'payment_status' => 'BELUM BAYAR',
 		'created_by' => $customer_username,
 		'created_datetime' => $now
 		];

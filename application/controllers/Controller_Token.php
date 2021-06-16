@@ -22,9 +22,14 @@ class Controller_Token extends CI_Controller {
         } else {
             $data_verification = [ 
                 'is_verified' => 1,
-                'active_status' =>1
+                'active_status' => 1
              ];
             $this->M_General->updateData('tbl_user_login', $data_verification, 'user_code', $token_user_code);
+
+            $data_profile = [
+                'active_status' => 1
+             ];
+            $this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $token_user_code);
 
             $data_token = [ 'used' => 1 ];
             $this->M_General->updateData('tbl_token', $data_token, 'token_id', $token_id);

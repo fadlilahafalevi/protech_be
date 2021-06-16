@@ -500,7 +500,7 @@ class Controller_Order extends CI_Controller{
 		$customer_username = $this->session->userdata('user_name');
 		$now = date("Y-m-d H:i:s");
 
-		$instalasi_pengecekan = $this->M_ServiceCategory->get_instalasi_pengecekan($code);
+		$instalasi_pengecekan = $this->M_ServiceCategory->get_instalasi_pengecekan($service_category_code);
 
 		//insert into tbl_order
 		$data_tbl_order = [ 'order_code'  => $order_code,

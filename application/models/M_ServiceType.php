@@ -46,7 +46,7 @@ class M_ServiceType extends CI_Model{
 	function getServiceTypeDetailByCategoryCodeAndType($service_category_code, $type) {
 		$this->db->select('*, sc.service_category_name');
 		$this->db->from('tbl_service_type st');
-		$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code');
+		$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code', 'left');
 		$this->db->where('sc.service_category_code', $service_category_code);
 		$this->db->where('type', $type);
 		$query = $this->db->get();

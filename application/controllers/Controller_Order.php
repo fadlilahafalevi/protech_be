@@ -290,7 +290,7 @@ class Controller_Order extends CI_Controller{
 				$data['payment'] = $payment;
 			}
 
-			// $this->load->view('technician/order_view', $data);
+			$this->load->view('technician/order_view', $data);
 		} else if($this->session->userdata('akses')=='4') {
 			$this->load->model("M_Order");
 			$this->load->model("M_ServiceType");
@@ -524,7 +524,6 @@ class Controller_Order extends CI_Controller{
 			if (!($instalasi_pengecekan[0]->code_pengecekan == '')) {
 				$price = $instalasi_pengecekan[0]->price_pengecekan;
 				$description = $instalasi_pengecekan[0]->pengecekan;
-				$service_type_code = $instalasi_pengecekan[0]->code_pengecekan;
 			} else {
 				$price = '20000';
 				$description = 'Pengecekan Tanpa Code';

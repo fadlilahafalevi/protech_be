@@ -440,7 +440,7 @@ class Controller_Order extends CI_Controller{
 			$data['service_type_code'] = $service_type[0]->service_type_code;
 		}
 
-		if ($this->input->post('jenis_layanan') == 'REPARASI') {
+		if ($this->input->post('jenis_layanan') == 'PERBAIKAN') {
 			$service_type = $this->M_ServiceCategory->getServiceCategoryDetailByCode($this->input->post('service_category_code'));
 			$data['service_type'] = $service_type;
 		}
@@ -520,7 +520,7 @@ class Controller_Order extends CI_Controller{
 
 		$this->M_General->insertData('tbl_order', $data_tbl_order);
 
-		if ($jenis_layanan == 'REPARASI') {
+		if ($jenis_layanan == 'PERBAIKAN') {
 			if (!($instalasi_pengecekan[0]->code_pengecekan == '')) {
 				$price = $instalasi_pengecekan[0]->price_pengecekan;
 				$description = $instalasi_pengecekan[0]->pengecekan;

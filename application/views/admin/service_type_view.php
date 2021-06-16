@@ -87,7 +87,7 @@
                           <div class="col-sm-9">
                             <select class="form-control" name="type" disabled>
                               <option value="INSTALASI" <?php if ($service_type_detail->type == 'INSTALASI') { ?> selected <?php } ?> >Instalasi</option>
-                              <option value="PERBAIKAN" <?php if ($service_type_detail->type == 'PERBAIKAN') { ?> selected <?php } ?> >PerbaikaN</option>
+                              <option value="PERBAIKAN" <?php if ($service_type_detail->type == 'PERBAIKAN') { ?> selected <?php } ?> >Perbaikan</option>
                               <option value="PEMELIHARAAN" <?php if ($service_type_detail->type == 'PEMELIHARAAN') { ?> selected <?php } ?> >Pemeliharaan</option>
                             </select>
                           </div>

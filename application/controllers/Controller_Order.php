@@ -499,7 +499,8 @@ class Controller_Order extends CI_Controller{
 		$customer_code =  $this->session->userdata('user_code');
 		$customer_username = $this->session->userdata('user_name');
 		$now = date("Y-m-d H:i:s");
-		
+
+		$instalasi_pengecekan = $this->M_ServiceCategory->get_instalasi_pengecekan($code);
 
 		//insert into tbl_order
 		$data_tbl_order = [ 'order_code'  => $order_code,
@@ -520,8 +521,13 @@ class Controller_Order extends CI_Controller{
 		$this->M_General->insertData('tbl_order', $data_tbl_order);
 
 		if ($jenis_layanan == 'PERBAIKAN') {
-			$price = '20000';
-			$description = 'Pengecekan';
+			if (!($instalasi_pengecekan[0]->code_pengecekan == '')) {
+				$price = $instalasi_pengecekan[0]->price_pengecekan;
+				$description = $instalasi_pengecekan[0]->pengecekan;
+			} else {
+				$price = '20000';
+				$description = 'Pengecekan Tanpa Code';
+			}
 		} else {
 			$price =  $service_type[0]->price;
 		}
@@ -810,44 +816,12 @@ class Controller_Order extends CI_Controller{
 
 			$data_payment = [
 				'payment_date' => date("Y-m-d H:i:s"),
-				'receipt' => $receipt
+				'receipt' => $receipt,
+				'payment_status' => 'SUDAH UPLOAD'
 			];
 			$this->M_General->updateData('tbl_payment', $data_payment, 'order_code', $order_code);
 	       	redirect('Controller_Order/getOne/'.$order_code);
-       } else if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
-       		$data = [
-	                'order_status' => 'SELESAI',
-	                'modified_by' => $this->session->userdata('user_name'),
-	                'modified_datetime' => date("Y-m-d H:i:s")
-	            ];
-
-	       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
-
        }
-    }
-
-    public function payment_admin_action($order_code, $action) {
-    	$this->load->model("M_General");
-    	if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
-    		if ($action = 'TERIMA') {
-	       		$data = [
-		                'order_status' => 'SELESAI',
-		                'modified_by' => $this->session->userdata('user_name'),
-		                'modified_datetime' => date("Y-m-d H:i:s")
-		            ];
-
-		       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
-			} else if ($action = 'TOLAK') {
-				$data = [
-		                'receipt' => '',
-		                'modified_by' => $this->session->userdata('user_name'),
-		                'modified_datetime' => date("Y-m-d H:i:s")
-		            ];
-
-		       	$this->M_General->updateData('tbl_payment', $data, 'order_code', $order_code);
-			}
-			redirect('Controller_Order/getOne/'.$order_code);
-		}
     }
     
     // public function rejectByAdmin($order_code) {
@@ -864,4 +838,21 @@ class Controller_Order extends CI_Controller{
     //         redirect('Controller_Order/getWaitingConfirmationOrder');
     //     }
     // }
+
+    public function cancel_order($order_code) {
+    	$this->load->model("M_General");
+
+    	$canceled_reason = $this->input->post('canceled_reason');
+
+    	$data = [
+                'order_status' => 'DIBATALKAN',
+                'canceled_reason' => $canceled_reason,
+                'modified_by' => $this->session->userdata('user_name'),
+                'modified_datetime' => date("Y-m-d H:i:s")
+            ];
+
+       	$this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+
+       	redirect('Controller_Order/getAll/'.$this->session->userdata('user_code'));
+    }
 }

@@ -74,7 +74,7 @@ class Controller_Settings extends CI_Controller{
 				}
 			}
 			
-            $this->session->set_userdata('user_name', $user_name);
+            $this->session->set_userdata('user_name', $first_name.' '.$middle_name.' '.$last_name);
 		}
 		redirect('Controller_Settings');
 	}

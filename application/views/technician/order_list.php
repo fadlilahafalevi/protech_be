@@ -10,6 +10,30 @@
 <?php require 'application/views/header.php'; ?>
 <?php require 'application/views/sidebar.php'; ?>
 
+<!-- Modal Pembatalan -->
+<div class="modal fade" id="modalPembatalan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+              <form role="form" method="post" action="/protechapp/index.php/Controller_Order/cancel_order/<?php echo $data[0]->order_code ?>">
+            <div class="modal-body">
+              <h3 align="center">Pilih alasan pembatalan pesanan:</h3>
+              <select class="form-control" style="color: black" name="canceled_reason" id="dropdown">
+                <option value="Berhalangan">Berhalangan</option>
+                <option value="Kecelakaan Kerja">Kecelakaan Kerja</option>
+                <option value="Alasan lain">Alasan lain</option>
+              </select> 
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Tidak</button>
+                <button type="submit" class="btn btn-primary">Ya</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <!-- first row starts here -->
   <div class="main-panel">
     <div class="content-wrapper">
@@ -67,6 +91,9 @@
                            <a class="btn btn-primary" href="/protechapp/index.php/Controller_Order/printDetailOrder/<?=$data->order_code?>" data-toggle="tooltip" title="Cetak" style="padding: 4px">
                             <i class="mdi mdi-library-books"></i>
                           </a>
+                          <?php if ($data->order_status == 'DITERIMA') { ?>
+                          <button class="btn btn-danger" data-toggle="modal" data-target="#modalPembatalan" data-toggle="tooltip" title="Batalkan" style="padding: 4px"><i class=" mdi mdi-close btn-icon-propend"></i></button>
+                          <?php } ?>
                         </td>
                       </tr>
                     <?php

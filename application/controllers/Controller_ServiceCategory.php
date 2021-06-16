@@ -107,7 +107,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				'service_category_code' => $service_category_code,
 				'price' => $harga_pengecekan,
 				'unit' => 'unit',
-				'type' => 'REPARASI',
+				'type' => 'PERBAIKAN',
 				'active_status' => '1',
 				'created_by' => $this->session->userdata('user_name'),
 				'created_datetime' => $now
@@ -186,7 +186,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				'service_category_code' => $service_category_code,
 				'price' => $harga_pengecekan,
 				'unit' => 'unit',
-				'type' => 'REPARASI',
+				'type' => 'PERBAIKAN',
 				'active_status' => '1',
 				'created_by' => $this->session->userdata('user_name'),
 				'created_datetime' => $now

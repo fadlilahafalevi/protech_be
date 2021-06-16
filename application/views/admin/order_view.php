@@ -166,7 +166,7 @@
                           <?php if ($data[0]->jenis_layanan != null) { ?>
                           <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->jenis_layanan ?>" disabled />
                           <?php } else { ?>
-                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="REPARASI" disabled />
+                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="PERBAIKAN" disabled />
                           <?php } ?>
                         </div>
                       </div>

@@ -31,7 +31,7 @@ class M_ServiceCategory extends CI_Model{
 		$this->db->select('tst.price as price_instalasi, tst2.price as price_pengecekan');
 		$this->db->from('tbl_service_category tsc');
 		$this->db->join('tbl_service_type tst', 'tst.service_category_code  = tsc.service_category_code and tst.`type` = "INSTALASI"', 'left');
-		$this->db->join('tbl_service_type tst2', 'tst2.service_category_code = tsc.service_category_code and tst2.`type` = "REPARASI" and tst2.service_type_name = "Pengecekan"', 'left');
+		$this->db->join('tbl_service_type tst2', 'tst2.service_category_code = tsc.service_category_code and tst2.`type` = "PERBAIKAN" and tst2.service_type_name = "Pengecekan"', 'left');
 		$this->db->where('tsc.service_category_code', $service_category_code);
 		$query = $this->db->get();
 		return $query->result();

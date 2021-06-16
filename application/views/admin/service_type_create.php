@@ -83,7 +83,7 @@
                           <label class="col-sm-3 col-form-label">Type Layanan</label>
                           <div class="col-sm-9">
                             <select class="form-control" name="type">
-                              <option value="REPARASI">Perbaikan</option>
+                              <option value="REPARASI">Reparasi</option>
                               <option value="PEMELIHARAAN">Pemeliharaan</option>
                             </select>
                           </div>

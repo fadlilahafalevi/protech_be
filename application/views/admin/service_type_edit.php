@@ -87,7 +87,7 @@
                           <label class="col-sm-3 col-form-label">Type Layanan</label>
                           <div class="col-sm-9">
                             <select class="form-control" name="type">
-                              <option value="REPARASI" <?php if ($service_type_detail->type == 'REPARASI') { ?> selected <?php } ?> >Perbaikan</option>
+                              <option value="REPARASI" <?php if ($service_type_detail->type == 'REPARASI') { ?> selected <?php } ?> >Reparasi</option>
                               <option value="PEMELIHARAAN" <?php if ($service_type_detail->type == 'PEMELIHARAAN') { ?> selected <?php } ?> >Pemeliharaan</option>
                             </select>
                           </div>

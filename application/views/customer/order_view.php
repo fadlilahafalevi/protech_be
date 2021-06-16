@@ -332,7 +332,7 @@
                 </div>
                 <?php } ?>
 
-                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->receipt == '') {?>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && ($data[0]->payment_status == 'BELUM UPLOAD' || $data[0]->payment_status == 'DITOLAK')) { ?>
                 <form id="form_receipt" method="post" action="/protechapp/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>" enctype="multipart/form-data">
                   <div class="row">
                     <div class="col-md-6">
@@ -360,7 +360,7 @@
                 </form>
                 <?php } ?>
 
-                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->receipt != '') { ?>
+                <?php if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'SUDAH UPLOAD') { ?>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group row">
@@ -380,6 +380,8 @@
                       <div class="col-sm-9">
                          <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
                         <label class="badge badge-danger">Menunggu Konfirmasi</label>
+                        <?php } else if ($data[0]->order_status == 'DITERIMA') { ?>
+                        <label class="badge badge-warning">Diterima</label>
                         <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                         <label class="badge badge-warning">Dalam Proses</label>
                         <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'BELUM BAYAR') { ?>

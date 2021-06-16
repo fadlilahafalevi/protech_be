@@ -305,6 +305,8 @@
                     <div class="col-sm-9">
                       <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
                       <label class="badge badge-danger">Menunggu Konfirmasi</label>
+                      <?php } else if ($data[0]->order_status == 'DITERIMA') { ?>
+                      <label class="badge badge-warning">Diterima</label>
                       <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                       <label class="badge badge-warning">Dalam Proses</label>
                       <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'BELUM BAYAR') { ?>

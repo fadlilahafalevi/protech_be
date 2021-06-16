@@ -93,6 +93,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				'price' => $harga_instalasi,
 				'unit' => 'unit',
 				'type' => 'INSTALASI',
+				'active_status' = '1',
 				'created_by' => $this->session->userdata('user_name'),
 				'created_datetime' => $now
 			];
@@ -107,6 +108,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				'price' => $harga_pengecekan,
 				'unit' => 'unit',
 				'type' => 'REPARASI',
+				'active_status' = '1',
 				'created_by' => $this->session->userdata('user_name'),
 				'created_datetime' => $now
 			];
@@ -161,6 +163,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				'price' => $harga_instalasi,
 				'unit' => 'unit',
 				'type' => 'INSTALASI',
+				'active_status' = '1',
 				'created_by' => $this->session->userdata('user_name'),
 				'created_datetime' => $now
 				];
@@ -184,6 +187,7 @@ class Controller_ServiceCategory extends CI_Controller{
 				'price' => $harga_pengecekan,
 				'unit' => 'unit',
 				'type' => 'REPARASI',
+				'active_status' = '1',
 				'created_by' => $this->session->userdata('user_name'),
 				'created_datetime' => $now
 				];

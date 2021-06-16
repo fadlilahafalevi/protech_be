@@ -43,7 +43,7 @@
                               <?php if ($isInstalasiExists > 0) { ?>
                               <option value="INSTALASI">Instalasi</option>
                               <?php } ?>
-                              <option value="PERBAIKAN">Perbaikan</option>
+                              <option value="REPARASI">Reparasi</option>
                               <option value="PEMELIHARAAN">Pemeliharaan</option>
                             </select> 
                           </div>

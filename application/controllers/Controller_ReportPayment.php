@@ -25,7 +25,7 @@ class Controller_ReportPayment extends CI_Controller{
                         'modified_datetime' => date("Y-m-d H:i:s")
                     ];
 
-                $this->M_General->updateData('tbl_payment', $data, 'order_code', $order_code);
+                $this->M_General->updateData('tbl_payment', $data_payment, 'order_code', $order_code);
 
                 $data = [
                         'order_status' => 'SELESAI',

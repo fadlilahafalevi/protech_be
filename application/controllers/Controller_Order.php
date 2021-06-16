@@ -524,6 +524,7 @@ class Controller_Order extends CI_Controller{
 			if (!($instalasi_pengecekan[0]->code_pengecekan == '')) {
 				$price = $instalasi_pengecekan[0]->price_pengecekan;
 				$description = $instalasi_pengecekan[0]->pengecekan;
+				$service_type_code = $instalasi_pengecekan[0]->code_pengecekan;
 			} else {
 				$price = '20000';
 				$description = 'Pengecekan Tanpa Code';

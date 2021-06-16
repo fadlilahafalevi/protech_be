@@ -115,8 +115,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Body -->
-            <div class="modal-body">
               <form role="form" method="post" action="/protechapp/index.php/Controller_Order/confirmPayment/<?php echo $data[0]->order_code ?>">
+            <div class="modal-body">
               <h3 align="center">Apakah anda yakin?</h3>
             </div>
             <!-- Modal Footer -->
@@ -134,8 +134,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Body -->
-            <div class="modal-body">
                 <form role="form" method="post" action="/protechapp/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
+            <div class="modal-body">
                <h3 align="center">Berikan Ulasan Anda</h3>
                <div class="rating">
                   <input type="radio" name="rating" id="rating-5" value="5">
@@ -149,12 +149,12 @@
                   <input type="radio" name="rating" id="rating-1" value="1">
                   <label for="rating-1"></label>
                 </div>
-                    <div class="form-group">
-                      <label class="col-sm-3 col-form-label">Ulasan</label>
-                      <div class="col-sm-9" style="max-width: 100%">
-                        <textarea class="form-control" rows="4" cols="50" id="ulasan" name="ulasan" required ></textarea>
-                      </div>
-                    </div>
+                <div class="form-group">
+                  <label class="col-sm-3 col-form-label">Ulasan</label>
+                  <div class="col-sm-9" style="max-width: 100%">
+                    <textarea class="form-control" rows="4" cols="50" id="ulasan" name="ulasan" required ></textarea>
+                  </div>
+                </div>
             </div>
             <!-- Modal Footer -->
             <div class="modal-footer">
@@ -382,11 +382,11 @@
                         <label class="badge badge-danger">Menunggu Konfirmasi</label>
                         <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                         <label class="badge badge-warning">Dalam Proses</label>
-                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($data[0]->payment_date)) { ?>
+                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'BELUM BAYAR') { ?>
                         <label class="badge badge-info">Menunggu Pembayaran</label>
-                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($data[0]->payment_date) && (!is_null($data[0]->receipt) || $data[0]->receipt != '') ) { ?>
-                        <label class="badge badge-info">Sudah Bayar</label>
-                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($data[0]->payment_date) && !(!is_null($data[0]->receipt) || $data[0]->receipt != '')) { ?>
+                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'SUDAH UPLOAD') { ?>
+                        <label class="badge badge-info">Menunggu Konfirmasi Pembayaran</label>
+                        <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'DITOLAK') { ?>
                         <label class="badge badge-info">Pembayaran Ditolak</label>
                         <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                         <label class="badge badge-success">Selesai</label>

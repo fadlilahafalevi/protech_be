@@ -15,6 +15,38 @@ class Controller_ReportPayment extends CI_Controller{
 	    }
 	}
 
+    public function payment_admin_action($order_code, $action) {
+        $this->load->model("M_General");
+        if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
+            if ($action = 'TERIMA') {
+                $data_payment = [
+                        'payment_status' => 'LUNAS',
+                        'modified_by' => $this->session->userdata('user_name'),
+                        'modified_datetime' => date("Y-m-d H:i:s")
+                    ];
+
+                $this->M_General->updateData('tbl_payment', $data, 'order_code', $order_code);
+
+                $data = [
+                        'order_status' => 'SELESAI',
+                        'modified_by' => $this->session->userdata('user_name'),
+                        'modified_datetime' => date("Y-m-d H:i:s")
+                    ];
+
+                $this->M_General->updateData('tbl_order', $data, 'order_code', $order_code);
+            } else if ($action = 'TOLAK') {
+                $data = [
+                        'payment_status' => 'DITOLAK',
+                        'modified_by' => $this->session->userdata('user_name'),
+                        'modified_datetime' => date("Y-m-d H:i:s")
+                    ];
+
+                $this->M_General->updateData('tbl_payment', $data, 'order_code', $order_code);
+            }
+            redirect('Controller_ReportPayment');
+        }
+    }
+
 	function printReportPayment($from_date = '', $to_date = '') {
 		$this->load->library('ReportHeaderLandscape');
         $this->load->model("M_ReportPayment");

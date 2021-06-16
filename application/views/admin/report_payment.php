@@ -10,6 +10,34 @@
 <?php require 'application/views/header.php'; ?>
 <?php require 'application/views/sidebar.php'; ?>
 
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<?php foreach ($list as $list_report){ ?>
+<!-- Modal Konfirmasi Pembayaran -->
+<div class="modal fade" id="modalPembayaran-<?=$list_report->order_code?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+            <div class="modal-body">
+            <h3 align="center">Apakah bukti pembayaran sudah benar?</h3>
+            </div>
+            <img width="415px" src="data:image/png;base64,<?php echo $list_report->receipt ?>" alt="Gambar tidak tersedia" class="center" />
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button>
+              <a class="btn btn-danger" href="/protechapp/index.php/Controller_ReportPayment/payment_admin_action/<?=$list_report->order_code?>/TOLAK">Tolak</a>
+              <a class="btn btn-success" href="/protechapp/index.php/Controller_ReportPayment/payment_admin_action/<?=$list_report->order_code?>/TERIMA">Terima</a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php } ?>
 <!-- first row starts here -->
   <div class="main-panel">
     <div class="content-wrapper">
@@ -67,6 +95,7 @@
                       <th style="text-align: center">Total Pembayaran</th>
                       <th style="text-align: center">Nama Teknisi</th>
                       <th style="text-align: center">Nama Pelanggan</th>
+                      <th style="text-align: center">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -82,6 +111,13 @@
                         <td><?=$list_report->total_payment?></td>
                         <td><?=$list_report->technician_name?></td>
                         <td><?=$list_report->customer_name?></td>
+                        <td style="text-align: center">
+                          <?php if ($list_report->payment_status == 'SUDAH UPLOAD') { ?>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#modalPembayaran-<?=$list_report->order_code?>" data-toggle="tooltip" title="Lihat Bukti" style="padding: 4px">
+                              <i class="mdi mdi-file-image"></i>
+                            </button>
+                          <?php } ?>
+                        </td>
                       </tr>
                     <?php
                       }

@@ -305,14 +305,14 @@
                     <div class="col-sm-9">
                       <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
                       <label class="badge badge-danger">Menunggu Konfirmasi</label>
-                      <?php } else if ($data[0]->order_status == 'DITERIMA') { ?>
-                      <label class="badge badge-warning">Diterima</label>
                       <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                       <label class="badge badge-warning">Dalam Proses</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && is_null($payment[0]->payment_date)) { ?>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'BELUM BAYAR') { ?>
                       <label class="badge badge-info">Menunggu Pembayaran</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($payment[0]->payment_date)) { ?>
-                      <label class="badge badge-info">Sudah Bayar</label>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'SUDAH UPLOAD') { ?>
+                      <label class="badge badge-info">Menunggu Konfirmasi Pembayaran</label>
+                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'DITOLAK') { ?>
+                      <label class="badge badge-info">Pembayaran Ditolak</label>
                       <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
                       <label class="badge badge-success">Selesai</label>
                       <?php } else if ($data[0]->order_status == 'DIBATALKAN') { ?>
@@ -330,8 +330,6 @@
                   <a class="btn btn-info" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/DALAM PROSES"><i class="mdi mdi-check-circle-outline"></i>Diproses</a>
                 <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
                   <button class="btn btn-danger" data-toggle="modal" data-target="#modalSelesai"></i>Selesai</button>
-                <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && !is_null($payment[0]->payment_date)) { ?>
-                  <button class="btn btn-danger" data-toggle="modal" data-target="#modalPembayaran"></i>Konfirmasi Pembayaran</button>
                 <?php } ?>
                 <?php if ($data[0]->order_status == 'SELESAI' && !empty($review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>

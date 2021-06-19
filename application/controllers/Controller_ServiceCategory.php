@@ -66,12 +66,17 @@ class Controller_ServiceCategory extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-			$service_category_code 	=	$this->input->post('service_category_code');
-			$service_category_name 	=	$this->input->post('service_category_name');
-			$nama_instalasi 	=	$this->input->post('nama_instalasi');
-			$harga_instalasi 	=	$this->input->post('harga_instalasi');
-			$nama_pengecekan 	=	$this->input->post('nama_pengecekan');
-			$harga_pengecekan 	=	$this->input->post('harga_pengecekan');
+			$service_category_code = $this->input->post('service_category_code');
+			$service_category_name = $this->input->post('service_category_name');
+			$nama_instalasi = $this->input->post('nama_instalasi');
+			$nama_pengecekan = $this->input->post('nama_pengecekan');
+			$harga_pengecekan =	$this->input->post('harga_pengecekan');
+			$instalasi_cb =	$this->input->post('instalasi_cb');
+			if ($instalasi_cb == true) {
+				$harga_instalasi = $this->input->post('harga_instalasi');
+			} else {
+				$harga_instalasi = 0;
+			}
 
 			$active_status = '1';
 			$now = date("Y-m-d H:i:s");
@@ -130,10 +135,15 @@ class Controller_ServiceCategory extends CI_Controller{
 			$active_status = 0;
 
 			$code_instalasi = $this->input->post('code_instalasi');
-			$harga_instalasi = $this->input->post('harga_instalasi');
 			$code_pengecekan = $this->input->post('code_pengecekan');
 			$harga_pengecekan =	$this->input->post('harga_pengecekan');
 			$now = date("Y-m-d H:i:s");
+			$instalasi_cb =	$this->input->post('instalasi_cb');
+			if ($instalasi_cb == true) {
+				$harga_instalasi = $this->input->post('harga_instalasi');
+			} else {
+				$harga_instalasi = 0;
+			}
 
 			if (isset($_POST['active_status'])) {
 				$active_status = 1;

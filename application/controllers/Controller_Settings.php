@@ -6,7 +6,7 @@ class Controller_Settings extends CI_Controller{
 		
 		if($this->session->userdata('akses')=='3'){
 			$data['data'] = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
-			$this->load->view('technician/settings',$data);
+			$this->load->view('customer/settings',$data);
 		}else if($this->session->userdata('akses')=='4'){
 			$data['data'] = $this->M_Customer->getCustomerDetailByCode($this->session->userdata('user_code'));
 			$this->load->view('customer/settings',$data);

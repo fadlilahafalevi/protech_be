@@ -44,12 +44,13 @@ class M_ServiceType extends CI_Model{
 		return $query->result();
 	}
 
-	function getServiceTypeDetailByCategoryCodeAndType($service_category_code, $type) {
+	function getServiceTypeDetailByCategoryCodeAndType($service_category_code, $type, $order_code) {
 		$this->db->select('*, sc.service_category_name');
 		$this->db->from('tbl_service_type st');
 		$this->db->join('tbl_service_category sc', 'sc.service_category_code = st.service_category_code', 'left');
 		$this->db->where('sc.service_category_code', $service_category_code);
 		$this->db->where('type', $type);
+		$this->db->where('st.service_type_code not in (select service_type_code from tbl_order_detail tod where order_code ="'.$order_code.'")');
 		$query = $this->db->get();
 		return $query->result();
 	}

@@ -43,7 +43,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Menggunakan Instalasi?</label>
                           <div class="col-sm-9">
-                            <input type="checkbox"  onchange="document.getElementById('harga_instalasi').readOnly = !this.checked;" name="instalasi_cb" id="instalasi_cb" />
+                            <input type="checkbox"  onchange="update(this);" name="instalasi_cb" id="instalasi_cb" />
                           </div>
                         </div>
                       </div>
@@ -94,5 +94,19 @@
         </div>
       </div>
 <?php require 'application/views/footer.php'; ?>
+<script>
+function update(feature) {
+// Check
+if(feature.checked == true) {
+    document.getElementById('harga_instalasi').readOnly = false;
+    document.getElementById('harga_instalasi').value = 0;
+  }
+  // Uncheck
+  if(feature.checked == false){
+    document.getElementById('harga_instalasi').readOnly = true;
+    document.getElementById('harga_instalasi').value = 0;
+  }
+}
+</script>
 </body>
 </html>

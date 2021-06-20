@@ -124,7 +124,7 @@ class Controller_Customer extends CI_Controller{
 			redirect('Controller_Email/send_email_verification/'.urlencode($email).'/'.$token);
 		} else if ($is_email_exist == true) {
 			$url=base_url('Controller_Customer/createCustomer');
-	        echo $this->session->set_flashdata('msg','Email telah digunakan.');
+	        echo $this->session->set_flashdata('msg','Email sudah terdaftar di sistem');
 	        redirect($url);
 		}
 	}

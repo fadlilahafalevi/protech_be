@@ -20,44 +20,51 @@ class Controller_Login extends CI_Controller{
         $email   = strip_tags(stripslashes($this->input->post('email',TRUE)));
         $password   = strip_tags(stripslashes($this->input->post('password',TRUE)));
 
-        $cadmin = $this->Login->cekadmin($email,$password);
-        
-        if($cadmin->num_rows() > 0){
-            $xcadmin = $cadmin->row_array();
+        $count = $this->Login->get_existing_email($email);
+        if ($count > 0) {
+            $cadmin = $this->Login->cekadmin($email,$password);
+            
+            if($cadmin->num_rows() > 0){
+                $xcadmin = $cadmin->row_array();
 
-            if ($xcadmin['active_status'] == 1) {
-                $this->session->set_userdata('masuk', true);
-                
-                if($xcadmin['role_id'] == '1'){ //superadmin
-                    $this->session->set_userdata('akses', '1');
-                    $user_code    = $xcadmin['user_code'];
-                    $user_name    = $xcadmin['fullname'];
-                    $this->session->set_userdata('user_code', $user_code);
-                    $this->session->set_userdata('user_name', $user_name);
-                } elseif($xcadmin['role_id'] == '2'){ //admin
-                    $this->session->set_userdata('akses', '2');
-                    $user_code    = $xcadmin['user_code'];
-                    $user_name    = $xcadmin['fullname'];
-                    $this->session->set_userdata('user_code', $user_code);
-                    $this->session->set_userdata('user_name', $user_name);
-                } elseif($xcadmin['role_id'] == '3'){ //teknisi
-                    $this->session->set_userdata('akses', '3');
-                    $user_code    = $xcadmin['user_code'];
-                    $user_name    = $xcadmin['fullname'];
-                    $this->session->set_userdata('user_code', $user_code);
-                    $this->session->set_userdata('user_name', $user_name);
-                } elseif($xcadmin['role_id'] == '4'){ //pelanggan
-                    $this->session->set_userdata('akses', '4');
-                    $user_code    = $xcadmin['user_code'];
-                    $user_name    = $xcadmin['fullname'];
-                    $this->session->set_userdata('user_code', $user_code);
-                    $this->session->set_userdata('user_name', $user_name);
+                if ($xcadmin['active_status'] == 1) {
+                    $this->session->set_userdata('masuk', true);
+                    
+                    if($xcadmin['role_id'] == '1'){ //superadmin
+                        $this->session->set_userdata('akses', '1');
+                        $user_code    = $xcadmin['user_code'];
+                        $user_name    = $xcadmin['fullname'];
+                        $this->session->set_userdata('user_code', $user_code);
+                        $this->session->set_userdata('user_name', $user_name);
+                    } elseif($xcadmin['role_id'] == '2'){ //admin
+                        $this->session->set_userdata('akses', '2');
+                        $user_code    = $xcadmin['user_code'];
+                        $user_name    = $xcadmin['fullname'];
+                        $this->session->set_userdata('user_code', $user_code);
+                        $this->session->set_userdata('user_name', $user_name);
+                    } elseif($xcadmin['role_id'] == '3'){ //teknisi
+                        $this->session->set_userdata('akses', '3');
+                        $user_code    = $xcadmin['user_code'];
+                        $user_name    = $xcadmin['fullname'];
+                        $this->session->set_userdata('user_code', $user_code);
+                        $this->session->set_userdata('user_name', $user_name);
+                    } elseif($xcadmin['role_id'] == '4'){ //pelanggan
+                        $this->session->set_userdata('akses', '4');
+                        $user_code    = $xcadmin['user_code'];
+                        $user_name    = $xcadmin['fullname'];
+                        $this->session->set_userdata('user_code', $user_code);
+                        $this->session->set_userdata('user_name', $user_name);
+                    }
+                } else if ($xcadmin['active_status'] == 0) {
+                    redirect('Controller_Login/user_inactive');
                 }
-            } else if ($xcadmin['active_status'] == 0) {
-                redirect('Controller_Login/user_inactive');
+            } else {
+                redirect('Controller_Login/login_failed');
             }
         } else {
-            redirect('Controller_Login/login_failed');
+            $url=base_url('Controller_Login');
+            echo $this->session->set_flashdata('msg','Email tidak ditemukan');
+            redirect($url);
         }
         
         if($this->session->userdata('masuk') == true) {

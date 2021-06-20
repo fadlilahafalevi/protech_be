@@ -45,7 +45,7 @@ class M_Order extends CI_Model{
     	$this->db->where('o.order_code', $code);
 	    $this->db->order_by('o.created_datetime','asc');
 		$query = $this->db->get();
-		print_r($this->db->last_query());
+		// print_r($this->db->last_query());
 		return $query->result();
 	}
 

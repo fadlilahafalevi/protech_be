@@ -63,7 +63,7 @@ class Controller_Login extends CI_Controller{
             }
         } else {
             $url=base_url('Controller_Login');
-            echo $this->session->set_flashdata('msg','Email tidak ditemukan');
+            echo $this->session->set_flashdata('msg','Email tidak terdaftar pada sistem');
             redirect($url);
         }
         
@@ -129,7 +129,7 @@ class Controller_Login extends CI_Controller{
             redirect('Controller_Token/request_reset_password/'.urlencode($email));
         } else {
             $url=base_url('Controller_Login/forgot_password');
-            echo $this->session->set_flashdata('msg','Email tidak ditemukan');
+            echo $this->session->set_flashdata('msg','Email tidak terdaftar pada sistem');
             redirect($url);
         }
     }

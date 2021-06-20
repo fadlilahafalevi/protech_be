@@ -148,7 +148,7 @@ class Controller_Technician extends CI_Controller{
 				redirect('Controller_Email/send_email_new_password/'.urlencode($email).'/'.$token."/".urlencode('Controller_Technician'));
 			} else {
 				$url=base_url('Controller_Technician/createTechnician');
-		        echo $this->session->set_flashdata('msg','Email telah digunakan.');
+		        echo $this->session->set_flashdata('msg','Email sudah terdaftar di sistem');
 		        redirect($url);
 			}
 		}

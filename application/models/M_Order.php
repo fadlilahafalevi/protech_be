@@ -45,7 +45,7 @@ class M_Order extends CI_Model{
     	$this->db->where('o.order_code', $code);
 	    $this->db->order_by('o.created_datetime','asc');
 		$query = $this->db->get();
-		// print_r($this->db->last_query());
+		print_r($this->db->last_query());
 		return $query->result();
 	}
 
@@ -146,7 +146,7 @@ class M_Order extends CI_Model{
 		$this->db->from('tbl_order');
 		$this->db->where('service_category_code', $service_category_code);
 		$this->db->where('customer_code', $customer_code);
-		$this->db->where("order_status not in ('SELESAI', 'MENUNGGU PEMBAYARAN')");
+		$this->db->where("order_status not in ('SELESAI', 'MENUNGGU PEMBAYARAN', 'DIBATALKAN')");
 		$query = $this->db->get();
 		return $query->result();
 	}

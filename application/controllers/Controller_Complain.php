@@ -94,7 +94,7 @@ class Controller_Complain extends CI_Controller{
 	
 		if ($this->session->userdata('akses') == '1' || $this->session->userdata('akses') == '2') {
 
-			$complain_code = $this->M_General->getSequence('tbl_complain', 3, 'C');
+			$complain_code = $this->input->post('complain_code');
 			$order_code = $this->input->post('order_code');
 			$subject = $this->input->post('subject');
 			$complain_desc = $this->input->post('complain_desc');

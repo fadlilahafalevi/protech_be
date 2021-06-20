@@ -29,6 +29,7 @@ class M_ServiceType extends CI_Model{
 
 	function isInstalasiExists($service_category_code) {
 		$this->db->where('type','INSTALASI');
+		$this->db->where('price >','0');
 		$this->db->where('service_category_code',$service_category_code);
 		return $this->db->count_all_results('tbl_service_type');
 	}

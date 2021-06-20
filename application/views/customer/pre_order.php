@@ -251,11 +251,13 @@ $("#dropdown").change(function(){
   var dateFormat = "YYYY-MM-DD HH:mm";
   var CurrDate = "27-06-2018";
   var MinDate = "01-06-2018";
-  var MaxDate = "27-06-2018";
+  var maxVarDate = new Date();
+  maxVarDate.setDate(maxVarDate.getDate() + 7)
 
   $("#datetimepicker1").datetimepicker({
     format: dateFormat,
     minDate: new Date(),
+    maxDate: maxVarDate,
     disabledDates: [
       <?php foreach($existing_repair_datetime as $data) {
         echo "'".$data->repair_datetime."'".",";

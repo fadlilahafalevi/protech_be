@@ -39,6 +39,16 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Menggunakan Instalasi?</label>
+                          <div class="col-sm-9">
+                            <input type="checkbox"  onchange="document.getElementById('harga_instalasi').readOnly = !this.checked;" name="instalasi_cb" id="instalasi_cb" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-md-6" hidden>
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nama Layanan Instalasi</label>
@@ -51,7 +61,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Harga Layanan Instalasi</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" id="harga_instalasi" name="harga_instalasi" required/>
+                            <input type="text" class="form-control" id="harga_instalasi" name="harga_instalasi" value="0" readOnly required/>
                           </div>
                         </div>
                       </div>

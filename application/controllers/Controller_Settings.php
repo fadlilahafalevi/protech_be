@@ -68,8 +68,7 @@ class Controller_Settings extends CI_Controller{
 				'phone' => $phone,
 				'address' => $address,
 				'longitude' => $longitude,
-				'latitude' => $latitude,
-				'active_status' => $active_status
+				'latitude' => $latitude
 			];
 
 			$this->M_General->updateData('tbl_user_profile', $data_profile, 'user_code', $user_code);

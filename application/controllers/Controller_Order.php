@@ -272,6 +272,7 @@ class Controller_Order extends CI_Controller{
 			$this->load->model("M_Order");
 			$this->load->model("M_ServiceType");
 			$this->load->model("M_Review");
+			$this->load->model("M_Technician");
 
 			if (isset($code)) {
 				$data_order = $this->M_Order->getOne($code);
@@ -281,12 +282,16 @@ class Controller_Order extends CI_Controller{
 				$data['data_layanan_tambahan'] = $this->M_ServiceType->getServiceTypeDetailByCategoryCodeAndType($data_order[0]->service_category_code, $data_order[0]->type, $code);
 	            $data['service_category_code'] = $data_order[0]->service_category_code;
 	            $data['order_code'] = $code;
-				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
-				$data['data'] = $data_order;
+				$data['data_order'] = $data_order;
 				$data['review'] = $this->M_Review->getOneByOrderCode($code);
 				$data['data_detail'] = $this->M_Order->getOrderDetailByOrderCode($code);
 				$data['waktu_perbaikan'] = DateTime::createFromFormat('Y-m-d H:i:s', $data_order[0]->repair_datetime)->format('m/d/Y H.i');
 				$data['payment'] = $payment;
+
+				//for notification
+				$data['notif_order']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$technician_data = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
+				$data['order_waiting_confirmation'] = $this->M_Order->searchOrder($technician_data[0]->latitude, $technician_data[0]->longitude, $this->session->userdata('user_code'));
 			}
 
 			$this->load->view('technician/order_view', $data);
@@ -619,10 +624,15 @@ class Controller_Order extends CI_Controller{
 		if($this->session->userdata('akses')=='3'){
 
 			$this->load->model("M_Order");
+			$this->load->model("M_Technician");
 			
 			if(isset($code)) {
-				$data['data'] = $this->M_Order->getAllByTechnicianCode($code);
-				$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				//for notification
+				$data['notif_order']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($code);
+				$technician_data = $this->M_Technician->getTechnicianDetailByCode($code);
+				$data['order_waiting_confirmation'] = $this->M_Order->searchOrder($technician_data[0]->latitude, $technician_data[0]->longitude, $this->session->userdata('user_code'));
+
+				$data['data_order'] = $this->M_Order->getAllByTechnicianCode($code);
 				$this->load->view('technician/order_list', $data);
 			}
 		} else if ($this->session->userdata('akses')=='4') {

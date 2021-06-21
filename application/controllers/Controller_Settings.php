@@ -3,12 +3,18 @@ class Controller_Settings extends CI_Controller{
 	function index(){		
         $this->load->model('M_Technician');
         $this->load->model('M_Customer');
+        $this->load->model('M_Order');
 		
 		if($this->session->userdata('akses')=='3'){
-			$data['data'] = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
+			//for notification
+			$data['notif_order']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+			$technician_data = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
+			$data['order_waiting_confirmation'] = $this->M_Order->searchOrder($technician_data[0]->latitude, $technician_data[0]->longitude, $this->session->userdata('user_code'));
+
+			$data['data_settings'] = $technician_data;
 			$this->load->view('customer/settings',$data);
 		}else if($this->session->userdata('akses')=='4'){
-			$data['data'] = $this->M_Customer->getCustomerDetailByCode($this->session->userdata('user_code'));
+			$data['data_settings'] = $this->M_Customer->getCustomerDetailByCode($this->session->userdata('user_code'));
 			$this->load->view('customer/settings',$data);
 	    }
 
@@ -17,12 +23,18 @@ class Controller_Settings extends CI_Controller{
 	public function updateProfile() {
         $this->load->model('M_Technician');
         $this->load->model('M_Customer');
+        $this->load->model('M_Order');
 
 		if($this->session->userdata('akses')=='3'){
-			$data['data'] = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
-			$this->load->view('technician/settings_edit', $data);
+			//for notification
+			$data['notif_order']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+			$technician_data = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
+			$data['order_waiting_confirmation'] = $this->M_Order->searchOrder($technician_data[0]->latitude, $technician_data[0]->longitude, $this->session->userdata('user_code'));
+
+			$data['data_settings'] = $technician_data;
+			$this->load->view('customer/settings_edit', $data);
 		} else if($this->session->userdata('akses')=='4'){
-			$data['data'] = $this->M_Customer->getCustomerDetailByCode($this->session->userdata('user_code'));
+			$data['data_settings'] = $this->M_Customer->getCustomerDetailByCode($this->session->userdata('user_code'));
 			$this->load->view('customer/settings_edit', $data);
 		}
 	}

@@ -54,26 +54,29 @@
           <li class="nav-item dropdown mr-4">
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell mx-0"></i>
-              <?php if ($count_order_NC > 0) { ?>
+              <?php if ($notif_order > 0) { ?>
               <span class="count"></span>
               <?php } ?>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
-              <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-              <a class="dropdown-item" href="/protechapp/index.php/Controller_Order/getWaitingConfirmationOrder">
+              <p class="mb-0 font-weight-normal float-left dropdown-header">Order Menunggu Konfirmasi</p>
+              <?php foreach ($order_waiting_confirmation as $data) { ?>
+              <a class="dropdown-item" href="/protechapp/index.php/Controller_Order/getOneAfterOrderByCode/<?php echo $data->order_code ?>">
                 <div class="item-thumbnail">
                   <div class="item-icon bg-success">
                     <i class="mdi mdi-information mx-0"></i>
                   </div>
                 </div>
                 <div class="item-content">
-                  <h6 class="font-weight-normal">Need Confirmation Order</h6>
+                  <h6 class="font-weight-normal"><?php echo $data->order_code ?></h6>
                   <p class="font-weight-light small-text mb-0 text-muted">
-                    Just now
+                    <?php echo $data->service_category_name ?>
+                    <br>Tanggal Pengerjaan : <?php echo $data->order_repair_datetime ?>
                   </p>
                 </div>
                 <a href=""></a>
               </a>
+              <?php } ?>
             </div>
           </li>
           <?php } ?>

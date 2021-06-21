@@ -138,7 +138,7 @@
         <div class="modal-content">
             <!-- Modal Body -->
             <div class="modal-body">
-                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/submitReview/<?php echo $data[0]->order_code ?>">
+                <form role="form" method="post" action="/protechapp/index.php/Controller_Order/submitReview/<?php echo $data_order[0]->order_code ?>">
                <h3 align="center">Ulasan Dari Pelanggan</h3>
                <div class="rating">
                   <input disabled="disabled" type="radio" name="rating" id="rating-5" value="5" <?php if ($review[0]->rate == 5) { ?> checked="" <?php } ?>>
@@ -182,8 +182,8 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Jenis Layanan</label>
                     <div class="col-sm-9">
-                      <?php if ($data[0]->jenis_layanan != null) { ?>
-                      <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->jenis_layanan ?>" disabled />
+                      <?php if ($data_order[0]->jenis_layanan != null) { ?>
+                      <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data_order[0]->jenis_layanan ?>" disabled />
                       <?php } else { ?>
                       <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="PERBAIKAN" disabled />
                       <?php } ?>
@@ -194,7 +194,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Kategori Layanan</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="layanan" name="layanan" value="<?php echo $data[0]->service_category_name ?>" disabled />
+                      <input type="text" class="form-control" id="layanan" name="layanan" value="<?php echo $data_order[0]->service_category_name ?>" disabled />
                     </div>
                   </div>
                 </div>
@@ -205,10 +205,10 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Layanan</label>
                     <div class="col-sm-9">
-                      <?php if ($data[0]->service_type_name != null) { ?>
-                      <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data[0]->service_type_name ?>" disabled />
+                      <?php if ($data_order[0]->service_type_name != null) { ?>
+                      <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data_order[0]->service_type_name ?>" disabled />
                        <?php } else { ?>
-                      <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data[0]->order_description ?>" disabled />
+                      <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data_order[0]->order_description ?>" disabled />
                       <?php } ?>
                     </div>
                   </div>
@@ -228,7 +228,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Detail Keluhan</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->detail_keluhan; ?></textarea>
+                      <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data_order[0]->detail_keluhan; ?></textarea>
                     </div>
                   </div>
                 </div>
@@ -239,7 +239,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Alamat</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->alamat_pengerjaan; ?></textarea>
+                      <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data_order[0]->alamat_pengerjaan; ?></textarea>
                     </div>
                   </div>
                 </div>
@@ -247,7 +247,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Catatan Alamat</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->address_note; ?></textarea>
+                      <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data_order[0]->address_note; ?></textarea>
                     </div>
                   </div>
                 </div>
@@ -258,7 +258,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Foto Kerusakan</label>
                     <div class="col-sm-9">
-                      <img width="415px" src="data:image/png;base64,<?php echo $data[0]->photo ?>" alt="Red dot" />
+                      <img width="415px" src="data:image/png;base64,<?php echo $data_order[0]->photo ?>" alt="Red dot" />
                     </div>
                   </div>
                 </div>
@@ -266,7 +266,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Biaya</label>
                     <div class="col-sm-9">
-                      <input type="text" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="Rp <?php echo number_format($data[0]->order_price,2,',','.'); ?>" disabled />
+                      <input type="text" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="Rp <?php echo number_format($data_order[0]->order_price,2,',','.'); ?>" disabled />
                     </div>
                   </div>
                 </div>
@@ -277,7 +277,7 @@
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label">Nama Pelanggan</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->nama_customer ?>" disabled />
+                        <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data_order[0]->nama_customer ?>" disabled />
                       </div>
                     </div>
                   </div>
@@ -286,7 +286,7 @@
                       <label class="col-sm-3 col-form-label">Nomor Pelanggan</label>
                       <div class="col-sm-9">
                         <div class="input-group">
-                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->customer_phone ?>" disabled />
+                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data_order[0]->customer_phone ?>" disabled />
                           <div class="input-group-append">
                             <button class="btn btn-sm btn-success"  onclick=" window.open('http://wa.me/<?php echo $customer_wa?>','_blank')" type="button">
                               <i class="mdi mdi-whatsapp"></i>
@@ -303,21 +303,21 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Status Pemesanan</label>
                     <div class="col-sm-9">
-                      <?php if ($data[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
+                      <?php if ($data_order[0]->order_status == 'MENUNGGU KONFIRMASI') { ?>
                       <label class="badge badge-danger">Menunggu Konfirmasi</label>
-                      <?php } else if ($data[0]->order_status == 'DITERIMA') { ?>
+                      <?php } else if ($data_order[0]->order_status == 'DITERIMA') { ?>
                       <label class="badge badge-warning">Diterima</label>
-                      <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
+                      <?php } else if ($data_order[0]->order_status == 'DALAM PROSES') { ?>
                       <label class="badge badge-warning">Dalam Proses</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'BELUM BAYAR') { ?>
+                      <?php } else if ($data_order[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data_order[0]->payment_status == 'BELUM BAYAR') { ?>
                       <label class="badge badge-info">Menunggu Pembayaran</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'SUDAH UPLOAD') { ?>
+                      <?php } else if ($data_order[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data_order[0]->payment_status == 'SUDAH UPLOAD') { ?>
                       <label class="badge badge-info">Menunggu Konfirmasi Pembayaran</label>
-                      <?php } else if ($data[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data[0]->payment_status == 'DITOLAK') { ?>
+                      <?php } else if ($data_order[0]->order_status == 'MENUNGGU PEMBAYARAN' && $data_order[0]->payment_status == 'DITOLAK') { ?>
                       <label class="badge badge-info">Pembayaran Ditolak</label>
-                      <?php } else if ($data[0]->order_status == 'SELESAI') { ?>
+                      <?php } else if ($data_order[0]->order_status == 'SELESAI') { ?>
                       <label class="badge badge-success">Selesai</label>
-                      <?php } else if ($data[0]->order_status == 'DIBATALKAN') { ?>
+                      <?php } else if ($data_order[0]->order_status == 'DIBATALKAN') { ?>
                       <label class="badge badge-danger">Dibatalkan</label>
                       <?php } ?>
                     </div>
@@ -325,15 +325,15 @@
                 </div>
               </div>
 
-                <a class="btn btn-light" href="/protechapp/index.php/Controller_Order/getAll/<?=$data[0]->technician_code?>">Kembali</a>
+                <a class="btn btn-light" href="/protechapp/index.php/Controller_Order/getAll/<?=$data_order[0]->technician_code?>">Kembali</a>
 
                 
-                <?php if ($data[0]->order_status == 'DITERIMA') { ?>
-                  <a class="btn btn-info" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/DALAM PROSES"><i class="mdi mdi-check-circle-outline"></i>Diproses</a>
-                <?php } else if ($data[0]->order_status == 'DALAM PROSES') { ?>
+                <?php if ($data_order[0]->order_status == 'DITERIMA') { ?>
+                  <a class="btn btn-info" href="../confirmOrderTechnician/<?php echo $data_order[0]->order_code ?>/DALAM PROSES"><i class="mdi mdi-check-circle-outline"></i>Diproses</a>
+                <?php } else if ($data_order[0]->order_status == 'DALAM PROSES') { ?>
                   <button class="btn btn-danger" data-toggle="modal" data-target="#modalSelesai"></i>Selesai</button>
                 <?php } ?>
-                <?php if ($data[0]->order_status == 'SELESAI' && !empty($review)) { ?>
+                <?php if ($data_order[0]->order_status == 'SELESAI' && !empty($review)) { ?>
                   <button class="btn btn-success" data-toggle="modal" data-target="#modalLihatUlasan"></i>Lihat Ulasan</button>
                 <?php } ?>
               </div>
@@ -354,7 +354,7 @@
                   </div>
                 <?php } ?>
                 <br>
-                <?php if ($data[0]->order_status == 'DALAM PROSES') { ?>
+                <?php if ($data_order[0]->order_status == 'DALAM PROSES') { ?>
                 <button class="btn btn-info btn-md" data-toggle="modal" data-target="#myModalNorm"><i class="mdi mdi-plus"></i>Tambah Layanan</button>
                 <?php } ?>
               </div>

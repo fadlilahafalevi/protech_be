@@ -18,7 +18,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Ubah Detail Akun</h4>
                   <?php
-                     foreach ($data as $customer_detail) {
+                     foreach ($data_settings as $customer_detail) {
                   ?>
                   <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Settings/updateData'; ?>">
                     <p class="card-description">

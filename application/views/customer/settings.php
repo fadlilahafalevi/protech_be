@@ -18,7 +18,7 @@
                 <div class="card-body">
                   <h4 class="card-title">Lihat Detail Akun</h4>
                   <?php
-                     foreach ($data as $customer_detail) {
+                     foreach ($data_settings as $customer_detail) {
                   ?>
                   <form class="form-sample">
                     <p class="card-description">

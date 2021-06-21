@@ -15,7 +15,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <!-- Modal Body -->
-              <form role="form" method="post" action="/protechapp/index.php/Controller_Order/cancel_order/<?php echo $data[0]->order_code ?>">
+              <form role="form" method="post" action="/protechapp/index.php/Controller_Order/cancel_order/<?php echo $data_order[0]->order_code ?>">
             <div class="modal-body">
               <h3 align="center">Pilih alasan pembatalan pesanan:</h3>
               <select class="form-control" style="color: black" name="canceled_reason" id="dropdown">
@@ -61,7 +61,7 @@
                   <tbody>
                     <?php 
                       $no=0;
-                      foreach ($data as $data){
+                      foreach ($data_order as $data){
                       $no++;
                     ?>
                       <tr>

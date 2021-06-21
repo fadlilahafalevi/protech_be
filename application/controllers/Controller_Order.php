@@ -581,15 +581,20 @@ class Controller_Order extends CI_Controller{
                 $this->load->view('technician/order_view', $data);
             }
         } else if ($this->session->userdata('akses') == '3') {
+        	$this->load->model("M_Technician");
 
             if (isset($code)) {
             	$data_order_detail = $this->M_Order->getOne($code);
             	$waktu_perbaikan = DateTime::createFromFormat('Y-m-d H:i:s', $data_order_detail[0]->repair_datetime)->format('m/d/Y H.i');
             	$payment = $this->M_Order->getPayment($code);
-            	$data['count_order_NC']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
-            	$data['data'] = $data_order_detail;
+            	$data['data_order'] = $data_order_detail;
             	$data['waktu_perbaikan'] = $waktu_perbaikan;
             	$data['payment'] = $payment;
+
+            	//for notification
+				$data['notif_order']=$this->M_Order->getCountOrderNeedConfirmationByTechCode($this->session->userdata('user_code'));
+				$technician_data = $this->M_Technician->getTechnicianDetailByCode($this->session->userdata('user_code'));
+				$data['order_waiting_confirmation'] = $this->M_Order->searchOrder($technician_data[0]->latitude, $technician_data[0]->longitude, $this->session->userdata('user_code'));
                 $this->load->view('technician/order_confirmation_detail', $data);
             }
         } else if ($this->session->userdata('akses') == '4') {

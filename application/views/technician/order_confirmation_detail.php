@@ -31,8 +31,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Jenis Layanan</label>
                         <div class="col-sm-9">
-                          <?php if ($data[0]->jenis_layanan != null) { ?>
-                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data[0]->jenis_layanan ?>" disabled />
+                          <?php if ($data_order[0]->jenis_layanan != null) { ?>
+                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo  $data_order[0]->jenis_layanan ?>" disabled />
                           <?php } else { ?>
                           <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="PERBAIKAN" disabled />
                           <?php } ?>
@@ -43,7 +43,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Kategori Layanan</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="layanan" name="layanan" value="<?php echo $data[0]->service_category_name ?>" disabled />
+                          <input type="text" class="form-control" id="layanan" name="layanan" value="<?php echo $data_order[0]->service_category_name ?>" disabled />
                         </div>
                       </div>
                     </div>
@@ -54,10 +54,10 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Layanan</label>
                         <div class="col-sm-9">
-                          <?php if ($data[0]->service_type_name != null) { ?>
-                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data[0]->service_type_name ?>" disabled />
+                          <?php if ($data_order[0]->service_type_name != null) { ?>
+                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data_order[0]->service_type_name ?>" disabled />
                            <?php } else { ?>
-                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data[0]->order_description ?>" disabled />
+                          <input type="text" class="form-control" id="jenis_layanan" name="jenis_layanan" value="<?php echo $data_order[0]->order_description ?>" disabled />
                           <?php } ?>
                         </div>
                       </div>
@@ -77,7 +77,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Detail Keluhan</label>
                         <div class="col-sm-9">
-                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->detail_keluhan; ?></textarea>
+                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data_order[0]->detail_keluhan; ?></textarea>
                         </div>
                       </div>
                     </div>
@@ -88,7 +88,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Alamat</label>
                         <div class="col-sm-9">
-                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->alamat_pengerjaan; ?></textarea>
+                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data_order[0]->alamat_pengerjaan; ?></textarea>
                         </div>
                       </div>
                     </div>
@@ -96,7 +96,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Catatan Alamat</label>
                         <div class="col-sm-9">
-                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data[0]->address_note; ?></textarea>
+                          <textarea class="form-control" rows="3" disabled="disabled"><?php echo $data_order[0]->address_note; ?></textarea>
                         </div>
                       </div>
                     </div>
@@ -107,7 +107,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Foto Kerusakan</label>
                         <div class="col-sm-9">
-                          <img width="415px" src="data:image/png;base64,<?php echo $data[0]->photo ?>" alt="Red dot" />
+                          <img width="415px" src="data:image/png;base64,<?php echo $data_order[0]->photo ?>" alt="Red dot" />
                         </div>
                       </div>
                     </div>
@@ -115,7 +115,7 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Biaya</label>
                         <div class="col-sm-9">
-                          <input type="text" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="Rp <?php echo number_format($data[0]->order_price,2,',','.'); ?>" disabled />
+                          <input type="text" class="form-control" id="metode_pembayaran" name="metode_pembayaran" value="Rp <?php echo number_format($data_order[0]->order_price,2,',','.'); ?>" disabled />
                         </div>
                       </div>
                     </div>
@@ -125,8 +125,8 @@
                       <div class="form-group row">
                         <div class="col-sm-9">
                         <a class="btn btn-light" href="../getWaitingConfirmationOrder">Kembali</a>
-                        <!-- <a class="btn btn-danger" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/SELESAI"><i class="mdi mdi-close-circle-outline"></i>&nbsp;Tolak</a> -->
-                        <a class="btn btn-success" href="../confirmOrderTechnician/<?php echo $data[0]->order_code ?>/DITERIMA"><i class="mdi mdi-check-circle-outline"></i>&nbsp;Terima</a>
+                        <!-- <a class="btn btn-danger" href="../confirmOrderTechnician/<?php echo $data_order[0]->order_code ?>/SELESAI"><i class="mdi mdi-close-circle-outline"></i>&nbsp;Tolak</a> -->
+                        <a class="btn btn-success" href="../confirmOrderTechnician/<?php echo $data_order[0]->order_code ?>/DITERIMA"><i class="mdi mdi-check-circle-outline"></i>&nbsp;Terima</a>
                       </div>
                       </div>
                     </div>

@@ -5,7 +5,7 @@ class M_Technician extends CI_Model{
 		$this->db->from('tbl_user_profile up');
     	$this->db->join('tbl_user_login ul', 'ul.user_code=up.user_code');
     	$this->db->join('tbl_service_ref sr', 'sr.user_code=up.user_code', 'left');
-    	$this->db->join('tbl_service_category sc', 'sc.service_category_code=sr.service_category_code');
+    	$this->db->join('tbl_service_category sc', 'sc.service_category_code=sr.service_category_code', 'left');
     	$this->db->join('tbl_order o', 'o.technician_code=up.user_code', 'left');
     	$this->db->join('tbl_review r', 'r.order_code=o.order_code', 'left');
 	    $this->db->where('ul.role_id',3);

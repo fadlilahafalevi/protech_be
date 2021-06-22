@@ -10,6 +10,14 @@
 <?php require 'application/views/header.php'; ?>
 <?php require 'application/views/sidebar.php'; ?>
 
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
 <?php foreach ($list as $list_report){ ?>
 <!-- Modal Konfirmasi Pembayaran -->
 <div class="modal fade" id="modalPembayaran-<?=$list_report->order_code?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

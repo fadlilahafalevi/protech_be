@@ -29,19 +29,9 @@
                   <h4 class="card-title">Registrasi</h4>
                   <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/saveData'; ?>">
                     <?php if ($this->session->flashdata('msg') !=  '') { ?>
-                    <div class="row" id="proBanner">
-                      <div class="col-md-12 grid-margin">
-                        <div class="card bg-gradient-primary border-0">
-                          <div class="card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap">
-                            <p class="mb-0 text-white font-weight-medium"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
-                            <div class="d-flex">
-                              <button id="bannerClose" class="btn border-0 p-0">
-                                <i class="mdi mdi-close text-white"></i>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="alert alert-danger alert-dismissible">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?>
                     </div>
                     <?php } ?>
                     <p class="card-description">

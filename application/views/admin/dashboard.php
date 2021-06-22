@@ -10,6 +10,27 @@
 <?php require 'application/views/header.php'; ?>
 <?php require 'application/views/sidebar.php'; ?>
 
+<?php foreach ($list as $list_report){ ?>
+<!-- Modal Konfirmasi Pembayaran -->
+<div class="modal fade" id="modalPembayaran-<?=$list_report->order_code?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Body -->
+            <div class="modal-body">
+            <h3 align="center">Apakah bukti pembayaran sudah benar?</h3>
+            </div>
+            <img width="415px" src="data:image/png;base64,<?php echo $list_report->receipt ?>" alt="Gambar tidak tersedia" class="center" />
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Kembali</button>
+              <a class="btn btn-danger" href="/protechapp/index.php/Controller_ReportPayment/payment_admin_action/<?=$list_report->order_code?>/TOLAK">Tolak</a>
+              <a class="btn btn-success" href="/protechapp/index.php/Controller_ReportPayment/payment_admin_action/<?=$list_report->order_code?>/TERIMA">Terima</a>
+            </div>
+        </div>
+    </div>
+</div>
+<?php } ?>
+
 <!-- services -->
   <div class="main-panel">
      <div class="content-wrapper">
@@ -38,6 +59,47 @@
               <div class="card-body">
                 <h4 class="card-title">Jumlah Order Berdasarkan Bulan (Tahun <?php echo date("Y") ?>)</h4>
                 <canvas id="order_by_month_chart"></canvas>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Konfirmasi Pembayaran</h4>
+                <div class="table-responsive">
+                  <table id="example" class="table table-bordered data-table">
+                    <thead>
+                      <tr>
+                        <th style="text-align: center">No</th>
+                        <th style="text-align: center">Kode Pesanan</th>
+                        <th style="text-align: center">Total Pembayaran</th>
+                        <th style="text-align: center">Status</th>
+                        <th style="text-align: center">Aksi</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        $no=0;
+                        foreach ($list as $list_report){
+                        if ($list_report->payment_status == 'SUDAH UPLOAD') {
+                        $no++;
+                      ?>
+                        <tr>
+                          <td><?=$no?></td>
+                          <td><?=$list_report->order_code?></td>
+                          <td>Rp <?php echo number_format($list_report->total_payment,2,',','.')?></td>
+                          <td><?=$list_report->payment_status?></td>
+                          <td style="text-align: center">
+                              <button class="btn btn-primary" data-toggle="modal" data-target="#modalPembayaran-<?=$list_report->order_code?>" data-toggle="tooltip" title="Lihat Bukti" style="padding: 4px">
+                                <i class="mdi mdi-file-image"></i>
+                              </button>
+                          </td>
+                        </tr>
+                        <?php } ?>
+                      <?php } ?>    
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -208,7 +270,15 @@ if ($("#order_by_status").length) {
     });
   }
 
-  
+$('#example').dataTable( {
+  "searching": false,   // Search Box will Be Disabled
+
+  "ordering": false,    // Ordering (Sorting on Each Column)will Be Disabled
+
+  "info": true,         // Will show "1 to n of n entries" Text at bottom
+
+  "lengthChange": false // Will Disabled Record number per page
+});
 </script>
 </body>
 </html>

@@ -13,10 +13,12 @@ class Controller_Dashboard extends CI_Controller {
 	function index(){
 
 		$this->load->model("M_Dashboard");
+		$this->load->model("M_ReportPayment");
 			
 		$data['service_ref'] = $this->M_Dashboard->getServiceByTechnician();
 		$data['order_by_month'] = $this->M_Dashboard->getOrderByMonth();
 		$data['order_by_status'] = $this->M_Dashboard->getOrderByStatus();
+		$data['list']=$this->M_ReportPayment->getAllReportPayment();
 
 		if($this->session->userdata('akses')=='1'){
 

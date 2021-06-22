@@ -15,15 +15,6 @@
       display: none;
     }
   </style>
-
-  <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" crossorigin="anonymous">
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment-with-locales.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-  <script src="https://rawgit.com/tempusdominus/bootstrap-4/master/build/js/tempusdominus-bootstrap-4.min.js"></script>
-  <link href="https://rawgit.com/tempusdominus/bootstrap-4/master/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <?php require 'application/views/header.php'; ?>
@@ -37,7 +28,22 @@
                 <div class="card-body">
                   <h4 class="card-title">Registrasi</h4>
                   <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Customer/saveData'; ?>">
-                    <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
+                    <?php if ($this->session->flashdata('msg') !=  '') { ?>
+                    <div class="row" id="proBanner">
+                      <div class="col-md-12 grid-margin">
+                        <div class="card bg-gradient-primary border-0">
+                          <div class="card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap">
+                            <p class="mb-0 text-white font-weight-medium"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
+                            <div class="d-flex">
+                              <button id="bannerClose" class="btn border-0 p-0">
+                                <i class="mdi mdi-close text-white"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <?php } ?>
                     <p class="card-description">
                       Informasi Pribadi
                     </p>

@@ -18,7 +18,22 @@
                 <div class="card-body">
                   <h4 class="card-title">Tambah Data Admin</h4>
                   <form class="form-sample" method="post" action="<?php echo base_url() . 'Controller_Admin/saveData'; ?>">
-                    <p align="center" style="color: red"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
+                    <?php if ($this->session->flashdata('msg') !=  '') { ?>
+                    <div class="row" id="proBanner">
+                      <div class="col-md-12 grid-margin">
+                        <div class="card bg-gradient-primary border-0">
+                          <div class="card-body py-3 px-4 d-flex align-items-center justify-content-between flex-wrap">
+                            <p class="mb-0 text-white font-weight-medium"><?php echo $this->session->flashdata('msg'); unset($_SESSION['msg']);?></p>
+                            <div class="d-flex">
+                              <button id="bannerClose" class="btn border-0 p-0">
+                                <i class="mdi mdi-close text-white"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <?php } ?>
                     <p class="card-description">
                       Informasi Pribadi
                     </p>

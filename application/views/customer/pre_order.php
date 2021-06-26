@@ -95,7 +95,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Alamat</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="alamat" name="alamat" required ></textarea>
+                            <textarea readonly class="form-control" rows="4" cols="50" id="alamat" name="alamat" required ></textarea>
                           </div>
                         </div>
                       </div>
@@ -115,13 +115,13 @@
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                        <div class="col-sm-9">
-                          <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly" value="-6.158305">
+                          <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly" value="<?php echo $customer_data[0]->latitude ?>">
                        </div>
                     </div>
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
                        <div class="col-sm-9">
-                          <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly" value="826.809371">
+                          <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly" value="<?php echo $customer_data[0]->longitude ?>">
                        </div>
                     </div>
                     <input type="text" class="form-control" id="searchInput" name="searchInput" style="top: 8px;">
@@ -173,7 +173,33 @@
 
 <script>
   function initialize() {
-    var latlng = new google.maps.LatLng(-6.175392, 106.827153);
+    // const latlng = {
+    //     lat: <?php echo $customer_data[0]->latitude ?>,
+    //     lng: <?php echo $customer_data[0]->longitude ?>,
+    // };
+    // geocoder.geocode({ location: latlng }, (results, status) => {
+    //   if (status === "OK") {
+    //     if (results[0]) {
+    //       // map.setZoom(11);
+    //       // const marker = new google.maps.Marker({
+    //       //   position: latlng,
+    //       //   map: map,
+    //       // });
+    //       // infowindow.setContent(results[0].formatted_address);
+    //       // infowindow.open(map, marker);
+    //       bindDataToForm(results[0].formatted_address,marker.getPosition().lat(),marker.getPosition().lng());
+    //       infowindow.setContent(results[0].formatted_address);
+    //       infowindow.open(map, marker);
+    //     } else {
+    //       window.alert("No results found");
+    //     }
+    //   } else {
+    //     window.alert("Geocoder failed due to: " + status);
+    //   }
+    // });
+
+    
+    var latlng = new google.maps.LatLng(<?php echo $customer_data[0]->latitude ?>, <?php echo $customer_data[0]->longitude ?>);
     var map = new google.maps.Map(document.getElementById('map'), {
         center: latlng,
         zoom: 15,
@@ -186,14 +212,13 @@
         draggable: true
     });
 
-
-
     var input = document.getElementById('searchInput');
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
     var geocoder = new google.maps.Geocoder;
     var autocomplete = new google.maps.places.Autocomplete(input);
     autocomplete.bindTo('bounds', map);
-    var infowindow = new google.maps.InfoWindow();   
+    var infowindow = new google.maps.InfoWindow();
+
     autocomplete.addListener('place_changed', function() {
         infowindow.close();
         marker.setVisible(false);
@@ -220,17 +245,40 @@
        
     });
 
-        google.maps.event.addListener(marker, 'dragend', function() {
-        geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          if (results[0]) {        
-              bindDataToForm(results[0].formatted_address,marker.getPosition().lat(),marker.getPosition().lng());
-              infowindow.setContent(results[0].formatted_address);
-              infowindow.open(map, marker);
+    google.maps.event.addListener(marker, 'dragend', function() {
+      const latlng = {
+        lat: this.getPosition().lat(),
+        lng: this.getPosition().lng(),
+      };
+      geocoder.geocode({ location: latlng }, (results, status) => {
+        if (status === "OK") {
+          if (results[0]) {
+            // map.setZoom(11);
+            // const marker = new google.maps.Marker({
+            //   position: latlng,
+            //   map: map,
+            // });
+            // infowindow.setContent(results[0].formatted_address);
+            // infowindow.open(map, marker);
+            bindDataToForm(results[0].formatted_address,marker.getPosition().lat(),marker.getPosition().lng());
+            infowindow.setContent(results[0].formatted_address);
+            infowindow.open(map, marker);
+          } else {
+            window.alert("No results found");
           }
+        } else {
+          window.alert("Geocoder failed due to: " + status);
         }
-        });
+      });
     });
+    // google.maps.event.addListener(marker, 'dragend', function (event) {
+    //   const latlng = {
+    //     lat: parseFloat(this.getPosition().lat()),
+    //     lng: parseFloat(this.getPosition().lng()),
+    //   };
+    //   document.getElementById("latbox").value = this.getPosition().lat();
+    //   document.getElementById("lngbox").value = this.getPosition().lng();
+    // });
 }
 
 function bindDataToForm(address,lat,lng){

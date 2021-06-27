@@ -95,7 +95,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Alamat</label>
                           <div class="col-sm-9">
-                            <textarea readonly class="form-control" rows="4" cols="50" id="alamat" name="alamat" required ></textarea>
+                            <textarea readonly class="form-control" rows="4" cols="50" id="alamat" name="alamat" required ><?php echo $customer_data[0]->address ?></textarea>
                           </div>
                         </div>
                       </div>

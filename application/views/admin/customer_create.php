@@ -116,7 +116,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Alamat</label>
                           <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required></textarea>
+                            <textarea class="form-control" rows="4" cols="50" id="address" name="address" required readonly="readonly"></textarea>
                           </div>
                         </div>
                       </div>                                                            
@@ -169,7 +169,7 @@
 <?php require 'application/views/footer.php'; ?>
 <script>
   function initialize() {
-    var latlng = new google.maps.LatLng(-6.175392, 106.827153);
+    var latlng = new google.maps.LatLng(-8.032663804875472000, 111.867184711639420000);
     var map = new google.maps.Map(document.getElementById('map'), {
         center: latlng,
         zoom: 15,

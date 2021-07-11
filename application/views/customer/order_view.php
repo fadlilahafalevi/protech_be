@@ -339,7 +339,8 @@
                       <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Transfer Ke</label>
                         <div class="col-sm-9">
-                          <label class="col-sm-3 col-form-label">BCA : 8888-888-8888 a/n PT. Protech</label>
+                          <img width="200px" src="/protechapp/assets/images/logo_bca.png" />
+                          <label class="col-sm-9 col-form-label">BCA : 8888-888-8888 a/n PT. Protech</label>
                           <!-- <input type="text" class="form-control" id="transfer_ke" name="transfer_ke" value="BCA : 8888-888-8888 a/n PT. Protech" disabled /> -->
                         </div>
                       </div>

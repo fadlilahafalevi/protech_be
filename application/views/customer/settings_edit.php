@@ -138,13 +138,13 @@
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="latitude">Latitude</label>
                        <div class="col-sm-9">
-                          <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly" value="<?=$technician_detail->latitude?>">
+                          <input type="text" class="form-control" id="latitude" name="latitude" readonly="readonly" value="<?=$customer_detail->latitude?>">
                        </div>
                     </div>
                     <div class="row" hidden>
                        <label class="col-sm-3 col-form-label" for="longitude">Longitude</label>
                        <div class="col-sm-9">
-                          <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly" value="<?=$technician_detail->longitude?>">
+                          <input type="text" class="form-control" id="longitude" name="longitude" readonly="readonly" value="<?=$customer_detail->longitude?>">
                        </div>
                     </div>
                     <input type="text" class="form-control" id="searchInput" name="searchInput" style="top: 8px;">

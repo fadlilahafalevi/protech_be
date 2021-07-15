@@ -124,7 +124,7 @@
                     <div class="col-md-6">
                       <div class="form-group row">
                         <div class="col-sm-9">
-                        <a class="btn btn-light" href="/protech/index.php/Controller_Dashboard">Kembali</a>
+                        <a class="btn btn-light" href="/protechapp/index.php/Controller_DashboardTechnician">Kembali</a>
                         <!-- <a class="btn btn-danger" href="../confirmOrderTechnician/<?php echo $data_order[0]->order_code ?>/SELESAI"><i class="mdi mdi-close-circle-outline"></i>&nbsp;Tolak</a> -->
                         <a class="btn btn-success" href="../confirmOrderTechnician/<?php echo $data_order[0]->order_code ?>/DITERIMA"><i class="mdi mdi-check-circle-outline"></i>&nbsp;Terima</a>
                       </div>
